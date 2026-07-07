@@ -1,0 +1,30 @@
+{
+  "orcs:wyvern": {
+    "source": "82dd7cea",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 100
+    },
+    "eligibleToUpgrade": [
+      "orcs:goblin-hero",
+      "orcs:goblin-shaman",
+      "orcs:orc-general",
+      "orcs:orc-hero",
+      "orcs:orc-shaman"
+    ],
+    "specials": [
+      "Generals, Wizards and Heroes can ride Wyverns. A unit that includes a Wyvern rider causes terror in its enemies."
+    ],
+    "notes": "A Wyvern can fly, increasing its rider‘s move from 60 to 100cm, and it adds +2 Attacks to those of its rider."
+  },
+  "orcs:chariot": {
+    "source": "5b0ca0fa",
+    "eligibleToUpgrade": [
+      "orcs:goblin-hero",
+      "orcs:goblin-shaman",
+      "orcs:orc-general",
+      "orcs:orc-hero",
+      "orcs:orc-shaman"
+    ]
+  }
+}

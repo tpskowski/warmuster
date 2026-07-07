@@ -1,0 +1,5 @@
+﻿node_modules/
+dist/
+*.tsbuildinfo
+data/curation-draft/
+.claude/settings.local.json

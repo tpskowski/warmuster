@@ -1,0 +1,60 @@
+{
+  "wood-elves:warhawk-riders": {
+    "source": "5fa7ce57",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 60,
+      "halfPace": 10
+    },
+    "specials": [
+      "They have a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
+    ],
+    "notes": "Warhawk Riders can fly."
+  },
+  "wood-elves:giant-stag": {
+    "source": "6ced3ea5",
+    "eligibleToUpgrade": [
+      "wood-elves:general",
+      "wood-elves:noble",
+      "wood-elves:spellweaver"
+    ]
+  },
+  "wood-elves:unicorn": {
+    "source": "142a99aa",
+    "eligibleToUpgrade": [
+      "wood-elves:spellweaver"
+    ]
+  },
+  "wood-elves:warhawk": {
+    "source": "600d7b0",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 100
+    },
+    "eligibleToUpgrade": [
+      "wood-elves:general",
+      "wood-elves:noble",
+      "wood-elves:spellweaver"
+    ],
+    "specials": [
+      "General, Nobles and Spellweavers may ride a Warhawk."
+    ],
+    "notes": "The Warhawk can fly, increasing its rider’s move from 60cm to 100cm, and it adds +1 Attack to those of its rider."
+  },
+  "wood-elves:forest-dragon": {
+    "source": "e04f3f9c",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 100
+    },
+    "eligibleToUpgrade": [
+      "wood-elves:general",
+      "wood-elves:noble",
+      "wood-elves:spellweaver"
+    ],
+    "specials": [
+      "Generals, Nobles and Spell Weavers may ride Forest Dragons. Any unit joined by a character riding a Forest Dragon cause terror in their enemies and so long as the Dragon is attached to a unit, it can use its Corrosive Breath attack. This is a shooting attack with a range of 20cm, which can be directed against one target as normal. The breath has 3 Attacks, which are worked out in the usual way."
+    ],
+    "notes": "A Forest Dragon can fly, increasing its rider’s move to 100cm, and adds +3 Attacks to those of its rider."
+  }
+}

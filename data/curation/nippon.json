@@ -1,0 +1,37 @@
+{
+  "nippon:tengu": {
+    "source": "a10ebae0",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 60,
+      "halfPace": 10,
+      "facing": "long"
+    },
+    "specials": [
+      "Temple Daemons are immune to terror and cannot be given magic items. They also suffer from Daemonic Instability. At the start of the Nippon player’s own Command phase, before making any initiatives moves, all friendly Daemon units that have taken at least 1 casualty (i.e. lost at least 1 stand out of 3) must make a ‘Daemonic Instability’ test. Roll a D6. If the unit has lost 2 stands (i.e. has only 1 stand remaining from 3) deduct 1 from the roll. 0-1 One stand is destroyed – the daemons fade away and are absorbed back into the heaven from which they came. Remove one stand from play. If a character is with the unit and the last stand is removed the character is destroyed too. 2-3 The unit becomes confused - if not already confused the stand becomes confused as it is torn between this world and the next. 4-5 No effect – unless the unit is confused in which case it ceases to be confused as it is favoured with the invigorating power of the Temple. 6 The unit regains one stand. The regained stand is placed in formation with the rest of the unit. Tengu are affected by Instability and Immune to Terror like other Temple Daemons."
+    ],
+    "notes": "If it is impossible to position the stand in formation with its unit then the stand cannot be added.\n**Tengu.** Tengu can fly. They are an exception to the normal conventions for basing monsters in that they face the long edge of the stand in the same way as infantry rather than the short edge as most other monsters."
+  },
+  "nippon:tatsu": {
+    "source": "1a5fb297",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 100
+    },
+    "eligibleToUpgrade": [
+      "nippon:daimyo",
+      "nippon:shogun",
+      "nippon:shugenja"
+    ],
+    "specials": [
+      "Generals and Heroes can ride Tatsu, a kind of dragon native to Nippon. An extra +2 Attacks are added to those of its rider."
+    ],
+    "notes": "Tatsu can fly and cause terror in their enemies."
+  },
+  "nippon:shrine": {
+    "source": "d8104d36",
+    "eligibleToUpgrade": [
+      "nippon:shugenja"
+    ]
+  }
+}

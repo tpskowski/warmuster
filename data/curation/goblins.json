@@ -1,0 +1,26 @@
+{
+  "goblins:chariot": {
+    "source": "6d424abd",
+    "eligibleToUpgrade": [
+      "goblins:goblin-hero",
+      "goblins:goblin-shaman",
+      "goblins:goblin-warboss"
+    ]
+  },
+  "goblins:wyvern": {
+    "source": "d43de46b",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 100
+    },
+    "specials": [
+      "Characters may ride Wyverns. A unit that includes a Wyvern rider causes terror in its enemies."
+    ],
+    "notes": "A Wyvern can fly increasing its rider’s movement from 60cm to 100cm, and it adds +2 Attacks to those of its rider.",
+    "eligibleToUpgrade": [
+      "goblins:goblin-warboss",
+      "goblins:goblin-hero",
+      "goblins:goblin-shaman"
+    ]
+  }
+}

@@ -1,0 +1,183 @@
+﻿import { useEffect, useMemo, useState } from "react";
+import Catalog from "./components/Catalog";
+import ExportDialog from "./components/ExportDialog";
+import InfoDialog, { type InfoTopic } from "./components/InfoDialog";
+import ListRail from "./components/ListRail";
+import PrintView, { type PrintMode } from "./components/PrintView";
+import Roster from "./components/Roster";
+import { consumeShareHash, decodeShareCode } from "./domain/shareCode";
+import { getArmy, ruleSets } from "./data/gameData";
+import {
+  addCharacter,
+  addUnit,
+  createList,
+  removeCharacter,
+  removeUnit,
+  renameList,
+  setNotes,
+  setPointsLimit,
+  toggleCharacterUpgrade,
+  toggleUnitUpgrade,
+} from "./domain/lists";
+import { validateList } from "./domain/validation";
+import { deleteList, loadLists, upsertList } from "./storage/listRepository";
+import type { SavedList } from "./types";
+
+type Theme = "light" | "dark";
+
+function initialTheme(): Theme {
+  const stored = localStorage.getItem("warmuster.theme");
+  if (stored === "light" || stored === "dark") return stored;
+  return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+function Home() {
+  return (
+    <div className="home">
+      <h2 className="home-title">Muster your army</h2>
+      <p>
+        Warmuster is a list builder for <strong>Warmaster Revolution</strong>. Pick an army, add
+        units, and your list is saved automatically in this browser — nothing leaves your device.
+      </p>
+      <p>Create a new list or pick an existing one from the left to get started.</p>
+    </div>
+  );
+}
+
+export default function App() {
+  const [lists, setLists] = useState<SavedList[]>(() => loadLists());
+  const [activeListId, setActiveListId] = useState<string | null>(null);
+  const [theme, setTheme] = useState<Theme>(() => initialTheme());
+  const [exportOpen, setExportOpen] = useState(false);
+  const [printMode, setPrintMode] = useState<PrintMode | null>(null);
+  const [infoTopic, setInfoTopic] = useState<InfoTopic | null>(null);
+
+  // Import a shared list from the URL hash on first load.
+  useEffect(() => {
+    const code = consumeShareHash();
+    if (!code) return;
+    void decodeShareCode(code).then((imported) => {
+      if (!imported) return;
+      setLists((prev) => upsertList(prev, imported));
+      setActiveListId(imported.id);
+    });
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem("warmuster.theme", theme);
+  }, [theme]);
+
+  const activeList = lists.find((l) => l.id === activeListId) ?? null;
+  const army = activeList ? getArmy(activeList.ruleSet, activeList.army) : null;
+
+  const issues = useMemo(
+    () => (activeList && army ? validateList(activeList, army) : []),
+    [activeList, army],
+  );
+
+  // Every mutation goes through here: state update + localStorage auto-save.
+  // The mutation is applied to the freshest copy of the list inside the state
+  // updater so rapid consecutive updates never work from a stale snapshot.
+  const mutate = (fn: (list: SavedList) => SavedList) => {
+    const id = activeListId;
+    if (!id) return;
+    setLists((prev) => {
+      const current = prev.find((l) => l.id === id);
+      return current ? upsertList(prev, fn(current)) : prev;
+    });
+  };
+
+  const handleCreate = (ruleSetId: string, armyId: string, name: string, pointsLimit: number) => {
+    const ruleSet = ruleSets.find((rs) => rs.id === ruleSetId);
+    if (!ruleSet) return;
+    const list = createList(ruleSet.id, ruleSet.version, armyId, name, pointsLimit);
+    setLists((prev) => upsertList(prev, list));
+    setActiveListId(list.id);
+  };
+
+  const handleDelete = (id: string) => {
+    setLists((prev) => deleteList(prev, id));
+    if (activeListId === id) setActiveListId(null);
+  };
+
+  return (
+    <div className="app-shell">
+
+      <div className="app-body">
+        <ListRail
+          ruleSets={ruleSets}
+          lists={lists}
+          activeListId={activeListId}
+          onSelect={setActiveListId}
+          onCreate={handleCreate}
+          onDelete={handleDelete}
+          onInfo={setInfoTopic}
+          theme={theme}
+          onToggleTheme={() => setTheme(theme === "dark" ? "light" : "dark")}
+          onHome={() => setActiveListId(null)}
+          onExport={() => setExportOpen(true)}
+          canExport={activeList != null}
+        />
+        {activeList && army ? (
+          <main className="builder">
+            <Roster
+              army={army}
+              list={activeList}
+              issues={issues}
+              onRemoveUnit={(i) => mutate((l) => removeUnit(l, i))}
+              onAddUnit={(unitId) => mutate((l) => addUnit(l, unitId))}
+              onToggleUnitUpgrade={(i, upgradeId) => mutate((l) => toggleUnitUpgrade(l, i, upgradeId))}
+              onRemoveCharacter={(id) => mutate((l) => removeCharacter(l, id))}
+              onToggleCharacterUpgrade={(id, upgradeId) =>
+                mutate((l) => toggleCharacterUpgrade(l, id, upgradeId))
+              }
+              onRename={(name) => mutate((l) => renameList(l, name))}
+              onSetPointsLimit={(pts) => mutate((l) => setPointsLimit(l, pts))}
+              onSetNotes={(notes) => mutate((l) => setNotes(l, notes))}
+            />
+            <aside className="catalog-panel">
+              <Catalog
+                army={army}
+                list={activeList}
+                onAddUnit={(unitId) => mutate((l) => addUnit(l, unitId))}
+                onAddCharacter={(unitId) => mutate((l) => addCharacter(l, unitId))}
+              />
+            </aside>
+          </main>
+        ) : (
+          <main className="builder">
+            <Home />
+          </main>
+        )}
+      </div>
+      {infoTopic && <InfoDialog topic={infoTopic} onClose={() => setInfoTopic(null)} />}
+      {exportOpen && activeList && army && (
+        <ExportDialog
+          list={activeList}
+          army={army}
+          onClose={() => setExportOpen(false)}
+          onPrint={(mode) => {
+            setExportOpen(false);
+            setPrintMode(mode);
+          }}
+        />
+      )}
+      {printMode && activeList && army && (
+        <div className="print-overlay">
+          <div className="print-toolbar">
+            <button type="button" className="primary-btn" onClick={() => window.print()}>
+              🖨 Print
+            </button>
+            <button type="button" onClick={() => setPrintMode(null)}>
+              Close preview
+            </button>
+          </div>
+          <PrintView mode={printMode} list={activeList} army={army} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+

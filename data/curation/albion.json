@@ -1,0 +1,34 @@
+{
+  "albion:giant-eagles": {
+    "source": "6f48793b",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 60,
+      "halfPace": 10
+    },
+    "specials": [],
+    "notes": "Giant Eagles can fly."
+  },
+  "albion:giant-eagle": {
+    "source": "9a1b454b",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 100
+    },
+    "eligibleToUpgrade": [
+      "albion:druid"
+    ],
+    "specials": [
+      "Giant Eagles can be ridden by Druids only."
+    ],
+    "notes": "An Eagle can fly increasing its rider’s move from 60 to 100cm, and it adds +2 Attacks to those of its rider."
+  },
+  "albion:chariot": {
+    "source": "8182cc3e",
+    "eligibleToUpgrade": [
+      "albion:druid",
+      "albion:general",
+      "albion:hero"
+    ]
+  }
+}

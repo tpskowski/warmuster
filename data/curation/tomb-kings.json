@@ -1,0 +1,36 @@
+{
+  "tomb-kings:carrion": {
+    "source": "a505bed1",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 60,
+      "halfPace": 10
+    },
+    "specials": [
+      "Note that Carrion can always return to a character by homing back at the start of the Command phase."
+    ],
+    "notes": "Carrion can fly."
+  },
+  "tomb-kings:zombie-dragon": {
+    "source": "d6e520ee",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 100
+    },
+    "eligibleToUpgrade": [
+      "tomb-kings:liche-priest",
+      "tomb-kings:tomb-king"
+    ],
+    "specials": [
+      "A Tomb King or Liche Priest can ride a Zombie Dragon. Zombie Dragons have a special shooting attack - they can belch corrosive breath! This attack can only be used if the Dragon- riding character has joined a unit but is not engaged in combat. A character that has not joined a unit cannot use the Breath attack. The corrosive breath has a range of 20cm. It can be directed against one target as normal and has 3 Attacks worked out in the usual way. The Zombie Dragon is a terrifying creature - a unit that has been joined by a Dragon-riding character causes terror in its enemies."
+    ],
+    "notes": "A Dragon can fly increasing its rider‘s move from 60 to 100cm and it adds +3 Attacks to those of its rider."
+  },
+  "tomb-kings:liche-chariot": {
+    "source": "d2423ee0",
+    "eligibleToUpgrade": [
+      "tomb-kings:liche-priest",
+      "tomb-kings:tomb-king"
+    ]
+  }
+}

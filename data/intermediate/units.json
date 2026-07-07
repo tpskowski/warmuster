@@ -1,0 +1,1962 @@
+[
+  {
+    "unitId": "empire:halberdiers",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "empire:crossbowmen",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "empire:handgunners",
+    "rawSpecial": "**Handgunners.** Count enemy Armour values as one worse than normal when shot by a handgun. So an Armour value of 3+ counts as 4+, 4+ as 5+, and 5+ as 6+, whilst an Armour value of 6+ can‘t save against a handgun. One unit of Crossbowmen per full 1000 points can be replaced by Handgunners (including the 10pts extra in price) while still counting for the Crossbowmen min/max value. Note that this unit also counts for the min/max value of Handgunners.",
+    "source": "f78407f3"
+  },
+  {
+    "unitId": "empire:flagellants",
+    "rawSpecial": "**Flagellants.** So keen are they to meet their maker that a unit of Flagellants will always use its initiative to charge an enemy if possible and can‘t be given orders instead. They‘ll never use their initiative to evade. They can‘t be driven back by shooting and do not roll for drive backs. If victorious in combat they must pursue or advance where possible. Flagellants are unaffected by enemies that cause terror in combat, so they do not suffer the usual -1 Attack modifier.",
+    "source": "e28ca61d"
+  },
+  {
+    "unitId": "empire:skirmishers",
+    "rawSpecial": "**Skirmishers.** Skirmisher stands are not deployed as independent units. Instead, any infantry unit apart from Flagellants may add one stand of Skirmishers. This brings the size of the unit to 4 stands - 3 regular stands plus the Skirmisher stand. Skirmishers always have the same Armour value as the rest of their unit. They fight as part of their unit and can be removed as a unit casualty if the player wishes. Skirmisher casualties never count for Command penalties. Skirmisher stands never cause the parent unit to be in Irregular Formation no matter how they are placed.",
+    "source": "666316ef"
+  },
+  {
+    "unitId": "empire:knights",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "empire:pistoliers",
+    "rawSpecial": "**Pistoliers.** Pistoliers have a shooting range of only 15cm however they have 360° vision - i.e. stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from it‘s front edge to charge an enemy.",
+    "source": "3db595f"
+  },
+  {
+    "unitId": "empire:helblaster",
+    "rawSpecial": "**Helblaster.** The Helblaster is a primitive type of crank-driven and unreliable machine gun. It has maximum range of 30cm. Its attacks value varies according to range: the closer the range the more deadly it becomes. Range 01-10cm 11-20cm 21-30cm Attack 8 4 2<br><br>Targets struck by a Helblaster count their Armour value as one worse than normal - so 3+ counts as 4+, 4+ as 5+, whilst 6+ is ignored. When shooting with a Helblaster roll to hit as normal but if any 1s are rolled count them up and resolve the effect before counting.<br><br>No of 1s Result 1, 2 Fizzle. Despite scary noises the weapon is still functional. Work out the attacks as usual.<br><br>3 Misfire. The gun fails to go off - no shots at all hit this turn. Disregard all hits this turn.<br><br>4+ Ka-boom! The weapon explodes destroying itself and mortally surprising its crew. The Helblaster stand is removed as a casualty. No hits are struck against the enemy unless the exploding Helblaster is shooting at a charging foe, in which case 6 hits are automatically inflicted. Make Armour saves as for ordinary Helblaster hits.",
+    "source": "b5009217"
+  },
+  {
+    "unitId": "empire:cannon",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "empire:steam-tank",
+    "rawSpecial": "**Steam Tank.** The Steam Tank forms a unit on its own, it moves up to 20cm, and must be given its own orders. The Steam Tank cannot be given a brigade order with other units, not even with other Steams Tanks. A character cannot join with a Steam Tank. A Steam Tank has 360° vision - i.e. it can draw line of sight from all edges of its stand for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from it‘s front edge to charge an enemy. Steam Tank shooting attacks have a range of 30cm. A Steam Tank therefore shoots to its front, side or rear against the closest enemy target. Count enemy armour values as one worse than normal when shot by a Steam Tank. So, for example, an armour value of 3+ counts as 4+, 5+ counts as 6+, and 6+ can‘t save against a Steam Tank. A Steam Tank can shoot at charging enemy. Because of its exceptionally heavy armour plating, a Steam Tank always counts as defended - so a 5 or 6 is normally required to inflict a hit from shooting or in combat. The Steam Tank fights combat like any other unit. Steam Tanks cannot be driven back or routed by shooting. If the player attempts to issue an order to a Steam Tank and rolls double six then the order is failed as usual and the machine does not move. Ignore the usual Blunder chart for Heroes and Wizards. Roll on the following Malfunction chart. Note that although a General cannot blunder he must still roll for malfunctions. 1. Destroyed. The Steam Tank grinds to a halt rupturing steam and noxious gasses. Remove the Steam Tank as a casualty. 2. Broken Down. The Steam Tank‘s drive has broken. It does not move further this turn and cannot move in future turns. Should it be obliged to move for any reason it is destroyed. Otherwise, the Steam Tank can continue to shoot and fight as normal. 3. Stuck. The Steam tank does not move further this turn. It cannot shoot this turn. Otherwise it is unaffected and can move in future turns as normal. 4. Commander Slain. The Steam Tank does not move further this turn. It can move in future turns but suffers a command penalty of -1 for the remainder of the game. The Steam Tank can shoot as normal. 5. Momentary Halt. The Steam Tank cannot move further this turn but is otherwise unaffected. 6. Steam Overload. The Steam Tank cannot move further this turn but can shoot with double the usual number of Attacks (6) to represent steam being uncontrollably diverted into weaponry.",
+    "source": "83830d73"
+  },
+  {
+    "unitId": "empire:general",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "empire:hero",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "empire:wizard",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "empire:griffon",
+    "rawSpecial": "**Griffons.** Generals, Wizards and Heroes can ride Griffons. The Griffon can fly increasing its rider‘s Movement from 60cm to 100cm. It adds +2 Attacks to those of its rider. A unit that includes a Griffon rider causes terror in its enemies (and one might imagine a great deal of nervousness amongst its own ranks).",
+    "source": "a70bb010"
+  },
+  {
+    "unitId": "empire:war-altar",
+    "rawSpecial": "**War Altar.** A Wizard may be mounted on a War Altar. A Wizard with a War Altar suffers a movement reduction to 30cm. The army can only ever include one War Altar, and it can only be included if there is at least 1 unit of Flagellants in the army. The War Altar adds +2 attacks to the Wizard and can be used to add +1 to the Wizard‘s dice roll to cast a spell once per battle. The player must announce that the War Altar‘s spell bonus is being used before rolling the dice to determine if the spell is cast.",
+    "source": "a8da4724"
+  },
+  {
+    "unitId": "tomb-kings:skeletons",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "tomb-kings:skeleton-bowmen",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "tomb-kings:skeleton-cavalry",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "tomb-kings:skeletal-chariots",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "tomb-kings:carrion",
+    "rawSpecial": "**Carrion.** Carrion can fly. Note that Carrion can always return to a character by homing back at the start of the Command phase.",
+    "source": "a505bed1"
+  },
+  {
+    "unitId": "tomb-kings:bone-giant",
+    "rawSpecial": "**Bone Giant.** Bone Giants cause terror. When a Tomb King gives an order to a Bone Giant or a brigade that contains a Bone Giant there is a -1 Command penalty. There is no penalty when a Liche Priest gives an order.",
+    "source": "7548e694"
+  },
+  {
+    "unitId": "tomb-kings:sphinx",
+    "rawSpecial": "**Sphinx.** Because the Sphinx has so many hits (6) we must consider the possibility of hurting the Sphinx and reducing its effectiveness in subsequent turns. Therefore, if a Sphinx has accumulated 4-5 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Sphinx is badly hurt all accumulated hits are discounted and its maximum Hits and Attacks are halved for the rest of the battle (to 3 Hits and 2 Attacks). The Sphinx causes terror.",
+    "source": "809fd4e1"
+  },
+  {
+    "unitId": "tomb-kings:skull-chukka",
+    "rawSpecial": "**Skull Chukka.** The Skull Chukka is a Stone Thrower (see the Rulebook p.75) but with the following additional rule. When a unit is driven back as a result of hits scored by a Skull Chukka, then any dice rolled in respect to those hits will cause Confusion on the roll of 4, 5 or 6 (rather than 6 as normal). Note that if a unit has taken other hits as well it will be necessary to roll the Skull Chukka dice separately. See the Artillery and Machines section of the rulebook for the Stone Thrower rules.",
+    "source": "7117258a"
+  },
+  {
+    "unitId": "tomb-kings:bone-thrower",
+    "rawSpecial": "**Bone Thrower.** The Bone Thrower is a Bolt Thrower as described in the Rulebook (p.75).",
+    "source": "2e806810"
+  },
+  {
+    "unitId": "tomb-kings:tomb-king",
+    "rawSpecial": "**Tomb King.** The Tomb King is empowered by the spells cast upon him when buried. He can use this power to increase the Combat Attacks value of all the stands in one unit within 20cm by +1 for the duration of one Combat phase. This ability can only be used once per battle.",
+    "source": "4b9a903b"
+  },
+  {
+    "unitId": "tomb-kings:liche-priest",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "tomb-kings:zombie-dragon",
+    "rawSpecial": "**Zombie Dragon.** A Tomb King or Liche Priest can ride a Zombie Dragon. A Dragon can fly increasing its rider‘s move from 60 to 100cm and it adds +3 Attacks to those of its rider. Zombie Dragons have a special shooting attack - they can belch corrosive breath! This attack can only be used if the Dragon- riding character has joined a unit but is not engaged in combat. A character that has not joined a unit cannot use the Breath attack. The corrosive breath has a range of 20cm. It can be directed against one target as normal and has 3 Attacks worked out in the usual way. The Zombie Dragon is a terrifying creature - a unit that has been joined by a Dragon-riding character causes terror in its enemies.",
+    "source": "d6e520ee"
+  },
+  {
+    "unitId": "tomb-kings:liche-chariot",
+    "rawSpecial": "**Liche Chariot.** A Tomb King or Liche Priest can ride a chariot. A character riding a chariot adds +1 to his Attacks.",
+    "source": "d2423ee0"
+  },
+  {
+    "unitId": "chaos:chaos-warriors",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "chaos:chaos-marauders",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "chaos:ogres",
+    "rawSpecial": "**Ogres.** If an Ogre unit can use its initiative to charge an enemy unit of humans at the start of the Command phase then it must do so. This happens automatically and their commander can do nothing about it. ‘Humans‘ encompasses all ‘men‘ including Chaos Warriors and Marauders, but not Dwarfs, Elves etc.",
+    "source": "6edf14d4"
+  },
+  {
+    "unitId": "chaos:trolls",
+    "rawSpecial": "**Trolls.** When trying to issue an order to a unit of Trolls or to a brigade that contains a unit of Trolls, any Command penalty applied for distance between the character and the Troll unit is always doubled. So at 20cm no penalty applies, at 40cm -2, at 60cm -4, and so on. Trolls can regenerate wounds - in each round of combat after whole stands have been removed Trolls automatically regenerate one outstanding hit. If no hits are left over after removing whole stands then regeneration has no effect. Regenerated hits still count towards the combat result for the round.",
+    "source": "a0d6506f"
+  },
+  {
+    "unitId": "chaos:marauder-horsemen",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "chaos:chaos-knights",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "chaos:chaos-hounds",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "chaos:chaos-chariots",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "chaos:harpies",
+    "rawSpecial": "**Harpies.** Harpies are based facing the long edge of the base in the same way as infantry, rather than the short edge like other monsters. Harpies can fly. A unit of harpies cannot be joined by a character.",
+    "source": "f63e1bfd"
+  },
+  {
+    "unitId": "chaos:dragon-ogres",
+    "rawSpecial": "**Dragon Ogres.** Dragon Ogres are immune to terror.",
+    "source": "343b30a3"
+  },
+  {
+    "unitId": "chaos:chaos-spawn",
+    "rawSpecial": "**Spawn.** Spawn units have -1 Command penalty if not part of a brigade that includes more non-Spawn units than Spawn units. Up to two Spawn units can be included in any brigade and do not count towards the maximum size of that brigade. Spawn units cause terror in combat - enemies suffer the -1 Combat modifier for fighting terrifying creatures. Spawn units cannot be driven back by shooting and never roll for drive backs. Spawn units must pursue or advance if victorious in combat where it is permitted to do so. Spawn units have a shooting range of 15cm and 360° vision - the unit can draw line of sight from all edges of its stand for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from it‘s front edge to charge an enemy.",
+    "source": "8f8369c5"
+  },
+  {
+    "unitId": "chaos:general",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "chaos:hero",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "chaos:sorcerer",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "chaos:chaos-dragon",
+    "rawSpecial": "**Chaos Dragon.** Generals, Wizards and Heroes can ride a Chaos Dragon. The Chaos Dragon can fly, increasing the rider‘s move from 60 to 100cm, and it adds +3 Attacks to those of its rider. In addition the Dragon has a special shooting attack. It can breathe fire. This special attack can only be used if the rider has joined a unit and is not engaged in combat. A rider that has not joined a unit cannot use the Dragon‘s fiery breath to attack. The Dragon‘s fire breath works as follows. The fire breath has a range of 20cm. It can be directed against one target as normal and has 3 Attacks worked out in the usual way. The Chaos Dragon is a large terrifying creature. A unit that has been joined by a Chaos Dragon causes terror in its enemies and therefore imposes the usual Combat penalty.",
+    "source": "31342464"
+  },
+  {
+    "unitId": "chaos:chariot",
+    "rawSpecial": "**Chariot Mount.** Generals, Sorcerers and Heroes can ride Chariots. An extra +1 Attack is added to those of its rider.",
+    "source": "8c19c72b"
+  },
+  {
+    "unitId": "orcs:orc-warriors",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "orcs:goblins",
+    "rawSpecial": "**Goblins.** A Goblin unit is allowed to shoot as if it had bows but its range is reduced to 15cm.",
+    "source": "754020c8"
+  },
+  {
+    "unitId": "orcs:black-orcs",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "orcs:trolls",
+    "rawSpecial": "**Trolls.** When trying to issue an order to a unit of Trolls or to a brigade that contains a unit of Trolls, any Command penalty applied for distance between the character and the Troll unit is always doubled. So at 20cm no penalty applies, at 40cm -2, at 60cm -4, and so on. Trolls can regenerate wounds - in each round of combat after whole stands have been removed Trolls automatically regenerate one outstanding hit. If no hits are left over after removing whole stands then regeneration has no effect. Regenerated hits still count towards the combat result for the round.",
+    "source": "a0d6506f"
+  },
+  {
+    "unitId": "orcs:ogres",
+    "rawSpecial": "**Ogres.** If an Ogre unit can use its initiative to charge an enemy unit of humans at the start of the Command phase then it must do so. This happens automatically and their commander can do nothing about it. ‘Humans‘ encompasses all ‘men‘ including Chaos Warriors and Marauders, but not Dwarfs, Elves etc.",
+    "source": "6edf14d4"
+  },
+  {
+    "unitId": "orcs:boar-riders",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "orcs:wolf-riders",
+    "rawSpecial": "**Wolf Riders.** The Wolf Rider‘s range is restricted to 15cm. Wolf Riders have 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from it‘s front edge to charge an enemy.",
+    "source": "7bfc4c1a"
+  },
+  {
+    "unitId": "orcs:wolf-chariots",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "orcs:giant",
+    "rawSpecial": "**Giants.** Giants must always be given a separate order. They cannot be brigaded with other troops, although several Giants can be brigaded together if you so wish. If you attempt to give an order to a Giant and fail then you must take a test to see what it does. Ignore potential blunders - these are taken into account by the following rules. Roll a dice and consult the Giant Goes Wild chart. Where Giants are brigaded together roll for each separately. Giants have a great many hits, 8 in fact, which are almost impossible to inflict during even a fairly lengthy combat engagement. Because Giants have so many hits we must consider the possibility of hurting the Giant and reducing its effectiveness in subsequent turns. Therefore, if a Giant has accumulated 5-7 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Giant is badly hurt all accumulated hits are discounted and its maximum Hits value and Attacks are halved for the rest of the battle (to 4 Hits and 4 Attacks). A Giant causes terror in its enemies. Giant Goes Wild Chart D6 Oh no! What‘s he doing now! 1. The Giant will neither move nor fight this turn but simply stands rooted to the spot looking dopey. 2. Move the Giant directly towards the nearest table edge. If he moves into another unit he will charge it regardless of which side it is on. If victorious in combat the Giant will hold his ground. 3. The Giant throws an object at the closest visible unit (friend or foe) within 5xD6 cm, inflicting 3 Attacks. If the target is in combat, the attacks contribute to the combat result; otherwise, resolve them in the Shooting phase. 4. The Giant moves straight forward at full pace in the direction he is facing in. If he reaches an enemy unit he will charge. If he reaches a friendly unit he will walk straight through and out the other side if there is room and he has sufficient move. If he reaches a friendly unit and does not have sufficient move or enough room to walk all the way through then he halts on contact. A friendly unit that is walked through or contacted in this way instantly becomes confused as a result. 5. The Giant moves towards the nearest enemy unit that he can see as fast as he can. If he reaches the foe he will charge. If friends are in the way he will walk through them causing confusion as described above. If there is no visible enemy the Giant does nothing this Command phase. 6. The Giant gives a mighty bellow and rushes straight at the nearest enemy unit that he can see. Move the Giant at double his normal full pace move. If he reaches an enemy unit, he charges it and fights by jumping up and down on the foe, furiously doubling his Attacks value in the first round of combat. If there is no visible enemy the Giant does nothing this Command phase.",
+    "source": "ca738f4c"
+  },
+  {
+    "unitId": "orcs:rock-lobber",
+    "rawSpecial": "**Rock Lobber.** Rock Lobber is a Stone Thrower as described in the Rulebook p.75.",
+    "source": "9de4a9e2"
+  },
+  {
+    "unitId": "orcs:orc-general",
+    "rawSpecial": "**Orc General.** Once per game, at any point in the Command Phase, the Orc General motivates his troops forwards. For the remainder of that Command phase, the Orc General ignores the Command Penalty for having an enemy within 20cm of a unit.",
+    "source": "3de5b3bc"
+  },
+  {
+    "unitId": "orcs:orc-hero",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "orcs:orc-shaman",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "orcs:goblin-hero",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "orcs:goblin-shaman",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "orcs:wyvern",
+    "rawSpecial": "**Wyverns.** Generals, Wizards and Heroes can ride Wyverns. A Wyvern can fly, increasing its rider‘s move from 60 to 100cm, and it adds +2 Attacks to those of its rider. A unit that includes a Wyvern rider causes terror in its enemies.",
+    "source": "82dd7cea"
+  },
+  {
+    "unitId": "orcs:chariot",
+    "rawSpecial": "**Chariots.** A General, Wizard or Hero can ride a Chariot. A character in a chariot adds +1 to his Attacks.",
+    "source": "5b0ca0fa"
+  },
+  {
+    "unitId": "high-elves:spearmen",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "high-elves:archers",
+    "rawSpecial": "**Archers.** High Elf archers add +1 to their dice rolls when making Shooting attacks. They will therefore score a hit against targets in the open on a 3 or more, against targets that are defended on a 4 or more, and against fortified targets on a 5 or more.",
+    "source": "f4720638"
+  },
+  {
+    "unitId": "high-elves:silver-helms",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "high-elves:reavers",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "high-elves:chariots",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "high-elves:giant-eagles",
+    "rawSpecial": "**Giant Eagles.** Giant Eagles can fly.",
+    "source": "43af464e"
+  },
+  {
+    "unitId": "high-elves:dragon-rider",
+    "rawSpecial": "**Dragons.** Dragons can fly. Dragon Rider units and any other units that include a Dragon-riding character cause terror in their enemies. Because Dragon Riders have a great many hits (6) which are difficult to inflict even during a lengthy combat engagement, we must consider the possibility of hurting the Dragon and reducing its effectiveness in subsequent turns. Therefore, if a Dragon Rider has accumulated 4-5 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Dragon has been badly hurt all accumulated hits are discounted and its maximum hits value and Attacks are halved for the rest of the battle (to 3 Hits and 3/2 Attacks). Generals, Wizards and Heroes can ride Dragons. A Dragon can fly increasing its rider‘s move from 60 to 100cm. An extra +3 Attacks are added to those of its rider. A Dragon can breathe fire if the character has joined a unit that isn‘t engaged in combat. A Dragon ridden by a character can‘t breathe fire if it is not part of a unit. Dragons can make a fiery breath. This applies both to a unit of Dragon Riders and to Dragons ridden by characters that have joined a unit of troops. Fire Breath works as follows. The fire breath has a range of 20cm. Breath can be directed against one target as for normal shooting and has 3 Attacks that are worked out in the usual way at 4+ to hit.",
+    "source": "af1c9a98"
+  },
+  {
+    "unitId": "high-elves:elven-bolt-thrower",
+    "rawSpecial": "**Elven Bolt Thrower.** Rules for the Elven Bolt Thrower are described in the Artillery and Machines section in the Rulebook p.75.",
+    "source": "9996422a"
+  },
+  {
+    "unitId": "high-elves:general",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "high-elves:hero",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "high-elves:mage",
+    "rawSpecial": "**Wizard.** High Elf Mages are especially powerful wizards and to represent this can re-roll a failed spell on any dice result except a 1. If a spell is failed because a 1 is rolled then no re-roll is permitted.",
+    "source": "97449362"
+  },
+  {
+    "unitId": "high-elves:giant-eagle",
+    "rawSpecial": "**Giant Eagle Mount.** Generals, Wizards and Heroes can ride a Giant Eagle. An Eagle can fly increasing its rider‘s move from 60 to 100cm. An extra +2 Attacks are added to those of its rider.",
+    "source": "d0a1d264"
+  },
+  {
+    "unitId": "high-elves:dragon",
+    "rawSpecial": "**Dragons.** Dragons can fly. Dragon Rider units and any other units that include a Dragon-riding character cause terror in their enemies. Because Dragon Riders have a great many hits (6) which are difficult to inflict even during a lengthy combat engagement, we must consider the possibility of hurting the Dragon and reducing its effectiveness in subsequent turns. Therefore, if a Dragon Rider has accumulated 4-5 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Dragon has been badly hurt all accumulated hits are discounted and its maximum hits value and Attacks are halved for the rest of the battle (to 3 Hits and 3/2 Attacks). Generals, Wizards and Heroes can ride Dragons. A Dragon can fly increasing its rider‘s move from 60 to 100cm. An extra +3 Attacks are added to those of its rider. A Dragon can breathe fire if the character has joined a unit that isn‘t engaged in combat. A Dragon ridden by a character can‘t breathe fire if it is not part of a unit. Dragons can make a fiery breath. This applies both to a unit of Dragon Riders and to Dragons ridden by characters that have joined a unit of troops. Fire Breath works as follows. The fire breath has a range of 20cm. Breath can be directed against one target as for normal shooting and has 3 Attacks that are worked out in the usual way at 4+ to hit.",
+    "source": "af1c9a98"
+  },
+  {
+    "unitId": "high-elves:chariot",
+    "rawSpecial": "**Chariot Mount.** Generals, Wizards and Heroes can ride Chariots. An extra +1 Attack is added to those of its rider.",
+    "source": "3b6ee397"
+  },
+  {
+    "unitId": "dwarfs:warriors",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "dwarfs:miners",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "dwarfs:handgunners",
+    "rawSpecial": "**Handgunners.** A handgun shot can pierce armour far more easily than an arrow or a crossbow bolt. Therefore, count enemy Armour values as one worse than normal when shot by a handgun. One unit of Handgunners per full 1000 points can replace a unit of Warriors while still counting for the Warrior min/max value. Note that this unit still counts for max value of Handgunners.",
+    "source": "d461d8d"
+  },
+  {
+    "unitId": "dwarfs:rangers",
+    "rawSpecial": "**Rangers.** One unit of Rangers per full 1000 points does not have to be deployed before the game if the player does not wish to do so. Instead the unit can be infiltrated onto the battlefield once the game has begun. To infiltrate a unit, the Dwarf player nominates the point where he wants the Rangers to appear and issues an ‘infiltration‘ order from any character. The character does not have to be within his normal command range to issue an infiltration order - the character‘s command range is considered to extend over the entire tabletop when issuing an infiltration order. Treat the order as issued to the nominated point, and apply any modifiers for distance and proximity of enemy, but ignore penalties for dense terrain. The nominated point must lie either on the table within dense terrain or on any base edge other than the enemy player‘s own table edge. If successful, place one stand on the nominated spot and arrange the rest of the unit into formation around it. The infiltrated unit cannot be placed so that it touches an enemy unit. Once deployed, orders can be given to the unit by the same character that gave the infiltration order if he is within his normal command range, the infiltrating unit is considered to have used its first order to deploy. If the infiltration order is failed the unit is not deployed and cannot infiltrate that turn, it can attempt to infiltrate in a subsequent turn at the same or a different place. Rangers don‘t suffer the -1 Command penalty for Dense Terrain. Although they are infantry, Rangers can pursue any type of retreating enemy.",
+    "source": "e87621b6"
+  },
+  {
+    "unitId": "dwarfs:troll-slayers",
+    "rawSpecial": "**Troll Slayers.** A Troll Slayer unit will always use its initiative to charge an enemy if possible and cannot be given orders instead. They will never use their initiative to evade. Troll Slayers cannot be driven back by shooting and never roll for drive backs. Troll Slayers must pursue or advance if victorious in combat where they are permitted to do so. Troll Slayers are unaffected by enemy that cause terror in combat - they don‘t suffer the -1 Attack modifier. Troll Slayers positively enjoy fighting monsters - the bigger the better in fact! Troll Slayers add +1 Attack when fighting against a Monster stand. Troll Slayer units earn victory points differently to other units as follows: If a Troll Slayer unit has any stands remaining at the end of the battle then the full points value of the unit is awarded to the opposing side as victory points. It doesn‘t matter if the unit has 3, 2 or 1 stand remaining - if there are any stands left at all the enemy gets the full victory points. If a Troll Slayer unit is destroyed no victory points are scored by either side. Troll Slayer units that have been destroyed still count towards the Dwarf army‘s losses for purposes of calculating withdrawal.",
+    "source": "58690b49"
+  },
+  {
+    "unitId": "dwarfs:cannon",
+    "rawSpecial": "**Cannons.** Full rules for Cannons are in the main Rulebook (p.74)",
+    "source": "28493d32"
+  },
+  {
+    "unitId": "dwarfs:flame-cannon",
+    "rawSpecial": "**Flame Cannon.** The Flame Cannon is an infernal device that shoots a gout of flame. It has range of 30cm and its attacks are slightly unusual. Rather than having a fixed number of attacks it has 2D6 Attacks instead - roll 2 dice and add the scores together. But if the Flame Cannon rolls a double then it does not shoot as expected! Depending on the double rolled something has gone horribly wrong. Flame Cannon Misfire Chart Double Rolled What‘s that gurgling noise?! 1. The Flame Cannon explodes and is destroyed. No attacks are caused.<br><br>2. The Flame Cannon emits an enormous belch of fire inflicting a total of 4+2D6 attacks on the target before it explodes and destroys itself.<br><br>3. The Flame Cannon makes a worrying wheezing noise before spewing out an unusually smoky flame. Six attacks are inflicted this turn but the number of attacks caused by all further shooting is reduced from 2D6 to 1D6.<br><br>4. The Flame Cannon splutters and its boiler goes out. The crew scramble around to re-light it. The Flame Cannon does not shoot this turn but it is otherwise unaffected.<br><br>5. The Flame Cannon chuffs out a great gout of soot, covering the target in black smoke and hot coals. Ten attacks are inflicted this turn –otherwise the Flame cannon is unaffected.<br><br>6. The Flame Cannon lurches in its mountings and heaves forth an especially huge flame inflicting 12+D6 attacks on the target. The Flame Cannon is otherwise unaffected<br><br>A Flame Cannon can shoot at charging enemy in the usual way.",
+    "source": "2ea5235b"
+  },
+  {
+    "unitId": "dwarfs:gyrocopter",
+    "rawSpecial": "**Gyrocopter.** The Gyrocopter is a flying machine, so all the usual flying rules apply. The model always forms a single unit on its own, must be given orders individually, cannot be brigaded with other units and cannot be joined by a character in combat. The Gyrocopter’s fast-firing gun is light in weight and fires a small calibre shot. It counts Armour values as one worse than normal. The Gyrocopter has 360° vision - the unit can draw line of sight from all edges of its stand for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from it‘s front edge to charge an enemy.",
+    "source": "f8b7fde2"
+  },
+  {
+    "unitId": "dwarfs:general",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "dwarfs:hero",
+    "rawSpecial": "**Hero.** One Hero in the army may be upgraded to carry an Oathstone for +15 pts. Once per game, the Hero may use the Oathstone to inspire one unit that he has joined (except Troll Slayers). Both the Hero, and the unit he has joined, gain +1 attack per stand, and are immune to Terror, until the end of the combat phase.",
+    "source": "691ddcba"
+  },
+  {
+    "unitId": "dwarfs:runesmith",
+    "rawSpecial": "**Runesmith.** Although they are not Wizards and cannot therefore cast spells, Dwarf Runesmiths can combat the magic of their enemies. If an enemy Wizard who is within 50cm of the Runesmith casts a spell the Runesmith can attempt to anti- magic it. Note that it does not matter what the spell is or where it is cast, the Runesmith can ‚anti-magic‘ it so long as the caster is with 50cm. To determine if this works roll a D6 - on the score of 4, 5 or 6 the Runesmith has succeeded and the spell doesn‘t work, it is dispelled by the Runesmith‘s defiant efforts. If he fails then the Runesmith‘s efforts come to nothing and the spell works as normal. A Runesmith can attempt to anti-magic any number of spells in a turn, but only one attempt can be made to anti-magic any individual spell - even if the army includes more than one Runesmith and several are in range of the enemy Wizard.",
+    "source": "e199e6a3"
+  },
+  {
+    "unitId": "dwarfs:anvil",
+    "rawSpecial": "**Anvil.** The army can only include a single anvil and it is incorporated onto the stand of a Runesmith. If a Runesmith stand includes the Anvil, once per battle he can add +1 to his dice roll when he attempts to dispel enemy magic spells using the Dwarf anti-magic ability (see Runesmith). In addition the Runesmith can strike the Anvil during the Shooting phase of his own turn. The anvil‘s plangent rune-song fills the Dwarfs with even greater resolve! Roll a D6. On the score of a 4, 5 or 6 all Dwarf units within 20cm of the Runesmith are unaffected by Terror until the start of the Dwarf player‘s next turn. On a roll of less than 4 there is no effect.",
+    "source": "a40fee04"
+  },
+  {
+    "unitId": "skaven:clanrats",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "skaven:stormvermin",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "skaven:jezzails",
+    "rawSpecial": "**Jezzails.** Count enemy armour values as one worse than normal when shot by a jezzail. So, for example, an armour value of 3+ counts as 4+, 5+ counts as 6+, and 6+ can‘t save against a jezzail.",
+    "source": "b56eec4b"
+  },
+  {
+    "unitId": "skaven:plague-monks",
+    "rawSpecial": "**Plague Monks.** A unit of Plague Monks will always use its initiative to charge an enemy if possible and can‘t be given orders instead. They will never use their initiative to evade. They can‘t be driven back by shooting and never roll for drive backs. If victorious in combat they must pursue or advance where possible. Plague Monks are unaffected by enemies that cause terror in combat, they do not suffer the usual -1 Attack modifier.",
+    "source": "31869d68"
+  },
+  {
+    "unitId": "skaven:rat-swarms",
+    "rawSpecial": "**Rat Swarms.** Rat Swarms cannot be driven back by shooting and do not roll for drive backs. A Rat Swarm stand cannot be supported by other kinds of infantry - only by other Ratswarm stands. Note, however, that Rat Swarms can support other kinds of infantry as normal. A Rat Swarm cannot be given magic items.",
+    "source": "c264f9d7"
+  },
+  {
+    "unitId": "skaven:gutter-runners",
+    "rawSpecial": "**Gutter Runners.** Gutter Runners are armed with throwing stars and darts, and are therefore allowed to shoot as if they had bows, but their range is reduced to 15cm and have 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from it‘s front edge to charge an enemy. In addition, Gutter Runners do not have to be deployed before the game if the player does not wish to do so. Instead individual units can be infiltrated onto the battlefield once the game has begun. To infiltrate a unit, the Skaven player nominates the point where he wants the Gutter Runners to appear and issues an ‘infiltration‘ order from any character. The character does not have to be within his normal command range to issue an infiltration order - the character‘s command range is considered to extend over the entire tabletop when issuing an infiltration order. Treat the order as issued to the nominated point, and apply any modifiers for distance and proximity of enemy, but ignore penalties for dense terrain. The nominated point must lie either on the table within dense terrain or on any base edge other than the enemy player‘s own table edge. If successful, place one stand on the nominated spot and arrange the rest of the unit into formation around it. The infiltrated unit cannot be placed so that it touches an enemy unit. Once deployed, orders can be given to the unit by the same character that gave the infiltration order. Skaven characters may ignore the Under the Lash rule when issuing orders to Gutter Runners. Treat the character as having the normal command range for their type. The infiltrating unit is considered to have used its first order to deploy. If the infiltration order is failed the unit is not deployed and cannot infiltrate that turn, it can attempt to infiltrate in a subsequent turn at the same or a different place. Gutter Runners don‘t suffer -1 Command penalty for Dense Terrain.",
+    "source": "233df817"
+  },
+  {
+    "unitId": "skaven:rat-ogres",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "skaven:warp-lightning-cannon",
+    "rawSpecial": "**Warp Lightning Cannon.** The Warp Lightning Cannon follows the rules for Elven Bolt Throwers as per page 75 of the rulebook, but they can move up to 20cm. A half pace move is 10cm. When making a shooting attack, any roll of double 1s to hit will cause the Warp Lightning Cannon unit to become confused. This includes stand and shoot attacks.",
+    "source": "e1ad5baa"
+  },
+  {
+    "unitId": "skaven:doom-wheel",
+    "rawSpecial": "**Doom Wheel.** When the Doom Wheel charges against targets in the open it receives D6 bonus Attacks in addition to the normal +1 Attack for charging. Note that this bonus applies only when charging - not during pursuits, advances or when the Doom Wheel is charged itself. The Doom Wheel has a move of 20cm and causes terror.",
+    "source": "3558a2a5"
+  },
+  {
+    "unitId": "skaven:grey-seer",
+    "rawSpecial": "**Grey Seer.** The Grey Seer is the army‘s General and can use Skaven magic in the same manner as a Warlock and can be given a magic item restricted to either a General or a Wizard.",
+    "source": "b46915bc"
+  },
+  {
+    "unitId": "skaven:hero",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "skaven:warlock",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "skaven:screaming-bell",
+    "rawSpecial": "**Screaming Bell.** A Screaming Bell is a gargantuan device and therefore it uses a 40 x 60mm base, with the short edge being the front. It cannot move of its own accord - but relies upon the great mass of Skaven to push it forward. The Screaming Bell can therefore only move in the Command phase if it forms a brigade with one or more infantry units. It can then move 20cm at infantry pace. It cannot move using initiative and cannot be driven back by shooting and does not roll for drive backs. In combat it is automatically destroyed if forced to retreat but will pursue, advance and fall back so long as it is touching a Skaven infantry unit at the start and end of its move: otherwise it cannot pursue, advance or fall back as it is unable to move of its own accord. All Skaven units touching the Screaming Bell are unaffected by the usual penalty for Terror whilst they remain so. In addition, any Skaven Hero or Warlock within 30cm of the Screaming Bell adds +1 to their Command value. Any enemy character within 30cm of the Screaming Bell deducts -1 from their Command value. A Skaven army can only ever include a maximum of 1 Screaming Bell no matter how large.",
+    "source": "1101262d"
+  },
+  {
+    "unitId": "skaven:rat-ogre-bodyguard",
+    "rawSpecial": "**Rat Ogre Bodyguard.** The Grey Seer, Heroes and Warlocks can have a Rat Ogre Bodyguard.A character with a bodyguard adds +1 to his Attacks.",
+    "source": "5b2d2880"
+  },
+  {
+    "unitId": "lizardmen:skinks",
+    "rawSpecial": "**Skinks.** Skinks have a shooting range of 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from it‘s front edge to charge an enemy.",
+    "source": "63b200f2"
+  },
+  {
+    "unitId": "lizardmen:saurus",
+    "rawSpecial": "**Reptilian.** Reptilian troops can only be issued an order by a character within 20cm. If reptilian units form part of a brigade an order can be issued so long as all reptilian units are within 20cm of the character issuing the order. This rule represents the creatures being cold-blooded brutes and slow to react.",
+    "source": "41684c36"
+  },
+  {
+    "unitId": "lizardmen:temple-guard",
+    "rawSpecial": "**Reptilian.** Reptilian troops can only be issued an order by a character within 20cm. If reptilian units form part of a brigade an order can be issued so long as all reptilian units are within 20cm of the character issuing the order. This rule represents the creatures being cold-blooded brutes and slow to react.",
+    "source": "41684c36"
+  },
+  {
+    "unitId": "lizardmen:salamander",
+    "rawSpecial": "**Salamander.** Salamander stands are not deployed as independent units. Instead, any Skink infantry unit may add one stand of Salamanders. This brings the size of the unit to 4 stands - 3 regular stands plus the Salamander stand. Salamanders always have the same Armour value as the rest of their unit. They fight as part of their unit and can be removed as a unit casualty if the player wishes. Salamander casualties never count for Command penalties. Salamander stands never cause the parent unit to be in Irregular Formation no matter how they are placed. If a Salamander stand is attached to a Skink unit the entire unit, including the Salamander, is considered to employ ‘Salamander Venom‘ shooting attacks. Enemy Armour saving throws suffer a - 1 penalty when hit by Salamander Venom (e.g. 5+ save requires a roll of 6). Salamander stands have 2 shooting attacks, a range of 15cm, and 360° vision in the same way as Skinks. If their unit is charged then Salamanders can shoot in the same way as any other shooting stand.",
+    "source": "98f3438c"
+  },
+  {
+    "unitId": "lizardmen:kroxigor",
+    "rawSpecial": "**Reptilian.** Reptilian troops can only be issued an order by a character within 20cm. If reptilian units form part of a brigade an order can be issued so long as all reptilian units are within 20cm of the character issuing the order. This rule represents the creatures being cold-blooded brutes and slow to react.",
+    "source": "41684c36"
+  },
+  {
+    "unitId": "lizardmen:cold-one-riders",
+    "rawSpecial": "**Reptilian.** Reptilian troops can only be issued an order by a character within 20cm. If reptilian units form part of a brigade an order can be issued so long as all reptilian units are within 20cm of the character issuing the order. This rule represents the creatures being cold-blooded brutes and slow to react.",
+    "source": "41684c36"
+  },
+  {
+    "unitId": "lizardmen:terradons",
+    "rawSpecial": "**Terradon.** Terradons can fly. Terradon riders have a shooting range of 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from it‘s front edge to charge an enemy.",
+    "source": "f07e9930"
+  },
+  {
+    "unitId": "lizardmen:stegadon",
+    "rawSpecial": "**Stegadon.** As the Stegadon is so gargantuan, it uses a 40 x 60mm base, with the short edge being the front. The Stegadon causes terror in its foes. The Stegadon can only be brigaded with Skink units. It cannot be brigaded with Skink units that have attached Salamanders. It cannot be brigaded with any other units including with other Stegadons. The Stegadon‘s crew has a shooting range of 15cm and 360° vision - the unit can draw line of sight from all edges of its stand for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from it‘s front edge to charge an enemy. Because the Stegadon has so many hits we must consider the possibility of hurting the beast and reducing its effectiveness. Therefore, if a Stegadon has accumulated 6-9 hits by the end of the Shooting or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Stegadon is badly hurt all accumulated hits are discounted and its Hits and Attack values are halved for the remainder of the battle to 5/2 Attacks and 5 Hits.",
+    "source": "5db5991c"
+  },
+  {
+    "unitId": "lizardmen:slann-mage-palanquin",
+    "rawSpecial": "**Slann Mage.** The Slann Mage rides a palanquin carried by his bodyguard of fierce Saurus warriors - his combat bonus is due to his bodyguard. The Slann Mage is the army‘s general but uniquely amongst commanders he cannot give orders, but has foreseen the flow of the battle and given his Skink retainers instructions. To represent this any Skink character within 20cm of the Slann can announce his use of the General’s Divine Guidance - deducting -1 from his dice score (e.g. 8 counts as 7, 10 as 9 and so on). When Divine Guidance is used the Skink cannot ‘Blunder’ - any roll of double 6 simply counts as a fail. If a Divine Guidance roll is failed then the Slann’s Divine Guidance cannot be used by any other characters that have not ordered yet in that turn, their confusion over the mixup is represented by adding +1 to their first order rolls. In addition the Slann is a great sorcerer. He can cast spells as a Wizard and can be given a magic item restricted to either a General or Wizard should you so wish. Slann Mages are especially powerful wizards and to represent this can re-roll a failed spell on any dice result except a 1. If a spell is failed because a 1 is rolled then no re-roll is permitted. The Slann Mage can also cast his spell using a Skink Shaman as the focus if desired - work out range and line of sight as if the spell was cast by the Shaman. This does not affect the Shaman‘s own ability to cast spells that turn.",
+    "source": "5d7aa043"
+  },
+  {
+    "unitId": "lizardmen:saurus-hero",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "lizardmen:skink-hero",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "lizardmen:skink-shaman",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "lizardmen:stegadon-monstrous-mount",
+    "rawSpecial": "**Stegadon Mount.** The Slann Mage may ride on top of a Stegadon, adding +3 attacks to its rider. If he rides a Stegadon then any unit he joins will cause terror and the usual Combat modifier will apply. No other character can ride a Stegadon.",
+    "source": "9421e4df"
+  },
+  {
+    "unitId": "lizardmen:carnosaur",
+    "rawSpecial": "**Carnosaur.** A Saurus Hero can ride a Carnosaur. If a character rides a Carnosaur then any unit he joins will cause terror. No other character can ride a Carnosaur.",
+    "source": "b07193ec"
+  },
+  {
+    "unitId": "bretonnia:men-at-arms",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "bretonnia:bowmen",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "bretonnia:peasants",
+    "rawSpecial": "**Peasants.** A unit of Peasants suffers an additional -1 Command penalty when given an order. However, this penalty is waived if the Peasant unit is part of a brigade that includes at least one non-Peasant unit. Peasants cannot use initiative to charge - though they can use initiative to evade as usual. Peasants are able to make supporting charges. When they charge they receive no bonus attack modifier for doing so.",
+    "source": "de2e7656"
+  },
+  {
+    "unitId": "bretonnia:squires",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "bretonnia:knights",
+    "rawSpecial": "**Knights.** A Knight unit will always use its initiative to charge an enemy if possible and cannot be given orders instead. They will never use their initiative to evade. Knights are unaffected by enemy that cause terror in combat and they don’t suffer the usual -1 Attack modifier.",
+    "source": "437e0090"
+  },
+  {
+    "unitId": "bretonnia:grail-knights",
+    "rawSpecial": "**Knights.** A Knight unit will always use its initiative to charge an enemy if possible and cannot be given orders instead. They will never use their initiative to evade. Knights are unaffected by enemy that cause terror in combat and they don’t suffer the usual -1 Attack modifier.<br><br>**Grail Knights.** If the unit of Grail Knights is charging against an enemy in the open it receives an additional +1 Attack modifier in the same way as chariots and monsters.",
+    "source": "33f1ca6c"
+  },
+  {
+    "unitId": "bretonnia:pegasus-knights",
+    "rawSpecial": "**Knights.** A Knight unit will always use its initiative to charge an enemy if possible and cannot be given orders instead. They will never use their initiative to evade. Knights are unaffected by enemy that cause terror in combat and they don’t suffer the usual -1 Attack modifier.<br><br>**Pegasus Knights.** Pegasus Knights can fly.",
+    "source": "992fcfed"
+  },
+  {
+    "unitId": "bretonnia:trebuchet",
+    "rawSpecial": "**Trebuchet.** The Bretonnian Trebuchet is one of the mightiest and most excellent of stone throwers that are built in the Old World. At first it was designed to help the noble knights with the occasional and messy sieges that had to be done but later was adjusted to be used in field battles too. As the Trebuchet is so gargantuan, it uses a 40 x 60mm base, with the short edge being the front. To represent that the Trebuchet is such a bulky warmachine, which takes time to assemble and disassemble, the Trebuchet can move but cannot shoot in the turn it moved. If a Trebuchet is driven back more than 10cm by shooting it is destroyed (drive backs of less than 10cm are simply ignored). If it is forced to retreat from combat it is also destroyed like any other artillery. A Trebuchet is not affected by the Gerroff!!! spell. The Trebuchet has a shooting range of 80cm. Fortified units count as defended and defended targets count as in the open. No armour roll is made when shot at by a Trebuchet. The Trebuchet may not shoot at charging enemies. The Trebuchet can shoot at targets that it can see as for all other artillery, and it can shoot over the heads of friends and obstacles on lower ground just as can other artillery. Shooting Blind: If there is no target in sight a Trebuchet may instead shoot at the nearest enemy unit in range it cannot see. When Shooting Blind it always hits on 6+ no matter if the target is in the open, defended or even fortified.",
+    "source": "e87b0d29"
+  },
+  {
+    "unitId": "bretonnia:general",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "bretonnia:hero",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "bretonnia:enchantress",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "bretonnia:unicorn",
+    "rawSpecial": "**Unicorn.** Only an Enchantress can ride a Unicorn. The Unicorn adds +1 to the Enchantress’s Attacks. Once per battle the Unicorn’s magical power adds +1 to the dice roll when casting a spell. The player must announce that he is using the Unicorn’s magic before rolling to see if the spell works.",
+    "source": "c4e75c83"
+  },
+  {
+    "unitId": "bretonnia:pegasus",
+    "rawSpecial": "**Pegasus.** The Pegasus can be ridden by a General, Hero or Enchantress and adds +1 Attack to the rider as well as allowing the character to fly.",
+    "source": "c54b514e"
+  },
+  {
+    "unitId": "bretonnia:hippogriff",
+    "rawSpecial": "**Hippogriff.** A single General or Hero can ride a Hippogriff. A Hippogriff can fly, increasing its rider‘s move from 60 to 100cm, and it adds +2 Attacks to those of its rider. A unit that includes a Hippogriff rider causes terror in its enemies.",
+    "source": "7dc530e7"
+  },
+  {
+    "unitId": "bretonnia:grail-reliquae",
+    "rawSpecial": "**Grail Reliquae.** This sacred item can be given to one unit of Peasants only in a whole army. This unit and all Peasant units touching it become Grail Pilgrims (for as long as they keep contact). Grail Pilgrims are immune to terror, don’t get the -1 Command penalty and get +1 Attack (they still keep the restriction that they don‘t get +1 Attacks for charging in the open), they have to attack by initiative if possible and cannot be driven back or confused. Before taking any specific action with a Peasant unit check if they are still touching the unit carrying the Grail Reliquae. If they do so they count as Grail Pilgrims - if not they are simple Peasants.",
+    "source": "bb870390"
+  },
+  {
+    "unitId": "kislev:winged-lancers",
+    "rawSpecial": "**Winged Lancers.** Winged Lancers receive +1 Attack in the first round of every combat when fighting to the front and are Immune to Terror.",
+    "source": "28ee2d30"
+  },
+  {
+    "unitId": "kislev:horse-archers",
+    "rawSpecial": "**Horse Archers, Cossacks.** Kislevite Horsemen have a shooting range of 15 cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from it‘s front edge to charge an enemy.",
+    "source": "faa5cf4c"
+  },
+  {
+    "unitId": "kislev:cossacks",
+    "rawSpecial": "**Horse Archers, Cossacks.** Kislevite Horsemen have a shooting range of 15 cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from it‘s front edge to charge an enemy.",
+    "source": "faa5cf4c"
+  },
+  {
+    "unitId": "kislev:bowmen",
+    "rawSpecial": "**Bowmen.** One unit of Bowmen per full 1000 points can replace a unit of Axemen while still counting for Axemen min/ max value.",
+    "source": "12670cad"
+  },
+  {
+    "unitId": "kislev:red-guard",
+    "rawSpecial": "**Red Guard.** In addition to traditional Kislevite long axes Red Guard are armed with handguns. Count enemy armour values as one worse than normal when shot by a handgun. So an armour value of 3+ counts as 4+, 4+ as 5+, and 5+ as 6+, whilst an armour value of 6+ can’t save against a handgun.",
+    "source": "610607b3"
+  },
+  {
+    "unitId": "kislev:axemen",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "kislev:bears",
+    "rawSpecial": "**Bears.** Bears are defined as infantry for rules purposes as this gives them the appropriate mobility for such creatures, but they add +1 Attack when they charge an enemy in the open in the same way as monsters and chariots. A Bear unit can only give support and be supported by other Bear units and must pursue retreating enemy where possible and must advance if they are able to do so. Also, Bears never count as defended outside a dense terrain. Note that these rules apply only to Bear units - not to characters riding a Bear or Shamans that have transformed in Monster Bear.",
+    "source": "77698efc"
+  },
+  {
+    "unitId": "kislev:war-wagon",
+    "rawSpecial": "**War Wagon.** The War Wagon consists of a wagon stand and a horse team stand. The unit must always be in one of two formations: a column with the horse team in front of the wagon, or a laager with the horse team placed beside the wagon edge to edge. The War Wagon cannot charge and moves 20cm at full pace. A War Wagon unit moving more than 5 cm must end its move in a column formation. After a successful order, if at least one stand moves no more than 5cm, the unit may end its move in laager formation. The War Wagon may enter laager formation as part of an evade, following the 5cm movement restriction. Uniquely, the War Wagon attacks are shared between the stands. A total of 4 melee attacks that can be directed from either the horse team or wagon stand and a total of 4 shooting attacks with 36o vison. Count enemy armour values as one worse than normal when shot by a War Wagon. A War Wagon in column formation cannot pursue. Unlike other artillery it can retreat from combat and is not destroyed if forced to do so. A War Wagon in laager formation counts as a defended unit, with no sides or rear. It cannot make way. It cannot be driven back or routed by shooting, but roll for (defended) drive backs to see if it becomes confused.<br><br>A War Wagon in laager formation will neither pursue nor retreat. If obliged to retreat, it instead remains in place, is not destroyed, continues to count as defended, and enemy stands do not receive any pursuit bonuses against it in subsequent rounds of combat. Either stand can be removed as causality. If the horse team stand is removed, the wagon stand will count as in laager formation for the remainder of the game. If the wagon stand is removed, the remaining horse team stand has no armour, no attacks, and counts as in column formation. Any Kislev infantry unit with a side edge of one stand touching wholly the short edge of a laagered wagon stand counts as defended for shooting and combat. This advantage applies only in the first round of combat.",
+    "source": "9b3d209d"
+  },
+  {
+    "unitId": "kislev:general",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "kislev:hero",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "kislev:shaman",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "kislev:bear",
+    "rawSpecial": "**Bear Mount.** Generals, Heroes and Shamans can ride a Bear mount. The Bear adds +1 Attack to that of its rider.",
+    "source": "f5fbd083"
+  },
+  {
+    "unitId": "kislev:yozhin",
+    "rawSpecial": "**Yozhin.** This creature lives in swamps near the Praag since the great incursion of Chaos. Yozhin strongly hates any kind of Chaos, being (possibly) chaos-twisted creature itself. Only powerful Shamans may summon a Yozhin and make it to fight on their side. A single Shaman in the army can be assisted by Yozhin. There is no restriction for going into any water/boggy/ swamp terrain for him. A unit that has been joined by a Yozhin riding Shaman causes terror in its enemies. Yozhin adds +1 Attack to Shaman’s attacks value.",
+    "source": "c9aa1988"
+  },
+  {
+    "unitId": "kislev:tzarina",
+    "rawSpecial": "**Tzarina.** The General may be a Tzarina of the royal blood - perhaps Tzarina Katrina herself. The Tzarina rides a horse- drawn sled - note this is not a chariot! The Tzarina can cast spells like a Wizard and can carry a magic item restricted to a Wizard if desired. Once during the battle the Tzarina can add +1 to the dice when attempting to cast a spell. The player must announce that the Tzarina’s special spell casting bonus is being used before rolling for the spell.",
+    "source": "bac84326"
+  },
+  {
+    "unitId": "dark-elves:spearmen",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "dark-elves:crossbowmen",
+    "rawSpecial": "**Crossbowmen and Dark Riders.** These units are equipped with the repeating crossbow. These units shoot once at ranges up to 30cm and twice at ranges up to 15cm. A unit of three stands would therefore shoot 6 Attacks at a target within 15cm and 3 Attacks at a target at greater ranges. Units may shoot at enemies that charge them - in which case they shoot 1 Attack per stand regardless of range.",
+    "source": "537c216a"
+  },
+  {
+    "unitId": "dark-elves:witch-elves",
+    "rawSpecial": "**Witch Elves.** A unit of Witch Elves always uses its initiative to charge an enemy if possible and cannot be given orders instead. Witch Elves never use their initiative to evade. The unit cannot be driven back by shooting and never roll for drive backs. If victorious in combat they must pursue or advance where possible. Witch Elves are unaffected by enemies that cause terror in combat and do not suffer the usual -1 Attack modifier.",
+    "source": "76c07b35"
+  },
+  {
+    "unitId": "dark-elves:dark-riders",
+    "rawSpecial": "**Crossbowmen and Dark Riders.** These units are equipped with the repeating crossbow. These units shoot once at ranges up to 30cm and twice at ranges up to 15cm. A unit of three stands would therefore shoot 6 Attacks at a target within 15cm and 3 Attacks at a target at greater ranges. Units may shoot at enemies that charge them - in which case they shoot 1 Attack per stand regardless of range.",
+    "source": "537c216a"
+  },
+  {
+    "unitId": "dark-elves:cold-one-knights",
+    "rawSpecial": "**Cold One Knights.** Such is their unthinking instinct to take a bite out of anything that passes, Cold One Knights have an Attack value bonus of +1 in the first round of each combat when fighting to the front, i.e. the Cold One Knights’ stand has to touch the enemy in arc of sight with its frontal edge and/or frontal corners (including contact by frontal corner only). For the same reason Cold One Knights cannot form brigades except with other units of Cold One Knights.",
+    "source": "a31e1e7f"
+  },
+  {
+    "unitId": "dark-elves:harpies",
+    "rawSpecial": "**Harpies.** Harpies are based facing the long edge of the base in the same way as infantry, rather than the short edge like other monsters. Harpies can fly. A unit of harpies cannot be joined by a character.",
+    "source": "f63e1bfd"
+  },
+  {
+    "unitId": "dark-elves:war-hydra",
+    "rawSpecial": "**War Hydra.** War Hydras are so aggressive that they cannot be included as part of a brigade not even with other War Hydras. They cause terror in their enemies. The War Hydra can breath fire with a range of 20cm and 2 Attacks that are worked out in the normal way. Once all hits have been struck for that round, and assuming it has not been slain, the War Hydra automatically regenerates 1 hit that it suffered that round. A hit that is inflicted and subsequently regenerated still counts towards the results for that round.",
+    "source": "cd76f4bf"
+  },
+  {
+    "unitId": "dark-elves:bolt-thrower",
+    "rawSpecial": "**Bolt Thrower.** Dark Elf Bolt Throwers are Elven Bolt Throwers. See Rulebook p.75.",
+    "source": "7239d166"
+  },
+  {
+    "unitId": "dark-elves:general",
+    "rawSpecial": "**General.** Dark Elf commanders are masters of manipulation and cruelty - this makes them uncompromising in their dealings with subordinates! If a Dark Elf Hero or Sorceress rolls a double 6 when issuing orders then the General must either lose 1 level of Command value (i.e. drop from 10 to 9) or execute the failed underling - in which case the character is removed as a casualty but does not count towards the enemy‘s victory points. In addition, if the General rolls a ‘blunder‘ (ie a double 6) then the General automatically loses 1 level. Regardless of these penalties a General can only drop 2 levels (to a minimum of 8) after which all subordinates who blunder are executed and any ‘blunders‘ rolled by the General merely end the phase as normal.",
+    "source": "6ea8deb7"
+  },
+  {
+    "unitId": "dark-elves:hero",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "dark-elves:sorceress",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "dark-elves:manticore",
+    "rawSpecial": "**Manticore.** Generals, Heroes and the Sorceress can ride a Manticore. The Manticore can fly increasing the rider‘s movement to 100cm. An extra +2 Attacks are added to those of the rider. A unit joined by the character causes Terror.",
+    "source": "3bd20eee"
+  },
+  {
+    "unitId": "dark-elves:chariot",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "dark-elves:cauldron-of-blood",
+    "rawSpecial": "**Cauldron of Blood.** A Sorceress can have a Cauldron of Blood. A Sorceress with a Cauldron of Blood suffers a movement reduction to 30cm. The army can only ever include one Cauldron of Blood and it can only be included if there is at least 1 unit of Witch Elves in the army. The Cauldron of Blood adds +2 Attacks to the Sorceress and can be used to add +1 to the Sorceress‘s dice roll to cast a spell once per battle. The player must announce that the Cauldron of Blood‘s spell bonus is being used before rolling the dice to determine if the spell is cast.",
+    "source": "52efd772"
+  },
+  {
+    "unitId": "daemons:daemon-horde",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "daemons:daemon-swarm",
+    "rawSpecial": "**Daemon Swarms.** These cannot be driven back by shooting and do not roll for drive backs. A Daemon Swarm cannot be given a magic item.",
+    "source": "de0bf072"
+  },
+  {
+    "unitId": "daemons:daemon-cavalry",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "daemons:daemon-hounds",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "daemons:daemon-chariots",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "daemons:daemon-beasts",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "daemons:daemon-flyers",
+    "rawSpecial": "**Daemon Flyers.** These can fly. Daemon Flyers are an exception to the normal conventions for basing monsters in that they face the long edge of the stand in the same way as infantry rather than the short edge as most other monsters.",
+    "source": "812d046e"
+  },
+  {
+    "unitId": "daemons:greater-daemon",
+    "rawSpecial": "**Greater Daemons.** Greater Daemons can fly regardless of whether the actual model has wings – aerial propulsion is deemed feasible by sheer effort of will. Greater Daemons cause terror in their enemies. A Greater Daemon that has accumulated 4-5 hits at the end of the Shooting or Combat phase and is no longer engaged in combat is deemed to have been badly hurt. Once a Greater Daemon is badly hurt accumulated hits are discounted and its Hits and Attacks values are halved for the rest of the battle (to 3 Hits and 4 Attacks).",
+    "source": "2b23f5b9"
+  },
+  {
+    "unitId": "daemons:daemon-overlord",
+    "rawSpecial": "**Daemon Overlord.** The Daemon Overlord is the army’s General and has the option of having the powers of a Wizard for additional 25 points. If given magical powers the Daemon Overlord can be given a magic item restricted to either a General or a Wizard. Note that the Daemon Overlord is still a General and his command range extends over the whole battlefield as for other Generals.",
+    "source": "414372ed"
+  },
+  {
+    "unitId": "daemons:daemon-lord-hero",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "daemons:daemon-sorcerer",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "daemons:daemonic-wings",
+    "rawSpecial": "**Daemonic Wings.** Some of the creatures of the deep vaults of hell may have wings, some of them fly on hovering discs and some even have the ability of disappearing and reappearing wherever they want on the battlefield. Daemon characters may be given the ability of flying.",
+    "source": "dd5bfe31"
+  },
+  {
+    "unitId": "daemons:favour-of-the-gods",
+    "rawSpecial": "**Favour of the Gods.** Demon Overlord, Lord Heroes or Sorcerers can be given the Favour of the Gods. The character gains then +1 extra Attack and causes terror in its enemies as described in the Warmaster rulebook.",
+    "source": "8cc6b6e5"
+  },
+  {
+    "unitId": "daemons:chariot",
+    "rawSpecial": "**Chariot Mount.** Generals, Wizards and Heroes can ride Chariots. An extra +1 Attack is added to those of its rider.",
+    "source": "3b6ee397"
+  },
+  {
+    "unitId": "vampire-counts:skeletons",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "vampire-counts:zombies",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "vampire-counts:ghouls",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "vampire-counts:grave-guard",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "vampire-counts:ethereal-host",
+    "rawSpecial": "**Ethereal Host.** Ethereal Host Attacks always inflict a hit on a score of 4+ regardless of whether the enemy is in the open, defended, or fortified. Enemy otherwise count as in the open, defended, or fortified in all respects (i.e. charge bonuses count or don‘t count depending on status). Ethereal hosts cannot be driven back by shooting and do not roll for drive backs. They cause terror as described in the Warmaster rulebook. Ethereal Hosts cannot have magic items.",
+    "source": "f2926a0b"
+  },
+  {
+    "unitId": "vampire-counts:black-knights",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "vampire-counts:dire-wolves",
+    "rawSpecial": "**Dire Wolves.** If the unit charges against an enemy in the open it receives an additional +1 Attack modifier in the same way as chariots and monsters. Dire Wolves cannot have magic items.",
+    "source": "e2709760"
+  },
+  {
+    "unitId": "vampire-counts:fell-bats",
+    "rawSpecial": "**Fell Bats.** Fell Bats can fly. Although they cannot use initiative they are allowed to home back as described in the Warmaster rulebook. No order is required to home back. Fell Bats are an exception to the normal rules for basing monsters, in that they are based along the long base edge in the same way as infantry, rather than the short edge like other monsters.",
+    "source": "592ae5f5"
+  },
+  {
+    "unitId": "vampire-counts:vampire-lord",
+    "rawSpecial": "**Vampire Lords.** These are powerful sorcerers as well as the army‘s general. They can cast spells in the same way as a Wizard and can be given a magic item restricted to either a General or a Wizard. Note that the Vampire Lord is still a General and his command range extends over the whole battlefield as for other Generals.",
+    "source": "43699895"
+  },
+  {
+    "unitId": "vampire-counts:vampire",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "vampire-counts:necromancer",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "vampire-counts:winged-nightmare",
+    "rawSpecial": "**Winged Nightmare.** Any character can ride a Winged Nightmare. A Winged Nightmare can fly increasing its rider‘s move to 100cm and adding +2 to its rider‘s attacks. A unit joined by a character riding a Winged Nightmare causes terror in its enemies.",
+    "source": "f2a874b8"
+  },
+  {
+    "unitId": "vampire-counts:black-coach",
+    "rawSpecial": "**Black Coach.** A Vampire Lord or Vampire can be mounted within a Black Coach adding +1 to its occupant‘s attacks. A unit joined by a character riding in the Black Coach causes terror in its enemies.",
+    "source": "bf5be8fc"
+  },
+  {
+    "unitId": "araby:spearmen",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "araby:bowmen",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "araby:guards",
+    "rawSpecial": "**Guards.** The Sultan‘s Guards are so unquestioningly loyal that they will obey the first order given to them each turn on the Command roll of 10 or less so long as the order comes from the General himself. No penalties are applied to this order. Further orders are given using the General‘s normal command value and penalties. This applies only to Guards and not to brigades that include Guards and other units.",
+    "source": "76d7caa8"
+  },
+  {
+    "unitId": "araby:knights",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "araby:desert-riders",
+    "rawSpecial": "**Desert Riders.** Desert Riders have a shooting range of 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from it‘s front edge to charge an enemy.",
+    "source": "33b1e1ec"
+  },
+  {
+    "unitId": "araby:camel-riders",
+    "rawSpecial": "**Camel Riders.** Camel Riders ignore distance modifiers when commands are issued to them. This applies only to Camel Riders and not to brigades that include Camel Riders and other units. Remember that characters are still bound by their maximum command ranges and cannot issue orders to units beyond range. This represents their fierce self-reliance and their mounts‘ instinctive sense of direction allowing them to operate effectively far from their own battle lines. Because Camels are such intractable creatures all orders are issued with a Command penalty of -1, this penalty applies to any unit of Camel Riders or to any brigade that contains one or more units of Camel Riders.",
+    "source": "226fedbb"
+  },
+  {
+    "unitId": "araby:magic-carpets",
+    "rawSpecial": "**Magic Carpets.** Magic carpets can fly – they have been rated as aerial ‘cavalry‘ as this is the closest categorisation to their type. Because they are awkward flyers, they can be pursued by any type of enemy troops. They have a shooting range of 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from it‘s front edge to charge an enemy.",
+    "source": "c914d27d"
+  },
+  {
+    "unitId": "araby:elephants",
+    "rawSpecial": "**Elephants.** Elephants cause terror and cannot be brigaded with cavalry. If an Elephant unit would for any reason become confused, it will stampede instead. Their stampede ceases at the end of their player‘s next Command phase. Stampeding Elephants cannot be given orders or use initiative. At the beginning of the Command phase, prior to resolving any movement generated by Initiative, roll one D6 for each affected unit: 1-2: Move towards the nearest enemy unit as far as possible. If they contact an enemy unit they charge; a friendly unit, they burst through. 3-4: Move directly away from the nearest enemy unit as far as possible. If the elephants contacts an enemy unit, they charge; a friendly unit, they burst through. 5: Move towards the nearest friendly unit as far as possible. If the elephants contacts any unit (friendly or enemy), they charge. 6: Move directly away from the nearest friendly unit as far as possible. If the elephants contacts any unit (friendly or enemy), they charge. A stampeding Elephants that charges will fight in the Combat phase. It counts as ‘enemies’ for the duration of the combat. If the Elephants win a combat round they must pursue if possible and will continue to do so each round. Should their opponents be destroyed, they will not advance but will halt.",
+    "source": "41fd65f3"
+  },
+  {
+    "unitId": "araby:general",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "araby:hero",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "araby:wizard",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "araby:flying-carpet",
+    "rawSpecial": "**Flying Carpet.** This is considered to be a flying chariot mount.",
+    "source": "d0792ff6"
+  },
+  {
+    "unitId": "araby:elephant",
+    "rawSpecial": "**Elephant.** The Elephant mount is a standard monster mount except that a character mounted on an Elephant cannot join a unit of friendly cavalry. A unit joined by a character riding an Elephant causes Terror.",
+    "source": "f0295c71"
+  },
+  {
+    "unitId": "araby:djinn",
+    "rawSpecial": "**Djinn.** The Djinn accompanies its master and can transform both of them into a whirlwind enabling the stand to fly as for a normal flying mount. If the Wizard has a Djinn he can also cast the Curse of the Djinn spell with a +1 casting bonus (see spells). Note that unusually the Djinn has +2 shooting attacks - these are added to a stand from a unit that the character has joined and can only be used when the character joins a unit. If the Wizard is accompanied by a Djinn then any unit he joins causes Terror.",
+    "source": "ee45be66"
+  },
+  {
+    "unitId": "dogs-of-war:pikemen",
+    "rawSpecial": "**Pikemen.** The pike is the traditional weapon of the mercenaries of Tilea. Twice as long as a spear and even longer than a cavalryman’s lance this is a truly fearsome although rather unwieldy weapon. Pikemen are based facing the short edge of the base in the same way as Cavalry, rather than the long edge like other Infantry. Pikemen can not enter dense terrain (even partially). They still may be in a defended position on higher ground or behind a low obstacle as usual, but can only claim defended status when fighting to the front. An enemy does not receive charge bonuses when charging Pikemen in the front, nor do Pikemen receive any charge bonus themselves. A Pikemen stand cannot support or be supported by other infantry - only by other Pikemen stands. In all other respects they count as infantry (movement/pursuit etc.).",
+    "source": "939c95b1"
+  },
+  {
+    "unitId": "dogs-of-war:crossbowmen",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "dogs-of-war:handgunners",
+    "rawSpecial": "**Handgunners.** A handgun shot can pierce armour far easier than an arrow or a crossbow bolt. Therefore, count enemy Armour values as one worse (-1) than normal. One unit of Crossbowmen per full 1000 points can be replaced by Handgunners (including the 10 points extra in price) while still counting for the Crossbowmen min/max value. Note that this unit still counts for the min/max value of Handgunners.",
+    "source": "177e226e"
+  },
+  {
+    "unitId": "dogs-of-war:swordsmen",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "dogs-of-war:ogres",
+    "rawSpecial": "**Ogres.** Ogres flock to Dogs of War armies for the chance of a good fight and as much as they can eat. These creatures are notoriously fond of fresh human meat, although they will eat practically anything that was once alive (or still is). To represent this an Ogre unit must use its Initiative to charge an enemy unit of humans (humans... Men not Dwarfs, Elves etc.) if it is within 20cm at the start of the Command phase and the Ogres can reach it. This happens automatically.",
+    "source": "a64153f2"
+  },
+  {
+    "unitId": "dogs-of-war:dwarfs",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "dogs-of-war:marauders",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "dogs-of-war:light-cavalry",
+    "rawSpecial": "**Light Cavalry.** Dogs of War armies make great use of expert light cavalry from all around the world. Empire Pistoliers, Arabian Desert Riders, Hobgoblin Wolf Riders and Kislev Horse Archers are particularly adept at outmanoeuvring an enemy and harrying his flanks. Light cavalry has a shooting range of 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy.",
+    "source": "9310d763"
+  },
+  {
+    "unitId": "dogs-of-war:knights",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "dogs-of-war:galloper-guns",
+    "rawSpecial": "**Galloper Guns.** These are lighter artillery than Dwarf or Empire cannons; due to this they are shorter ranged, but can make up for their lighter shot by producing a higher volume of fire. Galloper Guns move 20cm (10cm half-pace). All the normal rules for artillery apply as well as cannon’s rules for shooting (bounce through, no saves and reduction of cover values - see Rulebook p.74). Because they are light guns they have a range of only 40cm. They still may shoot at the charging enemy by firing ‘grapeshot’ as normal.",
+    "source": "e56ab988"
+  },
+  {
+    "unitId": "dogs-of-war:giant",
+    "rawSpecial": "**Giants.** Giants must always be given a separate order. They cannot be brigaded with other troops, although several Giants can be brigaded together if you so wish. If you attempt to give an order to a Giant and fail then you must take a test to see what it does. Ignore potential blunders - these are taken into account by the following rules. Roll a dice and consult the Giant Goes Wild chart. Where Giants are brigaded together roll for each separately. Giants have a great many hits, 8 in fact, which are almost impossible to inflict during even a fairly lengthy combat engagement. Because Giants have so many hits we must consider the possibility of hurting the Giant and reducing its effectiveness in subsequent turns. Therefore, if a Giant has accumulated 5-7 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Giant is badly hurt all accumulated hits are discounted and its maximum Hits value and Attacks are halved for the rest of the battle (to 4 Hits and 4 Attacks). A Giant causes terror in its enemies. Giant Goes Wild Chart D6 Oh no! What‘s he doing now! 1. The Giant will neither move nor fight this turn but simply stands rooted to the spot looking dopey. 2. Move the Giant directly towards the nearest table edge. If he moves into another unit he will charge it regardless of which side it is on. If victorious in combat the Giant will hold his ground. 3. The Giant throws an object at the closest visible unit (friend or foe) within 5xD6 cm, inflicting 3 Attacks. If the target is in combat, the attacks contribute to the combat result; otherwise, resolve them in the Shooting phase. 4. The Giant moves straight forward at full pace in the direction he is facing in. If he reaches an enemy unit he will charge. If he reaches a friendly unit he will walk straight through and out the other side if there is room",
+    "source": "f07bdd29"
+  },
+  {
+    "unitId": "dogs-of-war:birdmen",
+    "rawSpecial": "**Birdmen.** Only half-mad nutters like Tileans would try to fly! The Birdmen wear insane contraptions of light wood covered in canvas that are shaped like wings and allow them to glide on the air currents. These ‘wings’ allow the Birdmen to fly and still use their crossbows as normal. Because they are awkward flyers, they can be pursued by any type of enemy troops. Birdmen are based facing the long edge of the base in the same way as other infantry.",
+    "source": "5d63e1ae"
+  },
+  {
+    "unitId": "dogs-of-war:general",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "dogs-of-war:hero",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "dogs-of-war:paymaster",
+    "rawSpecial": "**Paymaster, Pay Wagon.** There may only ever be one Paymaster in the army. Only the Paymaster may use the Wagon. If the Pay Wagon is used the Paymaster may bribe the units around him to fight harder. He may add +1 to all of his Command checks for a single turn only.",
+    "source": "eb9343a6"
+  },
+  {
+    "unitId": "dogs-of-war:wizard",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "dogs-of-war:griffon",
+    "rawSpecial": "**Griffon.** Generals, Wizards and Heroes may ride Griffons. The Griffon combines the appearance of a lion and an eagle. These creatures are hatched from stolen eggs and hand-reared to serve as mounts for favoured individuals. The Griffon can fly, increasing the rider’s movement to 100cm and it adds +2 Attacks to those of the rider. A unit which includes a Griffon causes terror in its enemies.<br><br>and he has sufficient move. If he reaches a friendly unit and does not have sufficient move or enough room to walk all the way through then he halts on contact. A friendly unit that is walked through or contacted in this way instantly becomes confused as a result. 5. The Giant moves towards the nearest enemy unit that he can see as fast as he can. If he reaches the foe he will charge. If friends are in the way he will walk through them causing confusion as described above. If there is no visible enemy the Giant does nothing this Command phase. 6. The Giant gives a mighty bellow and rushes straight at the nearest enemy unit that he can see. Move the Giant at double his normal full pace move. If he reaches an enemy unit, he charges it and fights by jumping up and down on the foe, furiously doubling his Attacks value in the first round of combat. If there is no visible enemy the Giant does nothing this Command phase.",
+    "source": "43aabf47"
+  },
+  {
+    "unitId": "dogs-of-war:pay-wagon",
+    "rawSpecial": "**Paymaster, Pay Wagon.** There may only ever be one Paymaster in the army. Only the Paymaster may use the Wagon. If the Pay Wagon is used the Paymaster may bribe the units around him to fight harder. He may add +1 to all of his Command checks for a single turn only.",
+    "source": "eb9343a6"
+  },
+  {
+    "unitId": "ogre-kingdoms:bull-ogres",
+    "rawSpecial": "**Bull Ogres.** If an Ogre unit can use its initiative to charge an enemy unit of humans at the start of the Command phase then it must do so. This happens automatically and their commander can do nothing about it. ‘Humans’ encompasses all ‘men’ including Chaos Warriors and Marauders, but not Dwarfs, Elves etc.",
+    "source": "a49276e5"
+  },
+  {
+    "unitId": "ogre-kingdoms:leadbelchers",
+    "rawSpecial": "**Leadbelchers.** Leadbelchers‘ cannons have a range of 15cm. The unit has 2 shooting attacks. Leadbelchers shooting attacks impose a -1 penalty to armour rolls.",
+    "source": "a184be6d"
+  },
+  {
+    "unitId": "ogre-kingdoms:ironguts",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "ogre-kingdoms:yhetees",
+    "rawSpecial": "**Yhetees.** If a unit of Yhetees is charging against an enemy in the open it receives an additional +1 Attack modifier in the same way as chariots and monsters. A Yhetee unit can only give support and be supported by other Yhetee units and must pursue retreating enemies where possible and must advance into a combat if they are able to do so.",
+    "source": "d7c7516b"
+  },
+  {
+    "unitId": "ogre-kingdoms:gnoblars",
+    "rawSpecial": "**Gnoblars.** Unit is allowed to shoot as if it had bows but its range is reduced to 15cm. A Gnoblar stand cannot be supported by other kinds of infantry - only by other Gnoblar stands. Note, however, that Gnoblars can support other kinds of infantry as normal. Gnoblars cannot be given magic items. Characters cannot join Gnoblar units.",
+    "source": "e9eaa8b9"
+  },
+  {
+    "unitId": "ogre-kingdoms:gorgers",
+    "rawSpecial": "**Gorgers.** When trying to issue an order to a unit of Gorgers or to a brigade that contains a unit of Gorgers, there is always a -1 Command penalty due their beastly and unruly nature. Gorgers always ignore distance modifiers when receiving orders and can pursue any type of retreating enemy. Gorgers do not have to be deployed before the game if the player does not wish to do so. Instead individual units can be infiltrated onto the battlefield once the game has begun. To infiltrate a unit, the Ogre player nominates the point where he wants the Gorgers to appear and issues an ‘infiltration‘ order from any character. The character does not have to be within his normal command range to issue an infiltration order - the character‘s command range is considered to extend over the entire tabletop when issuing an infiltration order. Treat the order as issued to the nominated point, and apply the Gorgers‘ standard -1 and any modifiers for proximity of enemy. The nominated point must lie either on the table within dense terrain or on any base edge other than the enemy player‘s own table edge. If successful, place one stand on the nominated spot and arrange the rest of the unit into formation around it. The infiltrated unit cannot be placed so that it touches an enemy unit. Once deployed, orders can be given to the unit by the same character that gave the infiltration order. The infiltrating unit is considered to have used its first order to deploy. If the infiltration order is failed the unit is not deployed and cannot infiltrate that turn, it can attempt to infiltrate in a subsequent turn at the same or a different place. Gorgers don‘t suffer -1 Command penalty for Dense Terrain.",
+    "source": "2e7e6dfe"
+  },
+  {
+    "unitId": "ogre-kingdoms:rhinox-riders",
+    "rawSpecial": "**Rhinox Riders.** Units of Rhinox Riders are unaffected by terror. Rhinox Riders receive +1 Attack when charging against an enemy in open in the same way as chariots and monsters.",
+    "source": "4b5920df"
+  },
+  {
+    "unitId": "ogre-kingdoms:sabretusks",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "ogre-kingdoms:slave-giant",
+    "rawSpecial": "**Slave Giant.** Giants must always be given a separate order. They cannot be brigaded with other troops, although several Giants can be brigaded together if you so wish. If you attempt to give an order to a Giant and fail then you must take a test to see what it does. Ignore potential blunders - these are taken into account by the following rules. Roll a dice and consult the Giant Goes Wild chart. Where Giants are brigaded together roll for each separately. Giants have a great many hits, 8 in fact, which are almost impossible to inflict during even a fairly lengthy combat engagement. Because Giants have so many hits we must consider the possibility of hurting the Giant and reducing its effectiveness in subsequent turns. Therefore, if a Giant has accumulated 5-7 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Giant is badly hurt all accumulated hits are discounted and its maximum Hits value and Attacks are halved for the rest of the battle (to 4 Hits and 4 Attacks). A Giant causes terror in its enemies. Giant Goes Wild Chart D6 Oh no! What‘s he doing now! 1. The Giant will neither move nor fight this turn but simply stands rooted to the spot looking dopey. 2. Move the Giant directly towards the nearest table edge. If he moves into another unit he will charge it regardless of which side it is on. If victorious in combat the Giant will hold his ground. 3. The Giant throws an object at the closest visible unit (friend or foe) within 5xD6 cm, inflicting 3 Attacks. If the target is in combat, the attacks contribute to the combat result; otherwise, resolve them in the Shooting phase. 4. The Giant moves straight forward at full pace in the direction he is facing in. If he reaches an enemy unit he will charge. If he reaches a friendly unit he will walk straight through and out the other side if there is room and he has sufficient move. If he reaches a friendly unit and does not have sufficient move or enough room to walk all the way through then he halts on contact. A friendly unit that is walked through or contacted in this way instantly becomes confused as a result. 5. The Giant moves towards the nearest enemy unit that he can see as fast as he can. If he reaches the foe he will charge. If friends are in the way he will walk through them causing confusion as described above. If there is no visible enemy the Giant does nothing this Command phase. 6. The Giant gives a mighty bellow and rushes straight at the nearest enemy unit that he can see. Move the Giant at double his normal full pace move. If he reaches an enemy unit, he charges it and fights by jumping up and down on the foe, furiously doubling his Attacks value in the first round of combat. If there is no visible enemy the Giant does nothing this Command phase.",
+    "source": "79e88774"
+  },
+  {
+    "unitId": "ogre-kingdoms:scrap-launcher",
+    "rawSpecial": "**Scrap Launcher.** Scrap Launcher is a Stone Thrower as described in the Warmaster Rulebook p.75.",
+    "source": "83236f24"
+  },
+  {
+    "unitId": "ogre-kingdoms:tyrant",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "ogre-kingdoms:bruiser",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "ogre-kingdoms:butcher",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "ogre-kingdoms:bull-rhinox",
+    "rawSpecial": "**Bull Rhinox.** Tyrant, Bruisers and Butchers may ride the Bull Rhinox. A unit that is joined with a character mounted on this huge beast causes terror in enemies.",
+    "source": "7d7d357a"
+  },
+  {
+    "unitId": "albion:warriors",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "albion:slingers",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "albion:ogres",
+    "rawSpecial": "**Ogres.** If an Ogre unit can use its initiative to charge an enemy unit of humans at the start of the Command phase then it must do so. This happens automatically and their commander can do nothing about it. ‘Humans‘ encompasses all ‘men‘ including Chaos Warriors and Marauders, but not Dwarfs, Elves etc.",
+    "source": "6edf14d4"
+  },
+  {
+    "unitId": "albion:wolfhounds",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "albion:riders",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "albion:chariots",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "albion:giant",
+    "rawSpecial": "**Giant.** Giants must always be given a separate order. They cannot be brigaded with other troops, although several Giants can be brigaded together if you so wish. If you attempt to give an order to a Giant and fail then you must take a test to see what it does. Ignore potential blunders - these are taken into account by the following rules. Roll a dice and consult the Giant Goes Wild chart. Where Giants are brigaded together roll for each separately. Giants have a great many hits, 8 in fact, which are almost impossible to inflict during even a fairly lengthy combat engagement. Because Giants have so many hits we must consider the possibility of hurting the Giant and reducing its effectiveness in subsequent turns. Therefore, if a Giant has accumulated 5-7 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Giant is badly hurt all accumulated hits are discounted and its maximum Hits value and Attacks are halved for the rest of the battle (to 4 Hits and 4 Attacks). A Giant causes terror in its enemies. Giant Goes Wild Chart D6 Oh no! What‘s he doing now! 1. The Giant will neither move nor fight this turn but simply stands rooted to the spot looking dopey. 2. Move the Giant directly towards the nearest table edge. If he moves into another unit he will charge it regardless of which side it is on. If victorious in combat the Giant will hold his ground. 3. The Giant throws an object at the closest visible unit (friend or foe) within 5xD6 cm, inflicting 3 Attacks. If the target is in combat, the attacks contribute to the combat result; otherwise, resolve them in the Shooting phase. 4. The Giant moves straight forward at full pace in the direction he is facing in. If he reaches an enemy unit he will charge. If he reaches a friendly unit he will walk straight through and out the other side if there is room and he has sufficient move. If he reaches a friendly unit and does not have sufficient move or enough room to walk all the way through then he halts on contact. A friendly unit that is walked through or contacted in this way instantly becomes confused as a result. 5. The Giant moves towards the nearest enemy unit that he can see as fast as he can. If he reaches the foe he will charge. If friends are in the way he will walk through them causing confusion as described above. If there is no visible enemy the Giant does nothing this Command phase. 6. The Giant gives a mighty bellow and rushes straight at the nearest enemy unit that he can see. Move the Giant at double his normal full pace move. If he reaches an enemy unit, he charges it and fights by jumping up and down on the foe, furiously doubling his Attacks value in the first round of combat. If there is no visible enemy the Giant does nothing this Command phase.",
+    "source": "22da9f59"
+  },
+  {
+    "unitId": "albion:giant-eagles",
+    "rawSpecial": "**Giant Eagle.** Giant Eagles can fly.",
+    "source": "6f48793b"
+  },
+  {
+    "unitId": "albion:general",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "albion:hero",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "albion:druid",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "albion:giant-eagle",
+    "rawSpecial": "**Giant Eagle Mount.** Giant Eagles can be ridden by Druids only. An Eagle can fly increasing its rider’s move from 60 to 100cm, and it adds +2 Attacks to those of its rider.",
+    "source": "9a1b454b"
+  },
+  {
+    "unitId": "albion:chariot",
+    "rawSpecial": "**Chariot Mount.** Generals, Druids and Heroes can ride Chariots. An extra +1 Attack is added to those of its rider.",
+    "source": "8182cc3e"
+  },
+  {
+    "unitId": "albion:fenbeast",
+    "rawSpecial": "**Fenbeast.** Fenbeast is an individual troop unit, but it can not be fielded like other units in the standard way. Fenbeast can appear on the battlefield only by the Druid’s Summon Fenbeast spell. It cannot be brigaded with other troop units, not even other Fenbeasts. Fenbeasts never use their initiative to move in the Command phase. Because they are completely dominated by the will of the Druid who summoned them, the Druid counts as having a Command value of +1 when commanding the Fenbeast – that is 8 rather than 7. They can move through bogs as though they were open terrain. Unlike the wild Bog Beasts from the ‘Dark Shadows’ campaign, Fenbeast will make way for friendly troops. Fenbeasts are terrifying creatures and cause terror.",
+    "source": "5cfaaa5f"
+  },
+  {
+    "unitId": "goblins:goblins",
+    "rawSpecial": "**Goblins.** A Goblin unit is allowed to shoot as if it had bows but its range is reduced to 15cm. Up to two units per full 1000 points can be replaced by Squig Herd while still counting for the Goblin min/max value.",
+    "source": "aba26c44"
+  },
+  {
+    "unitId": "goblins:squig-herd",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "goblins:trolls",
+    "rawSpecial": "**Trolls.** When trying to issue an order to a unit of Trolls or to a brigade that contains a unit of Trolls, any Command penalty applied for distance between the character and the Troll unit is always doubled. So at 20cm no penalty applies, at 40cm -2, at 60cm -4, and so on. Trolls can regenerate wounds - in each round of combat after whole stands have been removed Trolls automatically regenerate one outstanding hit. If no hits are left over after removing whole stands then regeneration has no effect. Regenerated hits still count towards the combat result for the round.",
+    "source": "a0d6506f"
+  },
+  {
+    "unitId": "goblins:wolf-riders",
+    "rawSpecial": "**Wolf Riders.** The Wolf Riders have a shooting range of 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy.",
+    "source": "6a430b17"
+  },
+  {
+    "unitId": "goblins:wolf-chariots",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "goblins:pump-wagon",
+    "rawSpecial": "**Pump Wagon.** The Pump Wagon doesn’t move in the Command phase by initiative or by successful orders. Instead of this it can always move once up to 1D6 x 10cm. This move is automatic, requiring no Command roll, and happens at any time during the Command phase but may not interrupt a character giving orders or units moving (including other Pump Wagons). This gives the Pump Wagon a movement of between 10cm and 60cm each turn. In the combat phase it charges, pursues or advances, a Pump Wagon receives D6 attacks. This is in addition to any additional attacks it receives for charging enemy in the open and for being a chariot. When charged or retreating as a result of combat, its attacks are halved to D3. Roll for attacks every round of combat. A Pump Wagon cannot be driven back by shooting and does not roll for drive backs. Pump Wagons ignore confusion. A Pump Wagon cannot be brigaded with other units; not even another Pump Wagon, and characters cannot join it. The enemy does not gain Victory points for a destroyed Pump Wagon and a Pump Wagon does not count towards the Goblin army‘s break value in any way.",
+    "source": "a175c26c"
+  },
+  {
+    "unitId": "goblins:giant",
+    "rawSpecial": "**Giant.** Giants must always be given a separate order. They cannot be brigaded with other troops, although several Giants can be brigaded together if you so wish. If you attempt to give an order to a Giant and fail then you must take a test to see what it does. Ignore potential blunders - these are taken into account by the following rules. Roll a dice and consult the Giant Goes Wild chart. Where Giants are brigaded together roll for each separately. Giants have a great many hits, 8 in fact, which are almost impossible to inflict during even a fairly lengthy combat engagement. Because Giants have so many hits we must consider the possibility of hurting the Giant and reducing its effectiveness in subsequent turns. Therefore, if a Giant has accumulated 5-7 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Giant is badly hurt all accumulated hits are discounted and its maximum Hits value and Attacks are halved for the rest of the battle (to 4 Hits and 4 Attacks). A Giant causes terror in its enemies. Giant Goes Wild Chart D6 Oh no! What‘s he doing now! 1. The Giant will neither move nor fight this turn but simply stands rooted to the spot looking dopey. 2. Move the Giant directly towards the nearest table edge. If he moves into another unit he will charge it regardless of which side it is on. If victorious in combat the Giant will hold his ground. 3. The Giant throws an object at the closest visible unit (friend or foe) within 5xD6 cm, inflicting 3 Attacks. If the target is in combat, the attacks contribute to the combat result; otherwise, resolve them in the Shooting phase. 4. The Giant moves straight forward at full pace in the direction he is facing in. If he reaches an enemy unit he will charge. If he reaches a friendly unit he will walk straight through and out the other side if there is room and he has sufficient move. If he reaches a friendly unit and does not have sufficient move or enough room to walk all the way through then he halts on contact. A friendly unit that is walked through or contacted in this way instantly becomes confused as a result. 5. The Giant moves towards the nearest enemy unit that he can see as fast as he can. If he reaches the foe he will charge. If friends are in the way he will walk through them causing confusion as described above. If there is no visible enemy the Giant does nothing this Command phase. 6. The Giant gives a mighty bellow and rushes straight at the nearest enemy unit that he can see. Move the Giant at double his normal full pace move. If he reaches an enemy unit, he charges it and fights by jumping up and down on the foe, furiously doubling his Attacks value in the first round of combat. If there is no visible enemy the Giant does nothing this Command phase.",
+    "source": "22da9f59"
+  },
+  {
+    "unitId": "goblins:doom-diver",
+    "rawSpecial": "**Doom Diver.** The Doom Diver has a range of 60cm and a unit hit by a Doom Diver is allowed to make its normal armour save. Doom Divers shoot at such a high trajectory that they cannot shoot at charging enemies.",
+    "source": "3d0e9752"
+  },
+  {
+    "unitId": "goblins:spear-chukka",
+    "rawSpecial": "**Spear Chukka.** Spear Chukka is a Bolt Thrower. See the Rulebook p.75.",
+    "source": "29b34a7f"
+  },
+  {
+    "unitId": "goblins:goblin-warboss",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "goblins:goblin-hero",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "goblins:goblin-shaman",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "goblins:chariot",
+    "rawSpecial": "**Wolf Chariot.** A General, Hero or Wizard can ride a Wolf Chariot. The character riding a chariot adds +1 to his Attacks.",
+    "source": "6d424abd"
+  },
+  {
+    "unitId": "goblins:wyvern",
+    "rawSpecial": "**Wyvern.** Characters may ride Wyverns. A Wyvern can fly increasing its rider’s movement from 60cm to 100cm, and it adds +2 Attacks to those of its rider. A unit that includes a Wyvern rider causes terror in its enemies.",
+    "source": "d43de46b"
+  },
+  {
+    "unitId": "witch-hunters:zealots",
+    "rawSpecial": "**Zealots.** Zealots form the main part of a Witch Hunter army, and are drawn from mobs whipped up by priests’ sermons. These troops gain +1 Attack in the first round of combat against Undead or Chaos (regardless of who charged) and will always use their initiative to charge these enemies if possible. If victorious in combat with Undead or Chaos-like enemies they must pursue or advance where possible.",
+    "source": "3ce19600"
+  },
+  {
+    "unitId": "witch-hunters:halberdiers",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "witch-hunters:crossbowmen",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "witch-hunters:handgunners",
+    "rawSpecial": "**Handgunners.** Count enemy Armour values as one worse than normal when shot by a handgun. So an Armour value of 3+ counts as 4+, 4+ as 5+, and 5+ as 6+, whilst an Armour value of 6+ can‘t save against a handgun.",
+    "source": "7d27c11e"
+  },
+  {
+    "unitId": "witch-hunters:flagellants",
+    "rawSpecial": "**Flagellants.** So keen are they to meet their maker that a unit of Flagellants will always use its initiative to charge an enemy if possible and can‘t be given orders instead. They‘ll never use their initiative to evade. They can‘t be driven back by shooting and do not roll for drive backs. If victorious in combat they must pursue or advance where possible. Flagellants are unaffected by enemies that cause terror in combat, so they do not suffer the usual -1 Attack modifier.",
+    "source": "e28ca61d"
+  },
+  {
+    "unitId": "witch-hunters:warhounds",
+    "rawSpecial": "**Warhounds.** Warhound stands are not deployed as independent units. Instead, any infantry unit may add one stand of Warhounds. This brings the size of the unit to 4 stands; 3 regular stands plus the Warhound stand. Warhounds always have the same Armour value as the rest of their unit. They fight as part of their unit and can be removed as a unit casualty if the player wishes. Warhound casualties never count for Command penalties. Warhound stands never cause the parent unit to be in Irregular Formation no matter how they are placed. An Infantry unit containing a Warhound stand gains the ability to pursue Cavalry and Chariots.",
+    "source": "bfc647f4"
+  },
+  {
+    "unitId": "witch-hunters:knights",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "witch-hunters:pistoliers",
+    "rawSpecial": "**Pistoliers.** Pistoliers have a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from it‘s front edge to charge an enemy.",
+    "source": "d38b1b8a"
+  },
+  {
+    "unitId": "witch-hunters:cannon",
+    "rawSpecial": "**Cannons.** See Warmaster Rulebook p.74.",
+    "source": "c88c0718"
+  },
+  {
+    "unitId": "witch-hunters:general",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "witch-hunters:hero",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "witch-hunters:warrior-priest",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "witch-hunters:war-altar",
+    "rawSpecial": "**War Altar.** A Warrior Priest may be mounted on a War Altar. A Warrior Priest with a War Altar suffers a movement reduction to 30cm. The army can only ever include one War Altar, and it can only be included if there is at least 1 unit of Flagellants in the army. The War Altar adds +2 attacks to the Warrior Priest and can be used to add +1 to the Warrior Priest‘s dice roll to cast a spell once per battle. The player must announce that the War Altar‘s spell bonus is being used before rolling the dice to determine if the spell is cast.",
+    "source": "376f35d4"
+  },
+  {
+    "unitId": "chaos-dwarfs:chaos-dwarfs",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "chaos-dwarfs:blunderbusses",
+    "rawSpecial": "**Blunderbusses.** Units with Blunderbusses have a shooting range of 15cm. The unit has 2 shooting attacks. Units hit by Blunderbusses get a -1 penalty for their armour rolls. One unit of Blunderbusses per full 1000 points can replace a unit of Warriors while still counting for the Chaos Dwarfs min/ max value. Note that this unit still counts for max value of Blunderbusses.",
+    "source": "16313fdf"
+  },
+  {
+    "unitId": "chaos-dwarfs:hobgoblins",
+    "rawSpecial": "**Hobgoblins.** Hobgoblins and Hobgoblin Wolf Riders carry an assortment of smaller ranged arms, so may only shoot up to 15cm and have 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from it‘s front edge to charge an enemy. Hobgoblins and Orcs have a strong hatred so units of Hobgoblins or Hobgoblin Wolf Riders may not brigade with units of Black Orcs or Orc Slaves unless Chaos Dwarfs or Blunderbuss unit is part of the brigade.",
+    "source": "5a52532a"
+  },
+  {
+    "unitId": "chaos-dwarfs:black-orcs",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "chaos-dwarfs:orc-slaves",
+    "rawSpecial": "**Orc Slaves.** Slaves are just that, captives forced to work and fight for their cruel masters’ enjoyment. A unit of Slaves suffer an additional -1 Command penalty when given an order. This penalty is waived, however, if the Slaves are brigaded with Black Orcs, Chaos Dwarfs or Blunderbusses.",
+    "source": "53b9d9b7"
+  },
+  {
+    "unitId": "chaos-dwarfs:hobgoblin-wolf-riders",
+    "rawSpecial": "**Hobgoblins.** Hobgoblins and Hobgoblin Wolf Riders carry an assortment of smaller ranged arms, so may only shoot up to 15cm and have 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from it‘s front edge to charge an enemy. Hobgoblins and Orcs have a strong hatred so units of Hobgoblins or Hobgoblin Wolf Riders may not brigade with units of Black Orcs or Orc Slaves unless Chaos Dwarfs or Blunderbuss unit is part of the brigade.",
+    "source": "5a52532a"
+  },
+  {
+    "unitId": "chaos-dwarfs:bull-centaurs",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "chaos-dwarfs:earthshaker-cannon",
+    "rawSpecial": "**Earthshaker Cannon.** The Earthshaker acts as a Stone Thrower as described in the Rulebook (p.75). The exception is that the drive back from the Earthshaker shot causes confusion on rolls of 4+ rather than the usual 6+. In addition the Earthshaker shot causes confusion in units in base contact with the victim unit on rolls of 6 on a D6 (roll for each unit). The total number of Earthshakers and Death Rockets in the army is limited in the way that only 1 piece of this kind is allowed per 1000 points.",
+    "source": "b0184f43"
+  },
+  {
+    "unitId": "chaos-dwarfs:death-rocket",
+    "rawSpecial": "**Death Rocket.** The Death Rocket acts similar to a Stone Thrower as described in the Rulebook (p.75), except it shoots 1D6 times per phase and hits inflicted on the target can be still saved by the armour with -1 modifier. If the roll for the number of shots comes up a 1, the Death Rocket has misfired and you must roll a 1D6 against the Death Rocket Misfire chart. The total number of Earthshakers and Death Rockets in the army is limited in the way that only 1 piece of this kind is allowed per 1000 points. Death Rocket Misfire Chart<br><br>D6 Result<br><br>1 KABOOM! The Death Rocket explodes in spectacular manner.<br><br>2-3 Dud. The rocket does only one attack.<br><br>4-5 Whoosh! The rocket overshoots and does D6 attacks on the first unit in the line of fire past the original target, regardless of range. If the result is 1, don‘t roll for the misfire again. If the target is engaged in combat, the hits are carried over into Combat phase. If no target is behind the victim the rocket leaves the battlefield without causing any damage.<br><br>6 Big badaboom! The rocket does 2D6 attacks instead of the normal 1D6.",
+    "source": "d7fc7165"
+  },
+  {
+    "unitId": "chaos-dwarfs:bolt-thrower",
+    "rawSpecial": "**Bolt Thrower.** The Hobgoblin Bolt Thrower is a Bolt Thrower as described in main Rulebook (p.75).",
+    "source": "56b8df42"
+  },
+  {
+    "unitId": "chaos-dwarfs:general",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "chaos-dwarfs:hero",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "chaos-dwarfs:sorcerer",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "chaos-dwarfs:great-taurus",
+    "rawSpecial": "**Great Taurus.** Any character may be mounted on a Great Taurus. This mighty beast is fearsome to face on the battlefield. The Great Taurus causes terror and is able to fly.",
+    "source": "ba3dbd12"
+  },
+  {
+    "unitId": "chaos-dwarfs:lammasu",
+    "rawSpecial": "**Lammasu.** The Lammasu is a magical creature trained to serve the Chaos Dwarfs. A Chaos Dwarf Sorcerer may be mounted on a Lammasu. A Lammasu is able to fly. In addition once per turn you can attempt to dispel one hostile spell cast on one friendly unit within 30cm of the Lammasu on a roll of 4+ on a D6. There can only be one Lammasu in the army.",
+    "source": "ef39da8c"
+  },
+  {
+    "unitId": "chaos-dwarfs:sorcerer-lord",
+    "rawSpecial": "**Sorcerer Lord.** The General may be a true Sorcerer Lord, maybe even one of the living ancestors from Zharr-Naggrund. A Sorcerer Lord can cast spells like a Wizard and can carry a magic item restricted to a Wizard if desired. Once during the battle a Sorcerer Lord can add +1 to the dice when attempting to cast a spell. The player must announce that the Sorcerer Lord’s special spell casting bonus is being used before rolling for the spell.",
+    "source": "32c96e1f"
+  },
+  {
+    "unitId": "wood-elves:glade-guard",
+    "rawSpecial": "**Glade Guard.** Wood Elves are just as famed for their bow as their High Elf cousins, and as such Glade Guard units add +1 to their dice rolls when making shooting attacks. Therefore these units score a hit against targets in the open on a 3+, against defended targets on a 4+, and against fortified targets on a 5+.",
+    "source": "4a12a37d"
+  },
+  {
+    "unitId": "wood-elves:eternal-guard",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "wood-elves:wardancers",
+    "rawSpecial": "**Wardancers.** Wardancer stands are not deployed as independent units. Instead, any Glade Guard or Eternal Guard unit may add one stand of Wardancers. This brings the size of the unit to 4 stands - 3 regular stands plus the Wardancers stand. Wardancers always have the same Armour value as the rest of their unit. They fight as part of their unit and can be removed as a unit casualty if the player wishes. Wardancers casualties never count for Command penalties. Wardancers stands never cause the parent unit to be in Irregular Formation no matter how they are placed.",
+    "source": "57952ed"
+  },
+  {
+    "unitId": "wood-elves:waywatchers",
+    "rawSpecial": "**Waywatchers.** Famous for their bow skills even by Wood Elf standards, Waywatchers shoot the enemy with terrifying accuracy. They add +1 to their dice rolls when making shooting attacks and these attacks are resolved at -1 Armour value of the enemy. Individual units can be infiltrated onto the battlefield once the game has begun. To infiltrate a unit, the Wood Elf player nominates the point where he wants the Waywatchers to appear and issues an ‘infiltration‘ order from any character. The character does not have to be within his normal command range to issue an infiltration order - the character‘s command range is considered to extend over the entire tabletop when issuing an infiltration order. Treat the order as issued to the nominated point, and apply any modifiers for distance and proximity of enemy, but ignore penalties of dense terrain. The nominated point must lie either on the table within dense terrain or on any base edge other than the enemy player‘s own table edge. If successful, place one stand on the nominated spot and arrange the rest of the unit around it. The infiltrated unit cannot be placed so that it touches an enemy unit. Once deployed, orders can be given to the unit by the same character that gave the infiltration order if he is within his normal command range, the infiltrating unit is considered to have used its first order to deploy. If the infiltration order is failed the unit is not deployed and cannot infiltrate that turn, it can attempt to infiltrate in a subsequent turn at the same or a different place. Waywatchers don‘t suffer the -1 Command penalty for Dense Terrain.",
+    "source": "a06ba614"
+  },
+  {
+    "unitId": "wood-elves:dryads",
+    "rawSpecial": "**Forest Spirits.** Forest Spirits are woodland creatures. They are immune to terror and suffer -1 Command penalty when being ordered by General or Noble.",
+    "source": "3b422193"
+  },
+  {
+    "unitId": "wood-elves:treekin",
+    "rawSpecial": "**Forest Spirits.** Forest Spirits are woodland creatures. They are immune to terror and suffer -1 Command penalty when being ordered by General or Noble.",
+    "source": "3b422193"
+  },
+  {
+    "unitId": "wood-elves:glade-riders",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "wood-elves:wild-riders",
+    "rawSpecial": "**Forest Spirits.** Forest Spirits are woodland creatures. They are immune to terror and suffer -1 Command penalty when being ordered by General or Noble.<br><br>**Wild Riders.** Wild Riders receive +1 Attack in the first round of every combat when fighting to the front.",
+    "source": "bb0db9a9"
+  },
+  {
+    "unitId": "wood-elves:warhawk-riders",
+    "rawSpecial": "**Warhawk Riders.** Warhawk Riders can fly. They have a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy.",
+    "source": "5fa7ce57"
+  },
+  {
+    "unitId": "wood-elves:treeman",
+    "rawSpecial": "**Forest Spirits.** Forest Spirits are woodland creatures. They are immune to terror and suffer -1 Command penalty when being ordered by General or Noble.<br><br>**Treeman.** Treeman can enter woods and suffers no command penalty for being within the woods but cannot get defended status there. Treeman causes terror.",
+    "source": "85784712"
+  },
+  {
+    "unitId": "wood-elves:general",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "wood-elves:noble",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "wood-elves:treeman-ancient",
+    "rawSpecial": "**Treeman Ancient.** Treeman Ancient has -1 Command penalty when issuing orders to other than Forest Spirit units. Can join only Forest Spirit units and is able to cast Tree Singing spell. Units joined by Treeman Ancient cause terror. There can ever be only one Treeman Ancient in any Wood Elf army. Cannot be given any magic items.",
+    "source": "94a5a98b"
+  },
+  {
+    "unitId": "wood-elves:branchwraith",
+    "rawSpecial": "**Branchwraith.** Branchwraith has -1 Command penalty when issuing orders to other than Forest Spirit units. Can join only Forest Spirit units and is able to cast Tree Singing spell. Cannot be given any magic items.",
+    "source": "13ce6ecc"
+  },
+  {
+    "unitId": "wood-elves:spellweaver",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "wood-elves:giant-stag",
+    "rawSpecial": "**Giant Stag.** General, Nobles and Spellweavers may ride a Giant Stag. The Stag adds +1 Attack to those of its rider.",
+    "source": "6ced3ea5"
+  },
+  {
+    "unitId": "wood-elves:unicorn",
+    "rawSpecial": "**Unicorn.** This mount can be ridden by Spellweaver only. The Unicorn adds +1 Attack to those of its rider. Once per battle the Unicorn’s magical power adds +1 to the dice when casting a spell. The player must announce that the Unicorn’s magic before rolling to see if the spell works. There can be only one Unicorn in the army.",
+    "source": "142a99aa"
+  },
+  {
+    "unitId": "wood-elves:warhawk",
+    "rawSpecial": "**Warhawk.** General, Nobles and Spellweavers may ride a Warhawk. The Warhawk can fly, increasing its rider’s move from 60cm to 100cm, and it adds +1 Attack to those of its rider.",
+    "source": "600d7b0"
+  },
+  {
+    "unitId": "wood-elves:forest-dragon",
+    "rawSpecial": "**Forest Dragon.** Generals, Nobles and Spell Weavers may ride Forest Dragons. A Forest Dragon can fly, increasing its rider’s move to 100cm, and adds +3 Attacks to those of its rider. Any unit joined by a character riding a Forest Dragon cause terror in their enemies and so long as the Dragon is attached to a unit, it can use its Corrosive Breath attack. This is a shooting attack with a range of 20cm, which can be directed against one target as normal. The breath has 3 Attacks, which are worked out in the usual way.",
+    "source": "e04f3f9c"
+  },
+  {
+    "unitId": "beastmen:gor",
+    "rawSpecial": "**Gor/Ungor.** Up to half the Gor units (rounded down) and half the Ungor units (rounded down) may be designated as Ambushers. At the start of the game, you must inform your opponent how many units will Ambush. Ambushers may form Brigades or act as single units. Ambushers are deployed during any Command phase, not at the start of the game. To deploy ambushers, nominate a character, the ambushing units and a point in a piece of dense terrain or a point on any board edge except the enemy’s. Issue an Ambush order to the point, which can be outside the character’s Command range. Apply distance and enemy proximity penalties, but ignore dense terrain penalties. If the Ambush order is successful, place one stand from the unit at the point, then deploy the rest in formation around it. Brigade units form up within a full pace move of the first stand. If the nominated point is in dense terrain it must be chosen that every stand of every unit within the group must be at least partially within the terrain. No Ambusher may deploy within 1 cm of an enemy stand. After deployment, Ambushers may receive further orders if in the Command range, but the Ambush order counts as their first order. If the Ambush order fails, Ambushers cannot deploy that turn but can try again later in the game. Once deployed, Ambushers operate like normal units. Ungor have a shooting range of 15 cm.",
+    "source": "877a4121"
+  },
+  {
+    "unitId": "beastmen:ungor",
+    "rawSpecial": "**Gor/Ungor.** Up to half the Gor units (rounded down) and half the Ungor units (rounded down) may be designated as Ambushers. At the start of the game, you must inform your opponent how many units will Ambush. Ambushers may form Brigades or act as single units. Ambushers are deployed during any Command phase, not at the start of the game. To deploy ambushers, nominate a character, the ambushing units and a point in a piece of dense terrain or a point on any board edge except the enemy’s. Issue an Ambush order to the point, which can be outside the character’s Command range. Apply distance and enemy proximity penalties, but ignore dense terrain penalties. If the Ambush order is successful, place one stand from the unit at the point, then deploy the rest in formation around it. Brigade units form up within a full pace move of the first stand. If the nominated point is in dense terrain it must be chosen that every stand of every unit within the group must be at least partially within the terrain. No Ambusher may deploy within 1 cm of an enemy stand. After deployment, Ambushers may receive further orders if in the Command range, but the Ambush order counts as their first order. If the Ambush order fails, Ambushers cannot deploy that turn but can try again later in the game. Once deployed, Ambushers operate like normal units. Ungor have a shooting range of 15 cm.",
+    "source": "877a4121"
+  },
+  {
+    "unitId": "beastmen:bestigors",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "beastmen:minotaurs",
+    "rawSpecial": "**Minotaurs.** Minotaurs are subject to Bloodlust - they always use initiative to charge if possible and cannot be given orders instead. A unit with Bloodlust never uses initiative to evade and must pursue or advance where possible. Also, it is immune to terror, cannot be driven back by shooting and never rolls for drive backs.",
+    "source": "2116f18c"
+  },
+  {
+    "unitId": "beastmen:centigors",
+    "rawSpecial": "**Centigors.** Centigors have a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy.",
+    "source": "2d6af052"
+  },
+  {
+    "unitId": "beastmen:chaos-hounds",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "beastmen:tuskgore-chariots",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "beastmen:dragon-ogres",
+    "rawSpecial": "**Dragon Ogres.** Dragon Ogres are immune to terror.",
+    "source": "343b30a3"
+  },
+  {
+    "unitId": "beastmen:chaos-spawn",
+    "rawSpecial": "**Chaos Spawn.** Spawn units have -1 Command penalty if not part of a brigade that includes more non-Spawn units than Spawn units. Up to two Spawn units can be included in any brigade and do not count towards the maximum size of that brigade. Spawn units cause terror in combat - enemies suffer the -1 Combat modifier for fighting terrifying creatures. Spawn units cannot be driven back by shooting and never roll for drive backs. Spawn units must pursue or advance if victorious in combat where it is permitted to do so. Spawn units have a shooting range of 15cm and 360° vision - the unit can draw line of sight from all edges of its stand for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy.",
+    "source": "a89c105b"
+  },
+  {
+    "unitId": "beastmen:dragon-ogre-shaggoth",
+    "rawSpecial": "**Dragon Ogre Shaggoth.** Dragon Ogre Shaggoth must always be given a separate order. It cannot be brigaded with other troops even with other Shaggoths. Shaggoth has a great many hits, 8 in fact, which are almost impossible to inflict during even a fairly lengthy combat engagement. Because Shaggoths have so many hits we must consider the possibility of hurting the Dragon Ogre Shaggoth and reducing its effectiveness in subsequent turns. Therefore, if a Shaggoth has accumulated 5-7 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Shaggoth is badly hurt then all accumulated hits are discounted and its maximum Hits value and Attacks are halved for the rest of the battle (to 4 Hits and 4 Attacks). A Dragon Ogre Shaggoth causes terror in its enemies.",
+    "source": "be03d652"
+  },
+  {
+    "unitId": "beastmen:beastlord",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "beastmen:doombull",
+    "rawSpecial": "**Doombull.** A unit joined by a Doombull cause terror. Also, Gors, Ungors and Bestigors joined by a Doombull will become subject to Bloodlust in the same way as Minotaur units, until the end of the following Beastmen Command phase.",
+    "source": "504cec79"
+  },
+  {
+    "unitId": "beastmen:wargor",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "beastmen:bray-shaman",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "beastmen:tuskgor-chariot",
+    "rawSpecial": "**Tuskgor Chariot.** Beastlord or Wargors can ride a Tuskgor Chariot. A character riding a chariot adds +1 to his Attacks.",
+    "source": "442568e6"
+  },
+  {
+    "unitId": "norse:bondsmen",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "norse:huscarls",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "norse:huntsmen",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "norse:berserkers",
+    "rawSpecial": "**Berserkers.** Such is the eagerness to get into combat that a unit of Berserkers will always use its initiative to charge an enemy if possible and can’t be given orders instead. They’ll never use their initiative to evade. They can’t be driven back by shooting and do not roll for drive backs. If victorious in combat, they must pursue or advance where possible. Berserkers are unaffected by enemies that cause terror in combat, so they do not suffer the usual -1 Attack modifier.",
+    "source": "e3a33dbc"
+  },
+  {
+    "unitId": "norse:ulfwerener",
+    "rawSpecial": "**Ulfwerener.** Unlike usual infantry troops, the Ulfwerener are based facing the short edge in the same way as cavalry. In addition they receive an additional +1 Attack modifier when they charge an enemy in the open in the same way as monsters and chariots and have an ability to pursue cavalry and chariots troop types. The Ulfwerener stands can never support or be supported at all. Because of their rather bestial nature, only characters with the Were Kin Character upgrade may join units of Ulfwerener. Ulfwerener units cannot take any magic items.",
+    "source": "e158f628"
+  },
+  {
+    "unitId": "norse:hird-horsemen",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "norse:storm-giant",
+    "rawSpecial": "**Storm Giant.** Giants must always be given a separate order. They cannot be brigaded with other troops, although several Giants can be brigaded together if you so wish. If you attempt to give an order to a Giant and fail then you must take a test to see what it does. Ignore potential blunders - these are taken into account by the following rules. Roll a dice and consult the Giant Goes Wild chart. Where Giants are brigaded together roll for each separately. Giants have a great many hits, 8 in fact, which are almost impossible to inflict during even a fairly lengthy combat engagement. Because Giants have so many hits we must consider the possibility of hurting the Giant and reducing its effectiveness in subsequent turns. Therefore, if a Giant has accumulated 5-7 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Giant is badly hurt all accumulated hits are discounted and its maximum Hits value and Attacks are halved for the rest of the battle (to 4 Hits and 4 Attacks). A Giant causes terror in its enemies. Giant Goes Wild Chart D6 Oh no! What‘s he doing now! 1. The Giant will neither move nor fight this turn but simply stands rooted to the spot looking dopey. 2. Move the Giant directly towards the nearest table edge. If he moves into another unit he will charge it regardless of which side it is on. If victorious in combat the Giant will hold his ground. 3. The Giant throws an object at the closest visible unit (friend or foe) within 5xD6 cm, inflicting 3 Attacks. If the target is in combat, the attacks contribute to the combat result; otherwise, resolve them in the Shooting phase. 4. The Giant moves straight forward at full pace in the direction he is facing in. If he reaches an enemy unit he will charge. If he reaches a friendly unit he will walk straight through and out the other side if there is room and he has sufficient move. If he reaches a friendly unit and does not have sufficient move or enough room to walk all the way through then he halts on contact. A friendly unit that is walked through or contacted in this way instantly becomes confused as a result. 5. The Giant moves towards the nearest enemy unit that he can see as fast as he can. If he reaches the foe he will charge. If friends are in the way he will walk through them causing confusion as described above. If there is no visible enemy the Giant does nothing this Command phase. 6. The Giant gives a mighty bellow and rushes straight at the nearest enemy unit that he can see. Move the Giant at double his normal full pace move. If he reaches an enemy unit, he charges it and fights by jumping up and down on the foe, furiously doubling his Attacks value in the first round of combat. If there is no visible enemy the Giant does nothing this Command phase.",
+    "source": "acd1850e"
+  },
+  {
+    "unitId": "norse:war-mammoth",
+    "rawSpecial": "**War Mammoth.** As the Mammoth is so gargantuan, it uses a 40 x 60mm base, with the short edge being the front. It causes terror and may attack troops on ramparts with its trunk in the same manner as a Giant. Alternatively, it may elect to batter a wall section or gateway with its tusks in the same manner as a battering ram. One last option available in a siege is that if a Norse War Mammoth is in base contact with a wall section, then one Norse infantry unit may assault that wall section via the Mammoth. Climbing up ladders and ropes at the rear of the Mammoth and using boarding ramps and the like to assault the fortress walls. This is not quite as effective as assaulting from a siege tower, so the enemy being assaulted only counts as defended rather than in the open, but is much better than counting it as fortified. If a unit assaults in this manner, then the War Mammoth may not attack with its trunk or batter the walls; as such action would result in attacking your own troops or bringing a wall section down from under them, not a good idea, even for the Norse troops. If a War Mammoth has accumulated 6-9 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Mammoth is badly hurt then all accumulated hits are discounted and its maximum Hits value and Attacks are halved for the rest of the battle (to 5 Hits and 4 Attacks).",
+    "source": "dbcd04e7"
+  },
+  {
+    "unitId": "norse:valkyries",
+    "rawSpecial": "**Valkyries.** Valkyries can fly. Valkyries will always use their initiative to charge an enemy if possible and cannot be given orders instead. They will never use their initiative to evade. Valkyries are unaffected by enemy that cause terror in combat and they don’t suffer the usual -1 Attack modifier.",
+    "source": "cf69c3f9"
+  },
+  {
+    "unitId": "norse:jarl",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "norse:hero",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "norse:shaman",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "norse:were-kin",
+    "rawSpecial": "**Were Kin.** The Were Kin special mount option may be taken by any character in Norse army. It is not actually a mount as such, more an upgrade. A unit that is joined by the character with the Were Kin upgrade causes terror in its enemies. No terrain restriction apply for Were Kin - just treat the character as having +1 extra Attack and causing terror.",
+    "source": "591211b5"
+  },
+  {
+    "unitId": "norse:horn-of-resounding",
+    "rawSpecial": "**Horn of Resounding.** A single Shaman in the army may be given this chariot upgrade granting the Shaman standard +1 Attack. Once per battle, the Horn can be used by the Shaman to inspire the units around him to fight harder. If the horn is used the Saman may add +1 to all of his Command checks for that single turn only.",
+    "source": "6cb5dbcc"
+  },
+  {
+    "unitId": "cathay:bannermen",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "cathay:crossbows",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "cathay:handguns",
+    "rawSpecial": "**Handguns.** Any or all of the army’s Crossbows units can be replaced by Handguns while still counting for the Crossbow min/max value. Their projectiles can pierce armour far easier than a crossbow bolt. Therefore, units hit by Handguns get a -1 penalty for their armour rolls.",
+    "source": "878cfad3"
+  },
+  {
+    "unitId": "cathay:terracotta-warriors",
+    "rawSpecial": "**Terracotta Warriors.** These warriors are considered Undead, so cannot act on initiative, are unaffected by terror or enemy within 20cm, and cannot be confused. They can only brigade with themselves and give/receive support only to/from each other. They can only be ordered by Sorcerers, who gain +1 command when doing so.",
+    "source": "8835180a"
+  },
+  {
+    "unitId": "cathay:maneaters",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "cathay:chariots",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "cathay:imperial-cavalry",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "cathay:hu-cavalry",
+    "rawSpecial": "**Hu Cavalry.** They have a shooting range of 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy.",
+    "source": "8a0550dd"
+  },
+  {
+    "unitId": "cathay:rocket-launcher",
+    "rawSpecial": "**Rocket Launcher.** The Rocket Launcher is treated as a Stone Thrower as described in the Rulebook (p.75), except it shoots 1D6 times per phase and any hits inflicted have an armour save with a minus 1 modifier (as for handguns). If the roll for the number of shots comes up a 1, the Rocket Launcher has misfired, and you must roll another D6 against the Rocket Launcher Misfire Chart. Rocket Launcher Misfire Chart<br><br>D6 Result<br><br>1 KABOOM! The Rocket Launcher explodes in spectacular manner.<br><br>2-3 Dud. The rocket does only one attack.<br><br>4-5 Whoosh! The rocket overshoots and does D6 attacks on the first unit in the line of fire past the original target, regardless of range. If the result is 1, don‘t roll for the misfire again. If the target is engaged in combat, the hits are carried over into Combat phase. If no target is behind the victim the rocket leaves the battlefield without causing any damage.<br><br>6 Big badaboom! The rocket does 2D6 attacks instead of the normal 1D6.",
+    "source": "a6a5193d"
+  },
+  {
+    "unitId": "cathay:triple-bows",
+    "rawSpecial": "**Triple Bows.** Triple Bows are Bolt Throwers as described in the main rulebook (p.75).",
+    "source": "6eb9e6da"
+  },
+  {
+    "unitId": "cathay:general",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "cathay:hero",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "cathay:sorcerer",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "cathay:chariot",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "cathay:celestial-dragon",
+    "rawSpecial": "**Celestial Dragon.** One Sorcerer per army can be upgraded to become a dragon which flies, gives orders, casts spells, and causes terror. The dragon cannot give orders to Terracotta Warriors.",
+    "source": "990099a9"
+  },
+  {
+    "unitId": "cathay:tiger",
+    "rawSpecial": "**Tiger.** Tigers cannot be ridden by Sorcerers.",
+    "source": "450a4c25"
+  },
+  {
+    "unitId": "cathay:qilin",
+    "rawSpecial": "**Qilin.** Only a Sorcerer can ride a Qilin. Once per battle the Qilin’s magical power adds +1 to the dice roll when casting a spell. The player must announce that they are using the Qilin’s magic before rolling to see if the spell works.",
+    "source": "f95424a3"
+  },
+  {
+    "unitId": "nippon:ashigaru",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "nippon:ashigaru-bowmen",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "nippon:ashigaru-teppo",
+    "rawSpecial": "**Ashigaru Teppo.** These units use black powder handguns. Their projectiles can pierce armour far easier than an arrow. Therefore, units hit by Ashigaru Teppo get a -1 penalty for their armour rolls.",
+    "source": "6bcee097"
+  },
+  {
+    "unitId": "nippon:samurai",
+    "rawSpecial": "**Bushido.** Samurai live their lives by a strict code of honour and ideals. The troops do not like losing face, so they cannot use Initiative to evade and they roll 1 less dice for drive back.",
+    "source": "f56a12a2"
+  },
+  {
+    "unitId": "nippon:mikata-ronin-monks",
+    "rawSpecial": "**Mikata.** A unit of Mikata will always use its initiative to charge an enemy if possible and cannot be given orders instead. They will never use their initiative to evade. They can’t be driven back by shooting and do not roll for drive backs. If victorious in combat, they must pursue or advance where possible. Mikata are unaffected by enemies that cause terror in combat, so they do not suffer the usual -1 Attack modifier.",
+    "source": "d801bdf3"
+  },
+  {
+    "unitId": "nippon:ninja",
+    "rawSpecial": "**Ninja.** Ninja have a shooting range of 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy. Ninja do not have to be deployed before the game if the player does not wish to do so. Instead, individual units can be infiltrated onto the battlefield once the game has begun. To infiltrate a unit, the Nippon player nominates the point where he wants the Ninja to appear and issues an ‘infiltration‘ order from any character. The character does not have to be within his normal command range to issue an infiltration order - the character‘s command range is considered to extend over the entire tabletop when issuing an infiltration order. Treat the order as issued to the nominated point and apply any modifiers for distance and proximity of enemy but ignore penalties for dense terrain. The nominated point must lie either on the table within dense terrain or on any base edge other than the enemy player‘s own table edge. If successful, place one stand on the nominated spot and arrange the rest of the unit into formation around it. The infiltrated unit cannot be placed so that it touches an enemy unit. Once deployed, orders can be given to the unit by the same character that gave the infiltration order if he is within his normal command range, the infiltrating unit is considered to have used its first order to deploy. If the infiltration order is failed the unit is not deployed and cannot infiltrate that turn, it can attempt to infiltrate in a subsequent turn at the same or a different place. Ninjas ignore penalties for Dense Terrain. Ninja count as Gutter Runners when the Scout Rules are applied.",
+    "source": "9d77f8e1"
+  },
+  {
+    "unitId": "nippon:oni",
+    "rawSpecial": "**Temple Daemons.** Temple Daemons are immune to terror and cannot be given magic items. They also suffer from Daemonic Instability. At the start of the Nippon player’s own Command phase, before making any initiatives moves, all friendly Daemon units that have taken at least 1 casualty (i.e. lost at least 1 stand out of 3) must make a ‘Daemonic Instability’ test. Roll a D6. If the unit has lost 2 stands (i.e. has only 1 stand remaining from 3) deduct 1 from the roll. 0-1 One stand is destroyed – the daemons fade away and are absorbed back into the heaven from which they came. Remove one stand from play. If a character is with the unit and the last stand is removed the character is destroyed too. 2-3 The unit becomes confused - if not already confused the stand becomes confused as it is torn between this world and the next. 4-5 No effect – unless the unit is confused in which case it ceases to be confused as it is favoured with the invigorating power of the Temple. 6 The unit regains one stand. The regained stand is placed in formation with the rest of the unit. If it is impossible to position the stand in formation with its unit then the stand cannot be added.",
+    "source": "35757730"
+  },
+  {
+    "unitId": "nippon:samurai-cavalry",
+    "rawSpecial": "**Bushido.** Samurai live their lives by a strict code of honour and ideals. The troops do not like losing face, so they cannot use Initiative to evade and they roll 1 less dice for drive back.",
+    "source": "f56a12a2"
+  },
+  {
+    "unitId": "nippon:komainu",
+    "rawSpecial": "**Temple Daemons.** Temple Daemons are immune to terror and cannot be given magic items. They also suffer from Daemonic Instability. At the start of the Nippon player’s own Command phase, before making any initiatives moves, all friendly Daemon units that have taken at least 1 casualty (i.e. lost at least 1 stand out of 3) must make a ‘Daemonic Instability’ test. Roll a D6. If the unit has lost 2 stands (i.e. has only 1 stand remaining from 3) deduct 1 from the roll. 0-1 One stand is destroyed – the daemons fade away and are absorbed back into the heaven from which they came. Remove one stand from play. If a character is with the unit and the last stand is removed the character is destroyed too. 2-3 The unit becomes confused - if not already confused the stand becomes confused as it is torn between this world and the next. 4-5 No effect – unless the unit is confused in which case it ceases to be confused as it is favoured with the invigorating power of the Temple. 6 The unit regains one stand. The regained stand is placed in formation with the rest of the unit. If it is impossible to position the stand in formation with its unit then the stand cannot be added.<br><br>**Komainu.** If the unit charges against an enemy in the open it receives an additional +1 Attack modifier in the same way as chariots and monsters. Komainu are affected by Instability and Immune to Terror like other Temple Daemons.",
+    "source": "f00202c2"
+  },
+  {
+    "unitId": "nippon:tengu",
+    "rawSpecial": "**Temple Daemons.** Temple Daemons are immune to terror and cannot be given magic items. They also suffer from Daemonic Instability. At the start of the Nippon player’s own Command phase, before making any initiatives moves, all friendly Daemon units that have taken at least 1 casualty (i.e. lost at least 1 stand out of 3) must make a ‘Daemonic Instability’ test. Roll a D6. If the unit has lost 2 stands (i.e. has only 1 stand remaining from 3) deduct 1 from the roll. 0-1 One stand is destroyed – the daemons fade away and are absorbed back into the heaven from which they came. Remove one stand from play. If a character is with the unit and the last stand is removed the character is destroyed too. 2-3 The unit becomes confused - if not already confused the stand becomes confused as it is torn between this world and the next. 4-5 No effect – unless the unit is confused in which case it ceases to be confused as it is favoured with the invigorating power of the Temple. 6 The unit regains one stand. The regained stand is placed in formation with the rest of the unit. If it is impossible to position the stand in formation with its unit then the stand cannot be added.<br><br>**Tengu.** Tengu can fly. They are an exception to the normal conventions for basing monsters in that they face the long edge of the stand in the same way as infantry rather than the short edge as most other monsters. Tengu are affected by Instability and Immune to Terror like other Temple Daemons.",
+    "source": "a10ebae0"
+  },
+  {
+    "unitId": "nippon:shogun",
+    "rawSpecial": "**Shogun.** If a Nippon Hero (Daimyo or Shugenja, not the Shogun) rolls a double 6 when issuing orders, the player must roll on the Blunder table with a -1 penalty on the result. If the table indicates a “You must be crazy” result, the -1 Command penalty must be applied to a Samurai or Samurai cavalry unit if a unit of these troops was being ordered or was in the brigade being ordered. If there is more than one of these units present, the Nippon player may choose which is affected.",
+    "source": "ce3af69"
+  },
+  {
+    "unitId": "nippon:daimyo",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "nippon:shugenja",
+    "rawSpecial": "**Shugenja.** If an enemy Wizard within 50cm of the Shugenja casts a spell the Shugenja can attempt to anti-magic it. Note that it does not matter what the spell is or where it is cast, the Shugenja can ‘anti-magic’ it so long as the caster is within 50cm. To determine if this works, roll a D6 - on a score of 4, 5 or 6 the Shugenja has succeeded and the spell doesn‘t work, it is dispelled by the Shugenja’s defiant efforts. If he fails, then the Shugenja’s efforts come to nothing and the spell works as normal. A Shugenja can attempt to anti-magic any number of spells in a turn, but only one attempt can be made to anti-magic any individual spell - even if the army includes more than one Shugenja and several are in range of the enemy Wizard. The Shugenja adds +1 to any rolls on the Daemonic Instability table if he is within 20cm of the affected Daemon unit. This benefit only applies when rolling on the Daemonic Instability table for friendly units. Shugenjas may take a Dispel scroll.",
+    "source": "380c5349"
+  },
+  {
+    "unitId": "nippon:tatsu",
+    "rawSpecial": "**Tatsu.** Generals and Heroes can ride Tatsu, a kind of dragon native to Nippon. Tatsu can fly and cause terror in their enemies. An extra +2 Attacks are added to those of its rider.",
+    "source": "1a5fb297"
+  },
+  {
+    "unitId": "nippon:shrine",
+    "rawSpecial": "**Shrine.** The army can only include a single Shrine and it is incorporated onto the stand of a Shugenja. If a Shugenja stand includes the Shrine, once per battle he can add +1 to his dice roll when he attempts to dispel enemy magic spells using the Shrine anti-magic ability (see Shugenja). In addition, the Shugenja can invoke the gods using the Shrine during the Shooting phase of his own turn. The shrine’s invocation fills the Nippon army with even greater resolve! Roll a D6. On the score of a 4, 5 or 6 all Nippon units within 20cm of the Shugenja are unaffected by Terror until the start of the Nippon player‘s next turn. On a roll of less than 4 there is no effect.",
+    "source": "d8104d36"
+  },
+  {
+    "unitId": "regiments-of-renown:pirazzos-lost-legion",
+    "rawSpecial": "**Pikemen.** The pike is the traditional weapon of the mercenaries of Tilea. Twice as long as a spear and even longer than a cavalryman’s lance this is truly fearsome although rather unwieldy weapon. Pikemen are based facing the short edge of the base in the same way as Cavalry, rather than the long edge like other Infantry. Pikemen can not enter dense terrain (even partially). They still may be in defended position on higher ground or behind low obstacle as usual, but can only claim defended status when fighting to the front. An enemy does not receive charge bonuses when charging Pikemen in the front, nor does Pikemen receive any charge bonus themselves. A Pikemen stand cannot support or be supported by other infantry - only by other Pikemen stands. In all other respects they count as infantry (movement/pursuit etc.).",
+    "source": "af2c1ba6"
+  },
+  {
+    "unitId": "regiments-of-renown:alcatani-fellowship",
+    "rawSpecial": "**Pikemen.** The pike is the traditional weapon of the mercenaries of Tilea. Twice as long as a spear and even longer than a cavalryman’s lance this is truly fearsome although rather unwieldy weapon. Pikemen are based facing the short edge of the base in the same way as Cavalry, rather than the long edge like other Infantry. Pikemen can not enter dense terrain (even partially). They still may be in defended position on higher ground or behind low obstacle as usual, but can only claim defended status when fighting to the front. An enemy does not receive charge bonuses when charging Pikemen in the front, nor does Pikemen receive any charge bonus themselves. A Pikemen stand cannot support or be supported by other infantry - only by other Pikemen stands. In all other respects they count as infantry (movement/pursuit etc.).",
+    "source": "af2c1ba6"
+  },
+  {
+    "unitId": "regiments-of-renown:riccos-republican-guard",
+    "rawSpecial": "**Pikemen.** The pike is the traditional weapon of the mercenaries of Tilea. Twice as long as a spear and even longer than a cavalryman’s lance this is truly fearsome although rather unwieldy weapon. Pikemen are based facing the short edge of the base in the same way as Cavalry, rather than the long edge like other Infantry. Pikemen can not enter dense terrain (even partially). They still may be in defended position on higher ground or behind low obstacle as usual, but can only claim defended status when fighting to the front. An enemy does not receive charge bonuses when charging Pikemen in the front, nor does Pikemen receive any charge bonus themselves. A Pikemen stand cannot support or be supported by other infantry - only by other Pikemen stands. In all other respects they count as infantry (movement/pursuit etc.).",
+    "source": "af2c1ba6"
+  },
+  {
+    "unitId": "regiments-of-renown:leopolds-leopard-company",
+    "rawSpecial": "**Pikemen.** The pike is the traditional weapon of the mercenaries of Tilea. Twice as long as a spear and even longer than a cavalryman’s lance this is truly fearsome although rather unwieldy weapon. Pikemen are based facing the short edge of the base in the same way as Cavalry, rather than the long edge like other Infantry. Pikemen can not enter dense terrain (even partially). They still may be in defended position on higher ground or behind low obstacle as usual, but can only claim defended status when fighting to the front. An enemy does not receive charge bonuses when charging Pikemen in the front, nor does Pikemen receive any charge bonus themselves. A Pikemen stand cannot support or be supported by other infantry - only by other Pikemen stands. In all other respects they count as infantry (movement/pursuit etc.).",
+    "source": "af2c1ba6"
+  },
+  {
+    "unitId": "regiments-of-renown:marksmen-of-miragliano",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "regiments-of-renown:braganzas-besiegers",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "regiments-of-renown:lumpin-croops-cocks",
+    "rawSpecial": "**Dense Terrain.** Lumpin Croop‘s Fighting Cocks are well used to sneaking about in woods and bushes. No command penalty is applied to this unit on account of dense terrain.",
+    "source": "b1b658fe"
+  },
+  {
+    "unitId": "regiments-of-renown:vesperos-vendetta",
+    "rawSpecial": "**Throwing weapons.** The unit has a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy.",
+    "source": "dbc65e5e"
+  },
+  {
+    "unitId": "regiments-of-renown:the-cursed-company",
+    "rawSpecial": "**Undead.** The Cursed Company is undead, and as such the following rules apply to them: They never act on initiative. The unit only moves in the Command phase if given orders. They are unaffected by the -1 Command penalty for enemy within 20cm. They are unaffected by the -1 Combat penalty for fighting terrifying troops. They are unaffected by the Confusion rule - they cannot become confused for any reason.",
+    "source": "2ae3eb10"
+  },
+  {
+    "unitId": "regiments-of-renown:mengils-manflyers",
+    "rawSpecial": "**Repeating crossbows.** Mengil Manhide‘s Manflayers are equipped with repeating crossbows. They may shoot once at ranges up to 30cm and twice at ranges up to 15cm. A unit of three stands would therefore shoot 6 Attacks at a target within 15cm and 3 Attacks at a target at greater ranges. They may shoot at enemies that charge them - in which case they shoot 1 Attack per stand regardless of range.",
+    "source": "47a76fef"
+  },
+  {
+    "unitId": "regiments-of-renown:anakondas-amazons",
+    "rawSpecial": "**Throwing weapons.** The unit has a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy.",
+    "source": "dbc65e5e"
+  },
+  {
+    "unitId": "regiments-of-renown:bearmen-of-urslo",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "regiments-of-renown:rugluds-armoured-orcs",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "regiments-of-renown:long-drongs-slayer-pirates",
+    "rawSpecial": "**Pistols.** Long Drong‘s Slayer Pirates carry pistols... loads of pistols! They have a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy.",
+    "source": "1172cd0b"
+  },
+  {
+    "unitId": "regiments-of-renown:golgfags-mercenary-ogres",
+    "rawSpecial": "**Ogres.** Ogres flock to mercenaries for the chance of a good fight and as much as they can eat. These creatures are notoriously fond of fresh human meat, although they will eat practically anything that was once alive (or still is). To represent this, if an Ogre unit can use its initiative to charge an enemy unit of humans at the start of the Command phase then it must do so (not Dwarfs, Elves etc.). This happens automatically.",
+    "source": "92107298"
+  },
+  {
+    "unitId": "regiments-of-renown:volands-venators",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "regiments-of-renown:al-muktars-desert-dogs",
+    "rawSpecial": "**Light Cavalry.** Light cavalry formations have a great use among the mercenaries. They are experts at outmaneuvering an enemy and harrying his flanks. Light cavalry has a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy.",
+    "source": "9a912842"
+  },
+  {
+    "unitId": "regiments-of-renown:oglah-khans-wolfboyz",
+    "rawSpecial": "**Light Cavalry.** Light cavalry formations have a great use among the mercenaries. They are experts at outmaneuvering an enemy and harrying his flanks. Light cavalry has a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy.",
+    "source": "9a912842"
+  },
+  {
+    "unitId": "regiments-of-renown:tichi-huichis-raiders",
+    "rawSpecial": "**Light Cavalry.** Light cavalry formations have a great use among the mercenaries. They are experts at outmaneuvering an enemy and harrying his flanks. Light cavalry has a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy.",
+    "source": "9a912842"
+  },
+  {
+    "unitId": "regiments-of-renown:birdmen-of-catrazza",
+    "rawSpecial": "**Birdmen.** Only half-mad nutters like Tileans would try to fly! The Birdmen wear insane contraptions of light wood covered in canvas that are shaped like wings and allow them to glide on the air currents. These ‘wings’ allow the Birdmen to fly and still use their crossbows as normal. Because they are awkward flyers, they can be pursued by any type of enemy troops. Birdmen are based facing the long edge of the base in the same way as other infantry.",
+    "source": "5d63e1ae"
+  },
+  {
+    "unitId": "regiments-of-renown:bronzinos-galloper-guns",
+    "rawSpecial": "**Galloper Guns.** These are lighter artillery than Dwarf or Empire cannons; due to this they are shorter ranged, but can make up for their lighter shot by producing a higher volume of fire. Galloper Guns move 20cm. All the normal rules for artillery applies as well as cannon’s rules for shooting (bounce through, no saves and reduction of cover values). Because they are light guns they have a range of only 40cm. They still may shoot at the charging enemy by firing ‘grapeshot’ as normal.",
+    "source": "a6b598d7"
+  },
+  {
+    "unitId": "regiments-of-renown:asarnil-the-dragonlord",
+    "rawSpecial": "**Dragons.** Asarnil rides a Dragon. The Dragon can fly increasing its rider‘s move to 100cm. An extra +3 Attacks are added (included in Asarnil‘s profile). The Dragon can breath fire if the character has joined a unit that isn‘t engaged in combat. The fire breath has a range of 20cm and can be directed against one target as for normal shooting and has 3 Attacks that are worked out in the usual way. Additionally Asarnil causes terror in its enemies.",
+    "source": "6815c77b"
+  },
+  {
+    "unitId": "regiments-of-renown:gotrek-and-felix",
+    "rawSpecial": null,
+    "source": "1505"
+  },
+  {
+    "unitId": "regiments-of-renown:the-witch-hunters",
+    "rawSpecial": null,
+    "source": "1505"
+  }
+]

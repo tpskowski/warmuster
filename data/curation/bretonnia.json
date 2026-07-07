@@ -1,0 +1,52 @@
+{
+  "bretonnia:pegasus-knights": {
+    "source": "992fcfed",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 60,
+      "halfPace": 10
+    },
+    "specials": [
+      "A Knight unit will always use its initiative to charge an enemy if possible and cannot be given orders instead. They will never use their initiative to evade."
+    ],
+    "notes": "Knights are unaffected by enemy that cause terror in combat and they don’t suffer the usual -1 Attack modifier.\n**Pegasus Knights.** Pegasus Knights can fly."
+  },
+  "bretonnia:unicorn": {
+    "source": "c4e75c83",
+    "eligibleToUpgrade": [
+      "bretonnia:enchantress"
+    ]
+  },
+  "bretonnia:pegasus": {
+    "source": "c54b514e",
+    "eligibleToUpgrade": [
+      "bretonnia:enchantress",
+      "bretonnia:general",
+      "bretonnia:hero"
+    ],
+    "overrides": {
+      "subType": "Flying",
+      "speed": 100
+    }
+  },
+  "bretonnia:hippogriff": {
+    "source": "7dc530e7",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 100
+    },
+    "eligibleToUpgrade": [
+      "bretonnia:general",
+      "bretonnia:hero"
+    ],
+    "specials": [
+      "A single General or Hero can ride a Hippogriff. A unit that includes a Hippogriff rider causes terror in its enemies."
+    ],
+    "notes": "A Hippogriff can fly, increasing its rider‘s move from 60 to 100cm, and it adds +2 Attacks to those of its rider."
+  },
+  "bretonnia:grail-reliquae": {
+    "eligibleToUpgrade": [
+      "bretonnia:peasants"
+    ]
+  }
+}

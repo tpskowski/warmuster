@@ -1,0 +1,25 @@
+{
+  "dogs-of-war:griffon": {
+    "source": "43aabf47",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 100
+    },
+    "eligibleToUpgrade": [
+      "dogs-of-war:general",
+      "dogs-of-war:hero",
+      "dogs-of-war:paymaster",
+      "dogs-of-war:wizard"
+    ],
+    "specials": [
+      "Generals, Wizards and Heroes may ride Griffons. The Griffon combines the appearance of a lion and an eagle. These creatures are hatched from stolen eggs and hand-reared to serve as mounts for favoured individuals. A unit which includes a Griffon causes terror in its enemies.\nand he has sufficient move. If he reaches a friendly unit and does not have sufficient move or enough room to walk all the way through then he halts on contact. A friendly unit that is walked through or contacted in this way instantly becomes confused as a result. 5. The Giant moves towards the nearest enemy unit that he can see as fast as he can. If he reaches the foe he will charge. If friends are in the way he will walk through them causing confusion as described above. If there is no visible enemy the Giant does nothing this Command phase. 6. The Giant gives a mighty bellow and rushes straight at the nearest enemy unit that he can see. Move the Giant at double his normal full pace move. If he reaches an enemy unit, he charges it and fights by jumping up and down on the foe, furiously doubling his Attacks value in the first round of combat. If there is no visible enemy the Giant does nothing this Command phase."
+    ],
+    "notes": "The Griffon can fly, increasing the rider’s movement to 100cm and it adds +2 Attacks to those of the rider."
+  },
+  "dogs-of-war:pay-wagon": {
+    "source": "eb9343a6",
+    "eligibleToUpgrade": [
+      "dogs-of-war:paymaster"
+    ]
+  }
+}

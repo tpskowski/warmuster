@@ -1,0 +1,30 @@
+{
+  "chaos-dwarfs:great-taurus": {
+    "source": "ba3dbd12",
+    "eligibleToUpgrade": [
+      "chaos-dwarfs:general",
+      "chaos-dwarfs:hero",
+      "chaos-dwarfs:sorcerer"
+    ],
+    "overrides": {
+      "subType": "Flying",
+      "speed": 100
+    }
+  },
+  "chaos-dwarfs:lammasu": {
+    "source": "ef39da8c",
+    "eligibleToUpgrade": [
+      "chaos-dwarfs:sorcerer"
+    ],
+    "overrides": {
+      "subType": "Flying",
+      "speed": 100
+    }
+  },
+  "chaos-dwarfs:sorcerer-lord": {
+    "source": "32c96e1f",
+    "eligibleToUpgrade": [
+      "chaos-dwarfs:general"
+    ]
+  }
+}

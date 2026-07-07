@@ -1,0 +1,20 @@
+{
+  "dwarfs:gyrocopter": {
+    "source": "f8b7fde2",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 60,
+      "halfPace": 10
+    },
+    "specials": [
+      "The model always forms a single unit on its own, must be given orders individually, cannot be brigaded with other units and cannot be joined by a character in combat. The Gyrocopter’s fast-firing gun is light in weight and fires a small calibre shot. It counts Armour values as one worse than normal. The Gyrocopter has 360° vision - the unit can draw line of sight from all edges of its stand for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from it‘s front edge to charge an enemy."
+    ],
+    "notes": "The Gyrocopter is a flying machine, so all the usual flying rules apply."
+  },
+  "dwarfs:anvil": {
+    "source": "a40fee04",
+    "eligibleToUpgrade": [
+      "dwarfs:runesmith"
+    ]
+  }
+}

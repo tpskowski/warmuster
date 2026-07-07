@@ -1,0 +1,54 @@
+{
+  "daemons:daemon-flyers": {
+    "source": "812d046e",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 60,
+      "halfPace": 10,
+      "facing": "long"
+    },
+    "specials": [],
+    "notes": "These can fly. Daemon Flyers are an exception to the normal conventions for basing monsters in that they face the long edge of the stand in the same way as infantry rather than the short edge as most other monsters."
+  },
+  "daemons:greater-daemon": {
+    "source": "2b23f5b9",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 60,
+      "halfPace": 10
+    },
+    "specials": [
+      "Greater Daemons cause terror in their enemies. A Greater Daemon that has accumulated 4-5 hits at the end of the Shooting or Combat phase and is no longer engaged in combat is deemed to have been badly hurt. Once a Greater Daemon is badly hurt accumulated hits are discounted and its Hits and Attacks values are halved for the rest of the battle (to 3 Hits and 4 Attacks)."
+    ],
+    "notes": "Greater Daemons can fly regardless of whether the actual model has wings – aerial propulsion is deemed feasible by sheer effort of will."
+  },
+  "daemons:daemonic-wings": {
+    "source": "dd5bfe31",
+    "overrides": {
+      "subType": "Flying"
+    },
+    "specials": [],
+    "notes": "Some of the creatures of the deep vaults of hell may have wings, some of them fly on hovering discs and some even have the ability of disappearing and reappearing wherever they want on the battlefield. Daemon characters may be given the ability of flying.",
+    "eligibleToUpgrade": [
+      "daemons:daemon-overlord",
+      "daemons:daemon-lord-hero",
+      "daemons:daemon-sorcerer"
+    ]
+  },
+  "daemons:favour-of-the-gods": {
+    "source": "8cc6b6e5",
+    "eligibleToUpgrade": [
+      "daemons:daemon-overlord",
+      "daemons:daemon-lord-hero",
+      "daemons:daemon-sorcerer"
+    ]
+  },
+  "daemons:chariot": {
+    "source": "3b6ee397",
+    "eligibleToUpgrade": [
+      "daemons:daemon-lord-hero",
+      "daemons:daemon-overlord",
+      "daemons:daemon-sorcerer"
+    ]
+  }
+}

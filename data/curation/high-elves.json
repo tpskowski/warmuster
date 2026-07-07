@@ -1,0 +1,64 @@
+{
+  "high-elves:giant-eagles": {
+    "source": "43af464e",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 60,
+      "halfPace": 10
+    },
+    "specials": [],
+    "notes": "Giant Eagles can fly."
+  },
+  "high-elves:dragon-rider": {
+    "source": "af1c9a98",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 60,
+      "halfPace": 10
+    },
+    "specials": [
+      "Dragon Rider units and any other units that include a Dragon-riding character cause terror in their enemies. Because Dragon Riders have a great many hits (6) which are difficult to inflict even during a lengthy combat engagement, we must consider the possibility of hurting the Dragon and reducing its effectiveness in subsequent turns. Therefore, if a Dragon Rider has accumulated 4-5 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Dragon has been badly hurt all accumulated hits are discounted and its maximum hits value and Attacks are halved for the rest of the battle (to 3 Hits and 3/2 Attacks). Generals, Wizards and Heroes can ride Dragons. An extra +3 Attacks are added to those of its rider. A Dragon can breathe fire if the character has joined a unit that isn‘t engaged in combat. A Dragon ridden by a character can‘t breathe fire if it is not part of a unit. Dragons can make a fiery breath. This applies both to a unit of Dragon Riders and to Dragons ridden by characters that have joined a unit of troops. Fire Breath works as follows. The fire breath has a range of 20cm. Breath can be directed against one target as for normal shooting and has 3 Attacks that are worked out in the usual way at 4+ to hit."
+    ],
+    "notes": "Dragons can fly. A Dragon can fly increasing its rider‘s move from 60 to 100cm."
+  },
+  "high-elves:giant-eagle": {
+    "source": "d0a1d264",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 100
+    },
+    "eligibleToUpgrade": [
+      "high-elves:general",
+      "high-elves:hero",
+      "high-elves:mage"
+    ],
+    "specials": [
+      "Generals, Wizards and Heroes can ride a Giant Eagle. An extra +2 Attacks are added to those of its rider."
+    ],
+    "notes": "An Eagle can fly increasing its rider‘s move from 60 to 100cm."
+  },
+  "high-elves:dragon": {
+    "source": "af1c9a98",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 100
+    },
+    "specials": [
+      "Dragon Rider units and any other units that include a Dragon-riding character cause terror in their enemies. Because Dragon Riders have a great many hits (6) which are difficult to inflict even during a lengthy combat engagement, we must consider the possibility of hurting the Dragon and reducing its effectiveness in subsequent turns. Therefore, if a Dragon Rider has accumulated 4-5 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Dragon has been badly hurt all accumulated hits are discounted and its maximum hits value and Attacks are halved for the rest of the battle (to 3 Hits and 3/2 Attacks). Generals, Wizards and Heroes can ride Dragons. An extra +3 Attacks are added to those of its rider. A Dragon can breathe fire if the character has joined a unit that isn‘t engaged in combat. A Dragon ridden by a character can‘t breathe fire if it is not part of a unit. Dragons can make a fiery breath. This applies both to a unit of Dragon Riders and to Dragons ridden by characters that have joined a unit of troops. Fire Breath works as follows. The fire breath has a range of 20cm. Breath can be directed against one target as for normal shooting and has 3 Attacks that are worked out in the usual way at 4+ to hit."
+    ],
+    "notes": "Dragons can fly. A Dragon can fly increasing its rider‘s move from 60 to 100cm.",
+    "eligibleToUpgrade": [
+      "high-elves:general",
+      "high-elves:hero",
+      "high-elves:mage"
+    ]
+  },
+  "high-elves:chariot": {
+    "source": "3b6ee397",
+    "eligibleToUpgrade": [
+      "high-elves:general",
+      "high-elves:hero",
+      "high-elves:mage"
+    ]
+  }
+}

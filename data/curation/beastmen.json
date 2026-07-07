@@ -1,0 +1,9 @@
+{
+  "beastmen:tuskgor-chariot": {
+    "source": "442568e6",
+    "eligibleToUpgrade": [
+      "beastmen:beastlord",
+      "beastmen:wargor"
+    ]
+  }
+}

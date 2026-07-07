@@ -1,0 +1,37 @@
+{
+  "vampire-counts:fell-bats": {
+    "source": "592ae5f5",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 60,
+      "halfPace": 10
+    },
+    "specials": [
+      "Although they cannot use initiative they are allowed to home back as described in the Warmaster rulebook. No order is required to home back. Fell Bats are an exception to the normal rules for basing monsters, in that they are based along the long base edge in the same way as infantry, rather than the short edge like other monsters."
+    ],
+    "notes": "Fell Bats can fly."
+  },
+  "vampire-counts:winged-nightmare": {
+    "source": "f2a874b8",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 100
+    },
+    "eligibleToUpgrade": [
+      "vampire-counts:necromancer",
+      "vampire-counts:vampire",
+      "vampire-counts:vampire-lord"
+    ],
+    "specials": [
+      "Any character can ride a Winged Nightmare. A unit joined by a character riding a Winged Nightmare causes terror in its enemies."
+    ],
+    "notes": "A Winged Nightmare can fly increasing its rider‘s move to 100cm and adding +2 to its rider‘s attacks."
+  },
+  "vampire-counts:black-coach": {
+    "source": "bf5be8fc",
+    "eligibleToUpgrade": [
+      "vampire-counts:vampire",
+      "vampire-counts:vampire-lord"
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "warmuster",
+  "private": true,
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "generate:data": "node scripts/generate-army-json.mjs",
+    "validate:data": "node scripts/validate-data.mjs",
+    "generate:diff": "node scripts/generate-version-diff.mjs",
+    "test": "npm run validate:data && vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@fontsource/grenze": "^5.2.9",
+    "@fontsource/im-fell-english": "^5.2.6",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^26.0.0",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^4.6.0",
+    "jsdom": "^26.1.0",
+    "typescript": "~5.8.3",
+    "vite": "^7.0.0",
+    "vitest": "^3.2.4"
+  }
+}

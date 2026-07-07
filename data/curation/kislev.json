@@ -1,0 +1,22 @@
+{
+  "kislev:bear": {
+    "source": "f5fbd083",
+    "eligibleToUpgrade": [
+      "kislev:general",
+      "kislev:hero",
+      "kislev:shaman"
+    ]
+  },
+  "kislev:yozhin": {
+    "source": "c9aa1988",
+    "eligibleToUpgrade": [
+      "kislev:shaman"
+    ]
+  },
+  "kislev:tzarina": {
+    "source": "bac84326",
+    "eligibleToUpgrade": [
+      "kislev:general"
+    ]
+  }
+}

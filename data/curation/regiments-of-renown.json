@@ -1,0 +1,13 @@
+{
+  "regiments-of-renown:asarnil-the-dragonlord": {
+    "source": "6815c77b",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 100
+    },
+    "specials": [
+      "Asarnil rides a Dragon. An extra +3 Attacks are added (included in Asarnil‘s profile). The Dragon can breath fire if the character has joined a unit that isn‘t engaged in combat. The fire breath has a range of 20cm and can be directed against one target as for normal shooting and has 3 Attacks that are worked out in the usual way. Additionally Asarnil causes terror in its enemies."
+    ],
+    "notes": "The Dragon can fly increasing its rider‘s move to 100cm."
+  }
+}

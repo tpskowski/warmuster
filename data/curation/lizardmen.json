@@ -1,0 +1,25 @@
+{
+  "lizardmen:terradons": {
+    "source": "f07e9930",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 60,
+      "halfPace": 10
+    },
+    "specials": [
+      "Terradon riders have a shooting range of 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from it‘s front edge to charge an enemy."
+    ],
+    "notes": "Terradons can fly."
+  },
+  "lizardmen:carnosaur": {
+    "source": "b07193ec",
+    "eligibleToUpgrade": [
+      "lizardmen:saurus-hero"
+    ]
+  },
+  "lizardmen:stegadon-monstrous-mount": {
+    "eligibleToUpgrade": [
+      "lizardmen:slann-mage-palanquin"
+    ]
+  }
+}

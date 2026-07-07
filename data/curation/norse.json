@@ -1,0 +1,28 @@
+{
+  "norse:valkyries": {
+    "source": "cf69c3f9",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 60,
+      "halfPace": 10
+    },
+    "specials": [
+      "Valkyries will always use their initiative to charge an enemy if possible and cannot be given orders instead. They will never use their initiative to evade. Valkyries are unaffected by enemy that cause terror in combat and they don’t suffer the usual -1 Attack modifier."
+    ],
+    "notes": "Valkyries can fly."
+  },
+  "norse:were-kin": {
+    "source": "591211b5",
+    "eligibleToUpgrade": [
+      "norse:hero",
+      "norse:jarl",
+      "norse:shaman"
+    ]
+  },
+  "norse:horn-of-resounding": {
+    "source": "6cb5dbcc",
+    "eligibleToUpgrade": [
+      "norse:shaman"
+    ]
+  }
+}

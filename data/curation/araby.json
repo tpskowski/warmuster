@@ -1,0 +1,49 @@
+{
+  "araby:magic-carpets": {
+    "source": "c914d27d",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 60,
+      "halfPace": 10
+    },
+    "specials": [
+      "Because they are awkward flyers, they can be pursued by any type of enemy troops. They have a shooting range of 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from it‘s front edge to charge an enemy."
+    ],
+    "notes": "Magic carpets can fly – they have been rated as aerial ‘cavalry‘ as this is the closest categorisation to their type."
+  },
+  "araby:flying-carpet": {
+    "source": "d0792ff6",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 100
+    },
+    "specials": [],
+    "notes": "This is considered to be a flying chariot mount.",
+    "eligibleToUpgrade": [
+      "araby:general",
+      "araby:hero",
+      "araby:wizard"
+    ]
+  },
+  "araby:djinn": {
+    "source": "ee45be66",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 100
+    },
+    "eligibleToUpgrade": [
+      "araby:wizard"
+    ],
+    "specials": [
+      "If the Wizard has a Djinn he can also cast the Curse of the Djinn spell with a +1 casting bonus (see spells). Note that unusually the Djinn has +2 shooting attacks - these are added to a stand from a unit that the character has joined and can only be used when the character joins a unit. If the Wizard is accompanied by a Djinn then any unit he joins causes Terror."
+    ],
+    "notes": "The Djinn accompanies its master and can transform both of them into a whirlwind enabling the stand to fly as for a normal flying mount."
+  },
+  "araby:elephant": {
+    "eligibleToUpgrade": [
+      "araby:general",
+      "araby:hero",
+      "araby:wizard"
+    ]
+  }
+}

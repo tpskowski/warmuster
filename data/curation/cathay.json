@@ -1,0 +1,35 @@
+{
+  "cathay:celestial-dragon": {
+    "source": "990099a9",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 100
+    },
+    "eligibleToUpgrade": [
+      "cathay:sorcerer"
+    ],
+    "specials": [
+      "The dragon cannot give orders to Terracotta Warriors."
+    ],
+    "notes": "One Sorcerer per army can be upgraded to become a dragon which flies, gives orders, casts spells, and causes terror."
+  },
+  "cathay:qilin": {
+    "source": "f95424a3",
+    "eligibleToUpgrade": [
+      "cathay:sorcerer"
+    ]
+  },
+  "cathay:chariot": {
+    "eligibleToUpgrade": [
+      "cathay:general",
+      "cathay:hero",
+      "cathay:sorcerer"
+    ]
+  },
+  "cathay:tiger": {
+    "eligibleToUpgrade": [
+      "cathay:general",
+      "cathay:hero"
+    ]
+  }
+}

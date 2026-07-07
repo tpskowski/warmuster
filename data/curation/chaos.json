@@ -1,0 +1,39 @@
+{
+  "chaos:harpies": {
+    "source": "f63e1bfd",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 60,
+      "halfPace": 10,
+      "facing": "long"
+    },
+    "specials": [
+      "A unit of harpies cannot be joined by a character."
+    ],
+    "notes": "Harpies are based facing the long edge of the base in the same way as infantry, rather than the short edge like other monsters. Harpies can fly."
+  },
+  "chaos:chaos-dragon": {
+    "source": "31342464",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 100
+    },
+    "eligibleToUpgrade": [
+      "chaos:general",
+      "chaos:hero",
+      "chaos:sorcerer"
+    ],
+    "specials": [
+      "Generals, Wizards and Heroes can ride a Chaos Dragon. In addition the Dragon has a special shooting attack. It can breathe fire. This special attack can only be used if the rider has joined a unit and is not engaged in combat. A rider that has not joined a unit cannot use the Dragon‘s fiery breath to attack. The Dragon‘s fire breath works as follows. The fire breath has a range of 20cm. It can be directed against one target as normal and has 3 Attacks worked out in the usual way. The Chaos Dragon is a large terrifying creature. A unit that has been joined by a Chaos Dragon causes terror in its enemies and therefore imposes the usual Combat penalty."
+    ],
+    "notes": "The Chaos Dragon can fly, increasing the rider‘s move from 60 to 100cm, and it adds +3 Attacks to those of its rider."
+  },
+  "chaos:chariot": {
+    "source": "8c19c72b",
+    "eligibleToUpgrade": [
+      "chaos:general",
+      "chaos:hero",
+      "chaos:sorcerer"
+    ]
+  }
+}

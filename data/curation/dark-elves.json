@@ -1,0 +1,51 @@
+{
+  "dark-elves:harpies": {
+    "source": "f63e1bfd",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 60,
+      "halfPace": 10,
+      "facing": "long"
+    },
+    "specials": [
+      "A unit of harpies cannot be joined by a character."
+    ],
+    "notes": "Harpies are based facing the long edge of the base in the same way as infantry, rather than the short edge like other monsters. Harpies can fly."
+  },
+  "dark-elves:manticore": {
+    "source": "3bd20eee",
+    "overrides": {
+      "subType": "Flying",
+      "speed": 100
+    },
+    "eligibleToUpgrade": [
+      "dark-elves:general",
+      "dark-elves:hero",
+      "dark-elves:sorceress"
+    ],
+    "specials": [
+      "Generals, Heroes and the Sorceress can ride a Manticore. An extra +2 Attacks are added to those of the rider. A unit joined by the character causes Terror."
+    ],
+    "notes": "The Manticore can fly increasing the rider‘s movement to 100cm."
+  },
+  "dark-elves:cauldron-of-blood": {
+    "source": "52efd772",
+    "overrides": {
+      "speed": 30
+    },
+    "eligibleToUpgrade": [
+      "dark-elves:sorceress"
+    ],
+    "specials": [
+      "A Sorceress can have a Cauldron of Blood. The army can only ever include one Cauldron of Blood and it can only be included if there is at least 1 unit of Witch Elves in the army. The Cauldron of Blood adds +2 Attacks to the Sorceress and can be used to add +1 to the Sorceress‘s dice roll to cast a spell once per battle. The player must announce that the Cauldron of Blood‘s spell bonus is being used before rolling the dice to determine if the spell is cast."
+    ],
+    "notes": "A Sorceress with a Cauldron of Blood suffers a movement reduction to 30cm."
+  },
+  "dark-elves:chariot": {
+    "eligibleToUpgrade": [
+      "dark-elves:general",
+      "dark-elves:hero",
+      "dark-elves:sorceress"
+    ]
+  }
+}

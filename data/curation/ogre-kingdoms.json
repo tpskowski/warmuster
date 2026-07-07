@@ -1,0 +1,10 @@
+{
+  "ogre-kingdoms:bull-rhinox": {
+    "source": "7d7d357a",
+    "eligibleToUpgrade": [
+      "ogre-kingdoms:bruiser",
+      "ogre-kingdoms:butcher",
+      "ogre-kingdoms:tyrant"
+    ]
+  }
+}
