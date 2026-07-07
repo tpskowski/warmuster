@@ -1,20 +1,30 @@
-﻿import type { ArmyData, SavedList, SpellData } from "../types";
+﻿import type { ArmyData, SavedCharacterEntry, SavedList, SavedUnitEntry, SpellData } from "../types";
 import { getUnit } from "../data/gameData";
 import { entryPoints, totalPoints } from "../domain/lists";
+import { getMagicItem, type MagicItemData } from "../domain/magicItems";
 import { buildCard, type CardModel } from "../domain/unitCard";
 import { meleeAttacksLabel, rangedAttacksLabel, signedLabel } from "./UnitStats";
 
 export type PrintMode = "list" | "cards";
 
 /** Full army-list printout with special rules, army rules, and spells. */
+function entryExtras(army: ArmyData, entry: SavedUnitEntry | SavedCharacterEntry): string {
+  return [
+    ...entry.upgrades.map((id) => getUnit(army, id)?.troop),
+    ...entry.magicItems.map((id) => getMagicItem(id)?.name ?? id),
+  ]
+    .filter(Boolean)
+    .join(", ");
+}
+
 export function PrintList({ list, army }: { list: SavedList; army: ArmyData }) {
   const rows: Array<{ label: string; quantity: number; points: number; unitId: string }> = [];
   for (const entry of list.characters) {
     const unit = getUnit(army, entry.unitId);
     if (!unit) continue;
-    const upgrades = entry.upgrades.map((id) => getUnit(army, id)?.troop).filter(Boolean).join(", ");
+    const extras = entryExtras(army, entry);
     rows.push({
-      label: upgrades ? `${unit.troop} (${upgrades})` : unit.troop,
+      label: extras ? `${unit.troop} (${extras})` : unit.troop,
       quantity: 1,
       points: entryPoints(army, entry, unit),
       unitId: entry.unitId,
@@ -23,14 +33,18 @@ export function PrintList({ list, army }: { list: SavedList; army: ArmyData }) {
   for (const entry of list.units) {
     const unit = getUnit(army, entry.unitId);
     if (!unit) continue;
-    const upgrades = entry.upgrades.map((id) => getUnit(army, id)?.troop).filter(Boolean).join(", ");
+    const extras = entryExtras(army, entry);
     rows.push({
-      label: upgrades ? `${unit.troop} (${upgrades})` : unit.troop,
+      label: extras ? `${unit.troop} (${extras})` : unit.troop,
       quantity: entry.quantity,
       points: entryPoints(army, entry, unit),
       unitId: entry.unitId,
     });
   }
+  const usedMagicItems = [...list.characters, ...list.units]
+    .flatMap((entry) => entry.magicItems)
+    .map((id) => getMagicItem(id))
+    .filter((item) => item != null);
 
   // Rules for every distinct unit (and selected upgrade) in the list.
   const usedIds = new Set<string>();
@@ -92,6 +106,18 @@ export function PrintList({ list, army }: { list: SavedList; army: ArmyData }) {
           <h2>Army rules</h2>
           {army.armyRules.map((rule, i) => (
             <p key={i}>{rule}</p>
+          ))}
+        </section>
+      )}
+
+      {usedMagicItems.length > 0 && (
+        <section>
+          <h2>Magic items</h2>
+          {usedMagicItems.map((item) => (
+            <div key={item.itemId} className="print-rule">
+              <h3>{item.name}</h3>
+              <p>{item.text}</p>
+            </div>
           ))}
         </section>
       )}
@@ -191,20 +217,45 @@ function SpellCard({ spell }: { spell: SpellData }) {
   );
 }
 
+function MagicItemCard({ item, bearer }: { item: MagicItemData; bearer: string | null }) {
+  return (
+    <div className="unit-card spell-card fit-0">
+      <div className="card-head">
+        <span className="card-name">{item.name}</span>
+        <span className="card-type">Magic item</span>
+      </div>
+      <div className="card-body">
+        {bearer && (
+          <div className="card-stats">
+            <div className="card-stat">
+              <span className="card-stat-label">Carried by:</span> {bearer}
+            </div>
+          </div>
+        )}
+        <p className="card-rule">{item.text}</p>
+      </div>
+    </div>
+  );
+}
+
 /** Unit-card sheet: one card per distinct unit/character/upgrade in the list,
- * plus spell cards when the list includes a wizard. */
+ * plus cards for assigned magic items and spells when the list includes a
+ * wizard. */
 export function CardSheet({ list, army }: { list: SavedList; army: ArmyData }) {
   const usedIds: string[] = [];
   const push = (id: string) => {
     if (!usedIds.includes(id)) usedIds.push(id);
   };
-  for (const entry of list.characters) {
+  const itemCards: Array<{ item: MagicItemData; bearer: string | null }> = [];
+  for (const entry of [...list.characters, ...list.units]) {
     push(entry.unitId);
     for (const id of entry.upgrades) push(id);
-  }
-  for (const entry of list.units) {
-    push(entry.unitId);
-    for (const id of entry.upgrades) push(id);
+    for (const id of entry.magicItems) {
+      const item = getMagicItem(id);
+      if (item && !itemCards.some((c) => c.item.itemId === id)) {
+        itemCards.push({ item, bearer: getUnit(army, entry.unitId)?.troop ?? null });
+      }
+    }
   }
   const cards = usedIds
     .map((id) => getUnit(army, id))
@@ -215,6 +266,9 @@ export function CardSheet({ list, army }: { list: SavedList; army: ArmyData }) {
     <div className="card-sheet">
       {cards.map((card) => (
         <UnitCard key={card.unitId} card={card} />
+      ))}
+      {itemCards.map(({ item, bearer }) => (
+        <MagicItemCard key={item.itemId} item={item} bearer={bearer} />
       ))}
       {hasWizard && army.spells.map((spell) => <SpellCard key={spell.name} spell={spell} />)}
     </div>

@@ -8,6 +8,7 @@ interface CatalogProps {
   list: SavedList;
   onAddUnit: (unitId: string) => void;
   onAddCharacter: (unitId: string) => void;
+  onOpenMagicItems: () => void;
 }
 
 function CatalogRow({
@@ -65,7 +66,17 @@ function CatalogRow({
   );
 }
 
-export default function Catalog({ army, list, onAddUnit, onAddCharacter }: CatalogProps) {
+export default function Catalog({
+  army,
+  list,
+  onAddUnit,
+  onAddCharacter,
+  onOpenMagicItems,
+}: CatalogProps) {
+  const assignedMagicItems = [...list.units, ...list.characters].reduce(
+    (sum, entry) => sum + entry.magicItems.length,
+    0,
+  );
   const scale = Math.max(1, Math.floor(list.pointsLimit / 1000));
   const units = army.units.filter((u) => u.category === "unit");
   const characters = army.units.filter((u) => u.category === "character");
@@ -108,6 +119,11 @@ export default function Catalog({ army, list, onAddUnit, onAddCharacter }: Catal
           </ul>
         </>
       )}
+      <h3 className="panel-heading">Magic items</h3>
+      <p className="panel-hint">Banners, weapons and devices of power for units and characters.</p>
+      <button type="button" className="add-btn magic-items-btn" onClick={onOpenMagicItems}>
+        Assign magic items{assignedMagicItems > 0 ? ` (${assignedMagicItems} taken)` : ""}
+      </button>
       {(army.armyRules.length > 0 || army.spells.length > 0) && (
         <>
           {army.armyRules.length > 0 && (

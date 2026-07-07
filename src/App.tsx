@@ -3,6 +3,7 @@ import Catalog from "./components/Catalog";
 import ExportDialog from "./components/ExportDialog";
 import InfoDialog, { type InfoTopic } from "./components/InfoDialog";
 import ListRail from "./components/ListRail";
+import MagicItemsDialog from "./components/MagicItemsDialog";
 import PrintView, { type PrintMode } from "./components/PrintView";
 import Roster from "./components/Roster";
 import { consumeShareHash, decodeShareCode } from "./domain/shareCode";
@@ -10,6 +11,7 @@ import { getArmy, ruleSets } from "./data/gameData";
 import {
   addCharacter,
   addUnit,
+  assignMagicItem,
   createList,
   removeCharacter,
   removeUnit,
@@ -49,6 +51,7 @@ export default function App() {
   const [activeListId, setActiveListId] = useState<string | null>(null);
   const [theme, setTheme] = useState<Theme>(() => initialTheme());
   const [exportOpen, setExportOpen] = useState(false);
+  const [magicItemsOpen, setMagicItemsOpen] = useState(false);
   const [printMode, setPrintMode] = useState<PrintMode | null>(null);
   const [infoTopic, setInfoTopic] = useState<InfoTopic | null>(null);
 
@@ -132,6 +135,7 @@ export default function App() {
               onToggleCharacterUpgrade={(id, upgradeId) =>
                 mutate((l) => toggleCharacterUpgrade(l, id, upgradeId))
               }
+              onRemoveMagicItem={(itemId) => mutate((l) => assignMagicItem(l, itemId, null))}
               onRename={(name) => mutate((l) => renameList(l, name))}
               onSetPointsLimit={(pts) => mutate((l) => setPointsLimit(l, pts))}
               onSetNotes={(notes) => mutate((l) => setNotes(l, notes))}
@@ -142,6 +146,7 @@ export default function App() {
                 list={activeList}
                 onAddUnit={(unitId) => mutate((l) => addUnit(l, unitId))}
                 onAddCharacter={(unitId) => mutate((l) => addCharacter(l, unitId))}
+                onOpenMagicItems={() => setMagicItemsOpen(true)}
               />
             </aside>
           </main>
@@ -152,6 +157,14 @@ export default function App() {
         )}
       </div>
       {infoTopic && <InfoDialog topic={infoTopic} onClose={() => setInfoTopic(null)} />}
+      {magicItemsOpen && activeList && army && (
+        <MagicItemsDialog
+          army={army}
+          list={activeList}
+          onAssign={(itemId, target) => mutate((l) => assignMagicItem(l, itemId, target))}
+          onClose={() => setMagicItemsOpen(false)}
+        />
+      )}
       {exportOpen && activeList && army && (
         <ExportDialog
           list={activeList}

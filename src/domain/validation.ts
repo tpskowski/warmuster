@@ -1,6 +1,7 @@
 import type { ArmyData, SavedList, ValidationIssue } from "../types";
 import { getUnit } from "../data/gameData";
-import { countOf, totalPoints, upgradeCountOf } from "./lists";
+import { countOf, magicItemCountOf, totalPoints, upgradeCountOf } from "./lists";
+import { canBearMagicItem, getMagicItem, magicItems } from "./magicItems";
 
 // Warn-but-allow: issues are surfaced but never block editing or saving.
 //
@@ -91,6 +92,45 @@ export function validateList(list: SavedList, army: ArmyData): ValidationIssue[]
           severity: "error",
           message: `${unit?.troop ?? entry.unitId} cannot take ${upgrade.troop}.`,
           unitId: upgradeId,
+        });
+      }
+    }
+  }
+
+  // Magic items: one of each per army, one per bearer, and bearer eligibility.
+  for (const item of magicItems) {
+    const count = magicItemCountOf(list, item.itemId);
+    if (count > 1) {
+      issues.push({
+        severity: "error",
+        message: `${item.name}: only one of each magic item is allowed in the army (${count} selected).`,
+        unitId: item.itemId,
+      });
+    }
+  }
+  for (const entry of [...list.units, ...list.characters]) {
+    const unit = getUnit(army, entry.unitId);
+    const label = unit?.troop ?? entry.unitId;
+    if (entry.magicItems.length > 1) {
+      issues.push({
+        severity: "error",
+        message: `${label} can only carry one magic item (${entry.magicItems.length} selected).`,
+        unitId: entry.unitId,
+      });
+    }
+    for (const itemId of entry.magicItems) {
+      const item = getMagicItem(itemId);
+      if (!item) {
+        issues.push({
+          severity: "warning",
+          message: `Unknown magic item "${itemId}".`,
+          unitId: entry.unitId,
+        });
+      } else if (unit && !canBearMagicItem(item, unit, army)) {
+        issues.push({
+          severity: "error",
+          message: `${label} cannot take ${item.name}.`,
+          unitId: entry.unitId,
         });
       }
     }

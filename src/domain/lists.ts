@@ -6,6 +6,7 @@ import type {
   UnitData,
 } from "../types";
 import { getUnit } from "../data/gameData";
+import { magicItemCost } from "./magicItems";
 
 export function createId(prefix: string): string {
   return `${prefix}-${Math.random().toString(36).slice(2, 10)}`;
@@ -37,13 +38,17 @@ function touched(list: SavedList): SavedList {
   return { ...list, updatedAt: new Date().toISOString() };
 }
 
-// Units without upgrades are merged into one entry per unitId with a
-// quantity; a unit with upgrades is kept as its own entry (schema.md).
+function isPlain(entry: SavedUnitEntry): boolean {
+  return entry.upgrades.length === 0 && entry.magicItems.length === 0;
+}
+
+// Units without upgrades or magic items are merged into one entry per unitId
+// with a quantity; a unit with either is kept as its own entry (schema.md).
 export function addUnit(list: SavedList, unitId: string): SavedList {
-  const plain = list.units.find((u) => u.unitId === unitId && u.upgrades.length === 0);
+  const plain = list.units.find((u) => u.unitId === unitId && isPlain(u));
   const units = plain
     ? list.units.map((u) => (u === plain ? { ...u, quantity: u.quantity + 1 } : u))
-    : [...list.units, { unitId, quantity: 1, upgrades: [] }];
+    : [...list.units, { unitId, quantity: 1, upgrades: [], magicItems: [] }];
   return touched({ ...list, units });
 }
 
@@ -66,7 +71,7 @@ export function toggleUnitUpgrade(list: SavedList, entryIndex: number, upgradeId
     // Split one unit off the merged stack and give it the upgrade.
     units = [
       ...list.units.map((u, i) => (i === entryIndex ? { ...u, quantity: u.quantity - 1 } : u)),
-      { unitId: entry.unitId, quantity: 1, upgrades: [upgradeId] },
+      { unitId: entry.unitId, quantity: 1, upgrades: [upgradeId], magicItems: [] },
     ];
   } else {
     units = list.units.map((u, i) =>
@@ -82,7 +87,10 @@ export function toggleUnitUpgrade(list: SavedList, entryIndex: number, upgradeId
 }
 
 export function addCharacter(list: SavedList, unitId: string): SavedList {
-  const characters = [...list.characters, { id: createId("character"), unitId, upgrades: [] }];
+  const characters = [
+    ...list.characters,
+    { id: createId("character"), unitId, upgrades: [], magicItems: [] },
+  ];
   return touched({ ...list, characters });
 }
 
@@ -97,6 +105,94 @@ export function toggleCharacterUpgrade(list: SavedList, id: string, upgradeId: s
     return { ...c, upgrades: has ? c.upgrades.filter((x) => x !== upgradeId) : [...c.upgrades, upgradeId] };
   });
   return touched({ ...list, characters });
+}
+
+export type MagicItemTarget = { kind: "unit"; index: number } | { kind: "character"; id: string };
+
+/** Merge plain duplicate unit entries back into one stack per unitId. */
+function mergePlainUnits(units: SavedUnitEntry[]): SavedUnitEntry[] {
+  const merged: SavedUnitEntry[] = [];
+  for (const entry of units) {
+    const stack = isPlain(entry)
+      ? merged.find((u) => u.unitId === entry.unitId && isPlain(u))
+      : undefined;
+    if (stack) stack.quantity += entry.quantity;
+    else merged.push({ ...entry });
+  }
+  return merged;
+}
+
+/** The entry currently carrying a magic item, if any. */
+export function magicItemBearer(list: SavedList, itemId: string): MagicItemTarget | null {
+  const index = list.units.findIndex((u) => u.magicItems.includes(itemId));
+  if (index !== -1) return { kind: "unit", index };
+  const character = list.characters.find((c) => c.magicItems.includes(itemId));
+  return character ? { kind: "character", id: character.id } : null;
+}
+
+// Moves a magic item to the given bearer (or removes it with target null).
+// Assigning to a merged stack splits one unit off with the item — e.g.
+// 3× Warriors becomes 2× Warriors plus 1× Warriors with the item — and
+// removing an item merges the now-plain entry back into its stack.
+export function assignMagicItem(
+  list: SavedList,
+  itemId: string,
+  target: MagicItemTarget | null,
+): SavedList {
+  const targetEntry = target?.kind === "unit" ? list.units[target.index] : undefined;
+  if (target?.kind === "unit" && !targetEntry) return list;
+  if (target?.kind === "character" && !list.characters.some((c) => c.id === target.id)) return list;
+  if (targetEntry?.magicItems.includes(itemId)) return list;
+  if (
+    target?.kind === "character" &&
+    list.characters.some((c) => c.id === target.id && c.magicItems.includes(itemId))
+  )
+    return list;
+  // A unit or character can carry only one magic item. A merged stack is fine:
+  // assigning splits a fresh unit off it, so only single entries can conflict.
+  if (targetEntry && targetEntry.quantity === 1 && targetEntry.magicItems.length > 0) return list;
+  if (
+    target?.kind === "character" &&
+    list.characters.some((c) => c.id === target.id && c.magicItems.length > 0)
+  )
+    return list;
+
+  // Strip the item from its current bearer. Untouched entries keep their
+  // object identity so the captured target entry can still be found below.
+  let units = list.units.map((u) =>
+    u.magicItems.includes(itemId)
+      ? { ...u, magicItems: u.magicItems.filter((x) => x !== itemId) }
+      : u,
+  );
+  let characters = list.characters.map((c) =>
+    c.magicItems.includes(itemId)
+      ? { ...c, magicItems: c.magicItems.filter((x) => x !== itemId) }
+      : c,
+  );
+
+  if (target?.kind === "unit" && targetEntry) {
+    if (targetEntry.quantity > 1) {
+      units = [
+        ...units.map((u) => (u === targetEntry ? { ...u, quantity: u.quantity - 1 } : u)),
+        {
+          unitId: targetEntry.unitId,
+          quantity: 1,
+          upgrades: [...targetEntry.upgrades],
+          magicItems: [itemId],
+        },
+      ];
+    } else {
+      units = units.map((u) =>
+        u === targetEntry ? { ...u, magicItems: [...u.magicItems, itemId] } : u,
+      );
+    }
+  } else if (target?.kind === "character") {
+    characters = characters.map((c) =>
+      c.id === target.id ? { ...c, magicItems: [...c.magicItems, itemId] } : c,
+    );
+  }
+
+  return touched({ ...list, units: mergePlainUnits(units), characters });
 }
 
 export function renameList(list: SavedList, name: string): SavedList {
@@ -119,7 +215,9 @@ function upgradeCost(army: ArmyData, upgradeId: string): number {
 export function entryPoints(army: ArmyData, entry: SavedUnitEntry | SavedCharacterEntry, unit: UnitData): number {
   const quantity = "quantity" in entry ? entry.quantity : 1;
   const upgrades = entry.upgrades.reduce((sum, id) => sum + upgradeCost(army, id), 0);
-  return (unit.points ?? 0) * quantity + upgrades * quantity;
+  // A magic item is carried by the unit as a whole, so its cost is paid once.
+  const magic = entry.magicItems.reduce((sum, id) => sum + magicItemCost(id, unit), 0);
+  return (unit.points ?? 0) * quantity + upgrades * quantity + magic;
 }
 
 export function totalPoints(list: SavedList, army: ArmyData): number {
@@ -140,6 +238,14 @@ export function countOf(list: SavedList, unitId: string): number {
   let count = 0;
   for (const entry of list.units) if (entry.unitId === unitId) count += entry.quantity;
   for (const entry of list.characters) if (entry.unitId === unitId) count += 1;
+  return count;
+}
+
+/** How many entries carry a magic item (each may appear once per army). */
+export function magicItemCountOf(list: SavedList, itemId: string): number {
+  let count = 0;
+  for (const entry of list.units) if (entry.magicItems.includes(itemId)) count += 1;
+  for (const entry of list.characters) if (entry.magicItems.includes(itemId)) count += 1;
   return count;
 }
 

@@ -68,12 +68,14 @@ export interface SavedUnitEntry {
   unitId: string;
   quantity: number;
   upgrades: string[];
+  magicItems: string[];
 }
 
 export interface SavedCharacterEntry {
   id: string;
   unitId: string;
   upgrades: string[];
+  magicItems: string[];
 }
 
 export interface SavedList {
