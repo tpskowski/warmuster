@@ -10,7 +10,14 @@ export function loadLists(): SavedList[] {
     if (!raw) return [];
     const parsed = JSON.parse(raw);
     if (!Array.isArray(parsed)) return [];
-    return parsed.filter((l) => l && l.schemaVersion === 1 && typeof l.id === "string");
+    return parsed
+      .filter((l) => l && l.schemaVersion === 1 && typeof l.id === "string")
+      .map((l: SavedList) => ({
+        ...l,
+        // Lists saved before magic items existed lack the field.
+        units: (l.units ?? []).map((u) => ({ ...u, magicItems: u.magicItems ?? [] })),
+        characters: (l.characters ?? []).map((c) => ({ ...c, magicItems: c.magicItems ?? [] })),
+      }));
   } catch {
     return [];
   }

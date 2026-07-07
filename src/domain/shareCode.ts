@@ -22,7 +22,7 @@ interface SharePayload {
   name: string;
   pointsLimit: number;
   units: SavedList["units"];
-  characters: Array<{ unitId: string; upgrades: string[] }>;
+  characters: Array<{ unitId: string; upgrades: string[]; magicItems?: string[] }>;
   notes: string | null;
 }
 
@@ -62,7 +62,11 @@ export async function encodeShareCode(list: SavedList): Promise<string> {
     name: list.name,
     pointsLimit: list.pointsLimit,
     units: list.units,
-    characters: list.characters.map((c) => ({ unitId: c.unitId, upgrades: c.upgrades })),
+    characters: list.characters.map((c) => ({
+      unitId: c.unitId,
+      upgrades: c.upgrades,
+      magicItems: c.magicItems,
+    })),
     notes: list.notes,
   };
   const json = new TextEncoder().encode(JSON.stringify(payload));
@@ -100,11 +104,13 @@ export async function decodeShareCode(code: string): Promise<SavedList | null> {
         unitId: String(u.unitId),
         quantity: Math.max(1, Number(u.quantity) || 1),
         upgrades: Array.isArray(u.upgrades) ? u.upgrades.map(String) : [],
+        magicItems: Array.isArray(u.magicItems) ? u.magicItems.map(String) : [],
       })),
       characters: (payload.characters ?? []).map((c) => ({
         id: createId("character"),
         unitId: String(c.unitId),
         upgrades: Array.isArray(c.upgrades) ? c.upgrades.map(String) : [],
+        magicItems: Array.isArray(c.magicItems) ? c.magicItems.map(String) : [],
       })),
       notes: payload.notes ?? null,
       updatedAt: new Date().toISOString(),

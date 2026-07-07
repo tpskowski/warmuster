@@ -588,6 +588,91 @@ textarea {
   font-weight: 600;
 }
 
+/* Selected pill plus its attached × remove button. */
+.chip-group {
+  display: inline-flex;
+}
+
+.chip-group .upgrade-chip {
+  border-radius: 10px 0 0 10px;
+}
+
+.chip-group .chip-x {
+  border-radius: 0 10px 10px 0;
+  border-left: none;
+  padding: 1px 6px;
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.chip-group .chip-x:hover {
+  color: var(--error);
+  border-color: var(--error);
+}
+
+.magic-chip {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.magic-items-btn {
+  margin: 2px 0 8px;
+}
+
+/* ------------------------------------------------------ magic items modal */
+
+.magic-items-modal {
+  width: min(720px, 100%);
+}
+
+.magic-item-list {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.magic-item-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  background: var(--bg-inset);
+}
+
+.magic-item-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.magic-item-head {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.magic-item-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.magic-item-text {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--text-muted);
+  margin: 2px 0 0;
+}
+
+.magic-item-select {
+  max-width: 220px;
+  flex-shrink: 0;
+}
+
 /* ----------------------------------------------------------- army extras */
 
 .army-rule-text,

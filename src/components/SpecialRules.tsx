@@ -1,13 +1,11 @@
-﻿import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { cardRules } from "../domain/unitCard";
 import type { UnitData } from "../types";
 import { minMaxLabel, pointsLabel, signedLabel, unitStatRows } from "./UnitStats";
 import { FacingIcon } from "./Icons";
 
-/** Full unit data and rules, opened from the compact info button on each row. */
-export default function SpecialRules({ unit }: { unit: UnitData }) {
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLSpanElement>(null);
+/** Modal with a unit's full stats and rules; also opened from roster chips. */
+export function UnitDetailsDialog({ unit, onClose }: { unit: UnitData; onClose: () => void }) {
   const rules = cardRules(unit);
   const subtitle = unit.subType ? `${unit.type} (${unit.subType})` : unit.type;
   const stats = [
@@ -22,23 +20,61 @@ export default function SpecialRules({ unit }: { unit: UnitData }) {
   ];
 
   useEffect(() => {
-    if (!open) return;
-    const onDown = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) setOpen(false);
-    };
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") onClose();
     };
-    document.addEventListener("mousedown", onDown);
     document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("mousedown", onDown);
-      document.removeEventListener("keydown", onKey);
-    };
-  }, [open]);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [onClose]);
 
   return (
-    <span className="special-wrap" ref={ref}>
+    <div className="modal-backdrop unit-rules-backdrop" onClick={onClose}>
+      <div
+        className="modal unit-rules-modal"
+        role="dialog"
+        aria-label={`${unit.troop} details`}
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="modal-head">
+          <h2>{unit.troop}</h2>
+          <button type="button" className="icon-btn" onClick={onClose} title="Close">
+            x
+          </button>
+        </div>
+        <p className="unit-rules-subtitle">{subtitle}</p>
+        <dl className="unit-detail-stats">
+          {unit.facing != null && (
+            <div>
+              <dt>Facing</dt>
+              <dd><FacingIcon facing={unit.facing} /></dd>
+            </div>
+          )}
+          {stats.map(({ label, value }) => (
+            <div key={label}>
+              <dt>{label}</dt>
+              <dd>{value}</dd>
+            </div>
+          ))}
+        </dl>
+        <div className="info-body unit-detail-rules">
+          <h3>Rules</h3>
+          {rules.length > 0 ? (
+            rules.map((text, index) => <p key={index}>{text}</p>)
+          ) : (
+            <p>No special rules listed for this unit.</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Full unit data and rules, opened from the compact info button on each row. */
+export default function SpecialRules({ unit }: { unit: UnitData }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <span className="special-wrap">
       <button
         type="button"
         className={`special-badge${open ? " open" : ""}`}
@@ -49,46 +85,7 @@ export default function SpecialRules({ unit }: { unit: UnitData }) {
       >
         i
       </button>
-      {open && (
-        <div className="modal-backdrop unit-rules-backdrop" onClick={() => setOpen(false)}>
-          <div
-            className="modal unit-rules-modal"
-            role="dialog"
-            aria-label={`${unit.troop} details`}
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div className="modal-head">
-              <h2>{unit.troop}</h2>
-              <button type="button" className="icon-btn" onClick={() => setOpen(false)} title="Close">
-                x
-              </button>
-            </div>
-            <p className="unit-rules-subtitle">{subtitle}</p>
-            <dl className="unit-detail-stats">
-              {unit.facing != null && (
-                <div>
-                  <dt>Facing</dt>
-                  <dd><FacingIcon facing={unit.facing} /></dd>
-                </div>
-              )}
-              {stats.map(({ label, value }) => (
-                <div key={label}>
-                  <dt>{label}</dt>
-                  <dd>{value}</dd>
-                </div>
-              ))}
-            </dl>
-            <div className="info-body unit-detail-rules">
-              <h3>Rules</h3>
-              {rules.length > 0 ? (
-                rules.map((text, index) => <p key={index}>{text}</p>)
-              ) : (
-                <p>No special rules listed for this unit.</p>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+      {open && <UnitDetailsDialog unit={unit} onClose={() => setOpen(false)} />}
     </span>
   );
 }

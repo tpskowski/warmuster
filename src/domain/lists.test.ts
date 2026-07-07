@@ -3,8 +3,10 @@ import { getArmy } from "../data/gameData";
 import {
   addCharacter,
   addUnit,
+  assignMagicItem,
   countOf,
   createList,
+  magicItemBearer,
   removeUnit,
   toggleCharacterUpgrade,
   toggleUnitUpgrade,
@@ -54,6 +56,98 @@ describe("list building", () => {
     expect(countOf(list, "chaos:ogres")).toBe(1);
     list = removeUnit(list, 0);
     expect(list.units).toHaveLength(0);
+  });
+});
+
+describe("magic items", () => {
+  it("splits one unit out of a merged stack when it takes an item", () => {
+    let list = freshList();
+    for (let i = 0; i < 3; i++) list = addUnit(list, "chaos:chaos-warriors");
+    list = assignMagicItem(list, "magic:sword-of-might", { kind: "unit", index: 0 });
+    expect(list.units).toHaveLength(2);
+    const plain = list.units.find((u) => u.magicItems.length === 0)!;
+    const bearer = list.units.find((u) => u.magicItems.includes("magic:sword-of-might"))!;
+    expect(plain.quantity).toBe(2);
+    expect(bearer.quantity).toBe(1);
+    expect(countOf(list, "chaos:chaos-warriors")).toBe(3);
+  });
+
+  it("adds the item cost once, not per unit in the stack", () => {
+    let list = freshList();
+    for (let i = 0; i < 3; i++) list = addUnit(list, "chaos:chaos-warriors"); // 3 × 140
+    list = assignMagicItem(list, "magic:battle-banner", { kind: "unit", index: 0 });
+    // Chaos Warriors have 4 attacks -> major Battle Banner, 20 pts.
+    expect(totalPoints(list, chaos)).toBe(440);
+  });
+
+  it("merges the split entry back when the item is removed", () => {
+    let list = freshList();
+    for (let i = 0; i < 3; i++) list = addUnit(list, "chaos:chaos-warriors");
+    list = assignMagicItem(list, "magic:sword-of-might", { kind: "unit", index: 0 });
+    list = assignMagicItem(list, "magic:sword-of-might", null);
+    expect(list.units).toHaveLength(1);
+    expect(list.units[0].quantity).toBe(3);
+  });
+
+  it("moves an item from one bearer to another", () => {
+    let list = freshList();
+    list = addUnit(list, "chaos:chaos-warriors");
+    list = addCharacter(list, "chaos:hero");
+    list = assignMagicItem(list, "magic:sword-of-might", { kind: "unit", index: 0 });
+    list = assignMagicItem(list, "magic:sword-of-might", {
+      kind: "character",
+      id: list.characters[0].id,
+    });
+    expect(list.units.every((u) => u.magicItems.length === 0)).toBe(true);
+    expect(list.characters[0].magicItems).toEqual(["magic:sword-of-might"]);
+    expect(magicItemBearer(list, "magic:sword-of-might")).toEqual({
+      kind: "character",
+      id: list.characters[0].id,
+    });
+  });
+
+  it("keeps upgraded entries separate when merging after removal", () => {
+    let list = freshList();
+    list = addUnit(list, "chaos:chaos-warriors");
+    list = addUnit(list, "chaos:chaos-warriors");
+    list = toggleUnitUpgrade(list, 0, "chaos:chariot");
+    list = assignMagicItem(list, "magic:sword-of-might", { kind: "unit", index: 0 });
+    list = assignMagicItem(list, "magic:sword-of-might", null);
+    // The chariot-upgraded unit must not merge into the plain stack.
+    expect(list.units.some((u) => u.upgrades.includes("chaos:chariot"))).toBe(true);
+    expect(countOf(list, "chaos:chaos-warriors")).toBe(2);
+  });
+
+  it("refuses a second item on a bearer that already carries one", () => {
+    let list = freshList();
+    list = addCharacter(list, "chaos:general");
+    const id = list.characters[0].id;
+    list = assignMagicItem(list, "magic:crown-of-command", { kind: "character", id });
+    list = assignMagicItem(list, "magic:sword-of-might", { kind: "character", id });
+    expect(list.characters[0].magicItems).toEqual(["magic:crown-of-command"]);
+
+    list = addUnit(list, "chaos:chaos-warriors");
+    list = assignMagicItem(list, "magic:sword-of-might", { kind: "unit", index: 0 });
+    list = assignMagicItem(list, "magic:sword-of-cleaving", { kind: "unit", index: 0 });
+    expect(list.units[0].magicItems).toEqual(["magic:sword-of-might"]);
+  });
+
+  it("flags ineligible bearers and doubled-up items from imported data", () => {
+    let list = freshList();
+    list = addCharacter(list, "chaos:hero");
+    const id = list.characters[0].id;
+    list = assignMagicItem(list, "magic:crown-of-command", { kind: "character", id });
+    // A second item can no longer be assigned, but imported or legacy lists
+    // may still carry one; validation must flag it.
+    list = {
+      ...list,
+      characters: list.characters.map((c) =>
+        c.id === id ? { ...c, magicItems: [...c.magicItems, "magic:sword-of-might"] } : c,
+      ),
+    };
+    const issues = validateList(list, chaos);
+    expect(issues.some((i) => i.message.includes("cannot take Crown of Command"))).toBe(true);
+    expect(issues.some((i) => i.message.includes("can only carry one magic item"))).toBe(true);
   });
 });
 

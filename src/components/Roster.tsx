@@ -1,7 +1,9 @@
-﻿import type { ArmyData, SavedCharacterEntry, SavedList, SavedUnitEntry, ValidationIssue } from "../types";
+﻿import { useEffect, useState } from "react";
+import type { ArmyData, SavedCharacterEntry, SavedList, SavedUnitEntry, UnitData, ValidationIssue } from "../types";
 import { getUnit, upgradesFor } from "../data/gameData";
 import { entryPoints, totalPoints } from "../domain/lists";
-import SpecialRules from "./SpecialRules";
+import { getMagicItem, magicItemCost, type MagicItemData } from "../domain/magicItems";
+import SpecialRules, { UnitDetailsDialog } from "./SpecialRules";
 import UnitStats from "./UnitStats";
 
 interface RosterProps {
@@ -13,6 +15,7 @@ interface RosterProps {
   onToggleUnitUpgrade: (entryIndex: number, upgradeId: string) => void;
   onRemoveCharacter: (id: string) => void;
   onToggleCharacterUpgrade: (id: string, upgradeId: string) => void;
+  onRemoveMagicItem: (itemId: string) => void;
   onRename: (name: string) => void;
   onSetPointsLimit: (points: number) => void;
   onSetNotes: (notes: string) => void;
@@ -29,6 +32,7 @@ function UpgradePicker({
   selected: string[];
   onToggle: (upgradeId: string) => void;
 }) {
+  const [detail, setDetail] = useState<UnitData | null>(null);
   const available = upgradesFor(army, ownerUnitId);
   if (available.length === 0 && selected.length === 0) return null;
   // Include selected-but-ineligible upgrades so they can be removed.
@@ -39,20 +43,135 @@ function UpgradePicker({
   return (
     <span className="upgrade-picker">
       {[...available, ...extras].map((upgrade) => {
-        const active = selected.includes(upgrade.unitId);
+        const points = `${upgrade.upgradePoints != null ? `+${upgrade.upgradePoints}` : upgrade.points} pts`;
+        // A selected pill opens the upgrade's rules; its × button removes it.
+        if (selected.includes(upgrade.unitId)) {
+          return (
+            <span key={upgrade.unitId} className="chip-group">
+              <button
+                type="button"
+                className="upgrade-chip active"
+                onClick={() => setDetail(upgrade)}
+                title={`${upgrade.troop} (${points}) — view rules`}
+              >
+                {upgrade.troop}
+              </button>
+              <button
+                type="button"
+                className="upgrade-chip active chip-x"
+                onClick={() => onToggle(upgrade.unitId)}
+                title={`Remove ${upgrade.troop}`}
+                aria-label={`Remove ${upgrade.troop}`}
+              >
+                ✕
+              </button>
+            </span>
+          );
+        }
         return (
           <button
             key={upgrade.unitId}
             type="button"
-            className={`upgrade-chip${active ? " active" : ""}`}
+            className="upgrade-chip"
             onClick={() => onToggle(upgrade.unitId)}
-            title={`${upgrade.troop} (${upgrade.upgradePoints != null ? `+${upgrade.upgradePoints}` : upgrade.points} pts)`}
+            title={`Add ${upgrade.troop} (${points})`}
           >
-            {active ? "Selected: " : ""}
             {upgrade.troop}
           </button>
         );
       })}
+      {detail && <UnitDetailsDialog unit={detail} onClose={() => setDetail(null)} />}
+    </span>
+  );
+}
+
+/** Modal with a magic item's cost and rules, opened from its roster pill. */
+function MagicItemDetailsDialog({
+  item,
+  bearer,
+  onClose,
+}: {
+  item: MagicItemData;
+  bearer: UnitData | undefined;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  return (
+    <div className="modal-backdrop unit-rules-backdrop" onClick={onClose}>
+      <div
+        className="modal unit-rules-modal"
+        role="dialog"
+        aria-label={`${item.name} details`}
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="modal-head">
+          <h2>{item.name}</h2>
+          <button type="button" className="icon-btn" onClick={onClose} title="Close">
+            x
+          </button>
+        </div>
+        <p className="unit-rules-subtitle">
+          Magic item · {magicItemCost(item.itemId, bearer)} pts
+          {item.restriction ? ` · ${item.restriction}` : ""}
+        </p>
+        <div className="info-body unit-detail-rules">
+          <h3>Rules</h3>
+          <p>{item.text}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MagicItemChips({
+  army,
+  entry,
+  onRemove,
+}: {
+  army: ArmyData;
+  entry: SavedUnitEntry | SavedCharacterEntry;
+  onRemove: (itemId: string) => void;
+}) {
+  const [detail, setDetail] = useState<MagicItemData | null>(null);
+  if (entry.magicItems.length === 0) return null;
+  const unit = getUnit(army, entry.unitId);
+  return (
+    <span className="upgrade-picker">
+      {entry.magicItems.map((itemId) => {
+        const item = getMagicItem(itemId);
+        const name = item?.name ?? itemId;
+        return (
+          <span key={itemId} className="chip-group">
+            <button
+              type="button"
+              className="upgrade-chip active magic-chip"
+              onClick={() => item && setDetail(item)}
+              title={`${name} (+${magicItemCost(itemId, unit)} pts) — view rules`}
+            >
+              {name}
+            </button>
+            <button
+              type="button"
+              className="upgrade-chip active magic-chip chip-x"
+              onClick={() => onRemove(itemId)}
+              title={`Remove ${name}`}
+              aria-label={`Remove ${name}`}
+            >
+              ✕
+            </button>
+          </span>
+        );
+      })}
+      {detail && (
+        <MagicItemDetailsDialog item={detail} bearer={unit} onClose={() => setDetail(null)} />
+      )}
     </span>
   );
 }
@@ -64,6 +183,7 @@ function RosterUnitRow({
   onRemove,
   onAdd,
   onToggleUpgrade,
+  onRemoveMagicItem,
 }: {
   army: ArmyData;
   entry: SavedUnitEntry;
@@ -71,6 +191,7 @@ function RosterUnitRow({
   onRemove: () => void;
   onAdd: () => void;
   onToggleUpgrade: (upgradeId: string) => void;
+  onRemoveMagicItem: (itemId: string) => void;
 }) {
   const unit = getUnit(army, entry.unitId);
   if (!unit) {
@@ -97,6 +218,7 @@ function RosterUnitRow({
             selected={entry.upgrades}
             onToggle={onToggleUpgrade}
           />
+          <MagicItemChips army={army} entry={entry} onRemove={onRemoveMagicItem} />
         </div>
         <div className="roster-stat-line">
           <UnitStats unit={unit} />
@@ -127,11 +249,13 @@ function RosterCharacterRow({
   entry,
   onRemove,
   onToggleUpgrade,
+  onRemoveMagicItem,
 }: {
   army: ArmyData;
   entry: SavedCharacterEntry;
   onRemove: () => void;
   onToggleUpgrade: (upgradeId: string) => void;
+  onRemoveMagicItem: (itemId: string) => void;
 }) {
   const unit = getUnit(army, entry.unitId);
   if (!unit) {
@@ -157,6 +281,7 @@ function RosterCharacterRow({
             selected={entry.upgrades}
             onToggle={onToggleUpgrade}
           />
+          <MagicItemChips army={army} entry={entry} onRemove={onRemoveMagicItem} />
         </div>
         <div className="roster-stat-line">
           <UnitStats unit={unit} />
@@ -181,6 +306,7 @@ export default function Roster({
   onToggleUnitUpgrade,
   onRemoveCharacter,
   onToggleCharacterUpgrade,
+  onRemoveMagicItem,
   onRename,
   onSetPointsLimit,
   onSetNotes,
@@ -233,6 +359,7 @@ export default function Roster({
             entry={entry}
             onRemove={() => onRemoveCharacter(entry.id)}
             onToggleUpgrade={(upgradeId) => onToggleCharacterUpgrade(entry.id, upgradeId)}
+            onRemoveMagicItem={onRemoveMagicItem}
           />
         ))}
       </ul>
@@ -249,6 +376,7 @@ export default function Roster({
             onRemove={() => onRemoveUnit(index)}
             onAdd={() => onAddUnit(entry.unitId)}
             onToggleUpgrade={(upgradeId) => onToggleUnitUpgrade(index, upgradeId)}
+            onRemoveMagicItem={onRemoveMagicItem}
           />
         ))}
       </ul>
