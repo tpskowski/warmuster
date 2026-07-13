@@ -2,17 +2,19 @@ import { useEffect, useState } from "react";
 import type { ArmyData, SavedList } from "../types";
 import { buildTextExport } from "../domain/export";
 import { buildShareUrl } from "../domain/shareCode";
+import type { PrintMode } from "./PrintView";
 
 interface ExportDialogProps {
   list: SavedList;
   army: ArmyData;
   onClose: () => void;
-  onPrint: (mode: "list" | "cards") => void;
+  onPrint: (mode: PrintMode) => void;
 }
 
 export default function ExportDialog({ list, army, onClose, onPrint }: ExportDialogProps) {
   const [copied, setCopied] = useState(false);
   const [shareCopied, setShareCopied] = useState(false);
+
   const text = buildTextExport(list, army);
 
   const copyShareLink = async () => {

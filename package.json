@@ -11,15 +11,18 @@
     "validate:data": "node scripts/validate-data.mjs",
     "generate:diff": "node scripts/generate-version-diff.mjs",
     "test": "npm run validate:data && vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:layout": "playwright test"
   },
   "dependencies": {
     "@fontsource/grenze": "^5.2.9",
     "@fontsource/im-fell-english": "^5.2.6",
+    "@fontsource/noto-sans": "^5.2.10",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.61.1",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",

@@ -200,6 +200,21 @@ Special text: **Chariot Mount.** Generals, Sorcerers and Heroes can ride Chariot
 
 # Orcs
 
+## Giant
+
+Special text: **Giants.** Giants must always be given a separate order. They cannot be brigaded with other troops, although several Giants can be brigaded together if you so wish. If you attempt to give an order to a Giant and fail then you must take a test to see what it does. Ignore potential blunders - these are taken into account by the following rules. Roll a dice and consult the Giant Goes Wild chart. Where Giants are brigaded together roll for each separately. Giants have a great many hits, 8 in fact, which are almost impossible to inflict during even a fairly lengthy combat engagement. Because Giants have so many hits we must consider the possibility of hurting the Giant and reducing its effectiveness in subsequent turns. Therefore, if a Giant has accumulated 5-7 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Giant is badly hurt all accumulated hits are discounted and its maximum Hits value and Attacks are halved for the rest of the battle (to 4 Hits and 4 Attacks). A Giant causes terror in its enemies. Giant Goes Wild Chart D6 Oh no! What‘s he doing now! 1. The Giant will neither move nor fight this turn but simply stands rooted to the spot looking dopey. 2. Move the Giant directly towards the nearest table edge. If he moves into another unit he will charge it regardless of which side it is on. If victorious in combat the Giant will hold his ground. 3. The Giant throws an object at the closest visible unit (friend or foe) within 5xD6 cm, inflicting 3 Attacks. If the target is in combat, the attacks contribute to the combat result; otherwise, resolve them in the Shooting phase. 4. The Giant moves straight forward at full pace in the direction he is facing in. If he reaches an enemy unit he will charge. If he reaches a friendly unit he will walk straight through and out the other side if there is room and he has sufficient move. If he reaches a friendly unit and does not have sufficient move or enough room to walk all the way through then he halts on contact. A friendly unit that is walked through or contacted in this way instantly becomes confused as a result. 5. The Giant moves towards the nearest enemy unit that he can see as fast as he can. If he reaches the foe he will charge. If friends are in the way he will walk through them causing confusion as described above. If there is no visible enemy the Giant does nothing this Command phase. 6. The Giant gives a mighty bellow and rushes straight at the nearest enemy unit that he can see. Move the Giant at double his normal full pace move. If he reaches an enemy unit, he charges it and fights by jumping up and down on the foe, furiously doubling his Attacks value in the first round of combat. If there is no visible enemy the Giant does nothing this Command phase.
+
+```json
+{
+  "specialName": "Giants",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "Giants must always be given a separate order. They cannot be brigaded with other troops, although several Giants can be brigaded together if you so wish. If you attempt to give an order to a Giant and fail then you must take a test to see what it does. Ignore potential blunders - these are taken into account by the following rules. Roll a dice and consult the Giant Goes Wild chart. Where Giants are brigaded together roll for each separately. Giants have a great many hits, 8 in fact, which are almost impossible to inflict during even a fairly lengthy combat engagement. Because Giants have so many hits we must consider the possibility of hurting the Giant and reducing its effectiveness in subsequent turns. Therefore, if a Giant has accumulated 5-7 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Giant is badly hurt all accumulated hits are discounted and its maximum Hits value and Attacks are halved for the rest of the battle (to 4 Hits and 4 Attacks). A Giant causes terror in its enemies."
+  ],
+  "notes": null
+}
+```
+
 ## Wyvern
 
 Special text: **Wyverns.** Generals, Wizards and Heroes can ride Wyverns. A Wyvern can fly, increasing its rider‘s move from 60 to 100cm, and it adds +2 Attacks to those of its rider. A unit that includes a Wyvern rider causes terror in its enemies.
@@ -460,7 +475,7 @@ Overrides:
 
 ## Rat Ogre Bodyguard
 
-Special text: **Rat Ogre Bodyguard.** The Grey Seer, Heroes and Warlocks can have a Rat Ogre Bodyguard.A character with a bodyguard adds +1 to his Attacks.
+Special text: **Rat Ogre Bodyguard.** The Grey Seer, Heroes and Warlocks can have a Rat Ogre Bodyguard. A character with a bodyguard adds +1 to his Attacks.
 
 ```json
 {
@@ -471,7 +486,7 @@ Special text: **Rat Ogre Bodyguard.** The Grey Seer, Heroes and Warlocks can hav
     "skaven:warlock"
   ],
   "specials": [
-    "The Grey Seer, Heroes and Warlocks can have a Rat Ogre Bodyguard.A character with a bodyguard adds +1 to his Attacks."
+    "The Grey Seer, Heroes and Warlocks can have a Rat Ogre Bodyguard. A character with a bodyguard adds +1 to his Attacks."
   ],
   "notes": null
 }
@@ -1034,6 +1049,21 @@ Overrides:
 
 # Dogs of War
 
+## Giant
+
+Special text: **Giants.** Giants must always be given a separate order. They cannot be brigaded with other troops, although several Giants can be brigaded together if you so wish. If you attempt to give an order to a Giant and fail then you must take a test to see what it does. Ignore potential blunders - these are taken into account by the following rules. Roll a dice and consult the Giant Goes Wild chart. Where Giants are brigaded together roll for each separately. Giants have a great many hits, 8 in fact, which are almost impossible to inflict during even a fairly lengthy combat engagement. Because Giants have so many hits we must consider the possibility of hurting the Giant and reducing its effectiveness in subsequent turns. Therefore, if a Giant has accumulated 5-7 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Giant is badly hurt all accumulated hits are discounted and its maximum Hits value and Attacks are halved for the rest of the battle (to 4 Hits and 4 Attacks). A Giant causes terror in its enemies. Giant Goes Wild Chart D6 Oh no! What‘s he doing now! 1. The Giant will neither move nor fight this turn but simply stands rooted to the spot looking dopey. 2. Move the Giant directly towards the nearest table edge. If he moves into another unit he will charge it regardless of which side it is on. If victorious in combat the Giant will hold his ground. 3. The Giant throws an object at the closest visible unit (friend or foe) within 5xD6 cm, inflicting 3 Attacks. If the target is in combat, the attacks contribute to the combat result; otherwise, resolve them in the Shooting phase. 4. The Giant moves straight forward at full pace in the direction he is facing in. If he reaches an enemy unit he will charge. If he reaches a friendly unit he will walk straight through and out the other side if there is room and he has sufficient move. If he reaches a friendly unit and does not have sufficient move or enough room to walk all the way through then he halts on contact. A friendly unit that is walked through or contacted in this way instantly becomes confused as a result. 5. The Giant moves towards the nearest enemy unit that he can see as fast as he can. If he reaches the foe he will charge. If friends are in the way he will walk through them causing confusion as described above. If there is no visible enemy the Giant does nothing this Command phase. 6. The Giant gives a mighty bellow and rushes straight at the nearest enemy unit that he can see. Move the Giant at double his normal full pace move. If he reaches an enemy unit, he charges it and fights by jumping up and down on the foe, furiously doubling his Attacks value in the first round of combat. If there is no visible enemy the Giant does nothing this Command phase.
+
+```json
+{
+  "specialName": "Giants",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "Giants must always be given a separate order. They cannot be brigaded with other troops, although several Giants can be brigaded together if you so wish. If you attempt to give an order to a Giant and fail then you must take a test to see what it does. Ignore potential blunders - these are taken into account by the following rules. Roll a dice and consult the Giant Goes Wild chart. Where Giants are brigaded together roll for each separately. Giants have a great many hits, 8 in fact, which are almost impossible to inflict during even a fairly lengthy combat engagement. Because Giants have so many hits we must consider the possibility of hurting the Giant and reducing its effectiveness in subsequent turns. Therefore, if a Giant has accumulated 5-7 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Giant is badly hurt all accumulated hits are discounted and its maximum Hits value and Attacks are halved for the rest of the battle (to 4 Hits and 4 Attacks). A Giant causes terror in its enemies."
+  ],
+  "notes": null
+}
+```
+
 ## Griffon
 
 Special text: **Griffon.** Generals, Wizards and Heroes may ride Griffons. The Griffon combines the appearance of a lion and an eagle. These creatures are hatched from stolen eggs and hand-reared to serve as mounts for favoured individuals. The Griffon can fly, increasing the rider’s movement to 100cm and it adds +2 Attacks to those of the rider. A unit which includes a Griffon causes terror in its enemies.<br><br>and he has sufficient move. If he reaches a friendly unit and does not have sufficient move or enough room to walk all the way through then he halts on contact. A friendly unit that is walked through or contacted in this way instantly becomes confused as a result. 5. The Giant moves towards the nearest enemy unit that he can see as fast as he can. If he reaches the foe he will charge. If friends are in the way he will walk through them causing confusion as described above. If there is no visible enemy the Giant does nothing this Command phase. 6. The Giant gives a mighty bellow and rushes straight at the nearest enemy unit that he can see. Move the Giant at double his normal full pace move. If he reaches an enemy unit, he charges it and fights by jumping up and down on the foe, furiously doubling his Attacks value in the first round of combat. If there is no visible enemy the Giant does nothing this Command phase.
@@ -1078,6 +1108,21 @@ Special text: **Paymaster, Pay Wagon.** There may only ever be one Paymaster in 
 
 # Ogre Kingdoms
 
+## Slave Giant
+
+Special text: **Slave Giant.** Giants must always be given a separate order. They cannot be brigaded with other troops, although several Giants can be brigaded together if you so wish. If you attempt to give an order to a Giant and fail then you must take a test to see what it does. Ignore potential blunders - these are taken into account by the following rules. Roll a dice and consult the Giant Goes Wild chart. Where Giants are brigaded together roll for each separately. Giants have a great many hits, 8 in fact, which are almost impossible to inflict during even a fairly lengthy combat engagement. Because Giants have so many hits we must consider the possibility of hurting the Giant and reducing its effectiveness in subsequent turns. Therefore, if a Giant has accumulated 5-7 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Giant is badly hurt all accumulated hits are discounted and its maximum Hits value and Attacks are halved for the rest of the battle (to 4 Hits and 4 Attacks). A Giant causes terror in its enemies. Giant Goes Wild Chart D6 Oh no! What‘s he doing now! 1. The Giant will neither move nor fight this turn but simply stands rooted to the spot looking dopey. 2. Move the Giant directly towards the nearest table edge. If he moves into another unit he will charge it regardless of which side it is on. If victorious in combat the Giant will hold his ground. 3. The Giant throws an object at the closest visible unit (friend or foe) within 5xD6 cm, inflicting 3 Attacks. If the target is in combat, the attacks contribute to the combat result; otherwise, resolve them in the Shooting phase. 4. The Giant moves straight forward at full pace in the direction he is facing in. If he reaches an enemy unit he will charge. If he reaches a friendly unit he will walk straight through and out the other side if there is room and he has sufficient move. If he reaches a friendly unit and does not have sufficient move or enough room to walk all the way through then he halts on contact. A friendly unit that is walked through or contacted in this way instantly becomes confused as a result. 5. The Giant moves towards the nearest enemy unit that he can see as fast as he can. If he reaches the foe he will charge. If friends are in the way he will walk through them causing confusion as described above. If there is no visible enemy the Giant does nothing this Command phase. 6. The Giant gives a mighty bellow and rushes straight at the nearest enemy unit that he can see. Move the Giant at double his normal full pace move. If he reaches an enemy unit, he charges it and fights by jumping up and down on the foe, furiously doubling his Attacks value in the first round of combat. If there is no visible enemy the Giant does nothing this Command phase.
+
+```json
+{
+  "specialName": "Slave Giant",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "Giants must always be given a separate order. They cannot be brigaded with other troops, although several Giants can be brigaded together if you so wish. If you attempt to give an order to a Giant and fail then you must take a test to see what it does. Ignore potential blunders - these are taken into account by the following rules. Roll a dice and consult the Giant Goes Wild chart. Where Giants are brigaded together roll for each separately. Giants have a great many hits, 8 in fact, which are almost impossible to inflict during even a fairly lengthy combat engagement. Because Giants have so many hits we must consider the possibility of hurting the Giant and reducing its effectiveness in subsequent turns. Therefore, if a Giant has accumulated 5-7 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Giant is badly hurt all accumulated hits are discounted and its maximum Hits value and Attacks are halved for the rest of the battle (to 4 Hits and 4 Attacks). A Giant causes terror in its enemies."
+  ],
+  "notes": null
+}
+```
+
 ## Bull Rhinox
 
 Special text: **Bull Rhinox.** Tyrant, Bruisers and Butchers may ride the Bull Rhinox. A unit that is joined with a character mounted on this huge beast causes terror in enemies.
@@ -1098,6 +1143,21 @@ Special text: **Bull Rhinox.** Tyrant, Bruisers and Butchers may ride the Bull R
 ```
 
 # Albion
+
+## Giant
+
+Special text: **Giant.** Giants must always be given a separate order. They cannot be brigaded with other troops, although several Giants can be brigaded together if you so wish. If you attempt to give an order to a Giant and fail then you must take a test to see what it does. Ignore potential blunders - these are taken into account by the following rules. Roll a dice and consult the Giant Goes Wild chart. Where Giants are brigaded together roll for each separately. Giants have a great many hits, 8 in fact, which are almost impossible to inflict during even a fairly lengthy combat engagement. Because Giants have so many hits we must consider the possibility of hurting the Giant and reducing its effectiveness in subsequent turns. Therefore, if a Giant has accumulated 5-7 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Giant is badly hurt all accumulated hits are discounted and its maximum Hits value and Attacks are halved for the rest of the battle (to 4 Hits and 4 Attacks). A Giant causes terror in its enemies. Giant Goes Wild Chart D6 Oh no! What‘s he doing now! 1. The Giant will neither move nor fight this turn but simply stands rooted to the spot looking dopey. 2. Move the Giant directly towards the nearest table edge. If he moves into another unit he will charge it regardless of which side it is on. If victorious in combat the Giant will hold his ground. 3. The Giant throws an object at the closest visible unit (friend or foe) within 5xD6 cm, inflicting 3 Attacks. If the target is in combat, the attacks contribute to the combat result; otherwise, resolve them in the Shooting phase. 4. The Giant moves straight forward at full pace in the direction he is facing in. If he reaches an enemy unit he will charge. If he reaches a friendly unit he will walk straight through and out the other side if there is room and he has sufficient move. If he reaches a friendly unit and does not have sufficient move or enough room to walk all the way through then he halts on contact. A friendly unit that is walked through or contacted in this way instantly becomes confused as a result. 5. The Giant moves towards the nearest enemy unit that he can see as fast as he can. If he reaches the foe he will charge. If friends are in the way he will walk through them causing confusion as described above. If there is no visible enemy the Giant does nothing this Command phase. 6. The Giant gives a mighty bellow and rushes straight at the nearest enemy unit that he can see. Move the Giant at double his normal full pace move. If he reaches an enemy unit, he charges it and fights by jumping up and down on the foe, furiously doubling his Attacks value in the first round of combat. If there is no visible enemy the Giant does nothing this Command phase.
+
+```json
+{
+  "specialName": "Giant",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "Giants must always be given a separate order. They cannot be brigaded with other troops, although several Giants can be brigaded together if you so wish. If you attempt to give an order to a Giant and fail then you must take a test to see what it does. Ignore potential blunders - these are taken into account by the following rules. Roll a dice and consult the Giant Goes Wild chart. Where Giants are brigaded together roll for each separately. Giants have a great many hits, 8 in fact, which are almost impossible to inflict during even a fairly lengthy combat engagement. Because Giants have so many hits we must consider the possibility of hurting the Giant and reducing its effectiveness in subsequent turns. Therefore, if a Giant has accumulated 5-7 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Giant is badly hurt all accumulated hits are discounted and its maximum Hits value and Attacks are halved for the rest of the battle (to 4 Hits and 4 Attacks). A Giant causes terror in its enemies."
+  ],
+  "notes": null
+}
+```
 
 ## Giant Eagles
 
@@ -1160,6 +1220,21 @@ Special text: **Chariot Mount.** Generals, Druids and Heroes can ride Chariots. 
 ```
 
 # Goblins
+
+## Giant
+
+Special text: **Giant.** Giants must always be given a separate order. They cannot be brigaded with other troops, although several Giants can be brigaded together if you so wish. If you attempt to give an order to a Giant and fail then you must take a test to see what it does. Ignore potential blunders - these are taken into account by the following rules. Roll a dice and consult the Giant Goes Wild chart. Where Giants are brigaded together roll for each separately. Giants have a great many hits, 8 in fact, which are almost impossible to inflict during even a fairly lengthy combat engagement. Because Giants have so many hits we must consider the possibility of hurting the Giant and reducing its effectiveness in subsequent turns. Therefore, if a Giant has accumulated 5-7 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Giant is badly hurt all accumulated hits are discounted and its maximum Hits value and Attacks are halved for the rest of the battle (to 4 Hits and 4 Attacks). A Giant causes terror in its enemies. Giant Goes Wild Chart D6 Oh no! What‘s he doing now! 1. The Giant will neither move nor fight this turn but simply stands rooted to the spot looking dopey. 2. Move the Giant directly towards the nearest table edge. If he moves into another unit he will charge it regardless of which side it is on. If victorious in combat the Giant will hold his ground. 3. The Giant throws an object at the closest visible unit (friend or foe) within 5xD6 cm, inflicting 3 Attacks. If the target is in combat, the attacks contribute to the combat result; otherwise, resolve them in the Shooting phase. 4. The Giant moves straight forward at full pace in the direction he is facing in. If he reaches an enemy unit he will charge. If he reaches a friendly unit he will walk straight through and out the other side if there is room and he has sufficient move. If he reaches a friendly unit and does not have sufficient move or enough room to walk all the way through then he halts on contact. A friendly unit that is walked through or contacted in this way instantly becomes confused as a result. 5. The Giant moves towards the nearest enemy unit that he can see as fast as he can. If he reaches the foe he will charge. If friends are in the way he will walk through them causing confusion as described above. If there is no visible enemy the Giant does nothing this Command phase. 6. The Giant gives a mighty bellow and rushes straight at the nearest enemy unit that he can see. Move the Giant at double his normal full pace move. If he reaches an enemy unit, he charges it and fights by jumping up and down on the foe, furiously doubling his Attacks value in the first round of combat. If there is no visible enemy the Giant does nothing this Command phase.
+
+```json
+{
+  "specialName": "Giant",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "Giants must always be given a separate order. They cannot be brigaded with other troops, although several Giants can be brigaded together if you so wish. If you attempt to give an order to a Giant and fail then you must take a test to see what it does. Ignore potential blunders - these are taken into account by the following rules. Roll a dice and consult the Giant Goes Wild chart. Where Giants are brigaded together roll for each separately. Giants have a great many hits, 8 in fact, which are almost impossible to inflict during even a fairly lengthy combat engagement. Because Giants have so many hits we must consider the possibility of hurting the Giant and reducing its effectiveness in subsequent turns. Therefore, if a Giant has accumulated 5-7 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Giant is badly hurt all accumulated hits are discounted and its maximum Hits value and Attacks are halved for the rest of the battle (to 4 Hits and 4 Attacks). A Giant causes terror in its enemies."
+  ],
+  "notes": null
+}
+```
 
 ## Chariot
 
@@ -1420,6 +1495,21 @@ Special text: **Tuskgor Chariot.** Beastlord or Wargors can ride a Tuskgor Chari
 ```
 
 # Norse
+
+## Storm Giant
+
+Special text: **Storm Giant.** Giants must always be given a separate order. They cannot be brigaded with other troops, although several Giants can be brigaded together if you so wish. If you attempt to give an order to a Giant and fail then you must take a test to see what it does. Ignore potential blunders - these are taken into account by the following rules. Roll a dice and consult the Giant Goes Wild chart. Where Giants are brigaded together roll for each separately. Giants have a great many hits, 8 in fact, which are almost impossible to inflict during even a fairly lengthy combat engagement. Because Giants have so many hits we must consider the possibility of hurting the Giant and reducing its effectiveness in subsequent turns. Therefore, if a Giant has accumulated 5-7 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Giant is badly hurt all accumulated hits are discounted and its maximum Hits value and Attacks are halved for the rest of the battle (to 4 Hits and 4 Attacks). A Giant causes terror in its enemies. Giant Goes Wild Chart D6 Oh no! What‘s he doing now! 1. The Giant will neither move nor fight this turn but simply stands rooted to the spot looking dopey. 2. Move the Giant directly towards the nearest table edge. If he moves into another unit he will charge it regardless of which side it is on. If victorious in combat the Giant will hold his ground. 3. The Giant throws an object at the closest visible unit (friend or foe) within 5xD6 cm, inflicting 3 Attacks. If the target is in combat, the attacks contribute to the combat result; otherwise, resolve them in the Shooting phase. 4. The Giant moves straight forward at full pace in the direction he is facing in. If he reaches an enemy unit he will charge. If he reaches a friendly unit he will walk straight through and out the other side if there is room and he has sufficient move. If he reaches a friendly unit and does not have sufficient move or enough room to walk all the way through then he halts on contact. A friendly unit that is walked through or contacted in this way instantly becomes confused as a result. 5. The Giant moves towards the nearest enemy unit that he can see as fast as he can. If he reaches the foe he will charge. If friends are in the way he will walk through them causing confusion as described above. If there is no visible enemy the Giant does nothing this Command phase. 6. The Giant gives a mighty bellow and rushes straight at the nearest enemy unit that he can see. Move the Giant at double his normal full pace move. If he reaches an enemy unit, he charges it and fights by jumping up and down on the foe, furiously doubling his Attacks value in the first round of combat. If there is no visible enemy the Giant does nothing this Command phase.
+
+```json
+{
+  "specialName": "Storm Giant",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "Giants must always be given a separate order. They cannot be brigaded with other troops, although several Giants can be brigaded together if you so wish. If you attempt to give an order to a Giant and fail then you must take a test to see what it does. Ignore potential blunders - these are taken into account by the following rules. Roll a dice and consult the Giant Goes Wild chart. Where Giants are brigaded together roll for each separately. Giants have a great many hits, 8 in fact, which are almost impossible to inflict during even a fairly lengthy combat engagement. Because Giants have so many hits we must consider the possibility of hurting the Giant and reducing its effectiveness in subsequent turns. Therefore, if a Giant has accumulated 5-7 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Giant is badly hurt all accumulated hits are discounted and its maximum Hits value and Attacks are halved for the rest of the battle (to 4 Hits and 4 Attacks). A Giant causes terror in its enemies."
+  ],
+  "notes": null
+}
+```
 
 ## Valkyries
 

@@ -34,6 +34,9 @@ export interface UnitData {
   max: number | null;
   specialName: string | null;
   specials: string[];
+  /** Named roll chart (e.g. the Giant Goes Wild Chart) split out of the
+   * specials; `text` holds one chart entry per line. */
+  chart: { name: string; text: string } | null;
   notes: string | null;
 }
 

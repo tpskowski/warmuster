@@ -1,11 +1,32 @@
-﻿import type { ArmyData, SavedCharacterEntry, SavedList, SavedUnitEntry, SpellData } from "../types";
+﻿import type { CSSProperties } from "react";
+import type { ArmyData, SavedCharacterEntry, SavedList, SavedUnitEntry } from "../types";
 import { getUnit } from "../data/gameData";
 import { entryPoints, totalPoints } from "../domain/lists";
-import { getMagicItem, type MagicItemData } from "../domain/magicItems";
-import { buildCard, type CardModel } from "../domain/unitCard";
+import { getMagicItem } from "../domain/magicItems";
+import {
+  buildCard,
+  buildChartCard,
+  buildMagicItemCard,
+  buildSpellCard,
+  statColumns,
+  FIT_LEVELS,
+  type CardModel,
+  type CardRule,
+  type CardStatRow,
+} from "../domain/unitCard";
 import { meleeAttacksLabel, rangedAttacksLabel, signedLabel } from "./UnitStats";
 
 export type PrintMode = "list" | "cards";
+
+export interface CardPrintOptions {
+  printMagicCards: boolean;
+  includeMagicItemsOnUnits: boolean;
+}
+
+export const defaultCardPrintOptions: CardPrintOptions = {
+  printMagicCards: true,
+  includeMagicItemsOnUnits: true,
+};
 
 /** Full army-list printout with special rules, army rules, and spells. */
 function entryExtras(army: ArmyData, entry: SavedUnitEntry | SavedCharacterEntry): string {
@@ -169,108 +190,201 @@ function Diagram({ card }: { card: CardModel }) {
   );
 }
 
-function UnitCard({ card }: { card: CardModel }) {
+/** Stats in two columns: combat values left; Range/Speed/Half pace right,
+ * with the rows of both columns lining up. */
+function CardStats({ stats }: { stats: CardStatRow[] }) {
+  const { left, right } = statColumns(stats);
+  const column = (rows: CardStatRow[]) =>
+    rows.map((stat) => (
+      <div key={stat.label} className="card-stat">
+        <span className="card-stat-label">{stat.label}:</span> {stat.value}
+      </div>
+    ));
   return (
-    <div className={`unit-card fit-${card.fitLevel}`}>
+    <div className="card-stats">
+      <div className="card-stats-col">{column(left)}</div>
+      <div className="card-stats-col">{column(right)}</div>
+    </div>
+  );
+}
+
+/** A rule paragraph: a magic item's name is bolded on its own line above the
+ * text (card-rule uses white-space: pre-line, so the "\n" breaks the line). */
+function RuleParagraph({ rule }: { rule: CardRule }) {
+  return (
+    <p className="card-rule">
+      {rule.title != null && (
+        <>
+          <strong className="card-rule-name">{rule.title}</strong>
+          {"\n"}
+        </>
+      )}
+      {rule.text}
+    </p>
+  );
+}
+
+/** Font sizes for the card's fit level, applied as CSS variables consumed by
+ * .card-rule / .card-stat / .card-name. */
+function fitStyle(card: CardModel): CSSProperties {
+  const fit = FIT_LEVELS[card.fitLevel];
+  return {
+    "--rule-pt": `${fit.rulePt}pt`,
+    "--stat-pt": `${fit.statPt}pt`,
+    "--stat-line": `${fit.statLineMm}mm`,
+    "--name-pt": `${fit.namePt}pt`,
+  } as CSSProperties;
+}
+
+function cardClass(card: CardModel): string {
+  return card.compact ? "unit-card card-compact" : "unit-card";
+}
+
+export function CardFront({ card }: { card: CardModel }) {
+  return (
+    <div
+      className={cardClass(card)}
+      style={fitStyle(card)}
+      data-card={card.unitId}
+      data-face="front"
+      data-fit={card.fitLevel}
+    >
       <div className="card-head">
         <span className="card-name">{card.name}</span>
         <span className="card-type">{card.type}</span>
         <Diagram card={card} />
       </div>
       <div className="card-body">
-        <div className="card-stats">
-          {card.stats.map((stat) => (
-            <div key={stat.label} className="card-stat">
-              <span className="card-stat-label">{stat.label}:</span> {stat.value}
-            </div>
-          ))}
-        </div>
-        {card.rules.map((rule, i) => (
-          <p key={i} className="card-rule">
-            {rule}
-          </p>
+        {card.stats.length > 0 && <CardStats stats={card.stats} />}
+        {card.frontRules.map((rule, i) => (
+          <RuleParagraph key={i} rule={rule} />
+        ))}
+        {card.backRules.length > 0 && <p className="card-continued">continued on back ↷</p>}
+      </div>
+    </div>
+  );
+}
+
+/** Back face: rules continuation for long cards, Warmuster logo otherwise. */
+export function CardBack({ card }: { card: CardModel }) {
+  if (card.backRules.length === 0) {
+    return (
+      <div className="unit-card card-back-logo" data-card={card.unitId} data-face="back">
+        <span>Warmuster</span>
+      </div>
+    );
+  }
+  return (
+    <div
+      className={cardClass(card)}
+      style={fitStyle(card)}
+      data-card={card.unitId}
+      data-face="back"
+      data-fit={card.fitLevel}
+    >
+      <div className="card-head card-head-back">
+        <span className="card-name-back">{card.name}</span>
+        <span className="card-type">continued</span>
+      </div>
+      <div className="card-body">
+        {card.backRules.map((rule, i) => (
+          <RuleParagraph key={i} rule={rule} />
         ))}
       </div>
     </div>
   );
 }
 
-function SpellCard({ spell }: { spell: SpellData }) {
-  return (
-    <div className="unit-card spell-card fit-0">
-      <div className="card-head">
-        <span className="card-name">{spell.name}</span>
-        <span className="card-type">Spell</span>
-      </div>
-      <div className="card-body">
-        <div className="card-stats">
-          <div className="card-stat">
-            <span className="card-stat-label">To cast:</span> {spell.toCast}
-          </div>
-          <div className="card-stat">
-            <span className="card-stat-label">Range:</span> {spell.range}
-          </div>
-        </div>
-        <p className="card-rule">{spell.text}</p>
-      </div>
-    </div>
-  );
+/** 3 x 3 cards per A4 page. */
+export const CARDS_PER_PAGE = 9;
+
+export function paginate<T>(items: T[], perPage: number): T[][] {
+  const pages: T[][] = [];
+  for (let i = 0; i < items.length; i += perPage) pages.push(items.slice(i, i + perPage));
+  return pages;
 }
 
-function MagicItemCard({ item, bearer }: { item: MagicItemData; bearer: string | null }) {
-  return (
-    <div className="unit-card spell-card fit-0">
-      <div className="card-head">
-        <span className="card-name">{item.name}</span>
-        <span className="card-type">Magic item</span>
-      </div>
-      <div className="card-body">
-        {bearer && (
-          <div className="card-stats">
-            <div className="card-stat">
-              <span className="card-stat-label">Carried by:</span> {bearer}
-            </div>
-          </div>
-        )}
-        <p className="card-rule">{item.text}</p>
-      </div>
-    </div>
-  );
-}
-
-/** Unit-card sheet: one card per distinct unit/character/upgrade in the list,
- * plus cards for assigned magic items and spells when the list includes a
- * wizard. */
-export function CardSheet({ list, army }: { list: SavedList; army: ArmyData }) {
-  const usedIds: string[] = [];
-  const push = (id: string) => {
-    if (!usedIds.includes(id)) usedIds.push(id);
+/** Cards for one list: one card per distinct unit/character variant, plus
+ * optional spell cards. Mounts/upgrades stay on their unit; assigned magic
+ * items either stay there too or become standalone cards, depending on the
+ * selected print options. */
+export function listCards(
+  list: SavedList,
+  army: ArmyData,
+  options: CardPrintOptions = defaultCardPrintOptions,
+): CardModel[] {
+  const cards: CardModel[] = [];
+  const seen = new Set<string>();
+  const push = (unitId: string, itemIds: string[] = [], upgradeIds: string[] = []) => {
+    const unit = getUnit(army, unitId);
+    if (!unit) return;
+    const items = itemIds
+      .map((id) => getMagicItem(id))
+      .filter((item) => item != null)
+      .sort((a, b) => a.itemId.localeCompare(b.itemId));
+    const upgrades = upgradeIds
+      .map((id) => getUnit(army, id))
+      .filter((u) => u != null)
+      .sort((a, b) => a.unitId.localeCompare(b.unitId));
+    const card = buildCard(unit, options.includeMagicItemsOnUnits ? items : [], upgrades);
+    if (seen.has(card.unitId)) return;
+    seen.add(card.unitId);
+    cards.push(card);
+    // Units with a roll chart (the Giants) get a second, two-sided chart card.
+    const chartCard = buildChartCard(unit);
+    if (chartCard && !seen.has(chartCard.unitId)) {
+      seen.add(chartCard.unitId);
+      cards.push(chartCard);
+    }
   };
-  const itemCards: Array<{ item: MagicItemData; bearer: string | null }> = [];
   for (const entry of [...list.characters, ...list.units]) {
-    push(entry.unitId);
-    for (const id of entry.upgrades) push(id);
-    for (const id of entry.magicItems) {
-      const item = getMagicItem(id);
-      if (item && !itemCards.some((c) => c.item.itemId === id)) {
-        itemCards.push({ item, bearer: getUnit(army, entry.unitId)?.troop ?? null });
+    push(entry.unitId, entry.magicItems, entry.upgrades);
+  }
+  const hasWizard = [...list.characters, ...list.units].some(
+    (entry) => getUnit(army, entry.unitId)?.type === "Wizard",
+  );
+  const itemCards: CardModel[] = [];
+  if (!options.includeMagicItemsOnUnits) {
+    const seenItems = new Set<string>();
+    for (const entry of [...list.characters, ...list.units]) {
+      const bearer = getUnit(army, entry.unitId);
+      for (const id of entry.magicItems) {
+        if (seenItems.has(id)) continue;
+        const item = getMagicItem(id);
+        if (!item) continue;
+        seenItems.add(id);
+        itemCards.push(buildMagicItemCard(item, bearer));
       }
     }
   }
-  const cards = usedIds
-    .map((id) => getUnit(army, id))
-    .filter((u) => u != null)
-    .map((u) => buildCard(u));
-  const hasWizard = usedIds.some((id) => getUnit(army, id)?.type === "Wizard");
+  const magicCards = options.printMagicCards && hasWizard
+    ? army.spells.map((spell) => buildSpellCard(spell))
+    : [];
+  return [...cards, ...itemCards, ...magicCards];
+}
+
+/** Unit-card sheet paginated for double-sided printing: each front page is
+ * followed by a back page whose columns are mirrored (via direction: rtl in
+ * CSS), so printing double-sided with "flip on long edge" lines each back up
+ * with its front. */
+export function CardSheet({ cards }: { cards: CardModel[] }) {
+  const pages = paginate(cards, CARDS_PER_PAGE);
   return (
     <div className="card-sheet">
-      {cards.map((card) => (
-        <UnitCard key={card.unitId} card={card} />
+      {pages.map((page, i) => (
+        <div key={i} className="card-page-pair">
+          <div className="card-page" data-page={`front-${i}`}>
+            {page.map((card) => (
+              <CardFront key={card.unitId} card={card} />
+            ))}
+          </div>
+          <div className="card-page card-page-back" data-page={`back-${i}`}>
+            {page.map((card) => (
+              <CardBack key={card.unitId} card={card} />
+            ))}
+          </div>
+        </div>
       ))}
-      {itemCards.map(({ item, bearer }) => (
-        <MagicItemCard key={item.itemId} item={item} bearer={bearer} />
-      ))}
-      {hasWizard && army.spells.map((spell) => <SpellCard key={spell.name} spell={spell} />)}
     </div>
   );
 }
@@ -279,14 +393,27 @@ export default function PrintView({
   mode,
   list,
   army,
+  duplexOffsetMm = 0,
+  cardOptions = defaultCardPrintOptions,
 }: {
   mode: PrintMode;
   list: SavedList;
   army: ArmyData;
+  /** Horizontal nudge for the back pages (mm, positive = right) to calibrate
+   * out the printer's front/back registration offset in duplex printing. */
+  duplexOffsetMm?: number;
+  cardOptions?: CardPrintOptions;
 }) {
   return (
-    <div className="print-root">
-      {mode === "list" ? <PrintList list={list} army={army} /> : <CardSheet list={list} army={army} />}
+    <div
+      className="print-root"
+      style={{ "--duplex-offset": `${duplexOffsetMm}mm` } as CSSProperties}
+    >
+      {mode === "list" ? (
+        <PrintList list={list} army={army} />
+      ) : (
+        <CardSheet cards={listCards(list, army, cardOptions)} />
+      )}
     </div>
   );
 }

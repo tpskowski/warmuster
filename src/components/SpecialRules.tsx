@@ -63,6 +63,16 @@ export function UnitDetailsDialog({ unit, onClose }: { unit: UnitData; onClose: 
           ) : (
             <p>No special rules listed for this unit.</p>
           )}
+          {unit.chart && (
+            <>
+              <h3>{unit.chart.name}</h3>
+              {unit.chart.text.split("\n").map((line, index) => (
+                <p key={index} className="chart-line">
+                  {line}
+                </p>
+              ))}
+            </>
+          )}
         </div>
       </div>
     </div>
