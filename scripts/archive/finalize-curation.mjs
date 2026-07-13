@@ -7,7 +7,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+// This script lives in scripts/archive/, so the repo root is three levels up.
+const root = path.dirname(path.dirname(path.dirname(fileURLToPath(import.meta.url))));
 const draftDir = path.join(root, "data", "curation-draft");
 const outDir = path.join(root, "data", "curation");
 

@@ -7,9 +7,10 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { hashText, parseArmyLists, normalizeRow, extractSpecialName } from "./generate-army-json.mjs";
+import { hashText, parseArmyLists, normalizeRow, extractSpecialName } from "../generate-army-json.mjs";
 
-const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+// This script lives in scripts/archive/, so the repo root is three levels up.
+const root = path.dirname(path.dirname(path.dirname(fileURLToPath(import.meta.url))));
 const markdown = fs.readFileSync(path.join(root, "WMR_Armies_2.26_army_lists.md"), "utf8");
 const parsed = parseArmyLists(markdown);
 

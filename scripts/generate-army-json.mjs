@@ -267,6 +267,9 @@ export function normalizeRow(row, armyId) {
     ...parseMinMax(row.minMax),
     specialName,
     specials: body ? [body] : [],
+    // Named roll chart (e.g. the Giant Goes Wild Chart) split out of the
+    // specials by curation; entries are newline-separated in `text`.
+    chart: null,
     notes: null,
   };
   return unit;
@@ -310,6 +313,7 @@ export function applyCuration(unit, entry, warnings, rawSpecial) {
   }
   if (entry.eligibleToUpgrade) out.eligibleToUpgrade = entry.eligibleToUpgrade;
   if (entry.specials) out.specials = entry.specials;
+  if (entry.chart !== undefined) out.chart = entry.chart;
   if (entry.notes !== undefined) out.notes = entry.notes;
   return out;
 }

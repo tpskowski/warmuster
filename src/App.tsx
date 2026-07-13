@@ -4,7 +4,11 @@ import ExportDialog from "./components/ExportDialog";
 import InfoDialog, { type InfoTopic } from "./components/InfoDialog";
 import ListRail from "./components/ListRail";
 import MagicItemsDialog from "./components/MagicItemsDialog";
-import PrintView, { type PrintMode } from "./components/PrintView";
+import PrintView, {
+  defaultCardPrintOptions,
+  type CardPrintOptions,
+  type PrintMode,
+} from "./components/PrintView";
 import Roster from "./components/Roster";
 import { consumeShareHash, decodeShareCode } from "./domain/shareCode";
 import { getArmy, ruleSets } from "./data/gameData";
@@ -53,7 +57,21 @@ export default function App() {
   const [exportOpen, setExportOpen] = useState(false);
   const [magicItemsOpen, setMagicItemsOpen] = useState(false);
   const [printMode, setPrintMode] = useState<PrintMode | null>(null);
+  const [cardPrintOptions, setCardPrintOptions] = useState<CardPrintOptions>(defaultCardPrintOptions);
   const [infoTopic, setInfoTopic] = useState<InfoTopic | null>(null);
+  // Duplex calibration (mm): shifts printed card backs right (+) or left (-)
+  // to line up with the fronts on this printer. Saved per browser; defaults
+  // to 1mm right until the user calibrates.
+  const [duplexOffset, setDuplexOffset] = useState<number>(() => {
+    const raw = localStorage.getItem("warmuster.duplexOffset");
+    if (raw == null || raw === "") return 1;
+    const stored = Number(raw);
+    return Number.isFinite(stored) ? stored : 1;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("warmuster.duplexOffset", String(duplexOffset));
+  }, [duplexOffset]);
 
   // Import a shared list from the URL hash on first load.
   useEffect(() => {
@@ -185,8 +203,59 @@ export default function App() {
             <button type="button" onClick={() => setPrintMode(null)}>
               Close preview
             </button>
+            {printMode === "cards" && (
+              <div className="card-print-options">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={cardPrintOptions.printMagicCards}
+                    onChange={(event) =>
+                      setCardPrintOptions((current) => ({
+                        ...current,
+                        printMagicCards: event.target.checked,
+                      }))
+                    }
+                  />
+                  Print magic cards
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={cardPrintOptions.includeMagicItemsOnUnits}
+                    onChange={(event) =>
+                      setCardPrintOptions((current) => ({
+                        ...current,
+                        includeMagicItemsOnUnits: event.target.checked,
+                      }))
+                    }
+                  />
+                  Include magic items on units
+                </label>
+                <label
+                  className="duplex-offset"
+                  title="If the backs print slightly off to one side, nudge them here: positive moves the back side right."
+                >
+                  Back-side offset
+                  <input
+                    type="number"
+                    step={0.25}
+                    min={-5}
+                    max={5}
+                    value={duplexOffset}
+                    onChange={(e) => setDuplexOffset(Number(e.target.value) || 0)}
+                  />
+                  mm
+                </label>
+              </div>
+            )}
           </div>
-          <PrintView mode={printMode} list={activeList} army={army} />
+          <PrintView
+            mode={printMode}
+            list={activeList}
+            army={army}
+            duplexOffsetMm={printMode === "cards" ? duplexOffset : 0}
+            cardOptions={cardPrintOptions}
+          />
         </div>
       )}
     </div>

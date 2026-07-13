@@ -1,5 +1,7 @@
 ﻿@import "@fontsource/grenze/700.css";
 @import "@fontsource/im-fell-english/400.css";
+@import "@fontsource/noto-sans/400.css";
+@import "@fontsource/noto-sans/700.css";
 
 @font-face {
   font-family: "Bokor";
@@ -218,6 +220,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  margin-top: 6px;
 }
 
 .rail-create select {
@@ -815,6 +818,7 @@ textarea {
   margin-bottom: 8px;
 }
 
+
 .export-text {
   width: 100%;
   font-family: ui-monospace, Consolas, monospace;
@@ -836,8 +840,36 @@ textarea {
 
 .print-toolbar {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   gap: 8px;
   margin-bottom: 12px;
+}
+
+.card-print-options {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-left: 8px;
+  font-size: 13px;
+  color: #444;
+}
+
+.card-print-options label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.duplex-offset {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.duplex-offset input {
+  width: 64px;
 }
 
 .print-root {
@@ -907,17 +939,37 @@ textarea {
 
 /* ------------------------------------------------------------ unit cards */
 
-/* 2 x 3 cards per A4 page; ink-light (borders only, no fills). The fit-N
-   levels must stay in sync with FIT_LEVELS in src/domain/unitCard.ts. */
-.card-sheet {
+/* 63 x 88mm trading cards, 3 x 3 per A4 page; ink-light (borders only, no
+   fills). Every front page is followed by a back page whose columns are
+   mirrored (direction: rtl) so double-sided "flip on long edge" printing
+   lines each back up with its front. The fit-N levels must stay in sync
+   with FIT_LEVELS in src/domain/unitCard.ts. */
+.card-page {
   display: grid;
-  grid-template-columns: repeat(2, 92mm);
-  gap: 4mm;
+  grid-template-columns: repeat(3, 63mm);
+  /* Rows are the tight dimension: 3 x 88mm + 2 x 2mm = 268mm must fit the
+     printable page height (297 - 2 x 8mm margins) with slack to spare. */
+  gap: 2mm 4mm;
   justify-content: center;
+  break-after: page;
+  margin-bottom: 6mm;
+}
+
+.card-page-back {
+  direction: rtl;
+  /* Duplex calibration: shifts the whole back page right (positive) or left
+     (negative) to cancel the printer's front/back registration offset. Set
+     from the print toolbar; a translate never affects pagination. */
+  transform: translateX(var(--duplex-offset, 0mm));
+}
+
+.card-page-back .unit-card {
+  direction: ltr;
 }
 
 .unit-card {
-  width: 92mm;
+  position: relative;
+  width: 63mm;
   height: 88mm;
   border: 1px solid #555;
   border-radius: 2mm;
@@ -926,12 +978,16 @@ textarea {
   break-inside: avoid;
   background: #fff;
   color: #111;
+  /* Bundled font: identical text metrics on every platform, so the fit
+     estimator in src/domain/unitCard.ts (calibrated to Noto Sans) can run a
+     thin safety margin without risking clipped text. */
+  font-family: "Noto Sans", "Segoe UI", system-ui, sans-serif;
 }
 
 .card-head {
   display: flex;
   align-items: center;
-  gap: 3mm;
+  gap: 2mm;
   border-bottom: 1px solid #888;
   padding-bottom: 1mm;
   margin-bottom: 1.5mm;
@@ -939,19 +995,55 @@ textarea {
 
 .card-name {
   font-family: var(--font-display);
-  font-size: 12pt;
+  font-size: var(--name-pt, 11pt);
+  line-height: 1.4;
   font-weight: 700;
   flex: 1;
+  /* Same red as the Warmuster logo back; forced so it prints in colour. */
+  color: #7a1f1f;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
 }
 
 .card-type {
-  font-size: 8pt;
+  font-size: 7pt;
   color: #444;
+  margin-left: auto;
+}
+
+.card-head-back {
+  padding-bottom: 0.8mm;
+  margin-bottom: 1.2mm;
+}
+
+.card-name-back {
+  font-family: var(--font-display);
+  font-size: 9pt;
+  font-weight: 700;
+  flex: 1;
+  color: #7a1f1f;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+/* Logo back for cards whose rules fit on the front: the Warmuster wordmark
+   in the app-title font and red. */
+.card-back-logo {
+  display: grid;
+  place-items: center;
+}
+
+.card-back-logo span {
+  font-family: "Bokor", var(--font-display);
+  font-size: 24pt;
+  color: #7a1f1f;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
 }
 
 .diagram-rects {
   display: flex;
-  gap: 0.8mm;
+  gap: 0.6mm;
 }
 
 .diagram-rects.horizontal {
@@ -967,12 +1059,12 @@ textarea {
 }
 
 .diagram-rects.horizontal .diagram-rect {
-  width: 8mm;
-  height: 3.6mm;
+  width: 6.5mm;
+  height: 2.7mm;
 }
 
 .diagram-rects.vertical .diagram-rect {
-  width: 3.6mm;
+  width: 3.4mm;
   height: 8mm;
 }
 
@@ -981,19 +1073,24 @@ textarea {
   height: 4.5mm;
   border: 1px solid #333;
   border-radius: 50%;
+  flex-shrink: 0;
 }
 
+/* Two stat columns: combat values left; Range/Speed/Half pace right. */
 .card-stats {
-  float: left;
-  width: 26mm;
-  margin-right: 2.5mm;
-  margin-bottom: 1mm;
+  display: flex;
+  gap: 2mm;
+  margin-bottom: 1.5mm;
+}
+
+.card-stats-col {
+  flex: 1;
+  min-width: 0;
 }
 
 .card-stat {
-  font-size: 9pt;
-  line-height: 1.45;
-  white-space: nowrap;
+  font-size: var(--stat-pt, 8.5pt);
+  line-height: var(--stat-line, 4.1mm);
 }
 
 .card-stat-label {
@@ -1002,56 +1099,50 @@ textarea {
 
 .card-rule {
   margin: 0 0 1.2mm;
-  line-height: 1.28;
-  white-space: pre-line;
-}
-
-/* Fit levels: rules font steps down first, then stats and spacing. */
-.fit-0 .card-rule {
-  font-size: 8pt;
-}
-
-.fit-1 .card-rule {
-  font-size: 7pt;
-}
-
-.fit-2 .card-rule {
-  font-size: 6pt;
-}
-
-.fit-2 .card-stat {
-  font-size: 8pt;
+  font-size: var(--rule-pt, 8pt);
   line-height: 1.3;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
 }
 
-.fit-3 .card-rule {
-  font-size: 5pt;
-  line-height: 1.22;
-  margin-bottom: 0.7mm;
+/* Chart cards (numbered lists) use tighter inter-paragraph spacing; must
+   match COMPACT_PARA_GAP_MM in src/domain/unitCard.ts. */
+.card-compact .card-rule {
+  margin-bottom: 0.5mm;
 }
 
-.fit-3 .card-stats {
-  width: 22mm;
-  margin-right: 2mm;
+/* Magic item name: bold, on its own line above the item text. */
+.card-rule-name {
+  font-weight: 700;
 }
 
-.fit-3 .card-stat {
-  font-size: 7pt;
-  line-height: 1.25;
+/* Marker sits in the card's bottom padding so it costs no layout height. */
+.card-continued {
+  position: absolute;
+  bottom: 0.6mm;
+  right: 2.5mm;
+  margin: 0;
+  font-size: 6pt;
+  font-style: italic;
+  color: #666;
 }
 
-.fit-3 .card-name {
-  font-size: 10pt;
-}
+/* Fit-level fonts arrive as CSS variables (--rule-pt, --stat-pt, --stat-line,
+   --name-pt) set inline by CardFront/CardBack from FIT_LEVELS in
+   src/domain/unitCard.ts — no per-level classes to keep in sync. */
 
 @media print {
-  body * {
-    visibility: hidden;
+  /* Remove the app behind the overlay from the layout entirely —
+     visibility: hidden alone would keep its height and push the cards onto
+     later (blank) pages. */
+  .app-shell > :not(.print-overlay) {
+    display: none;
   }
 
-  .print-overlay,
-  .print-overlay * {
-    visibility: visible;
+  body,
+  #root {
+    margin: 0;
+    padding: 0;
   }
 
   .print-overlay {
@@ -1064,12 +1155,18 @@ textarea {
     display: none;
   }
 
-  .unit-card {
-    height: 88mm;
+  .card-page {
+    margin-bottom: 0;
+  }
+
+  /* No forced break after the final page: avoids a trailing blank sheet. */
+  .card-page-pair:last-child .card-page-back {
+    break-after: auto;
   }
 
   @page {
-    margin: 8mm;
+    size: A4 portrait;
+    margin: 8mm 6mm;
   }
 }
 

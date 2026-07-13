@@ -11,7 +11,7 @@
     "notes": "The Warp Lightning Cannon follows the rules for Elven Bolt Throwers as per page 75 of the rulebook, but they can move up to 20cm. A half pace move is 10cm."
   },
   "skaven:rat-ogre-bodyguard": {
-    "source": "5b2d2880",
+    "source": "89a63c20",
     "eligibleToUpgrade": [
       "skaven:grey-seer",
       "skaven:hero",
