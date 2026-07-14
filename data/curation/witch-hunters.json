@@ -11,5 +11,20 @@
       "A Warrior Priest may be mounted on a War Altar. The army can only ever include one War Altar, and it can only be included if there is at least 1 unit of Flagellants in the army. The War Altar adds +2 attacks to the Warrior Priest and can be used to add +1 to the Warrior Priest‘s dice roll to cast a spell once per battle. The player must announce that the War Altar‘s spell bonus is being used before rolling the dice to determine if the spell is cast."
     ],
     "notes": "A Warrior Priest with a War Altar suffers a movement reduction to 30cm."
+  },
+  "witch-hunters:warhounds": {
+    "source": "bfc647f4",
+    "overrides": {
+      "category": "upgrade",
+      "points": null,
+      "upgradePoints": 20
+    },
+    "eligibleToUpgrade": [
+      "witch-hunters:zealots",
+      "witch-hunters:halberdiers",
+      "witch-hunters:crossbowmen",
+      "witch-hunters:handgunners",
+      "witch-hunters:flagellants"
+    ]
   }
 }

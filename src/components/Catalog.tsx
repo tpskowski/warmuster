@@ -78,13 +78,18 @@ export default function Catalog({
     0,
   );
   const scale = Math.max(1, Math.floor(list.pointsLimit / 1000));
-  const units = army.units.filter((u) => u.category === "unit");
+  // A unit already in the list is managed from the roster (add/remove copies
+  // there); it only shows here while the list holds none of it.
+  const units = army.units.filter((u) => u.category === "unit" && countOf(list, u.unitId) === 0);
   const characters = army.units.filter((u) => u.category === "character");
   const upgrades = army.units.filter((u) => u.category === "upgrade");
 
   return (
     <div className="catalog">
       <h3 className="panel-heading">Units</h3>
+      {units.length === 0 && (
+        <p className="panel-hint">Every unit is in your list — adjust counts on the left.</p>
+      )}
       <ul className="catalog-list">
         {units.map((unit) => (
           <CatalogRow

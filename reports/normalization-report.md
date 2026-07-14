@@ -2,6 +2,31 @@
 
 # Empire
 
+## Skirmishers
+
+Special text: **Skirmishers.** Skirmisher stands are not deployed as independent units. Instead, any infantry unit apart from Flagellants may add one stand of Skirmishers. This brings the size of the unit to 4 stands - 3 regular stands plus the Skirmisher stand. Skirmishers always have the same Armour value as the rest of their unit. They fight as part of their unit and can be removed as a unit casualty if the player wishes. Skirmisher casualties never count for Command penalties. Skirmisher stands never cause the parent unit to be in Irregular Formation no matter how they are placed.
+
+Overrides:
+
+- `category` set to "upgrade"
+- `points` set to null
+- `upgradePoints` set to 20
+
+```json
+{
+  "specialName": "Skirmishers",
+  "eligibleToUpgrade": [
+    "empire:halberdiers",
+    "empire:crossbowmen",
+    "empire:handgunners"
+  ],
+  "specials": [
+    "Skirmisher stands are not deployed as independent units. Instead, any infantry unit apart from Flagellants may add one stand of Skirmishers. This brings the size of the unit to 4 stands - 3 regular stands plus the Skirmisher stand. Skirmishers always have the same Armour value as the rest of their unit. They fight as part of their unit and can be removed as a unit casualty if the player wishes. Skirmisher casualties never count for Command penalties. Skirmisher stands never cause the parent unit to be in Irregular Formation no matter how they are placed."
+  ],
+  "notes": null
+}
+```
+
 ## Steam Tank
 
 Special text: **Steam Tank.** The Steam Tank forms a unit on its own, it moves up to 20cm, and must be given its own orders. The Steam Tank cannot be given a brigade order with other units, not even with other Steams Tanks. A character cannot join with a Steam Tank. A Steam Tank has 360° vision - i.e. it can draw line of sight from all edges of its stand for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from it‘s front edge to charge an enemy. Steam Tank shooting attacks have a range of 30cm. A Steam Tank therefore shoots to its front, side or rear against the closest enemy target. Count enemy armour values as one worse than normal when shot by a Steam Tank. So, for example, an armour value of 3+ counts as 4+, 5+ counts as 6+, and 6+ can‘t save against a Steam Tank. A Steam Tank can shoot at charging enemy. Because of its exceptionally heavy armour plating, a Steam Tank always counts as defended - so a 5 or 6 is normally required to inflict a hit from shooting or in combat. The Steam Tank fights combat like any other unit. Steam Tanks cannot be driven back or routed by shooting. If the player attempts to issue an order to a Steam Tank and rolls double six then the order is failed as usual and the machine does not move. Ignore the usual Blunder chart for Heroes and Wizards. Roll on the following Malfunction chart. Note that although a General cannot blunder he must still roll for malfunctions. 1. Destroyed. The Steam Tank grinds to a halt rupturing steam and noxious gasses. Remove the Steam Tank as a casualty. 2. Broken Down. The Steam Tank‘s drive has broken. It does not move further this turn and cannot move in future turns. Should it be obliged to move for any reason it is destroyed. Otherwise, the Steam Tank can continue to shoot and fight as normal. 3. Stuck. The Steam tank does not move further this turn. It cannot shoot this turn. Otherwise it is unaffected and can move in future turns as normal. 4. Commander Slain. The Steam Tank does not move further this turn. It can move in future turns but suffers a command penalty of -1 for the remainder of the game. The Steam Tank can shoot as normal. 5. Momentary Halt. The Steam Tank cannot move further this turn but is otherwise unaffected. 6. Steam Overload. The Steam Tank cannot move further this turn but can shoot with double the usual number of Attacks (6) to represent steam being uncontrollably diverted into weaponry.
@@ -493,6 +518,29 @@ Special text: **Rat Ogre Bodyguard.** The Grey Seer, Heroes and Warlocks can hav
 ```
 
 # Lizardmen
+
+## Salamander
+
+Special text: **Salamander.** Salamander stands are not deployed as independent units. Instead, any Skink infantry unit may add one stand of Salamanders. This brings the size of the unit to 4 stands - 3 regular stands plus the Salamander stand. Salamanders always have the same Armour value as the rest of their unit. They fight as part of their unit and can be removed as a unit casualty if the player wishes. Salamander casualties never count for Command penalties. Salamander stands never cause the parent unit to be in Irregular Formation no matter how they are placed. If a Salamander stand is attached to a Skink unit the entire unit, including the Salamander, is considered to employ ‘Salamander Venom‘ shooting attacks. Enemy Armour saving throws suffer a - 1 penalty when hit by Salamander Venom (e.g. 5+ save requires a roll of 6). Salamander stands have 2 shooting attacks, a range of 15cm, and 360° vision in the same way as Skinks. If their unit is charged then Salamanders can shoot in the same way as any other shooting stand.
+
+Overrides:
+
+- `category` set to "upgrade"
+- `points` set to null
+- `upgradePoints` set to 20
+
+```json
+{
+  "specialName": "Salamander",
+  "eligibleToUpgrade": [
+    "lizardmen:skinks"
+  ],
+  "specials": [
+    "Salamander stands are not deployed as independent units. Instead, any Skink infantry unit may add one stand of Salamanders. This brings the size of the unit to 4 stands - 3 regular stands plus the Salamander stand. Salamanders always have the same Armour value as the rest of their unit. They fight as part of their unit and can be removed as a unit casualty if the player wishes. Salamander casualties never count for Command penalties. Salamander stands never cause the parent unit to be in Irregular Formation no matter how they are placed. If a Salamander stand is attached to a Skink unit the entire unit, including the Salamander, is considered to employ ‘Salamander Venom‘ shooting attacks. Enemy Armour saving throws suffer a - 1 penalty when hit by Salamander Venom (e.g. 5+ save requires a roll of 6). Salamander stands have 2 shooting attacks, a range of 15cm, and 360° vision in the same way as Skinks. If their unit is charged then Salamanders can shoot in the same way as any other shooting stand."
+  ],
+  "notes": null
+}
+```
 
 ## Terradons
 
@@ -1281,6 +1329,33 @@ Overrides:
 
 # Witch Hunters
 
+## Warhounds
+
+Special text: **Warhounds.** Warhound stands are not deployed as independent units. Instead, any infantry unit may add one stand of Warhounds. This brings the size of the unit to 4 stands; 3 regular stands plus the Warhound stand. Warhounds always have the same Armour value as the rest of their unit. They fight as part of their unit and can be removed as a unit casualty if the player wishes. Warhound casualties never count for Command penalties. Warhound stands never cause the parent unit to be in Irregular Formation no matter how they are placed. An Infantry unit containing a Warhound stand gains the ability to pursue Cavalry and Chariots.
+
+Overrides:
+
+- `category` set to "upgrade"
+- `points` set to null
+- `upgradePoints` set to 20
+
+```json
+{
+  "specialName": "Warhounds",
+  "eligibleToUpgrade": [
+    "witch-hunters:zealots",
+    "witch-hunters:halberdiers",
+    "witch-hunters:crossbowmen",
+    "witch-hunters:handgunners",
+    "witch-hunters:flagellants"
+  ],
+  "specials": [
+    "Warhound stands are not deployed as independent units. Instead, any infantry unit may add one stand of Warhounds. This brings the size of the unit to 4 stands; 3 regular stands plus the Warhound stand. Warhounds always have the same Armour value as the rest of their unit. They fight as part of their unit and can be removed as a unit casualty if the player wishes. Warhound casualties never count for Command penalties. Warhound stands never cause the parent unit to be in Irregular Formation no matter how they are placed. An Infantry unit containing a Warhound stand gains the ability to pursue Cavalry and Chariots."
+  ],
+  "notes": null
+}
+```
+
 ## War Altar
 
 Special text: **War Altar.** A Warrior Priest may be mounted on a War Altar. A Warrior Priest with a War Altar suffers a movement reduction to 30cm. The army can only ever include one War Altar, and it can only be included if there is at least 1 unit of Flagellants in the army. The War Altar adds +2 attacks to the Warrior Priest and can be used to add +1 to the Warrior Priest‘s dice roll to cast a spell once per battle. The player must announce that the War Altar‘s spell bonus is being used before rolling the dice to determine if the spell is cast.
@@ -1368,6 +1443,32 @@ Special text: **Sorcerer Lord.** The General may be a true Sorcerer Lord, maybe 
 ```
 
 # Wood Elves
+
+## Wardancers
+
+Special text: **Wardancers.** Wardancer stands are not deployed as independent units. Instead, any Glade Guard or Eternal Guard unit may add one stand of Wardancers. This brings the size of the unit to 4 stands - 3 regular stands plus the Wardancers stand. Wardancers always have the same Armour value as the rest of their unit. They fight as part of their unit and can be removed as a unit casualty if the player wishes. Wardancers casualties never count for Command penalties. Wardancers stands never cause the parent unit to be in Irregular Formation no matter how they are placed.
+
+Overrides:
+
+- `category` set to "upgrade"
+- `points` set to null
+- `upgradePoints` set to 25
+- `unitSize` set to null
+- `unitSizeModifier` set to 1
+
+```json
+{
+  "specialName": "Wardancers",
+  "eligibleToUpgrade": [
+    "wood-elves:glade-guard",
+    "wood-elves:eternal-guard"
+  ],
+  "specials": [
+    "Wardancer stands are not deployed as independent units. Instead, any Glade Guard or Eternal Guard unit may add one stand of Wardancers. This brings the size of the unit to 4 stands - 3 regular stands plus the Wardancers stand. Wardancers always have the same Armour value as the rest of their unit. They fight as part of their unit and can be removed as a unit casualty if the player wishes. Wardancers casualties never count for Command penalties. Wardancers stands never cause the parent unit to be in Irregular Formation no matter how they are placed."
+  ],
+  "notes": null
+}
+```
 
 ## Warhawk Riders
 

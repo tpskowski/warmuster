@@ -17,6 +17,17 @@
       "lizardmen:saurus-hero"
     ]
   },
+  "lizardmen:salamander": {
+    "source": "98f3438c",
+    "overrides": {
+      "category": "upgrade",
+      "points": null,
+      "upgradePoints": 20
+    },
+    "eligibleToUpgrade": [
+      "lizardmen:skinks"
+    ]
+  },
   "lizardmen:stegadon-monstrous-mount": {
     "eligibleToUpgrade": [
       "lizardmen:slann-mage-palanquin"

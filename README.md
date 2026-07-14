@@ -33,6 +33,10 @@ See [plan.md](plan.md) for the project plan and [roadmap.md](roadmap.md) for the
 
 Warmuster is an unofficial, non-commercial fan project, not affiliated with or endorsed by Games Workshop.
 
+## License
+
+The source code is licensed under the [MIT License](LICENSE). The MIT license applies only to the original code — not to game rules, army lists, names, trademarks, or other third-party materials, which remain with their respective owners.
+
 ## In-app information pages
 
 The Privacy, Changelog, Roadmap, and Credits dialogs are maintained as Markdown files in `src/content/info/`. `InfoDialog.tsx` imports them as raw text and `MarkdownContent.tsx` renders headings, paragraphs, bullet lists, and external links. Update the Markdown files to change the dialog copy; no component edit is required.

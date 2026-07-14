@@ -3,7 +3,8 @@ import Catalog from "./components/Catalog";
 import ConfigDialog from "./components/ConfigDialog";
 import ExportDialog from "./components/ExportDialog";
 import InfoDialog, { type InfoTopic } from "./components/InfoDialog";
-import ListRail from "./components/ListRail";
+import ListRail, { InfoLinks } from "./components/ListRail";
+import { HamburgerIcon, MoonIcon, SunIcon } from "./components/Icons";
 import MagicItemsDialog from "./components/MagicItemsDialog";
 import PrintView, {
   defaultCardPrintOptions,
@@ -25,6 +26,7 @@ import {
   setPointsLimit,
   toggleCharacterUpgrade,
   toggleUnitUpgrade,
+  totalPoints,
 } from "./domain/lists";
 import { validateList } from "./domain/validation";
 import { deleteList, listsForRuleSet, loadLists, upsertList } from "./storage/listRepository";
@@ -61,6 +63,7 @@ export default function App() {
   const [cardPrintOptions, setCardPrintOptions] = useState<CardPrintOptions>(defaultCardPrintOptions);
   const [infoTopic, setInfoTopic] = useState<InfoTopic | null>(null);
   const [configOpen, setConfigOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false); // mobile list drawer
   // Active rule set: each set has its own saved lists. Persisted per browser.
   const [activeRuleSet, setActiveRuleSet] = useState<string>(() => {
     const stored = localStorage.getItem("warmuster.ruleSet");
@@ -92,6 +95,19 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem("warmuster.duplexOffset", String(duplexOffset));
   }, [duplexOffset]);
+
+  // The print preview lives on its own history entry, so the browser Back
+  // button closes it (returning to the app) instead of leaving the site.
+  const openPrint = (mode: PrintMode) => {
+    window.history.pushState({ warmusterPrint: true }, "");
+    setPrintMode(mode);
+  };
+  const closePrint = () => window.history.back();
+  useEffect(() => {
+    const onPop = () => setPrintMode(null);
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
 
   // Import a shared list from the URL hash on first load.
   useEffect(() => {
@@ -155,8 +171,38 @@ export default function App() {
     setActiveListId(null);
   };
 
+  const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
+
   return (
-    <div className={`app-shell${simplifiedView ? " simplified" : ""}`}>
+    <div
+      className={`app-shell${simplifiedView ? " simplified" : ""}${menuOpen ? " menu-open" : ""}`}
+    >
+      {/* Mobile-only: hamburger opens the list drawer; points float top-right. */}
+      <button
+        type="button"
+        className="mobile-menu-btn"
+        onClick={() => setMenuOpen(true)}
+        aria-label="Open lists menu"
+      >
+        <HamburgerIcon />
+      </button>
+      <button
+        type="button"
+        className="mobile-theme-btn"
+        onClick={toggleTheme}
+        aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+        title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+      >
+        {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+      </button>
+      {activeList && army && (
+        <div
+          className={`mobile-points${totalPoints(activeList, army) > activeList.pointsLimit ? " over" : ""}`}
+        >
+          {totalPoints(activeList, army)} / {activeList.pointsLimit}
+        </div>
+      )}
+      {menuOpen && <div className="mobile-menu-backdrop" onClick={() => setMenuOpen(false)} />}
 
       <div className="app-body">
         <ListRail
@@ -164,13 +210,19 @@ export default function App() {
           activeRuleSet={activeRuleSet}
           lists={visibleLists}
           activeListId={activeListId}
-          onSelect={setActiveListId}
+          onSelect={(id) => {
+            setActiveListId(id);
+            setMenuOpen(false);
+          }}
           onCreate={handleCreate}
           onDelete={handleDelete}
           onInfo={setInfoTopic}
           theme={theme}
-          onToggleTheme={() => setTheme(theme === "dark" ? "light" : "dark")}
-          onHome={() => setActiveListId(null)}
+          onToggleTheme={toggleTheme}
+          onHome={() => {
+            setActiveListId(null);
+            setMenuOpen(false);
+          }}
           onExport={() => setExportOpen(true)}
           onOpenConfig={() => setConfigOpen(true)}
           canExport={activeList != null}
@@ -209,6 +261,17 @@ export default function App() {
           </main>
         )}
       </div>
+
+      {/* Mobile-only: the info/theme links live at the very bottom of the page
+          instead of in the (now hidden) rail. */}
+      <footer className="page-footer">
+        <InfoLinks onInfo={setInfoTopic} theme={theme} onToggleTheme={toggleTheme} />
+      </footer>
+
+      <p className="gw-disclaimer">
+        This is a fan project in no way connected to or endorsed by Games Workshop
+      </p>
+
       {infoTopic && <InfoDialog topic={infoTopic} onClose={() => setInfoTopic(null)} />}
       {configOpen && (
         <ConfigDialog
@@ -235,7 +298,7 @@ export default function App() {
           onClose={() => setExportOpen(false)}
           onPrint={(mode) => {
             setExportOpen(false);
-            setPrintMode(mode);
+            openPrint(mode);
           }}
         />
       )}
@@ -245,7 +308,7 @@ export default function App() {
             <button type="button" className="primary-btn" onClick={() => window.print()}>
               🖨 Print
             </button>
-            <button type="button" onClick={() => setPrintMode(null)}>
+            <button type="button" onClick={closePrint}>
               Close preview
             </button>
             {printMode === "cards" && (

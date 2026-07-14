@@ -1,5 +1,18 @@
 ## Unreleased
 
+- "Attachment" stands are now added from their parent unit rather than being
+  stand-alone units, matching their rules: Lizardmen Salamanders (Skinks),
+  Empire Skirmishers, Witch Hunters Warhounds, and Wood Elves Wardancers.
+
+- Units already in your list drop out of the catalog — adjust their count from
+  the roster; they reappear when reduced to zero.
+- Mobile layout: the list navigation moves to a hamburger drawer, the info
+  links to the page bottom, and the points total floats in the top-right.
+- The print preview opens on its own history entry, so the browser Back button
+  returns to the app instead of leaving the site.
+- Added a bottom-of-page disclaimer and an MIT-license notice; the source code
+  is MIT licensed.
+
 - Added a **Warmaster (Custom)** rule set alongside Warmaster Revolution,
   selectable from the new Configuration (gear) menu. Each rule set keeps its
   own saved lists. It adds custom units — Dwarf Ram Riders, Ancestral Warriors

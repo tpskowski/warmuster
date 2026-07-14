@@ -277,6 +277,11 @@ export function normalizeRow(row, armyId) {
 
 // --- Stage 3: curated normalization -----------------------------------------
 
+// Fields a curation entry may override. To turn a stand-alone unit into an
+// attachment (like the Lizardmen Salamander joining Skinks) set `category` to
+// "upgrade", move its cost to `upgradePoints` (with `points` null), and list
+// the eligible parent units in `eligibleToUpgrade`; the app then offers it on
+// those units instead of as its own catalog entry.
 const OVERRIDABLE_FIELDS = new Set([
   "facing",
   "subType",
@@ -293,6 +298,8 @@ const OVERRIDABLE_FIELDS = new Set([
   "specialName",
   "unitSize",
   "unitSizeModifier",
+  "points",
+  "upgradePoints",
   "max",
   "min",
 ]);

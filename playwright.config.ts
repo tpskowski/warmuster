@@ -5,7 +5,9 @@ export default defineConfig({
   timeout: 120_000,
   use: {
     baseURL: "http://localhost:5177",
-    viewport: { width: 900, height: 1200 },
+    // Desktop width: above the 900px mobile breakpoint so the list rail is
+    // visible for the print-flow test.
+    viewport: { width: 1280, height: 1200 },
     deviceScaleFactor: 2,
   },
   webServer: {
