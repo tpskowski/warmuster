@@ -38,6 +38,21 @@ describe("unit stats", () => {
     expect(rows.some((row) => row.label === "Hits" || row.label === "Armour")).toBe(false);
   });
 
+  it("shows armour as a dash when zero or absent (unit info view)", () => {
+    // "0 or 6+" armour reads the 0 as a dash.
+    expect(unitStatRows(unit(empire, "Skirmishers"))).toContainEqual({
+      label: "Armour",
+      value: "- or 6+",
+    });
+    // A character with no armour omits the row by default...
+    expect(unitStatRows(unit(chaos, "General")).some((r) => r.label === "Armour")).toBe(false);
+    // ...but the details view (alwaysArmour) shows it as a dash.
+    expect(unitStatRows(unit(chaos, "General"), { alwaysArmour: true })).toContainEqual({
+      label: "Armour",
+      value: "-",
+    });
+  });
+
   it("formats signed modifiers correctly", () => {
     expect(signedLabel(2)).toBe("+2");
     expect(signedLabel(-1)).toBe("-1");

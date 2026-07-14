@@ -9,7 +9,7 @@ export function UnitDetailsDialog({ unit, onClose }: { unit: UnitData; onClose: 
   const rules = cardRules(unit);
   const subtitle = unit.subType ? `${unit.type} (${unit.subType})` : unit.type;
   const stats = [
-    ...unitStatRows(unit),
+    ...unitStatRows(unit, { alwaysArmour: true }),
     ...(unit.halfPace != null ? [{ label: "Half pace", value: `${unit.halfPace}cm` }] : []),
     ...(unit.unitSize != null ? [{ label: "Unit size", value: String(unit.unitSize) }] : []),
     ...(unit.unitSizeModifier != null

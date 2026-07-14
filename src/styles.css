@@ -1325,6 +1325,78 @@ textarea {
   border-bottom: 1px solid var(--border);
 }
 
+.rail-brand-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.config-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 4px 0 8px;
+  font-weight: 600;
+}
+
+.config-field select {
+  font-weight: 400;
+}
+
+.config-hint {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.config-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 4px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Simplified view: hide the unit combat-stat lines on the builder page. The
+   catalog keeps Size/Min/Max (list-building info); the "i" details dialog
+   still shows full stats on demand. */
+.app-shell.simplified .roster-stat-line,
+.app-shell.simplified .catalog-stat-line .unit-stats,
+.app-shell.simplified .catalog-size,
+.app-shell.simplified .roster-models,
+.app-shell.simplified .catalog-spells {
+  display: none;
+}
+
+/* Simplified view also packs each entry onto one line to save vertical space:
+   the side controls sit inline, and in the catalog the remaining Size/Min-Max
+   stats flow beside the name rather than under it. Entries with upgrade or
+   magic-item chips still wrap as needed. */
+.app-shell.simplified .roster-row,
+.app-shell.simplified .catalog-row {
+  align-items: center;
+}
+
+.app-shell.simplified .catalog-main {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+}
+
+.app-shell.simplified .catalog-stat-line {
+  margin-top: 0;
+}
+
+.app-shell.simplified .roster-side,
+.app-shell.simplified .catalog-side {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
 .toolbar-icon-btn,
 .theme-toggle {
   display: inline-flex;

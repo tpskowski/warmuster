@@ -37,7 +37,7 @@ function CatalogRow({
         </div>
         <div className="catalog-stat-line">
           <UnitStats unit={unit} />
-          <span className="stat">
+          <span className="stat catalog-size">
             <span className="stat-label">Size</span>{" "}
             {unit.unitSizeModifier != null
               ? signedLabel(unit.unitSizeModifier)
@@ -137,7 +137,7 @@ export default function Catalog({
             </>
           )}
           {army.spells.length > 0 && (
-            <>
+            <section className="catalog-spells">
               <h3 className="panel-heading">Spells</h3>
               <ul className="spell-list">
                 {army.spells.map((spell) => (
@@ -152,7 +152,7 @@ export default function Catalog({
                   </li>
                 ))}
               </ul>
-            </>
+            </section>
           )}
         </>
       )}
