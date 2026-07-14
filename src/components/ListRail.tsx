@@ -20,6 +20,51 @@ interface ListRailProps {
   canExport: boolean;
 }
 
+/** The info/theme links shown in the rail footer (desktop) and the page
+ * footer (mobile). */
+export function InfoLinks({
+  onInfo,
+  theme,
+  onToggleTheme,
+}: {
+  onInfo: (topic: InfoTopic) => void;
+  theme: "light" | "dark";
+  onToggleTheme: () => void;
+}) {
+  return (
+    <>
+      <div className="rail-footer-row">
+        <button type="button" onClick={() => onInfo("privacy")}>
+          Privacy
+        </button>
+        <button type="button" onClick={() => onInfo("changelog")}>
+          Changelog
+        </button>
+        <button type="button" onClick={() => onInfo("roadmap")}>
+          Roadmap
+        </button>
+      </div>
+      <div className="rail-footer-row">
+        <button type="button" onClick={() => onInfo("credits")}>
+          Credits
+        </button>
+        <a href={FEEDBACK_URL} target="_blank" rel="noreferrer" aria-label="Feedback, opens external form">
+          Feedback {"->"}
+        </a>
+        <button
+          type="button"
+          className="theme-toggle"
+          onClick={onToggleTheme}
+          aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+          title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+        >
+          {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+        </button>
+      </div>
+    </>
+  );
+}
+
 export function armyDisplayName(list: SavedList, ruleSets: RuleSetInfo[]): string {
   const army = ruleSets
     .find((ruleSet) => ruleSet.id === list.ruleSet)
@@ -159,34 +204,7 @@ export default function ListRail({
         )}
       </div>
       <footer className="rail-footer">
-        <div className="rail-footer-row">
-          <button type="button" onClick={() => onInfo("privacy")}>
-            Privacy
-          </button>
-          <button type="button" onClick={() => onInfo("changelog")}>
-            Changelog
-          </button>
-          <button type="button" onClick={() => onInfo("roadmap")}>
-            Roadmap
-          </button>
-        </div>
-        <div className="rail-footer-row">
-          <button type="button" onClick={() => onInfo("credits")}>
-            Credits
-          </button>
-          <a href={FEEDBACK_URL} target="_blank" rel="noreferrer" aria-label="Feedback, opens external form">
-            Feedback {"->"}
-          </a>
-          <button
-            type="button"
-            className="theme-toggle"
-            onClick={onToggleTheme}
-            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
-            title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
-          >
-            {theme === "dark" ? <SunIcon /> : <MoonIcon />}
-          </button>
-        </div>
+        <InfoLinks onInfo={onInfo} theme={theme} onToggleTheme={onToggleTheme} />
       </footer>
       {pendingDelete && (
         <div className="modal-backdrop" onClick={() => setPendingDelete(null)}>

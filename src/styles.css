@@ -743,7 +743,9 @@ textarea {
 }
 
 .rail-footer button,
-.rail-footer a {
+.rail-footer a,
+.page-footer button,
+.page-footer a {
   background: none;
   border: none;
   padding: 0;
@@ -759,7 +761,9 @@ textarea {
 }
 
 .rail-footer button:hover,
-.rail-footer a:hover {
+.rail-footer a:hover,
+.page-footer button:hover,
+.page-footer a:hover {
   color: var(--accent);
   text-decoration: underline;
 }
@@ -1172,34 +1176,185 @@ textarea {
 
 /* ---------------------------------------------------------------- mobile */
 
-@media (max-width: 900px) {
-  .app-body {
-    flex-direction: column;
+@media screen and (max-width: 900px) {
+  /* The list rail becomes an off-canvas drawer opened by the hamburger.
+     Selectors are scoped under .app-shell so these overrides beat the
+     single-class desktop defaults that follow later in the file. */
+  .app-shell .list-rail {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    max-width: 85vw;
+    z-index: 50;
+    border-right: 1px solid var(--border);
+    box-shadow: 2px 0 14px rgba(0, 0, 0, 0.3);
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
   }
 
-  .list-rail {
-    width: auto;
-    border-right: none;
-    border-bottom: 2px solid var(--border);
+  .app-shell.menu-open .list-rail {
+    transform: translateX(0);
   }
 
-  .builder {
+  /* Footer links leave the rail for the page bottom (see .page-footer). */
+  .app-shell .rail-footer {
+    display: none;
+  }
+
+  .app-shell .builder {
     grid-template-columns: 1fr;
-    padding: 10px;
+    padding: 52px 10px 10px; /* clear the fixed hamburger and points badge */
   }
 
   .home {
     margin: 16px auto;
   }
+
+  .app-shell .mobile-menu-btn,
+  .app-shell .mobile-theme-btn {
+    display: inline-flex;
+  }
+
+  .app-shell .mobile-points {
+    display: block;
+  }
+
+  /* All info links on one wrapping line; the theme toggle has moved to the
+     top of the page, so hide the copy inside the footer. */
+  .app-shell .page-footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .page-footer .rail-footer-row {
+    display: contents;
+  }
+
+  .page-footer .theme-toggle {
+    display: none;
+  }
+
+  .app-shell .gw-disclaimer {
+    position: static;
+    max-width: none;
+    text-align: center;
+    background: none;
+    padding: 10px 12px 18px;
+  }
 }
 
-@media (max-width: 600px) {
+@media screen and (max-width: 600px) {
   .app-subtitle {
     display: none;
   }
 }
+
+/* ------------------------------------------------- mobile chrome (hidden on
+   desktop): hamburger drawer toggle, floating points, page footer, disclaimer */
+.mobile-menu-btn,
+.mobile-theme-btn,
+.mobile-points,
+.mobile-menu-backdrop,
+.page-footer {
+  display: none;
+}
+
+.mobile-menu-btn,
+.mobile-theme-btn {
+  position: fixed;
+  top: 8px;
+  z-index: 40;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-panel);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.mobile-menu-btn {
+  left: 8px;
+}
+
+.mobile-theme-btn {
+  left: 54px;
+}
+
+.mobile-menu-btn svg,
+.mobile-theme-btn svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.mobile-points {
+  position: fixed;
+  top: 8px;
+  right: 8px;
+  z-index: 40;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-panel);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.mobile-points.over {
+  color: var(--error);
+  border-color: var(--error);
+}
+
+.mobile-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+@media screen and (max-width: 900px) {
+  .mobile-menu-backdrop {
+    display: block;
+  }
+}
+
+.page-footer {
+  flex-direction: column;
+  gap: 5px 9px;
+  padding: 12px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-panel);
+}
+
+.gw-disclaimer {
+  position: fixed;
+  right: 12px;
+  bottom: 10px;
+  z-index: 30;
+  margin: 0;
+  max-width: 260px;
+  text-align: right;
+  font-size: 11px;
+  line-height: 1.3;
+  color: var(--text-muted);
+  background: var(--bg);
+  padding: 3px 8px;
+  border-radius: 6px;
+  pointer-events: none;
+}
 /* Main shell: independent list navigation and workspace scrolling. */
-@media (min-width: 901px) {
+@media screen and (min-width: 901px) {
   body {
     overflow: hidden;
   }
@@ -1296,18 +1451,14 @@ textarea {
   margin-top: 0;
 }
 
-@media (max-width: 900px) {
-  .list-rail {
-    max-height: 46dvh;
-  }
-
+@media screen and (max-width: 900px) {
   .catalog-toolbar {
     top: -10px;
     margin: -10px 0 12px;
   }
 }
 
-@media (max-width: 600px) {
+@media screen and (max-width: 600px) {
   .unit-detail-stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
