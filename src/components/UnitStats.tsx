@@ -19,8 +19,17 @@ export function rangedAttacksLabel(unit: UnitData): string | null {
     (unit.rangedAttacks != null ? String(unit.rangedAttacks) : null);
 }
 
-/** Schema-aware stat rows. Inapplicable values are omitted rather than shown as dashes. */
-export function unitStatRows(unit: UnitData): UnitStat[] {
+/** Armour for display: "0" means no armour and reads as a dash (e.g.
+ * "0 or 6+" -> "- or 6+"); a missing value is a dash too. */
+export function armourLabel(unit: UnitData): string {
+  if (unit.armour == null) return "-";
+  return unit.armour.replace(/\b0\b/g, "-");
+}
+
+/** Schema-aware stat rows. Inapplicable values are omitted rather than shown
+ * as dashes — except armour, which the details view shows as "-" (pass
+ * `alwaysArmour`) so a unit with no armour still reads its protection. */
+export function unitStatRows(unit: UnitData, opts: { alwaysArmour?: boolean } = {}): UnitStat[] {
   const rows: UnitStat[] = [];
   const melee = meleeAttacksLabel(unit);
   const ranged = rangedAttacksLabel(unit);
@@ -28,7 +37,8 @@ export function unitStatRows(unit: UnitData): UnitStat[] {
   if (ranged != null) rows.push({ label: "Ranged Attacks", value: ranged });
   if (unit.bonusAttacks != null) rows.push({ label: "Bonus Attacks", value: signedLabel(unit.bonusAttacks) });
   if (unit.hits != null) rows.push({ label: "Hits", value: String(unit.hits) });
-  if (unit.armour != null) rows.push({ label: "Armour", value: unit.armour });
+  if (unit.armour != null) rows.push({ label: "Armour", value: armourLabel(unit) });
+  else if (opts.alwaysArmour) rows.push({ label: "Armour", value: "-" });
   if (unit.command != null) rows.push({ label: "Command", value: String(unit.command) });
   if (unit.bonusCommand != null) rows.push({ label: "Command", value: signedLabel(unit.bonusCommand) });
   if (unit.speed != null) rows.push({ label: "Speed", value: `${unit.speed}cm` });

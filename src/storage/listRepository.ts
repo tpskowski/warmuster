@@ -43,3 +43,9 @@ export function deleteList(lists: SavedList[], id: string): SavedList[] {
   saveLists(next);
   return next;
 }
+
+/** Saved lists belong to the rule set they were built against; the rail shows
+ * only the active rule set's lists so each set has its own workspace. */
+export function listsForRuleSet(lists: SavedList[], ruleSet: string): SavedList[] {
+  return lists.filter((l) => l.ruleSet === ruleSet);
+}

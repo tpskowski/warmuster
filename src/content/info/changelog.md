@@ -1,5 +1,9 @@
 ## Unreleased
 
+- Added a **Warmaster (Custom)** rule set alongside Warmaster Revolution,
+  selectable from the new Configuration (gear) menu. Each rule set keeps its
+  own saved lists. It adds custom units — Dwarf Ram Riders, Ancestral Warriors
+  and Iron Breakers, plus the Goblin Giant Squig.
 - Unit cards are now standard 63 x 88mm trading cards, nine per A4 page.
 - The Giant Goes Wild Chart is split out of the Giants' running rules: shown
   as a numbered chart in unit details and printed as its own two-sided card.

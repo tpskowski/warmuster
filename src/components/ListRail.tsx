@@ -1,20 +1,22 @@
 ﻿import { useMemo, useState } from "react";
 import type { RuleSetInfo, SavedList } from "../types";
 import { FEEDBACK_URL, type InfoTopic } from "./InfoDialog";
-import { ExportIcon, MoonIcon, SunIcon } from "./Icons";
+import { ExportIcon, GearIcon, MoonIcon, SunIcon } from "./Icons";
 
 interface ListRailProps {
   ruleSets: RuleSetInfo[];
+  activeRuleSet: string;
   lists: SavedList[];
   activeListId: string | null;
   onSelect: (id: string) => void;
-  onCreate: (ruleSetId: string, armyId: string, name: string, pointsLimit: number) => void;
+  onCreate: (armyId: string, name: string, pointsLimit: number) => void;
   onDelete: (id: string) => void;
   onInfo: (topic: InfoTopic) => void;
   theme: "light" | "dark";
   onToggleTheme: () => void;
   onHome: () => void;
   onExport: () => void;
+  onOpenConfig: () => void;
   canExport: boolean;
 }
 
@@ -30,6 +32,7 @@ export function armyDisplayName(list: SavedList, ruleSets: RuleSetInfo[]): strin
 }
 export default function ListRail({
   ruleSets,
+  activeRuleSet,
   lists,
   activeListId,
   onSelect,
@@ -40,31 +43,25 @@ export default function ListRail({
   onToggleTheme,
   onHome,
   onExport,
+  onOpenConfig,
   canExport,
 }: ListRailProps) {
   const [creating, setCreating] = useState(false);
-  const [ruleSetId, setRuleSetId] = useState(ruleSets[0]?.id ?? "");
   const [armyId, setArmyId] = useState("");
   const [pointsLimit, setPointsLimit] = useState(2000);
 
-  const ruleSet = ruleSets.find((rs) => rs.id === ruleSetId) ?? ruleSets[0];
+  // New lists are created under the active rule set (chosen in Configuration).
+  const ruleSet = ruleSets.find((rs) => rs.id === activeRuleSet) ?? ruleSets[0];
   const [pendingDelete, setPendingDelete] = useState<SavedList | null>(null);
   const armies = useMemo(
     () => [...(ruleSet?.armies ?? [])].sort((a, b) => a.name.localeCompare(b.name)),
     [ruleSet],
   );
 
-  const selectRuleSet = (nextRuleSetId: string) => {
-    setRuleSetId(nextRuleSetId);
-    const nextRuleSet = ruleSets.find((rs) => rs.id === nextRuleSetId);
-    const firstArmy = [...(nextRuleSet?.armies ?? [])].sort((a, b) => a.name.localeCompare(b.name))[0];
-    setArmyId(firstArmy?.army ?? "");
-  };
-
   const create = () => {
     if (!ruleSet || !armyId) return;
     const armyName = ruleSet.armies.find((a) => a.army === armyId)?.name ?? armyId;
-    onCreate(ruleSet.id, armyId, `${armyName} ${pointsLimit}`, pointsLimit);
+    onCreate(armyId, `${armyName} ${pointsLimit}`, pointsLimit);
     setCreating(false);
     setArmyId("");
   };
@@ -74,16 +71,27 @@ export default function ListRail({
       <div className="rail-scroll">
         <div className="rail-brand-row">
           <button type="button" className="app-title" onClick={onHome}>Warmuster</button>
-          <button
-            type="button"
-            className="toolbar-icon-btn"
-            onClick={onExport}
-            disabled={!canExport}
-            aria-label="Export current list"
-            title="Export current list"
-          >
-            <ExportIcon />
-          </button>
+          <div className="rail-brand-actions">
+            <button
+              type="button"
+              className="toolbar-icon-btn"
+              onClick={onExport}
+              disabled={!canExport}
+              aria-label="Export current list"
+              title="Export current list"
+            >
+              <ExportIcon />
+            </button>
+            <button
+              type="button"
+              className="toolbar-icon-btn"
+              onClick={onOpenConfig}
+              aria-label="Configuration"
+              title="Configuration"
+            >
+              <GearIcon />
+            </button>
+          </div>
         </div>
         <ul className="rail-lists">
 
@@ -109,15 +117,6 @@ export default function ListRail({
         </ul>
         {creating ? (
           <div className="rail-create">
-            {ruleSets.length > 1 && (
-              <select value={ruleSetId} onChange={(e) => selectRuleSet(e.target.value)} aria-label="Rule set">
-                {ruleSets.map((rs) => (
-                  <option key={rs.id} value={rs.id}>
-                    {rs.name}
-                  </option>
-                ))}
-              </select>
-            )}
             <select value={armyId} onChange={(e) => setArmyId(e.target.value)} aria-label="Army">
               <option value="">Choose an army...</option>
               {armies.map((army) => (

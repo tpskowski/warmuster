@@ -1,5 +1,6 @@
 ﻿import { useEffect, useMemo, useState } from "react";
 import Catalog from "./components/Catalog";
+import ConfigDialog from "./components/ConfigDialog";
 import ExportDialog from "./components/ExportDialog";
 import InfoDialog, { type InfoTopic } from "./components/InfoDialog";
 import ListRail from "./components/ListRail";
@@ -26,7 +27,7 @@ import {
   toggleUnitUpgrade,
 } from "./domain/lists";
 import { validateList } from "./domain/validation";
-import { deleteList, loadLists, upsertList } from "./storage/listRepository";
+import { deleteList, listsForRuleSet, loadLists, upsertList } from "./storage/listRepository";
 import type { SavedList } from "./types";
 
 type Theme = "light" | "dark";
@@ -59,6 +60,25 @@ export default function App() {
   const [printMode, setPrintMode] = useState<PrintMode | null>(null);
   const [cardPrintOptions, setCardPrintOptions] = useState<CardPrintOptions>(defaultCardPrintOptions);
   const [infoTopic, setInfoTopic] = useState<InfoTopic | null>(null);
+  const [configOpen, setConfigOpen] = useState(false);
+  // Active rule set: each set has its own saved lists. Persisted per browser.
+  const [activeRuleSet, setActiveRuleSet] = useState<string>(() => {
+    const stored = localStorage.getItem("warmuster.ruleSet");
+    return ruleSets.some((rs) => rs.id === stored) ? stored! : ruleSets[0].id;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("warmuster.ruleSet", activeRuleSet);
+  }, [activeRuleSet]);
+
+  // Simplified view hides unit stat lines on the builder page. Persisted.
+  const [simplifiedView, setSimplifiedView] = useState<boolean>(
+    () => localStorage.getItem("warmuster.simplifiedView") === "true",
+  );
+
+  useEffect(() => {
+    localStorage.setItem("warmuster.simplifiedView", String(simplifiedView));
+  }, [simplifiedView]);
   // Duplex calibration (mm): shifts printed card backs right (+) or left (-)
   // to line up with the fronts on this printer. Saved per browser; defaults
   // to 1mm right until the user calibrates.
@@ -80,6 +100,8 @@ export default function App() {
     void decodeShareCode(code).then((imported) => {
       if (!imported) return;
       setLists((prev) => upsertList(prev, imported));
+      // Show the set the imported list belongs to so it's visible in the rail.
+      if (ruleSets.some((rs) => rs.id === imported.ruleSet)) setActiveRuleSet(imported.ruleSet);
       setActiveListId(imported.id);
     });
   }, []);
@@ -91,6 +113,10 @@ export default function App() {
 
   const activeList = lists.find((l) => l.id === activeListId) ?? null;
   const army = activeList ? getArmy(activeList.ruleSet, activeList.army) : null;
+  const visibleLists = useMemo(
+    () => listsForRuleSet(lists, activeRuleSet),
+    [lists, activeRuleSet],
+  );
 
   const issues = useMemo(
     () => (activeList && army ? validateList(activeList, army) : []),
@@ -109,8 +135,8 @@ export default function App() {
     });
   };
 
-  const handleCreate = (ruleSetId: string, armyId: string, name: string, pointsLimit: number) => {
-    const ruleSet = ruleSets.find((rs) => rs.id === ruleSetId);
+  const handleCreate = (armyId: string, name: string, pointsLimit: number) => {
+    const ruleSet = ruleSets.find((rs) => rs.id === activeRuleSet);
     if (!ruleSet) return;
     const list = createList(ruleSet.id, ruleSet.version, armyId, name, pointsLimit);
     setLists((prev) => upsertList(prev, list));
@@ -122,13 +148,21 @@ export default function App() {
     if (activeListId === id) setActiveListId(null);
   };
 
+  const handleSelectRuleSet = (id: string) => {
+    if (id === activeRuleSet) return;
+    setActiveRuleSet(id);
+    // The active list belongs to the previous set; drop back to Home.
+    setActiveListId(null);
+  };
+
   return (
-    <div className="app-shell">
+    <div className={`app-shell${simplifiedView ? " simplified" : ""}`}>
 
       <div className="app-body">
         <ListRail
           ruleSets={ruleSets}
-          lists={lists}
+          activeRuleSet={activeRuleSet}
+          lists={visibleLists}
           activeListId={activeListId}
           onSelect={setActiveListId}
           onCreate={handleCreate}
@@ -138,6 +172,7 @@ export default function App() {
           onToggleTheme={() => setTheme(theme === "dark" ? "light" : "dark")}
           onHome={() => setActiveListId(null)}
           onExport={() => setExportOpen(true)}
+          onOpenConfig={() => setConfigOpen(true)}
           canExport={activeList != null}
         />
         {activeList && army ? (
@@ -175,6 +210,16 @@ export default function App() {
         )}
       </div>
       {infoTopic && <InfoDialog topic={infoTopic} onClose={() => setInfoTopic(null)} />}
+      {configOpen && (
+        <ConfigDialog
+          ruleSets={ruleSets}
+          activeRuleSet={activeRuleSet}
+          onSelectRuleSet={handleSelectRuleSet}
+          simplifiedView={simplifiedView}
+          onToggleSimplifiedView={setSimplifiedView}
+          onClose={() => setConfigOpen(false)}
+        />
+      )}
       {magicItemsOpen && activeList && army && (
         <MagicItemsDialog
           army={army}

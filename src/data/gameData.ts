@@ -1,10 +1,22 @@
 import type { ArmyData, RuleSetInfo, UnitData } from "../types";
 import warmasterRevolution from "./generated/warmaster-revolution.json";
+import { applyCustomUnits } from "./customUnits";
 
-// Rule-set registry. "Warmaster Revolution (Custom Units)" will register here
-// later without schema changes; a saved list records which rule set it was
+const revolution = warmasterRevolution as RuleSetInfo;
+
+// "Warmaster (Custom)" begins as an independent, deep copy of Warmaster
+// Revolution so its data can be customised without affecting the base set,
+// then gains its own extra units. A saved list records which rule set it was
 // built against.
-export const ruleSets: RuleSetInfo[] = [warmasterRevolution as RuleSetInfo];
+const warmasterCustom: RuleSetInfo = {
+  ...structuredClone(revolution),
+  id: "warmaster-custom",
+  name: "Warmaster (Custom)",
+};
+applyCustomUnits(warmasterCustom, revolution);
+
+// Rule-set registry.
+export const ruleSets: RuleSetInfo[] = [revolution, warmasterCustom];
 
 export function getRuleSet(id: string): RuleSetInfo | undefined {
   return ruleSets.find((rs) => rs.id === id);
