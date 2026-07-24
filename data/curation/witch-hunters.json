@@ -2,7 +2,12 @@
   "witch-hunters:war-altar": {
     "source": "376f35d4",
     "overrides": {
-      "speed": 30
+      "speed": 30,
+      "maxPerArmy": true,
+      "requiresUnit": {
+        "unitId": "witch-hunters:flagellants",
+        "min": 1
+      }
     },
     "eligibleToUpgrade": [
       "witch-hunters:warrior-priest"

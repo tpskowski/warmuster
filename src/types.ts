@@ -32,6 +32,17 @@ export interface UnitData {
   upgradePoints: number | null;
   min: number | null;
   max: number | null;
+  /** When true, `max` is a flat army-wide cap rather than a per-1000-points
+   * allowance (e.g. the Dwarf Anvil / Oath Stone: one per army at any size). */
+  maxPerArmy?: boolean;
+  /** This unit may stand in for another unit's minimum requirement: up to
+   * `perThousand` of these per full 1000 points count toward `unitId`'s min
+   * (e.g. Dwarf Handgunners substituting for Warriors). */
+  countsTowardMin?: { unitId: string; perThousand: number } | null;
+  /** This unit/upgrade may only be taken if the army also fields at least
+   * `min` of `unitId` (e.g. the Witch Hunter War Altar needs a unit of
+   * Flagellants). */
+  requiresUnit?: { unitId: string; min: number } | null;
   specialName: string | null;
   specials: string[];
   /** Named roll chart (e.g. the Giant Goes Wild Chart) split out of the

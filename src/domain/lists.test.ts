@@ -1,8 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { getArmy } from "../data/gameData";
+import { getArmy, getUnit } from "../data/gameData";
 import {
   addCharacter,
   addUnit,
+  addUnitCopy,
   assignMagicItem,
   countOf,
   createList,
@@ -95,6 +96,42 @@ describe("list building", () => {
     expect(countOf(list, "chaos:ogres")).toBe(1);
     list = removeUnit(list, 0);
     expect(list.units).toHaveLength(0);
+  });
+
+  it("grows the upgraded entry, keeping its upgrade, when a copy is added", () => {
+    let list = freshList();
+    list = addUnit(list, "chaos:chaos-warriors");
+    list = addUnit(list, "chaos:chaos-warriors"); // 2 plain
+    list = toggleUnitUpgrade(list, 0, "chaos:chariot"); // 1 plain + 1 chariot
+    const chariotIndex = list.units.findIndex((u) => u.upgrades.includes("chaos:chariot"));
+    list = addUnitCopy(list, chariotIndex);
+    const chariot = list.units.find((u) => u.upgrades.includes("chaos:chariot"))!;
+    expect(chariot.quantity).toBe(2);
+    expect(chariot.upgrades).toEqual(["chaos:chariot"]);
+    // The plain copy is untouched; only the upgraded entry grew.
+    expect(list.units.find((u) => u.upgrades.length === 0)!.quantity).toBe(1);
+    expect(countOf(list, "chaos:chaos-warriors")).toBe(3);
+  });
+
+  it("increments a plain entry in place", () => {
+    let list = freshList();
+    list = addUnit(list, "chaos:ogres");
+    list = addUnitCopy(list, 0);
+    expect(list.units).toHaveLength(1);
+    expect(list.units[0].quantity).toBe(2);
+  });
+
+  it("adds a plain copy rather than inflating a magic-item entry", () => {
+    let list = freshList();
+    list = addUnit(list, "chaos:chaos-warriors");
+    list = assignMagicItem(list, "magic:sword-of-might", { kind: "unit", index: 0 });
+    const bearerIndex = list.units.findIndex((u) => u.magicItems.length > 0);
+    list = addUnitCopy(list, bearerIndex);
+    const bearer = list.units.find((u) => u.magicItems.length > 0)!;
+    const plain = list.units.find((u) => u.magicItems.length === 0)!;
+    expect(bearer.quantity).toBe(1); // item still carried by a single unit
+    expect(plain.quantity).toBe(1);
+    expect(countOf(list, "chaos:chaos-warriors")).toBe(2);
   });
 });
 
@@ -253,5 +290,158 @@ describe("validateList", () => {
     list = addUnit(list, "chaos:harpies");
     list = toggleUnitUpgrade(list, 0, "chaos:chariot");
     expect(validateList(list, chaos).some((i) => i.message.includes("cannot take"))).toBe(true);
+  });
+});
+
+describe("Dwarf army-specific rules", () => {
+  const dwarfs = getArmy("warmaster-revolution", "dwarfs")!;
+  const dwarfList = (pointsLimit = 2000) =>
+    createList("warmaster-revolution", "2.2.6", "dwarfs", "Dwarfs", pointsLimit);
+
+  it("caps the Anvil at one per army regardless of points", () => {
+    // Two Runesmiths are allowed at 2000 points, but only one Anvil overall.
+    let list = dwarfList();
+    list = addCharacter(list, "dwarfs:runesmith");
+    list = addCharacter(list, "dwarfs:runesmith");
+    list = toggleCharacterUpgrade(list, list.characters[0].id, "dwarfs:anvil");
+    list = toggleCharacterUpgrade(list, list.characters[1].id, "dwarfs:anvil");
+    const issues = validateList(list, dwarfs);
+    expect(
+      issues.some((i) => i.unitId === "dwarfs:anvil" && i.message.includes("at most 1")),
+    ).toBe(true);
+  });
+
+  it("offers the Oath Stone as a Dwarf Hero upgrade, capped per army", () => {
+    const oathstone = getUnit(dwarfs, "dwarfs:oathstone")!;
+    expect(oathstone.category).toBe("upgrade");
+    expect(oathstone.eligibleToUpgrade).toContain("dwarfs:hero");
+    expect(oathstone.maxPerArmy).toBe(true);
+  });
+
+  it("lets Handgunners stand in for the Warriors minimum, per 1000 points", () => {
+    // At 2000 points Warriors need 4. Three Warriors + one Handgunners covers
+    // it because up to two Handgunners (1 per 1000) count toward the minimum.
+    let list = dwarfList(2000);
+    for (let i = 0; i < 3; i++) list = addUnit(list, "dwarfs:warriors");
+    list = addUnit(list, "dwarfs:handgunners");
+    expect(
+      validateList(list, dwarfs).some((i) => i.unitId === "dwarfs:warriors"),
+    ).toBe(false);
+  });
+
+  it("only credits one Handgunner unit per 1000 toward the Warriors minimum", () => {
+    // At 2000 points, only two Handgunners can substitute. Two Warriors plus
+    // one Handgunner is 3 effective, still short of the required 4.
+    let list = dwarfList(2000);
+    for (let i = 0; i < 2; i++) list = addUnit(list, "dwarfs:warriors");
+    list = addUnit(list, "dwarfs:handgunners");
+    const issue = validateList(list, dwarfs).find((i) => i.unitId === "dwarfs:warriors");
+    expect(issue?.message).toContain("at least 4 required (3 selected)");
+  });
+});
+
+describe("per-army caps and dependencies", () => {
+  const witchHunters = getArmy("warmaster-revolution", "witch-hunters")!;
+  const kislev = getArmy("warmaster-revolution", "kislev")!;
+  const skaven = getArmy("warmaster-revolution", "skaven")!;
+
+  it("caps the Witch Hunter War Altar at one per army at 2000 points", () => {
+    let list = createList("warmaster-revolution", "2.2.6", "witch-hunters", "WH", 2000);
+    list = addCharacter(list, "witch-hunters:warrior-priest");
+    list = addCharacter(list, "witch-hunters:warrior-priest");
+    list = toggleCharacterUpgrade(list, list.characters[0].id, "witch-hunters:war-altar");
+    list = toggleCharacterUpgrade(list, list.characters[1].id, "witch-hunters:war-altar");
+    expect(
+      validateList(list, witchHunters).some(
+        (i) => i.unitId === "witch-hunters:war-altar" && i.message.includes("at most 1"),
+      ),
+    ).toBe(true);
+  });
+
+  it("requires a unit of Flagellants for the War Altar", () => {
+    let list = createList("warmaster-revolution", "2.2.6", "witch-hunters", "WH", 2000);
+    list = addCharacter(list, "witch-hunters:warrior-priest");
+    list = toggleCharacterUpgrade(list, list.characters[0].id, "witch-hunters:war-altar");
+    // No Flagellants yet: the dependency should flag.
+    expect(
+      validateList(list, witchHunters).some(
+        (i) => i.unitId === "witch-hunters:war-altar" && i.message.includes("Flagellants"),
+      ),
+    ).toBe(true);
+    // Adding a unit of Flagellants clears it.
+    list = addUnit(list, "witch-hunters:flagellants");
+    expect(
+      validateList(list, witchHunters).some((i) => i.unitId === "witch-hunters:war-altar"),
+    ).toBe(false);
+  });
+
+  it("caps the Kislev Yozhin at one per army at 2000 points", () => {
+    let list = createList("warmaster-revolution", "2.2.6", "kislev", "Kislev", 2000);
+    list = addCharacter(list, "kislev:shaman");
+    list = addCharacter(list, "kislev:shaman");
+    list = toggleCharacterUpgrade(list, list.characters[0].id, "kislev:yozhin");
+    list = toggleCharacterUpgrade(list, list.characters[1].id, "kislev:yozhin");
+    expect(
+      validateList(list, kislev).some(
+        (i) => i.unitId === "kislev:yozhin" && i.message.includes("at most 1"),
+      ),
+    ).toBe(true);
+  });
+
+  it("caps the Skaven Screaming Bell at one per army at 2000 points", () => {
+    let list = createList("warmaster-revolution", "2.2.6", "skaven", "Skaven", 2000);
+    list = addUnit(list, "skaven:screaming-bell");
+    list = addUnit(list, "skaven:screaming-bell");
+    expect(
+      validateList(list, skaven).some(
+        (i) => i.unitId === "skaven:screaming-bell" && i.message.includes("at most 1"),
+      ),
+    ).toBe(true);
+  });
+
+  it("requires Witch Elves for the Dark Elf Cauldron of Blood, capped per army", () => {
+    const darkElves = getArmy("warmaster-revolution", "dark-elves")!;
+    let list = createList("warmaster-revolution", "2.2.6", "dark-elves", "DE", 2000);
+    list = addCharacter(list, "dark-elves:sorceress");
+    list = toggleCharacterUpgrade(list, list.characters[0].id, "dark-elves:cauldron-of-blood");
+    // No Witch Elves yet: the dependency should flag.
+    expect(
+      validateList(list, darkElves).some(
+        (i) => i.unitId === "dark-elves:cauldron-of-blood" && i.message.includes("Witch Elves"),
+      ),
+    ).toBe(true);
+    // Adding a unit of Witch Elves clears the dependency.
+    list = addUnit(list, "dark-elves:witch-elves");
+    expect(
+      validateList(list, darkElves).some(
+        (i) => i.unitId === "dark-elves:cauldron-of-blood" && i.message.includes("Witch Elves"),
+      ),
+    ).toBe(false);
+    // A second Cauldron trips the per-army cap.
+    list = addCharacter(list, "dark-elves:sorceress");
+    list = toggleCharacterUpgrade(list, list.characters[1].id, "dark-elves:cauldron-of-blood");
+    expect(
+      validateList(list, darkElves).some(
+        (i) => i.unitId === "dark-elves:cauldron-of-blood" && i.message.includes("at most 1"),
+      ),
+    ).toBe(true);
+  });
+
+  it("gives the Empire War Altar the same Flagellants + one-per-army rules", () => {
+    const empire = getArmy("warmaster-revolution", "empire")!;
+    let list = createList("warmaster-revolution", "2.2.6", "empire", "Empire", 2000);
+    list = addCharacter(list, "empire:wizard");
+    list = toggleCharacterUpgrade(list, list.characters[0].id, "empire:war-altar");
+    expect(
+      validateList(list, empire).some(
+        (i) => i.unitId === "empire:war-altar" && i.message.includes("Flagellants"),
+      ),
+    ).toBe(true);
+    list = addUnit(list, "empire:flagellants");
+    expect(
+      validateList(list, empire).some(
+        (i) => i.unitId === "empire:war-altar" && i.message.includes("Flagellants"),
+      ),
+    ).toBe(false);
   });
 });

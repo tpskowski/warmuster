@@ -31,7 +31,12 @@
   "dark-elves:cauldron-of-blood": {
     "source": "52efd772",
     "overrides": {
-      "speed": 30
+      "speed": 30,
+      "maxPerArmy": true,
+      "requiresUnit": {
+        "unitId": "dark-elves:witch-elves",
+        "min": 1
+      }
     },
     "eligibleToUpgrade": [
       "dark-elves:sorceress"

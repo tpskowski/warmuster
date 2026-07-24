@@ -1,5 +1,3 @@
-- Warmaster Revolution custom-unit support.
-- Switching an existing list between rule sets.
 - Regiments of Renown as allied units.
 - Finer-grained structured special-rule data.
-- In-app rules version comparisons when new army lists land.
+- App reports cav can not being able to enter built up areas, which is incorrect. also the new terrain rules should help with what things units can/cannot enter!

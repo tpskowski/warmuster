@@ -302,6 +302,9 @@ const OVERRIDABLE_FIELDS = new Set([
   "upgradePoints",
   "max",
   "min",
+  "maxPerArmy",
+  "countsTowardMin",
+  "requiresUnit",
 ]);
 
 export function applyCuration(unit, entry, warnings, rawSpecial) {

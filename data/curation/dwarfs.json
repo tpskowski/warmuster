@@ -11,10 +11,40 @@
     ],
     "notes": "The Gyrocopter is a flying machine, so all the usual flying rules apply."
   },
+  "dwarfs:handgunners": {
+    "source": "d461d8d",
+    "overrides": {
+      "countsTowardMin": {
+        "unitId": "dwarfs:warriors",
+        "perThousand": 1
+      }
+    },
+    "specials": [
+      "A handgun shot can pierce armour far more easily than an arrow or a crossbow bolt. Therefore, count enemy Armour values as one worse than normal when shot by a handgun.",
+      "One unit of Handgunners per full 1000 points can replace a unit of Warriors while still counting for the Warrior min/max value. Note that this unit still counts for max value of Handgunners."
+    ]
+  },
+  "dwarfs:hero": {
+    "source": "691ddcba",
+    "specials": [],
+    "notes": "One Hero in the army may be upgraded to carry an Oathstone for +15 pts. Once per game, the Hero may use the Oathstone to inspire one unit that he has joined (except Troll Slayers). Both the Hero, and the unit he has joined, gain +1 attack per stand, and are immune to Terror, until the end of the combat phase."
+  },
   "dwarfs:anvil": {
     "source": "a40fee04",
+    "overrides": {
+      "maxPerArmy": true
+    },
     "eligibleToUpgrade": [
       "dwarfs:runesmith"
+    ]
+  },
+  "dwarfs:oathstone": {
+    "source": "2c8294d2",
+    "overrides": {
+      "maxPerArmy": true
+    },
+    "eligibleToUpgrade": [
+      "dwarfs:hero"
     ]
   }
 }
