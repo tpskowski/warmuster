@@ -457,10 +457,13 @@ export function buildCard(
   items: MagicItemData[] = [],
   upgrades: UnitData[] = [],
 ): CardModel {
+  // Player choices (mounts/attachments, then magic items) come before the
+  // unit's own rules so they stay prominent — a unit with very long rules
+  // (e.g. the Slann Mage) would otherwise bury its mount on the card back.
   const rules: CardRule[] = [
-    ...cardRules(unit).map((text) => ({ title: null, text })),
     ...upgrades.map(upgradeRule),
     ...items.map((item) => ({ title: item.name, text: item.text })),
+    ...cardRules(unit).map((text) => ({ title: null, text })),
   ];
   const suffix = [...upgrades.map((u) => u.unitId), ...items.map((i) => i.itemId)];
   const unitId = suffix.length > 0 ? `${unit.unitId}+${suffix.join("+")}` : unit.unitId;

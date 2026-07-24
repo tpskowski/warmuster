@@ -40,6 +40,45 @@ describe("list building", () => {
     expect(list.units.some((u) => u.upgrades.includes("chaos:chariot"))).toBe(true);
   });
 
+  it("keeps a split unit next to the rest of its stack", () => {
+    let list = freshList();
+    list = addUnit(list, "chaos:chaos-warriors"); // stack we'll split
+    list = addUnit(list, "chaos:chaos-warriors");
+    list = addUnit(list, "chaos:ogres"); // another unit in between
+    list = toggleUnitUpgrade(list, 0, "chaos:chariot"); // split off one warrior
+    // Both Chaos Warrior entries sit together, before the Ogres.
+    expect(list.units.map((u) => u.unitId)).toEqual([
+      "chaos:chaos-warriors",
+      "chaos:chaos-warriors",
+      "chaos:ogres",
+    ]);
+  });
+
+  it("merges identical upgraded units into one quantity", () => {
+    let list = freshList();
+    list = addUnit(list, "chaos:chaos-warriors");
+    list = addUnit(list, "chaos:chaos-warriors");
+    list = addUnit(list, "chaos:chaos-warriors");
+    list = toggleUnitUpgrade(list, 0, "chaos:chariot"); // 2 plain + 1 chariot
+    list = toggleUnitUpgrade(list, 0, "chaos:chariot"); // split another; should merge
+    const chariotEntries = list.units.filter((u) => u.upgrades.includes("chaos:chariot"));
+    expect(chariotEntries).toHaveLength(1);
+    expect(chariotEntries[0].quantity).toBe(2);
+    expect(countOf(list, "chaos:chaos-warriors")).toBe(3);
+  });
+
+  it("preserves existing upgrades when splitting a merged upgraded stack", () => {
+    let list = freshList();
+    for (let i = 0; i < 3; i++) list = addUnit(list, "chaos:chaos-warriors");
+    // Give the whole stack a chariot by splitting each off and merging.
+    list = toggleUnitUpgrade(list, 0, "chaos:chariot");
+    list = toggleUnitUpgrade(list, 0, "chaos:chariot");
+    const stack = list.units.find((u) => u.upgrades.includes("chaos:chariot"))!;
+    expect(stack.quantity).toBe(2);
+    // The chariot upgrade is intact on the merged 2× stack.
+    expect(stack.upgrades).toEqual(["chaos:chariot"]);
+  });
+
   it("computes points including character upgrades", () => {
     let list = freshList();
     list = addUnit(list, "chaos:chaos-warriors"); // 140

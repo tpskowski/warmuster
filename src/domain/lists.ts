@@ -42,6 +42,37 @@ function isPlain(entry: SavedUnitEntry): boolean {
   return entry.upgrades.length === 0 && entry.magicItems.length === 0;
 }
 
+/** A key that identifies mergeable entries: same unit and same set of
+ * upgrades. Magic items are excluded — an item is carried by a single unit,
+ * so item-bearing entries are unique and never merge. */
+function mergeKey(entry: SavedUnitEntry): string {
+  return `${entry.unitId}|${[...entry.upgrades].sort().join(",")}`;
+}
+
+/** Collapse identical unit entries (same unit + same upgrades, no magic item)
+ * into one quantity, and keep all entries for a given unit adjacent so
+ * attachment splits sit next to their stack. First-seen unit order is kept;
+ * within a unit, plainer entries come first. */
+export function normalizeUnits(units: SavedUnitEntry[]): SavedUnitEntry[] {
+  const merged: SavedUnitEntry[] = [];
+  for (const entry of units) {
+    const stack =
+      entry.magicItems.length === 0
+        ? merged.find((u) => u.magicItems.length === 0 && mergeKey(u) === mergeKey(entry))
+        : undefined;
+    if (stack) stack.quantity += entry.quantity;
+    else
+      merged.push({ ...entry, upgrades: [...entry.upgrades], magicItems: [...entry.magicItems] });
+  }
+  const unitOrder: string[] = [];
+  for (const e of merged) if (!unitOrder.includes(e.unitId)) unitOrder.push(e.unitId);
+  return merged.sort(
+    (a, b) =>
+      unitOrder.indexOf(a.unitId) - unitOrder.indexOf(b.unitId) ||
+      a.upgrades.length + a.magicItems.length - (b.upgrades.length + b.magicItems.length),
+  );
+}
+
 // Units without upgrades or magic items are merged into one entry per unitId
 // with a quantity; a unit with either is kept as its own entry (schema.md).
 export function addUnit(list: SavedList, unitId: string): SavedList {
@@ -49,7 +80,7 @@ export function addUnit(list: SavedList, unitId: string): SavedList {
   const units = plain
     ? list.units.map((u) => (u === plain ? { ...u, quantity: u.quantity + 1 } : u))
     : [...list.units, { unitId, quantity: 1, upgrades: [], magicItems: [] }];
-  return touched({ ...list, units });
+  return touched({ ...list, units: normalizeUnits(units) });
 }
 
 export function removeUnit(list: SavedList, entryIndex: number): SavedList {
@@ -59,7 +90,7 @@ export function removeUnit(list: SavedList, entryIndex: number): SavedList {
     entry.quantity > 1
       ? list.units.map((u, i) => (i === entryIndex ? { ...u, quantity: u.quantity - 1 } : u))
       : list.units.filter((_, i) => i !== entryIndex);
-  return touched({ ...list, units });
+  return touched({ ...list, units: normalizeUnits(units) });
 }
 
 export function toggleUnitUpgrade(list: SavedList, entryIndex: number, upgradeId: string): SavedList {
@@ -68,10 +99,11 @@ export function toggleUnitUpgrade(list: SavedList, entryIndex: number, upgradeId
   const has = entry.upgrades.includes(upgradeId);
   let units: SavedUnitEntry[];
   if (!has && entry.quantity > 1) {
-    // Split one unit off the merged stack and give it the upgrade.
+    // Split one unit off the merged stack and add the upgrade to it, keeping
+    // the stack's existing upgrades.
     units = [
       ...list.units.map((u, i) => (i === entryIndex ? { ...u, quantity: u.quantity - 1 } : u)),
-      { unitId: entry.unitId, quantity: 1, upgrades: [upgradeId], magicItems: [] },
+      { unitId: entry.unitId, quantity: 1, upgrades: [...entry.upgrades, upgradeId], magicItems: [] },
     ];
   } else {
     units = list.units.map((u, i) =>
@@ -83,7 +115,7 @@ export function toggleUnitUpgrade(list: SavedList, entryIndex: number, upgradeId
         : u,
     );
   }
-  return touched({ ...list, units });
+  return touched({ ...list, units: normalizeUnits(units) });
 }
 
 export function addCharacter(list: SavedList, unitId: string): SavedList {
@@ -108,19 +140,6 @@ export function toggleCharacterUpgrade(list: SavedList, id: string, upgradeId: s
 }
 
 export type MagicItemTarget = { kind: "unit"; index: number } | { kind: "character"; id: string };
-
-/** Merge plain duplicate unit entries back into one stack per unitId. */
-function mergePlainUnits(units: SavedUnitEntry[]): SavedUnitEntry[] {
-  const merged: SavedUnitEntry[] = [];
-  for (const entry of units) {
-    const stack = isPlain(entry)
-      ? merged.find((u) => u.unitId === entry.unitId && isPlain(u))
-      : undefined;
-    if (stack) stack.quantity += entry.quantity;
-    else merged.push({ ...entry });
-  }
-  return merged;
-}
 
 /** The entry currently carrying a magic item, if any. */
 export function magicItemBearer(list: SavedList, itemId: string): MagicItemTarget | null {
@@ -192,7 +211,7 @@ export function assignMagicItem(
     );
   }
 
-  return touched({ ...list, units: mergePlainUnits(units), characters });
+  return touched({ ...list, units: normalizeUnits(units), characters });
 }
 
 export function renameList(list: SavedList, name: string): SavedList {
