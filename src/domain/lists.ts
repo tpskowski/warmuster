@@ -83,6 +83,20 @@ export function addUnit(list: SavedList, unitId: string): SavedList {
   return touched({ ...list, units: normalizeUnits(units) });
 }
 
+/** Add one more copy of a specific unit entry, preserving its upgrades — so
+ * the "+" next to a unit taken with an upgrade grows that configuration rather
+ * than a separate plain copy. Entries carrying a magic item stay unique (the
+ * item is carried once), so a copy of one is added as a plain unit instead. */
+export function addUnitCopy(list: SavedList, entryIndex: number): SavedList {
+  const entry = list.units[entryIndex];
+  if (!entry) return list;
+  if (entry.magicItems.length > 0) return addUnit(list, entry.unitId);
+  const units = list.units.map((u, i) =>
+    i === entryIndex ? { ...u, quantity: u.quantity + 1 } : u,
+  );
+  return touched({ ...list, units: normalizeUnits(units) });
+}
+
 export function removeUnit(list: SavedList, entryIndex: number): SavedList {
   const entry = list.units[entryIndex];
   if (!entry) return list;

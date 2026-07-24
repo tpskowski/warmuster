@@ -44,16 +44,27 @@ export function validateList(list: SavedList, army: ArmyData): ValidationIssue[]
     const isGeneral = unit.type === "General";
     if (unit.min != null) {
       const required = isGeneral ? unit.min : unit.min * scale;
-      if (count < required) {
+      // Some units may stand in for another's minimum (e.g. Dwarf Handgunners
+      // for Warriors): up to `perThousand` per full 1000 points count here.
+      const substitutes = army.units
+        .filter((u) => u.countsTowardMin?.unitId === unit.unitId)
+        .reduce(
+          (sum, sub) =>
+            sum + Math.min(countOf(list, sub.unitId), sub.countsTowardMin!.perThousand * scale),
+          0,
+        );
+      const effective = count + substitutes;
+      if (effective < required) {
         issues.push({
           severity: "error",
-          message: `${unit.troop}: at least ${required} required (${count} selected).`,
+          message: `${unit.troop}: at least ${required} required (${effective} selected).`,
           unitId: unit.unitId,
         });
       }
     }
     if (unit.max != null && unit.category !== "upgrade") {
-      const allowed = isGeneral ? unit.max : unit.max * scale;
+      // `maxPerArmy` units cap flat army-wide; others scale per 1000 points.
+      const allowed = isGeneral || unit.maxPerArmy ? unit.max : unit.max * scale;
       if (count > allowed) {
         issues.push({
           severity: "error",
@@ -64,7 +75,7 @@ export function validateList(list: SavedList, army: ArmyData): ValidationIssue[]
     }
     if (unit.category === "upgrade" && unit.max != null) {
       const count = upgradeCountOf(list, unit.unitId);
-      const allowed = unit.max * scale;
+      const allowed = unit.maxPerArmy ? unit.max : unit.max * scale;
       if (count > allowed) {
         issues.push({
           severity: "error",
@@ -72,6 +83,27 @@ export function validateList(list: SavedList, army: ArmyData): ValidationIssue[]
           unitId: unit.unitId,
         });
       }
+    }
+  }
+
+  // Conditional dependencies: a unit/upgrade that may only be taken if the
+  // army also fields another unit (e.g. the Witch Hunter War Altar needs a
+  // unit of Flagellants).
+  for (const unit of army.units) {
+    if (!unit.requiresUnit) continue;
+    const taken =
+      unit.category === "upgrade"
+        ? upgradeCountOf(list, unit.unitId)
+        : countOf(list, unit.unitId);
+    if (taken === 0) continue;
+    const have = countOf(list, unit.requiresUnit.unitId);
+    if (have < unit.requiresUnit.min) {
+      const required = getUnit(army, unit.requiresUnit.unitId);
+      issues.push({
+        severity: "error",
+        message: `${unit.troop} requires at least ${unit.requiresUnit.min} unit of ${required?.troop ?? unit.requiresUnit.unitId} in the army (${have} selected).`,
+        unitId: unit.unitId,
+      });
     }
   }
 

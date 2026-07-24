@@ -435,6 +435,11 @@
     "source": "a40fee04"
   },
   {
+    "unitId": "dwarfs:oathstone",
+    "rawSpecial": "**Oathstone.** One Hero in the army may be upgraded to carry an Oathstone. Once per game, the Hero may use the Oathstone to inspire one unit that he has joined (except Troll Slayers). Both the Hero, and the unit he has joined, gain +1 attack per stand, and are immune to Terror, until the end of the combat phase.",
+    "source": "2c8294d2"
+  },
+  {
     "unitId": "skaven:clanrats",
     "rawSpecial": null,
     "source": "1505"

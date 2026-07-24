@@ -1,3 +1,9 @@
+## 0.4.0 2026-07-24
+- Small UI tweaks
+- Dwarf list fixes (anvils, thunderers. oath stone)
+- Slanns are wizards
+- Fix caps: Witchhunter War Alters, Yozhin, Screaming Bell
+
 ## 0.3.0 2026-07-23
 - Small UI tweaks
 - Project cleanup/repo made public

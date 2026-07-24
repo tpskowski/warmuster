@@ -5,6 +5,7 @@ import { canBearMagicItem, getMagicItem, magicItemCost } from "./magicItems";
 const chaos = getArmy("warmaster-revolution", "chaos")!;
 const dwarfs = getArmy("warmaster-revolution", "dwarfs")!;
 const highElves = getArmy("warmaster-revolution", "high-elves")!;
+const lizardmen = getArmy("warmaster-revolution", "lizardmen")!;
 
 const warriors = getUnit(chaos, "chaos:chaos-warriors")!; // Infantry, 4 attacks, 4+ armour
 const trolls = getUnit(chaos, "chaos:trolls")!; // Infantry, 5 attacks, 5+ armour, 3 hits
@@ -80,5 +81,16 @@ describe("magic item eligibility", () => {
     const elfGeneral = highElves.units.find((u) => u.type === "General")!;
     expect(canBearMagicItem(orb, elfGeneral, highElves)).toBe(false);
     expect(canBearMagicItem(orb, general, chaos)).toBe(true);
+  });
+
+  it("treats the Slann as a Wizard for Wizard-only items", () => {
+    // The Slann is the Lizardmen General but casts spells as a Wizard, so it
+    // may take Wizard-only devices such as the Wand of Power and Ring of Magic.
+    const slann = getUnit(lizardmen, "lizardmen:slann-mage-palanquin")!;
+    const wand = getMagicItem("magic:wand-of-power")!;
+    expect(canBearMagicItem(wand, slann, lizardmen)).toBe(true);
+    expect(canBearMagicItem(ring, slann, lizardmen)).toBe(true);
+    // Still a General, so General-only items remain available too.
+    expect(canBearMagicItem(crown, slann, lizardmen)).toBe(true);
   });
 });

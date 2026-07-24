@@ -12,7 +12,7 @@ interface RosterProps {
   list: SavedList;
   issues: ValidationIssue[];
   onRemoveUnit: (entryIndex: number) => void;
-  onAddUnit: (unitId: string) => void;
+  onAddUnitCopy: (entryIndex: number) => void;
   onToggleUnitUpgrade: (entryIndex: number, upgradeId: string) => void;
   onRemoveCharacter: (id: string) => void;
   onToggleCharacterUpgrade: (id: string, upgradeId: string) => void;
@@ -313,7 +313,7 @@ export default function Roster({
   list,
   issues,
   onRemoveUnit,
-  onAddUnit,
+  onAddUnitCopy,
   onToggleUnitUpgrade,
   onRemoveCharacter,
   onToggleCharacterUpgrade,
@@ -388,7 +388,7 @@ export default function Roster({
             index={index}
             scale={scale}
             onRemove={() => onRemoveUnit(index)}
-            onAdd={() => onAddUnit(entry.unitId)}
+            onAdd={() => onAddUnitCopy(index)}
             onToggleUpgrade={(upgradeId) => onToggleUnitUpgrade(index, upgradeId)}
             onRemoveMagicItem={onRemoveMagicItem}
           />

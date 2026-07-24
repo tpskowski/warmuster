@@ -27,7 +27,8 @@
   "skaven:screaming-bell": {
     "overrides": {
       "speed": 20,
-      "halfPace": 10
+      "halfPace": 10,
+      "maxPerArmy": true
     }
   }
 }

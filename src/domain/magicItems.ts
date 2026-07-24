@@ -44,9 +44,15 @@ function isGeneral(unit: UnitData): boolean {
 
 // Some army generals (Grey Seer, Vampire Lord, …) may take items restricted
 // to either a General or a Wizard; their special rules say so explicitly.
+// Others (the Lizardmen Slann) simply "cast spells as a Wizard" and so count
+// as a Wizard for every Wizard-only item, including the Wand of Power.
 function isWizard(unit: UnitData): boolean {
   if (unit.type === "Wizard") return true;
-  return unit.specials.some((s) => /restricted to (?:either )?a General or a Wizard/i.test(s));
+  return unit.specials.some(
+    (s) =>
+      /restricted to (?:either )?a General or (?:a )?Wizard/i.test(s) ||
+      /casts? spells? as a Wizard/i.test(s),
+  );
 }
 
 function isRunesmith(unit: UnitData): boolean {

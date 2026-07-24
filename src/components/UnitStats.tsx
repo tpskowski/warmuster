@@ -58,7 +58,8 @@ export function attacksLabel(unit: UnitData): string {
 export function minMaxLabel(unit: UnitData, scale = 1): string {
   const factor = unit.type === "General" ? 1 : scale;
   const min = unit.min != null ? unit.min * factor : null;
-  const max = unit.max != null ? unit.max * factor : null;
+  // A per-army cap (Anvil, Oath Stone) does not scale with points.
+  const max = unit.max != null ? unit.max * (unit.maxPerArmy ? 1 : factor) : null;
   if (min == null && max == null) return "-/-";
   if (min != null && min === max) return String(min);
   return `${min ?? "-"}/${max ?? "-"}`;

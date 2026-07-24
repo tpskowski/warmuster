@@ -42,7 +42,12 @@
   "empire:war-altar": {
     "source": "a8da4724",
     "overrides": {
-      "speed": 30
+      "speed": 30,
+      "maxPerArmy": true,
+      "requiresUnit": {
+        "unitId": "empire:flagellants",
+        "min": 1
+      }
     },
     "eligibleToUpgrade": [
       "empire:wizard"

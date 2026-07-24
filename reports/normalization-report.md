@@ -78,6 +78,8 @@ Special text: **War Altar.** A Wizard may be mounted on a War Altar. A Wizard wi
 Overrides:
 
 - `speed` set to 30
+- `maxPerArmy` set to true
+- `requiresUnit` set to {"unitId":"empire:flagellants","min":1}
 
 ```json
 {
@@ -398,6 +400,26 @@ Special text: **Chariot Mount.** Generals, Wizards and Heroes can ride Chariots.
 
 # Dwarfs
 
+## Handgunners
+
+Special text: **Handgunners.** A handgun shot can pierce armour far more easily than an arrow or a crossbow bolt. Therefore, count enemy Armour values as one worse than normal when shot by a handgun. One unit of Handgunners per full 1000 points can replace a unit of Warriors while still counting for the Warrior min/max value. Note that this unit still counts for max value of Handgunners.
+
+Overrides:
+
+- `countsTowardMin` set to {"unitId":"dwarfs:warriors","perThousand":1}
+
+```json
+{
+  "specialName": "Handgunners",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "A handgun shot can pierce armour far more easily than an arrow or a crossbow bolt. Therefore, count enemy Armour values as one worse than normal when shot by a handgun.",
+    "One unit of Handgunners per full 1000 points can replace a unit of Warriors while still counting for the Warrior min/max value. Note that this unit still counts for max value of Handgunners."
+  ],
+  "notes": null
+}
+```
+
 ## Gyrocopter
 
 Special text: **Gyrocopter.** The Gyrocopter is a flying machine, so all the usual flying rules apply. The model always forms a single unit on its own, must be given orders individually, cannot be brigaded with other units and cannot be joined by a character in combat. The Gyrocopter’s fast-firing gun is light in weight and fires a small calibre shot. It counts Armour values as one worse than normal. The Gyrocopter has 360° vision - the unit can draw line of sight from all edges of its stand for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from it‘s front edge to charge an enemy.
@@ -419,9 +441,26 @@ Overrides:
 }
 ```
 
+## Hero
+
+Special text: **Hero.** One Hero in the army may be upgraded to carry an Oathstone for +15 pts. Once per game, the Hero may use the Oathstone to inspire one unit that he has joined (except Troll Slayers). Both the Hero, and the unit he has joined, gain +1 attack per stand, and are immune to Terror, until the end of the combat phase.
+
+```json
+{
+  "specialName": "Hero",
+  "eligibleToUpgrade": [],
+  "specials": [],
+  "notes": "One Hero in the army may be upgraded to carry an Oathstone for +15 pts. Once per game, the Hero may use the Oathstone to inspire one unit that he has joined (except Troll Slayers). Both the Hero, and the unit he has joined, gain +1 attack per stand, and are immune to Terror, until the end of the combat phase."
+}
+```
+
 ## Anvil
 
 Special text: **Anvil.** The army can only include a single anvil and it is incorporated onto the stand of a Runesmith. If a Runesmith stand includes the Anvil, once per battle he can add +1 to his dice roll when he attempts to dispel enemy magic spells using the Dwarf anti-magic ability (see Runesmith). In addition the Runesmith can strike the Anvil during the Shooting phase of his own turn. The anvil‘s plangent rune-song fills the Dwarfs with even greater resolve! Roll a D6. On the score of a 4, 5 or 6 all Dwarf units within 20cm of the Runesmith are unaffected by Terror until the start of the Dwarf player‘s next turn. On a roll of less than 4 there is no effect.
+
+Overrides:
+
+- `maxPerArmy` set to true
 
 ```json
 {
@@ -431,6 +470,27 @@ Special text: **Anvil.** The army can only include a single anvil and it is inco
   ],
   "specials": [
     "The army can only include a single anvil and it is incorporated onto the stand of a Runesmith. If a Runesmith stand includes the Anvil, once per battle he can add +1 to his dice roll when he attempts to dispel enemy magic spells using the Dwarf anti-magic ability (see Runesmith). In addition the Runesmith can strike the Anvil during the Shooting phase of his own turn. The anvil‘s plangent rune-song fills the Dwarfs with even greater resolve! Roll a D6. On the score of a 4, 5 or 6 all Dwarf units within 20cm of the Runesmith are unaffected by Terror until the start of the Dwarf player‘s next turn. On a roll of less than 4 there is no effect."
+  ],
+  "notes": null
+}
+```
+
+## Oathstone
+
+Special text: **Oathstone.** One Hero in the army may be upgraded to carry an Oathstone. Once per game, the Hero may use the Oathstone to inspire one unit that he has joined (except Troll Slayers). Both the Hero, and the unit he has joined, gain +1 attack per stand, and are immune to Terror, until the end of the combat phase.
+
+Overrides:
+
+- `maxPerArmy` set to true
+
+```json
+{
+  "specialName": "Oathstone",
+  "eligibleToUpgrade": [
+    "dwarfs:hero"
+  ],
+  "specials": [
+    "One Hero in the army may be upgraded to carry an Oathstone. Once per game, the Hero may use the Oathstone to inspire one unit that he has joined (except Troll Slayers). Both the Hero, and the unit he has joined, gain +1 attack per stand, and are immune to Terror, until the end of the combat phase."
   ],
   "notes": null
 }
@@ -486,6 +546,7 @@ Overrides:
 
 - `speed` set to 20
 - `halfPace` set to 10
+- `maxPerArmy` set to true
 
 ```json
 {
@@ -726,6 +787,10 @@ Special text: **Bear Mount.** Generals, Heroes and Shamans can ride a Bear mount
 
 Special text: **Yozhin.** This creature lives in swamps near the Praag since the great incursion of Chaos. Yozhin strongly hates any kind of Chaos, being (possibly) chaos-twisted creature itself. Only powerful Shamans may summon a Yozhin and make it to fight on their side. A single Shaman in the army can be assisted by Yozhin. There is no restriction for going into any water/boggy/ swamp terrain for him. A unit that has been joined by a Yozhin riding Shaman causes terror in its enemies. Yozhin adds +1 Attack to Shaman’s attacks value.
 
+Overrides:
+
+- `maxPerArmy` set to true
+
 ```json
 {
   "specialName": "Yozhin",
@@ -828,6 +893,8 @@ Special text: **Cauldron of Blood.** A Sorceress can have a Cauldron of Blood. A
 Overrides:
 
 - `speed` set to 30
+- `maxPerArmy` set to true
+- `requiresUnit` set to {"unitId":"dark-elves:witch-elves","min":1}
 
 ```json
 {
@@ -1363,6 +1430,8 @@ Special text: **War Altar.** A Warrior Priest may be mounted on a War Altar. A W
 Overrides:
 
 - `speed` set to 30
+- `maxPerArmy` set to true
+- `requiresUnit` set to {"unitId":"witch-hunters:flagellants","min":1}
 
 ```json
 {

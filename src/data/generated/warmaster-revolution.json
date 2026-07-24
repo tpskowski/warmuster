@@ -544,7 +544,12 @@
             "A Wizard may be mounted on a War Altar. The army can only ever include one War Altar, and it can only be included if there is at least 1 unit of Flagellants in the army. The War Altar adds +2 attacks to the Wizard and can be used to add +1 to the Wizard‘s dice roll to cast a spell once per battle. The player must announce that the War Altar‘s spell bonus is being used before rolling the dice to determine if the spell is cast."
           ],
           "chart": null,
-          "notes": "A Wizard with a War Altar suffers a movement reduction to 30cm."
+          "notes": "A Wizard with a War Altar suffers a movement reduction to 30cm.",
+          "maxPerArmy": true,
+          "requiresUnit": {
+            "unitId": "empire:flagellants",
+            "min": 1
+          }
         }
       ],
       "armyRules": [],
@@ -2970,10 +2975,15 @@
           "max": null,
           "specialName": "Handgunners",
           "specials": [
-            "A handgun shot can pierce armour far more easily than an arrow or a crossbow bolt. Therefore, count enemy Armour values as one worse than normal when shot by a handgun. One unit of Handgunners per full 1000 points can replace a unit of Warriors while still counting for the Warrior min/max value. Note that this unit still counts for max value of Handgunners."
+            "A handgun shot can pierce armour far more easily than an arrow or a crossbow bolt. Therefore, count enemy Armour values as one worse than normal when shot by a handgun.",
+            "One unit of Handgunners per full 1000 points can replace a unit of Warriors while still counting for the Warrior min/max value. Note that this unit still counts for max value of Handgunners."
           ],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "countsTowardMin": {
+            "unitId": "dwarfs:warriors",
+            "perThousand": 1
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -3219,11 +3229,9 @@
           "min": null,
           "max": 1,
           "specialName": "Hero",
-          "specials": [
-            "One Hero in the army may be upgraded to carry an Oathstone for +15 pts. Once per game, the Hero may use the Oathstone to inspire one unit that he has joined (except Troll Slayers). Both the Hero, and the unit he has joined, gain +1 attack per stand, and are immune to Terror, until the end of the combat phase."
-          ],
+          "specials": [],
           "chart": null,
-          "notes": null
+          "notes": "One Hero in the army may be upgraded to carry an Oathstone for +15 pts. Once per game, the Hero may use the Oathstone to inspire one unit that he has joined (except Troll Slayers). Both the Hero, and the unit he has joined, gain +1 attack per stand, and are immune to Terror, until the end of the combat phase."
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -3297,7 +3305,47 @@
             "The army can only include a single anvil and it is incorporated onto the stand of a Runesmith. If a Runesmith stand includes the Anvil, once per battle he can add +1 to his dice roll when he attempts to dispel enemy magic spells using the Dwarf anti-magic ability (see Runesmith). In addition the Runesmith can strike the Anvil during the Shooting phase of his own turn. The anvil‘s plangent rune-song fills the Dwarfs with even greater resolve! Roll a D6. On the score of a 4, 5 or 6 all Dwarf units within 20cm of the Runesmith are unaffected by Terror until the start of the Dwarf player‘s next turn. On a roll of less than 4 there is no effect."
           ],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true
+        },
+        {
+          "ruleSet": "warmaster-revolution",
+          "ruleBook": "warmaster-revolution-armies",
+          "version": "2.2.6",
+          "army": "dwarfs",
+          "unitId": "dwarfs:oathstone",
+          "troop": "Oathstone",
+          "type": "Special Bonus",
+          "subType": null,
+          "category": "upgrade",
+          "facing": null,
+          "speed": null,
+          "halfPace": null,
+          "eligibleToUpgrade": [
+            "dwarfs:hero"
+          ],
+          "meleeAttacks": null,
+          "rangedAttacks": null,
+          "bonusAttacks": null,
+          "meleeAttackProfile": null,
+          "rangedAttackProfile": null,
+          "hits": null,
+          "armour": null,
+          "command": null,
+          "bonusCommand": null,
+          "unitSize": null,
+          "unitSizeModifier": null,
+          "points": null,
+          "upgradePoints": 15,
+          "min": null,
+          "max": 1,
+          "specialName": "Oathstone",
+          "specials": [
+            "One Hero in the army may be upgraded to carry an Oathstone. Once per game, the Hero may use the Oathstone to inspire one unit that he has joined (except Troll Slayers). Both the Hero, and the unit he has joined, gain +1 attack per stand, and are immune to Terror, until the end of the combat phase."
+          ],
+          "chart": null,
+          "notes": null,
+          "maxPerArmy": true
         }
       ],
       "armyRules": [],
@@ -3766,7 +3814,8 @@
             "A Screaming Bell is a gargantuan device and therefore it uses a 40 x 60mm base, with the short edge being the front. It cannot move of its own accord - but relies upon the great mass of Skaven to push it forward. The Screaming Bell can therefore only move in the Command phase if it forms a brigade with one or more infantry units. It can then move 20cm at infantry pace. It cannot move using initiative and cannot be driven back by shooting and does not roll for drive backs. In combat it is automatically destroyed if forced to retreat but will pursue, advance and fall back so long as it is touching a Skaven infantry unit at the start and end of its move: otherwise it cannot pursue, advance or fall back as it is unable to move of its own accord. All Skaven units touching the Screaming Bell are unaffected by the usual penalty for Terror whilst they remain so. In addition, any Skaven Hero or Warlock within 30cm of the Screaming Bell adds +1 to their Command value. Any enemy character within 30cm of the Screaming Bell deducts -1 from their Command value. A Skaven army can only ever include a maximum of 1 Screaming Bell no matter how large."
           ],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -5429,7 +5478,8 @@
             "This creature lives in swamps near the Praag since the great incursion of Chaos. Yozhin strongly hates any kind of Chaos, being (possibly) chaos-twisted creature itself. Only powerful Shamans may summon a Yozhin and make it to fight on their side. A single Shaman in the army can be assisted by Yozhin. There is no restriction for going into any water/boggy/ swamp terrain for him. A unit that has been joined by a Yozhin riding Shaman causes terror in its enemies. Yozhin adds +1 Attack to Shaman’s attacks value."
           ],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -6009,7 +6059,12 @@
             "A Sorceress can have a Cauldron of Blood. The army can only ever include one Cauldron of Blood and it can only be included if there is at least 1 unit of Witch Elves in the army. The Cauldron of Blood adds +2 Attacks to the Sorceress and can be used to add +1 to the Sorceress‘s dice roll to cast a spell once per battle. The player must announce that the Cauldron of Blood‘s spell bonus is being used before rolling the dice to determine if the spell is cast."
           ],
           "chart": null,
-          "notes": "A Sorceress with a Cauldron of Blood suffers a movement reduction to 30cm."
+          "notes": "A Sorceress with a Cauldron of Blood suffers a movement reduction to 30cm.",
+          "maxPerArmy": true,
+          "requiresUnit": {
+            "unitId": "dark-elves:witch-elves",
+            "min": 1
+          }
         }
       ],
       "armyRules": [],
@@ -10367,7 +10422,12 @@
             "A Warrior Priest may be mounted on a War Altar. The army can only ever include one War Altar, and it can only be included if there is at least 1 unit of Flagellants in the army. The War Altar adds +2 attacks to the Warrior Priest and can be used to add +1 to the Warrior Priest‘s dice roll to cast a spell once per battle. The player must announce that the War Altar‘s spell bonus is being used before rolling the dice to determine if the spell is cast."
           ],
           "chart": null,
-          "notes": "A Warrior Priest with a War Altar suffers a movement reduction to 30cm."
+          "notes": "A Warrior Priest with a War Altar suffers a movement reduction to 30cm.",
+          "maxPerArmy": true,
+          "requiresUnit": {
+            "unitId": "witch-hunters:flagellants",
+            "min": 1
+          }
         }
       ],
       "armyRules": [

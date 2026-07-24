@@ -17,6 +17,7 @@ import { getArmy, ruleSets } from "./data/gameData";
 import {
   addCharacter,
   addUnit,
+  addUnitCopy,
   assignMagicItem,
   createList,
   removeCharacter,
@@ -157,6 +158,7 @@ export default function App() {
     const list = createList(ruleSet.id, ruleSet.version, armyId, name, pointsLimit);
     setLists((prev) => upsertList(prev, list));
     setActiveListId(list.id);
+    setMenuOpen(false); // collapse the mobile drawer to reveal the new list
   };
 
   const handleDelete = (id: string) => {
@@ -234,7 +236,7 @@ export default function App() {
               list={activeList}
               issues={issues}
               onRemoveUnit={(i) => mutate((l) => removeUnit(l, i))}
-              onAddUnit={(unitId) => mutate((l) => addUnit(l, unitId))}
+              onAddUnitCopy={(i) => mutate((l) => addUnitCopy(l, i))}
               onToggleUnitUpgrade={(i, upgradeId) => mutate((l) => toggleUnitUpgrade(l, i, upgradeId))}
               onRemoveCharacter={(id) => mutate((l) => removeCharacter(l, id))}
               onToggleCharacterUpgrade={(id, upgradeId) =>

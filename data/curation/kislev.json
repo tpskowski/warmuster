@@ -9,6 +9,9 @@
   },
   "kislev:yozhin": {
     "source": "c9aa1988",
+    "overrides": {
+      "maxPerArmy": true
+    },
     "eligibleToUpgrade": [
       "kislev:shaman"
     ]
