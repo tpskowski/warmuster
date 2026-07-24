@@ -221,6 +221,22 @@ describe("validateList", () => {
     expect(issues.some((i) => i.unitId === "chaos:trolls" && i.message.includes("at most 6"))).toBe(true);
   });
 
+  it("uses ×2 Min/Max from 2000–2999 points and ×3 at 3000", () => {
+    const issueFor = (pointsLimit: number, unitId: string, count: number) => {
+      let list = createList("warmaster-revolution", "2.2.6", "chaos", "Boundary", pointsLimit);
+      for (let i = 0; i < count; i++) list = addUnit(list, unitId);
+      return validateList(list, chaos).find((issue) => issue.unitId === unitId);
+    };
+
+    expect(issueFor(2999, "chaos:chaos-warriors", 1)?.message).toContain("at least 2");
+    expect(issueFor(3000, "chaos:chaos-warriors", 2)?.message).toContain("at least 3");
+
+    expect(issueFor(2999, "chaos:harpies", 2)).toBeUndefined();
+    expect(issueFor(2999, "chaos:harpies", 3)?.message).toContain("at most 2");
+    expect(issueFor(3000, "chaos:harpies", 3)).toBeUndefined();
+    expect(issueFor(3000, "chaos:harpies", 4)?.message).toContain("at most 3");
+  });
+
   it("flags over-limit points", () => {
     let list = freshList();
     for (let i = 0; i < 16; i++) list = addUnit(list, "chaos:chaos-warriors"); // 2240

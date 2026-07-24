@@ -5,7 +5,15 @@ import { minMaxLabel, pointsLabel, signedLabel, unitStatRows } from "./UnitStats
 import { FacingIcon } from "./Icons";
 
 /** Modal with a unit's full stats and rules; also opened from roster chips. */
-export function UnitDetailsDialog({ unit, onClose }: { unit: UnitData; onClose: () => void }) {
+export function UnitDetailsDialog({
+  unit,
+  scale = 1,
+  onClose,
+}: {
+  unit: UnitData;
+  scale?: number;
+  onClose: () => void;
+}) {
   const rules = cardRules(unit);
   const subtitle = unit.subType ? `${unit.type} (${unit.subType})` : unit.type;
   const stats = [
@@ -15,7 +23,7 @@ export function UnitDetailsDialog({ unit, onClose }: { unit: UnitData; onClose: 
     ...(unit.unitSizeModifier != null
       ? [{ label: "Size modifier", value: signedLabel(unit.unitSizeModifier) }]
       : []),
-    { label: "Min / Max", value: minMaxLabel(unit) },
+    { label: "Min / Max", value: minMaxLabel(unit, scale) },
     { label: unit.upgradePoints != null ? "Upgrade points" : "Points", value: pointsLabel(unit) },
   ];
 
@@ -80,7 +88,7 @@ export function UnitDetailsDialog({ unit, onClose }: { unit: UnitData; onClose: 
 }
 
 /** Full unit data and rules, opened from the compact info button on each row. */
-export default function SpecialRules({ unit }: { unit: UnitData }) {
+export default function SpecialRules({ unit, scale = 1 }: { unit: UnitData; scale?: number }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -95,7 +103,7 @@ export default function SpecialRules({ unit }: { unit: UnitData }) {
       >
         i
       </button>
-      {open && <UnitDetailsDialog unit={unit} onClose={() => setOpen(false)} />}
+      {open && <UnitDetailsDialog unit={unit} scale={scale} onClose={() => setOpen(false)} />}
     </span>
   );
 }

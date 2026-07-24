@@ -1,5 +1,6 @@
 import type { ArmyData, SavedList, ValidationIssue } from "../types";
 import { getUnit } from "../data/gameData";
+import { armySizeMultiplier } from "./armySize";
 import { countOf, magicItemCountOf, totalPoints, upgradeCountOf } from "./lists";
 import { canBearMagicItem, getMagicItem, magicItems } from "./magicItems";
 
@@ -10,7 +11,7 @@ import { canBearMagicItem, getMagicItem, magicItems } from "./magicItems";
 // General regardless of size.
 export function validateList(list: SavedList, army: ArmyData): ValidationIssue[] {
   const issues: ValidationIssue[] = [];
-  const scale = Math.max(1, Math.floor(list.pointsLimit / 1000));
+  const scale = armySizeMultiplier(list.pointsLimit);
 
   const points = totalPoints(list, army);
   if (points > list.pointsLimit) {

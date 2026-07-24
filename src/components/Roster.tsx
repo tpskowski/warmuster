@@ -1,6 +1,7 @@
 ﻿import { useEffect, useState } from "react";
 import type { ArmyData, SavedCharacterEntry, SavedList, SavedUnitEntry, UnitData, ValidationIssue } from "../types";
 import { getUnit, upgradesFor } from "../data/gameData";
+import { armySizeMultiplier } from "../domain/armySize";
 import { entryPoints, totalPoints } from "../domain/lists";
 import { getMagicItem, magicItemCost, type MagicItemData } from "../domain/magicItems";
 import SpecialRules, { UnitDetailsDialog } from "./SpecialRules";
@@ -24,11 +25,13 @@ interface RosterProps {
 function UpgradePicker({
   army,
   ownerUnitId,
+  scale,
   selected,
   onToggle,
 }: {
   army: ArmyData;
   ownerUnitId: string;
+  scale: number;
   selected: string[];
   onToggle: (upgradeId: string) => void;
 }) {
@@ -80,7 +83,9 @@ function UpgradePicker({
           </button>
         );
       })}
-      {detail && <UnitDetailsDialog unit={detail} onClose={() => setDetail(null)} />}
+      {detail && (
+        <UnitDetailsDialog unit={detail} scale={scale} onClose={() => setDetail(null)} />
+      )}
     </span>
   );
 }
@@ -180,6 +185,7 @@ function RosterUnitRow({
   army,
   entry,
   index,
+  scale,
   onRemove,
   onAdd,
   onToggleUpgrade,
@@ -188,6 +194,7 @@ function RosterUnitRow({
   army: ArmyData;
   entry: SavedUnitEntry;
   index: number;
+  scale: number;
   onRemove: () => void;
   onAdd: () => void;
   onToggleUpgrade: (upgradeId: string) => void;
@@ -211,10 +218,11 @@ function RosterUnitRow({
           <span className="roster-qty">{entry.quantity}×</span>
           <span className="roster-name">{unit.troop}</span>
           <span className="catalog-type">{unit.type}</span>
-          <SpecialRules unit={unit} />
+          <SpecialRules unit={unit} scale={scale} />
           <UpgradePicker
             army={army}
             ownerUnitId={entry.unitId}
+            scale={scale}
             selected={entry.upgrades}
             onToggle={onToggleUpgrade}
           />
@@ -247,12 +255,14 @@ function RosterUnitRow({
 function RosterCharacterRow({
   army,
   entry,
+  scale,
   onRemove,
   onToggleUpgrade,
   onRemoveMagicItem,
 }: {
   army: ArmyData;
   entry: SavedCharacterEntry;
+  scale: number;
   onRemove: () => void;
   onToggleUpgrade: (upgradeId: string) => void;
   onRemoveMagicItem: (itemId: string) => void;
@@ -274,10 +284,11 @@ function RosterCharacterRow({
         <div className="roster-name-line">
           <span className="roster-name">{unit.troop}</span>
           <span className="catalog-type">{unit.type}</span>
-          <SpecialRules unit={unit} />
+          <SpecialRules unit={unit} scale={scale} />
           <UpgradePicker
             army={army}
             ownerUnitId={entry.unitId}
+            scale={scale}
             selected={entry.upgrades}
             onToggle={onToggleUpgrade}
           />
@@ -313,6 +324,7 @@ export default function Roster({
 }: RosterProps) {
   const points = totalPoints(list, army);
   const over = points > list.pointsLimit;
+  const scale = armySizeMultiplier(list.pointsLimit);
   return (
     <div className="roster">
       <div className="roster-header">
@@ -357,6 +369,7 @@ export default function Roster({
             key={entry.id}
             army={army}
             entry={entry}
+            scale={scale}
             onRemove={() => onRemoveCharacter(entry.id)}
             onToggleUpgrade={(upgradeId) => onToggleCharacterUpgrade(entry.id, upgradeId)}
             onRemoveMagicItem={onRemoveMagicItem}
@@ -373,6 +386,7 @@ export default function Roster({
             army={army}
             entry={entry}
             index={index}
+            scale={scale}
             onRemove={() => onRemoveUnit(index)}
             onAdd={() => onAddUnit(entry.unitId)}
             onToggleUpgrade={(upgradeId) => onToggleUnitUpgrade(index, upgradeId)}
