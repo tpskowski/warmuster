@@ -11,7 +11,10 @@ import { hashText, parseArmyLists, normalizeRow, extractSpecialName } from "../g
 
 // This script lives in scripts/archive/, so the repo root is three levels up.
 const root = path.dirname(path.dirname(path.dirname(fileURLToPath(import.meta.url))));
-const markdown = fs.readFileSync(path.join(root, "WMR_Armies_2.26_army_lists.md"), "utf8");
+const markdown = fs.readFileSync(
+  path.join(root, "data", "source", "WMR_Armies_2.26_army_lists.md"),
+  "utf8",
+);
 const parsed = parseArmyLists(markdown);
 
 function sentences(text) {

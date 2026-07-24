@@ -8,6 +8,7 @@ Warriors: at least 8 required (0 selected).
 General: at least 1 required (0 selected).
 Get rid of the top one.
 3. If a list is invalid add a one-click fix, if the army is missing units had a 'Add Minimums' button under the validator, if the army has units that are too large have a 'Remove Excess' button under the validator. if both are happening show both buttons
+4. Make changelog bigger
 
 ## List Building
 1. ~~Create Magic Item UI~~ Done — "Assign magic items" button in the catalog opens the assignment dialog; items split their unit out of the stack.

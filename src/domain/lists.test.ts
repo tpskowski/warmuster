@@ -194,7 +194,12 @@ describe("validateList", () => {
   it("requires a General and min units, scaled per 1000 points", () => {
     const list = freshList(); // 2000 points
     const issues = validateList(list, chaos);
-    expect(issues.some((i) => i.message.includes("must include a General"))).toBe(true);
+    // With a single General choice, the requirement is conveyed by that unit's
+    // own per-unit min message rather than a duplicate army-wide one.
+    expect(
+      issues.some((i) => i.unitId === "chaos:general" && i.message.includes("at least 1")),
+    ).toBe(true);
+    expect(issues.some((i) => i.message.includes("must include a General"))).toBe(false);
     // Chaos Warriors are min 1 per 1000 -> 2 at 2000 points.
     expect(
       issues.some((i) => i.unitId === "chaos:chaos-warriors" && i.message.includes("at least 2")),

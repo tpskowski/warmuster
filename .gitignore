@@ -1,7 +1,26 @@
-﻿node_modules/
+node_modules/
 dist/
 *.tsbuildinfo
 data/curation-draft/
 .claude/settings.local.json
 test-results/
 playwright-report/
+Warmaster_Revolution_2.1.0_Rules.md
+plan.md
+
+# Local environment and deployment secrets
+.env
+.env.*
+!.env.example
+.dev.vars*
+.wrangler/
+
+# Test and tool output
+coverage/
+*.log
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
