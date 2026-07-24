@@ -5,3 +5,10 @@ data/curation-draft/
 .claude/settings.local.json
 test-results/
 playwright-report/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
