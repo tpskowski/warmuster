@@ -21,8 +21,13 @@ export function validateList(list: SavedList, army: ArmyData): ValidationIssue[]
   }
 
   const generals = list.characters.filter((c) => getUnit(army, c.unitId)?.type === "General");
+  const generalChoices = army.units.filter((u) => u.type === "General");
   if (army.army !== "regiments-of-renown") {
-    if (generals.length === 0) {
+    // When there is a single General choice, its own per-unit "at least 1
+    // required" message already covers this, so the army-wide message would be
+    // a duplicate. Only surface it when the pick is spread across several
+    // General options and no single per-unit min conveys the requirement.
+    if (generals.length === 0 && generalChoices.length > 1) {
       issues.push({ severity: "error", message: "The army must include a General." });
     } else if (generals.length > 1) {
       issues.push({

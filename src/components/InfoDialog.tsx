@@ -29,7 +29,7 @@ export default function InfoDialog({ topic, onClose }: { topic: InfoTopic; onClo
   const { title, source } = CONTENT[topic];
   return (
     <div className="modal-backdrop" onClick={onClose}>
-      <div className="modal" role="dialog" aria-label={title} onClick={(event) => event.stopPropagation()}>
+      <div className="modal info-modal" role="dialog" aria-label={title} onClick={(event) => event.stopPropagation()}>
         <div className="modal-head">
           <h2>{title}</h2>
           <button type="button" className="icon-btn" onClick={onClose} title="Close">
