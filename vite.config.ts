@@ -1,8 +1,10 @@
 import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), cloudflare()],
   // 5273 instead of Vite's default 5173, which collides with another local
   // app. Overridable via PORT or --port (Playwright's web server uses 5177).
   server: process.env.PORT
