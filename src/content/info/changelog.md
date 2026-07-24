@@ -1,4 +1,9 @@
-## Unreleased
+## 0.2.0
+
+- Mounts and attachments now print at the top of a unit's card, so a unit with
+  very long rules (e.g. the Slann Mage) no longer buries its mount on the back.
+- Identical units in a list (same unit and upgrades) merge into one "N×" row,
+  and a unit split off by an attachment stays next to the rest of its stack.
 
 - "Attachment" stands are now added from their parent unit rather than being
   stand-alone units, matching their rules: Lizardmen Salamanders (Skinks),

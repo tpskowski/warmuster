@@ -126,6 +126,20 @@ describe("unit cards", () => {
     expect(cards.filter((c) => c.unitId === "chaos:chaos-warriors")).toHaveLength(1);
   });
 
+  it("puts a mount/upgrade before the unit's own long rules on the card", () => {
+    // The Lizardmen Slann has enormous rules text; its mount must still land
+    // on the front, not be buried after that wall of text on the back.
+    const lizardmen = getArmy("warmaster-revolution", "lizardmen")!;
+    const slann = lizardmen.units.find((u) => u.unitId === "lizardmen:slann-mage-palanquin")!;
+    const stegadon = lizardmen.units.find(
+      (u) => u.unitId === "lizardmen:stegadon-monstrous-mount",
+    )!;
+    const card = buildCard(slann, [], [stegadon]);
+    expect(card.fits).toBe(true);
+    expect(card.frontRules[0]?.title).toBe("Stegadon"); // mount is first, on the front
+    expect(card.frontRules.some((r) => r.title === "Stegadon")).toBe(true);
+  });
+
   it("can move magic items from units onto their own cards", () => {
     let list = createList("warmaster-revolution", "2.2.6", "chaos", "Host", 2000);
     list = addCharacter(list, "chaos:general");
