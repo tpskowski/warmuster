@@ -11,7 +11,7 @@ const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 
 const RULE_SET = "warmaster-revolution";
 const RULE_BOOK = "warmaster-revolution-armies";
-const SOURCE_FILE = "WMR_Armies_2.26_army_lists.md";
+const SOURCE_FILE = path.join("data", "source", "WMR_Armies_2.26_army_lists.md");
 const VERSION = "2.2.6";
 
 const CHARACTER_TYPES = new Set(["General", "Hero", "Wizard"]);
