@@ -1,4 +1,5 @@
 ﻿import type { ArmyData, SavedList, UnitData } from "../types";
+import { armySizeMultiplier } from "../domain/armySize";
 import { countOf } from "../domain/lists";
 import SpecialRules from "./SpecialRules";
 import UnitStats, { minMaxLabel, pointsLabel, signedLabel } from "./UnitStats";
@@ -33,7 +34,7 @@ function CatalogRow({
         <div className="catalog-name-line">
           <span className="catalog-name">{unit.troop}</span>
           <span className="catalog-type">{unit.type}</span>
-          <SpecialRules unit={unit} />
+          <SpecialRules unit={unit} scale={scale} />
         </div>
         <div className="catalog-stat-line">
           <UnitStats unit={unit} />
@@ -77,7 +78,7 @@ export default function Catalog({
     (sum, entry) => sum + entry.magicItems.length,
     0,
   );
-  const scale = Math.max(1, Math.floor(list.pointsLimit / 1000));
+  const scale = armySizeMultiplier(list.pointsLimit);
   const units = army.units.filter((u) => u.category === "unit");
   const characters = army.units.filter((u) => u.category === "character");
   const upgrades = army.units.filter((u) => u.category === "upgrade");
