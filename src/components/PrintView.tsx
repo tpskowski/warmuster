@@ -182,7 +182,7 @@ function Diagram({ card }: { card: CardModel }) {
   if (diagram.kind === "none") return null;
   if (diagram.kind === "circle") return <span className="diagram-circle" />;
   return (
-    <span className={`diagram-rects ${diagram.orientation}`}>
+    <span className={`diagram-rects ${diagram.orientation}${diagram.grid ? " grid" : ""}`}>
       {Array.from({ length: diagram.count }, (_, i) => (
         <span key={i} className="diagram-rect" />
       ))}

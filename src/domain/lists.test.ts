@@ -7,6 +7,7 @@ import {
   assignMagicItem,
   countOf,
   createList,
+  entryStands,
   magicItemBearer,
   removeUnit,
   toggleCharacterUpgrade,
@@ -119,6 +120,26 @@ describe("list building", () => {
     list = addUnitCopy(list, 0);
     expect(list.units).toHaveLength(1);
     expect(list.units[0].quantity).toBe(2);
+  });
+
+  it("counts stands added by an attachment", () => {
+    const empire = getArmy("warmaster-revolution", "empire")!;
+    let list = createList("warmaster-revolution", "2.2.6", "empire", "Empire", 2000);
+    list = addUnit(list, "empire:halberdiers");
+    const halberdiers = getUnit(empire, "empire:halberdiers")!;
+    expect(entryStands(empire, list.units[0], halberdiers)).toBe(3);
+    // Skirmishers attach a stand: the unit fields four.
+    list = toggleUnitUpgrade(list, 0, "empire:skirmishers");
+    const attached = list.units.find((u) => u.upgrades.includes("empire:skirmishers"))!;
+    expect(entryStands(empire, attached, halberdiers)).toBe(4);
+  });
+
+  it("leaves the stand count alone for a character's mount", () => {
+    let list = freshList();
+    list = addCharacter(list, "chaos:general");
+    list = toggleCharacterUpgrade(list, list.characters[0].id, "chaos:chaos-dragon");
+    const general = getUnit(chaos, "chaos:general")!;
+    expect(entryStands(chaos, list.characters[0], general)).toBe(1);
   });
 
   it("adds a plain copy rather than inflating a magic-item entry", () => {

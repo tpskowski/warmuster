@@ -253,6 +253,22 @@ export function entryPoints(army: ArmyData, entry: SavedUnitEntry | SavedCharact
   return (unit.points ?? 0) * quantity + upgrades * quantity + magic;
 }
 
+/** Stands in one copy of a unit entry: the unit's own size plus any stands
+ * added by attachments (a Salamander joining Skinks, Skirmishers joining
+ * Halberdiers). Null for entries with no stand count, such as characters. */
+export function entryStands(
+  army: ArmyData,
+  entry: SavedUnitEntry | SavedCharacterEntry,
+  unit: UnitData,
+): number | null {
+  if (unit.unitSize == null) return null;
+  const added = entry.upgrades.reduce(
+    (sum, id) => sum + (getUnit(army, id)?.unitSizeModifier ?? 0),
+    0,
+  );
+  return unit.unitSize + added;
+}
+
 export function totalPoints(list: SavedList, army: ArmyData): number {
   let total = 0;
   for (const entry of list.units) {

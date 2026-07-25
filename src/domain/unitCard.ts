@@ -19,6 +19,9 @@ export interface CardDiagram {
   kind: "rects" | "circle" | "none";
   count: number;
   orientation: "horizontal" | "vertical";
+  /** Lay the stands out in two lanes instead of one strip. Set for a 4-stand
+   * unit so it reads as a 2 x 2 block. */
+  grid?: boolean;
 }
 
 /** One rule paragraph. A magic item carries its name as a bold `title` printed
@@ -50,13 +53,16 @@ export interface CardModel {
 const TYPE_RULES: Record<string, string> = {
   Infantry:
     "Infantry can enter woods and other dense terrain, defend obstacles and garrison built-up areas.",
-  Cavalry: "Cavalry cannot enter woods, marshes or built-up areas.",
+  Cavalry:
+    "Cavalry never counts as defended or fortified, even behind cover, and cannot move into contact with fortified enemy.",
   Chariot:
-    "+1 Attack per stand when charging enemy in the open, in addition to the normal charge bonus. Cannot enter woods, marshes or built-up areas.",
+    "+1 Attack per stand when charging enemy in the open, in addition to the normal charge bonus. Chariots never count as defended or fortified, even behind cover, and cannot move into contact with fortified enemy.",
   Chariots:
-    "+1 Attack per stand when charging enemy in the open, in addition to the normal charge bonus. Cannot enter woods, marshes or built-up areas.",
+    "+1 Attack per stand when charging enemy in the open, in addition to the normal charge bonus. Chariots never count as defended or fortified, even behind cover, and cannot move into contact with fortified enemy.",
+  // Monsters never count as defended or fortified either, but the fortified
+  // contact ban is not stated here: it spares giants and flying monsters.
   Monster:
-    "+1 Attack per stand when charging enemy in the open, in addition to the normal charge bonus.",
+    "+1 Attack per stand when charging enemy in the open, in addition to the normal charge bonus. Monsters never count as defended or fortified, even behind cover.",
   Artillery:
     "Artillery cannot charge on initiative, never pursues, and is destroyed if forced to retreat from combat. It can only cross open ground, hills and bridges, and can shoot over intervening troops from high ground.",
   Machine: "Machines follow their own movement and combat rules — see special rules.",
@@ -65,6 +71,19 @@ const TYPE_RULES: Record<string, string> = {
   Hero: "Character stand: joins units and adds bonus Attacks. Cannot be shot at or attacked directly.",
   Wizard:
     "Character stand: joins units, adds bonus Attacks and casts spells. Cannot be shot at or attacked directly.",
+};
+
+// Ground movement limits. The rulebook names the terrain each type *may*
+// cross and blocks everything else, so these read as a whitelist rather than
+// a short list of forbidden features. Flying troops move over terrain, so
+// these never apply to them.
+const GROUND_TERRAIN_RULES: Record<string, string> = {
+  Cavalry:
+    "Cavalry can only move into or over hills, bridges, shallow fordable rivers, grown fields and low obstacles; all other terrain blocks them.",
+  Monster:
+    "Monsters can only move into or over hills, bridges, shallow fordable rivers, grown fields and low obstacles; all other terrain blocks them.",
+  Chariot: "Chariots can only move into or over hills and bridges; all other terrain blocks them.",
+  Chariots: "Chariots can only move into or over hills and bridges; all other terrain blocks them.",
 };
 
 const FLYER_RULE = "Flyer: uses the flying movement rules and can move over units and terrain.";
@@ -140,23 +159,35 @@ export function cardRules(unit: UnitData): string[] {
   if (unit.specials.length > 0) {
     rules.push(...unit.specials);
   } else {
+    // A flyer moves over terrain, so its ground limits would contradict the
+    // flyer rule above.
+    if (unit.subType !== "Flying") {
+      const terrain = GROUND_TERRAIN_RULES[unit.type];
+      if (terrain) rules.push(terrain);
+    }
     const typeRule = TYPE_RULES[unit.type];
     if (typeRule) rules.push(typeRule);
   }
   return rules;
 }
 
-export function cardDiagram(unit: UnitData): CardDiagram {
+/** `extraStands` counts stands added by attachments (a Salamander joining
+ * Skinks, Skirmishers joining Halberdiers), so the diagram shows the unit at
+ * its actual strength. */
+export function cardDiagram(unit: UnitData, extraStands = 0): CardDiagram {
   if (unit.category === "character") return { kind: "circle", count: 1, orientation: "horizontal" };
   if (unit.category === "upgrade") return { kind: "none", count: 0, orientation: "horizontal" };
   // A modifier changes another unit's size; it is not a stand count itself.
-  const count = unit.unitSize ?? 0;
+  const count = (unit.unitSize ?? 0) + extraStands;
   if (count <= 0) return { kind: "none", count: 0, orientation: "horizontal" };
   // Long-edge units draw wide (horizontal) stands; short-edge draw tall ones.
   return {
     kind: "rects",
     count,
     orientation: unit.facing === "long" ? "horizontal" : "vertical",
+    // No unit is natively four stands, so this is always a 3-stand unit plus
+    // an attached stand; a 2 x 2 block reads better than a long strip.
+    ...(count === 4 ? { grid: true } : {}),
   };
 }
 
@@ -284,12 +315,16 @@ function ruleLineMm(rulePt: number): number {
 
 /** Estimated head height: the name wraps beside the type label and diagram. */
 function headMm(name: string, diagram: CardDiagram): number {
+  // A grid diagram splits the stands over two lanes: two columns of stacked
+  // wide stands, or two rows of side-by-side tall ones.
+  const lanes = diagram.grid ? 2 : 1;
+  const perLane = Math.ceil(diagram.count / lanes);
   const diagramH =
     diagram.kind === "circle" ? 5 : diagram.kind === "rects"
-      ? diagram.orientation === "horizontal" ? diagram.count * 3.3 : 8.5
+      ? diagram.orientation === "horizontal" ? perLane * 3.3 : 8.5 * lanes
       : 0;
-  const diagramW = diagram.kind === "rects" && diagram.orientation === "vertical"
-    ? diagram.count * 4.2
+  const diagramW = diagram.kind === "rects"
+    ? diagram.orientation === "vertical" ? perLane * 4.2 : lanes === 2 ? 15.1 : 8
     : diagram.kind !== "none" ? 8 : 0;
   const nameWidthMm = name.length * 11 * 0.48 * PT_TO_MM;
   const nameLines = Math.max(1, Math.ceil(nameWidthMm / (INNER_W_MM - 13 - diagramW)));
@@ -457,14 +492,19 @@ export function buildCard(
   items: MagicItemData[] = [],
   upgrades: UnitData[] = [],
 ): CardModel {
-  // Player choices (mounts/attachments, then magic items) come before the
-  // unit's own rules so they stay prominent — a unit with very long rules
+  const ownRules = cardRules(unit).map((text) => ({ title: null, text }));
+  const upgradeRules = upgrades.map(upgradeRule);
+  const itemRules = items.map((item) => ({ title: item.name, text: item.text }));
+  // On a character card the mount leads: a character with very long rules
   // (e.g. the Slann Mage) would otherwise bury its mount on the card back.
-  const rules: CardRule[] = [
-    ...upgrades.map(upgradeRule),
-    ...items.map((item) => ({ title: item.name, text: item.text })),
-    ...cardRules(unit).map((text) => ({ title: null, text })),
-  ];
+  // On a unit card an attachment (Salamander, Skirmishers) is an addition to
+  // the parent unit, so the parent's own rules read first.
+  const rules: CardRule[] =
+    unit.category === "character"
+      ? [...upgradeRules, ...itemRules, ...ownRules]
+      : [...ownRules, ...upgradeRules, ...itemRules];
+  // Attachments raise the unit's stand count; mounts leave it alone.
+  const extraStands = upgrades.reduce((sum, u) => sum + (u.unitSizeModifier ?? 0), 0);
   const suffix = [...upgrades.map((u) => u.unitId), ...items.map((i) => i.itemId)];
   const unitId = suffix.length > 0 ? `${unit.unitId}+${suffix.join("+")}` : unit.unitId;
   return assembleCard(
@@ -474,7 +514,7 @@ export function buildCard(
     unit.subType,
     cardStats(unit),
     rules,
-    cardDiagram(unit),
+    cardDiagram(unit, extraStands),
   );
 }
 

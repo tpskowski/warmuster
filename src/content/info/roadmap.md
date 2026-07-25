@@ -1,3 +1,2 @@
 - Regiments of Renown as allied units.
 - Finer-grained structured special-rule data.
-- App reports cav can not being able to enter built up areas, which is incorrect. also the new terrain rules should help with what things units can/cannot enter!
