@@ -112,7 +112,11 @@
             "Count enemy Armour values as one worse than normal when shot by a handgun. So an Armour value of 3+ counts as 4+, 4+ as 5+, and 5+ as 6+, whilst an Armour value of 6+ can‘t save against a handgun. One unit of Crossbowmen per full 1000 points can be replaced by Handgunners (including the 10pts extra in price) while still counting for the Crossbowmen min/max value. Note that this unit also counts for the min/max value of Handgunners."
           ],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "substitutesFor": {
+            "unitId": "empire:crossbowmen",
+            "perThousand": 1
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -2980,7 +2984,7 @@
           ],
           "chart": null,
           "notes": null,
-          "countsTowardMin": {
+          "substitutesFor": {
             "unitId": "dwarfs:warriors",
             "perThousand": 1
           }
@@ -5156,7 +5160,11 @@
             "One unit of Bowmen per full 1000 points can replace a unit of Axemen while still counting for Axemen min/ max value."
           ],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "substitutesFor": {
+            "unitId": "kislev:axemen",
+            "perThousand": 1
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -7777,7 +7785,11 @@
             "A handgun shot can pierce armour far easier than an arrow or a crossbow bolt. Therefore, count enemy Armour values as one worse (-1) than normal. One unit of Crossbowmen per full 1000 points can be replaced by Handgunners (including the 10 points extra in price) while still counting for the Crossbowmen min/max value. Note that this unit still counts for the min/max value of Handgunners."
           ],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "substitutesFor": {
+            "unitId": "dogs-of-war:crossbowmen",
+            "perThousand": 1
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -9487,7 +9499,11 @@
           "specialName": null,
           "specials": [],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "substitutesFor": {
+            "unitId": "goblins:goblins",
+            "perThousand": 2
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -10535,7 +10551,11 @@
             "Units with Blunderbusses have a shooting range of 15cm. The unit has 2 shooting attacks. Units hit by Blunderbusses get a -1 penalty for their armour rolls. One unit of Blunderbusses per full 1000 points can replace a unit of Warriors while still counting for the Chaos Dwarfs min/ max value. Note that this unit still counts for max value of Blunderbusses."
           ],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "substitutesFor": {
+            "unitId": "chaos-dwarfs:chaos-dwarfs",
+            "perThousand": 1
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -13010,7 +13030,11 @@
             "Any or all of the army’s Crossbows units can be replaced by Handguns while still counting for the Crossbow min/max value. Their projectiles can pierce armour far easier than a crossbow bolt. Therefore, units hit by Handguns get a -1 penalty for their armour rolls."
           ],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "substitutesFor": {
+            "unitId": "cathay:crossbows",
+            "perThousand": null
+          }
         },
         {
           "ruleSet": "warmaster-revolution",

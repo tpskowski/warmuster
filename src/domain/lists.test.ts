@@ -357,7 +357,87 @@ describe("Dwarf army-specific rules", () => {
     for (let i = 0; i < 2; i++) list = addUnit(list, "dwarfs:warriors");
     list = addUnit(list, "dwarfs:handgunners");
     const issue = validateList(list, dwarfs).find((i) => i.unitId === "dwarfs:warriors");
-    expect(issue?.message).toContain("at least 4 required (3 selected)");
+    // The message spells the substitution out, so a count that only adds up
+    // because of a stand-in does not look like a miscount.
+    expect(issue?.message).toContain("at least 4 required (2 selected, plus 1 Handgunners standing in)");
+  });
+});
+
+describe("unit substitution", () => {
+  const listFor = (armyId: string, pointsLimit = 2000) =>
+    createList("warmaster-revolution", "2.2.6", armyId, "Test", pointsLimit);
+
+  it("lets Dogs of War Handgunners stand in for Crossbowmen", () => {
+    const dow = getArmy("warmaster-revolution", "dogs-of-war")!;
+    // Crossbowmen need 4 at 2000 pts. Three plus one Handgunners covers it.
+    let list = listFor("dogs-of-war");
+    for (let i = 0; i < 3; i++) list = addUnit(list, "dogs-of-war:crossbowmen");
+    list = addUnit(list, "dogs-of-war:handgunners");
+    expect(
+      validateList(list, dow).some((i) => i.unitId === "dogs-of-war:crossbowmen"),
+    ).toBe(false);
+  });
+
+  it("caps the stand-in at the per-1000 allowance", () => {
+    const dow = getArmy("warmaster-revolution", "dogs-of-war")!;
+    // Only two Handgunners can substitute at 2000 pts, so two Crossbowmen
+    // plus three Handgunners is still one short of the required four.
+    let list = listFor("dogs-of-war");
+    for (let i = 0; i < 1; i++) list = addUnit(list, "dogs-of-war:crossbowmen");
+    for (let i = 0; i < 3; i++) list = addUnit(list, "dogs-of-war:handgunners");
+    const issue = validateList(list, dow).find((i) => i.unitId === "dogs-of-war:crossbowmen");
+    expect(issue?.message).toContain("1 selected, plus 2 Handgunners standing in");
+  });
+
+  it("lets any number of Cathay Handguns stand in for Crossbows", () => {
+    const cathay = getArmy("warmaster-revolution", "cathay")!;
+    // "Any or all" — the substitution has no per-1000 cap.
+    let list = listFor("cathay");
+    for (let i = 0; i < 6; i++) list = addUnit(list, "cathay:handguns");
+    expect(validateList(list, cathay).some((i) => i.unitId === "cathay:crossbows")).toBe(false);
+  });
+
+  it("credits two Squig Herds per 1000 toward the Goblin minimum", () => {
+    const goblins = getArmy("warmaster-revolution", "goblins")!;
+    const squig = getUnit(goblins, "goblins:squig-herd")!;
+    expect(squig.substitutesFor).toEqual({ unitId: "goblins:goblins", perThousand: 2 });
+    // Goblins need 8 at 2000 pts. Five Squig Herds are taken but only four
+    // (2 per 1000) can stand in, so 3 Goblins + 4 credited is still short.
+    let list = listFor("goblins");
+    for (let i = 0; i < 3; i++) list = addUnit(list, "goblins:goblins");
+    for (let i = 0; i < 5; i++) list = addUnit(list, "goblins:squig-herd");
+    const issue = validateList(list, goblins).find((i) => i.unitId === "goblins:goblins");
+    expect(issue?.message).toContain("3 selected, plus 4 Squig Herd standing in");
+    // One more Goblin unit reaches the minimum via the substitution.
+    list = addUnit(list, "goblins:goblins");
+    expect(validateList(list, goblins).some((i) => i.unitId === "goblins:goblins")).toBe(false);
+  });
+
+  it("counts a stand-in toward the replaced unit's max, not just its min", () => {
+    const cd = getArmy("warmaster-revolution", "chaos-dwarfs")!;
+    // Chaos Dwarfs are -/4 per 1000 -> 8 at 2000. A Blunderbuss unit occupies
+    // one of those slots, so 8 + 1 breaches the max.
+    let list = listFor("chaos-dwarfs");
+    for (let i = 0; i < 8; i++) list = addUnit(list, "chaos-dwarfs:chaos-dwarfs");
+    expect(
+      validateList(list, cd).some((i) => i.unitId === "chaos-dwarfs:chaos-dwarfs"),
+    ).toBe(false);
+    list = addUnit(list, "chaos-dwarfs:blunderbusses");
+    const issue = validateList(list, cd).find((i) => i.unitId === "chaos-dwarfs:chaos-dwarfs");
+    expect(issue?.message).toContain("at most 8 allowed");
+    expect(issue?.message).toContain("Blunderbusses standing in");
+  });
+
+  it("still applies the stand-in unit's own max", () => {
+    const dow = getArmy("warmaster-revolution", "dogs-of-war")!;
+    // Handgunners are -/2 per 1000 -> 4 at 2000, independent of substituting.
+    let list = listFor("dogs-of-war");
+    for (let i = 0; i < 5; i++) list = addUnit(list, "dogs-of-war:handgunners");
+    expect(
+      validateList(list, dow).some(
+        (i) => i.unitId === "dogs-of-war:handgunners" && i.message.includes("at most 4 allowed"),
+      ),
+    ).toBe(true);
   });
 });
 

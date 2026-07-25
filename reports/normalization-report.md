@@ -2,6 +2,25 @@
 
 # Empire
 
+## Handgunners
+
+Special text: **Handgunners.** Count enemy Armour values as one worse than normal when shot by a handgun. So an Armour value of 3+ counts as 4+, 4+ as 5+, and 5+ as 6+, whilst an Armour value of 6+ can‘t save against a handgun. One unit of Crossbowmen per full 1000 points can be replaced by Handgunners (including the 10pts extra in price) while still counting for the Crossbowmen min/max value. Note that this unit also counts for the min/max value of Handgunners.
+
+Overrides:
+
+- `substitutesFor` set to {"unitId":"empire:crossbowmen","perThousand":1}
+
+```json
+{
+  "specialName": "Handgunners",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "Count enemy Armour values as one worse than normal when shot by a handgun. So an Armour value of 3+ counts as 4+, 4+ as 5+, and 5+ as 6+, whilst an Armour value of 6+ can‘t save against a handgun. One unit of Crossbowmen per full 1000 points can be replaced by Handgunners (including the 10pts extra in price) while still counting for the Crossbowmen min/max value. Note that this unit also counts for the min/max value of Handgunners."
+  ],
+  "notes": null
+}
+```
+
 ## Skirmishers
 
 Special text: **Skirmishers.** Skirmisher stands are not deployed as independent units. Instead, any infantry unit apart from Flagellants may add one stand of Skirmishers. This brings the size of the unit to 4 stands - 3 regular stands plus the Skirmisher stand. Skirmishers always have the same Armour value as the rest of their unit. They fight as part of their unit and can be removed as a unit casualty if the player wishes. Skirmisher casualties never count for Command penalties. Skirmisher stands never cause the parent unit to be in Irregular Formation no matter how they are placed.
@@ -406,7 +425,7 @@ Special text: **Handgunners.** A handgun shot can pierce armour far more easily 
 
 Overrides:
 
-- `countsTowardMin` set to {"unitId":"dwarfs:warriors","perThousand":1}
+- `substitutesFor` set to {"unitId":"dwarfs:warriors","perThousand":1}
 
 ```json
 {
@@ -763,6 +782,25 @@ Special text: **Grail Reliquae.** This sacred item can be given to one unit of P
 ```
 
 # Kislev
+
+## Bowmen
+
+Special text: **Bowmen.** One unit of Bowmen per full 1000 points can replace a unit of Axemen while still counting for Axemen min/ max value.
+
+Overrides:
+
+- `substitutesFor` set to {"unitId":"kislev:axemen","perThousand":1}
+
+```json
+{
+  "specialName": "Bowmen",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "One unit of Bowmen per full 1000 points can replace a unit of Axemen while still counting for Axemen min/ max value."
+  ],
+  "notes": null
+}
+```
 
 ## Bear
 
@@ -1165,6 +1203,25 @@ Overrides:
 
 # Dogs of War
 
+## Handgunners
+
+Special text: **Handgunners.** A handgun shot can pierce armour far easier than an arrow or a crossbow bolt. Therefore, count enemy Armour values as one worse (-1) than normal. One unit of Crossbowmen per full 1000 points can be replaced by Handgunners (including the 10 points extra in price) while still counting for the Crossbowmen min/max value. Note that this unit still counts for the min/max value of Handgunners.
+
+Overrides:
+
+- `substitutesFor` set to {"unitId":"dogs-of-war:crossbowmen","perThousand":1}
+
+```json
+{
+  "specialName": "Handgunners",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "A handgun shot can pierce armour far easier than an arrow or a crossbow bolt. Therefore, count enemy Armour values as one worse (-1) than normal. One unit of Crossbowmen per full 1000 points can be replaced by Handgunners (including the 10 points extra in price) while still counting for the Crossbowmen min/max value. Note that this unit still counts for the min/max value of Handgunners."
+  ],
+  "notes": null
+}
+```
+
 ## Giant
 
 Special text: **Giants.** Giants must always be given a separate order. They cannot be brigaded with other troops, although several Giants can be brigaded together if you so wish. If you attempt to give an order to a Giant and fail then you must take a test to see what it does. Ignore potential blunders - these are taken into account by the following rules. Roll a dice and consult the Giant Goes Wild chart. Where Giants are brigaded together roll for each separately. Giants have a great many hits, 8 in fact, which are almost impossible to inflict during even a fairly lengthy combat engagement. Because Giants have so many hits we must consider the possibility of hurting the Giant and reducing its effectiveness in subsequent turns. Therefore, if a Giant has accumulated 5-7 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Giant is badly hurt all accumulated hits are discounted and its maximum Hits value and Attacks are halved for the rest of the battle (to 4 Hits and 4 Attacks). A Giant causes terror in its enemies. Giant Goes Wild Chart D6 Oh no! What‘s he doing now! 1. The Giant will neither move nor fight this turn but simply stands rooted to the spot looking dopey. 2. Move the Giant directly towards the nearest table edge. If he moves into another unit he will charge it regardless of which side it is on. If victorious in combat the Giant will hold his ground. 3. The Giant throws an object at the closest visible unit (friend or foe) within 5xD6 cm, inflicting 3 Attacks. If the target is in combat, the attacks contribute to the combat result; otherwise, resolve them in the Shooting phase. 4. The Giant moves straight forward at full pace in the direction he is facing in. If he reaches an enemy unit he will charge. If he reaches a friendly unit he will walk straight through and out the other side if there is room and he has sufficient move. If he reaches a friendly unit and does not have sufficient move or enough room to walk all the way through then he halts on contact. A friendly unit that is walked through or contacted in this way instantly becomes confused as a result. 5. The Giant moves towards the nearest enemy unit that he can see as fast as he can. If he reaches the foe he will charge. If friends are in the way he will walk through them causing confusion as described above. If there is no visible enemy the Giant does nothing this Command phase. 6. The Giant gives a mighty bellow and rushes straight at the nearest enemy unit that he can see. Move the Giant at double his normal full pace move. If he reaches an enemy unit, he charges it and fights by jumping up and down on the foe, furiously doubling his Attacks value in the first round of combat. If there is no visible enemy the Giant does nothing this Command phase.
@@ -1337,6 +1394,23 @@ Special text: **Chariot Mount.** Generals, Druids and Heroes can ride Chariots. 
 
 # Goblins
 
+## Squig Herd
+
+Special text: (none)
+
+Overrides:
+
+- `substitutesFor` set to {"unitId":"goblins:goblins","perThousand":2}
+
+```json
+{
+  "specialName": null,
+  "eligibleToUpgrade": [],
+  "specials": [],
+  "notes": null
+}
+```
+
 ## Giant
 
 Special text: **Giant.** Giants must always be given a separate order. They cannot be brigaded with other troops, although several Giants can be brigaded together if you so wish. If you attempt to give an order to a Giant and fail then you must take a test to see what it does. Ignore potential blunders - these are taken into account by the following rules. Roll a dice and consult the Giant Goes Wild chart. Where Giants are brigaded together roll for each separately. Giants have a great many hits, 8 in fact, which are almost impossible to inflict during even a fairly lengthy combat engagement. Because Giants have so many hits we must consider the possibility of hurting the Giant and reducing its effectiveness in subsequent turns. Therefore, if a Giant has accumulated 5-7 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Giant is badly hurt all accumulated hits are discounted and its maximum Hits value and Attacks are halved for the rest of the battle (to 4 Hits and 4 Attacks). A Giant causes terror in its enemies. Giant Goes Wild Chart D6 Oh no! What‘s he doing now! 1. The Giant will neither move nor fight this turn but simply stands rooted to the spot looking dopey. 2. Move the Giant directly towards the nearest table edge. If he moves into another unit he will charge it regardless of which side it is on. If victorious in combat the Giant will hold his ground. 3. The Giant throws an object at the closest visible unit (friend or foe) within 5xD6 cm, inflicting 3 Attacks. If the target is in combat, the attacks contribute to the combat result; otherwise, resolve them in the Shooting phase. 4. The Giant moves straight forward at full pace in the direction he is facing in. If he reaches an enemy unit he will charge. If he reaches a friendly unit he will walk straight through and out the other side if there is room and he has sufficient move. If he reaches a friendly unit and does not have sufficient move or enough room to walk all the way through then he halts on contact. A friendly unit that is walked through or contacted in this way instantly becomes confused as a result. 5. The Giant moves towards the nearest enemy unit that he can see as fast as he can. If he reaches the foe he will charge. If friends are in the way he will walk through them causing confusion as described above. If there is no visible enemy the Giant does nothing this Command phase. 6. The Giant gives a mighty bellow and rushes straight at the nearest enemy unit that he can see. Move the Giant at double his normal full pace move. If he reaches an enemy unit, he charges it and fights by jumping up and down on the foe, furiously doubling his Attacks value in the first round of combat. If there is no visible enemy the Giant does nothing this Command phase.
@@ -1448,6 +1522,25 @@ Overrides:
 ```
 
 # Chaos Dwarfs
+
+## Blunderbusses
+
+Special text: **Blunderbusses.** Units with Blunderbusses have a shooting range of 15cm. The unit has 2 shooting attacks. Units hit by Blunderbusses get a -1 penalty for their armour rolls. One unit of Blunderbusses per full 1000 points can replace a unit of Warriors while still counting for the Chaos Dwarfs min/ max value. Note that this unit still counts for max value of Blunderbusses.
+
+Overrides:
+
+- `substitutesFor` set to {"unitId":"chaos-dwarfs:chaos-dwarfs","perThousand":1}
+
+```json
+{
+  "specialName": "Blunderbusses",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "Units with Blunderbusses have a shooting range of 15cm. The unit has 2 shooting attacks. Units hit by Blunderbusses get a -1 penalty for their armour rolls. One unit of Blunderbusses per full 1000 points can replace a unit of Warriors while still counting for the Chaos Dwarfs min/ max value. Note that this unit still counts for max value of Blunderbusses."
+  ],
+  "notes": null
+}
+```
 
 ## Great Taurus
 
@@ -1740,6 +1833,25 @@ Special text: **Horn of Resounding.** A single Shaman in the army may be given t
 ```
 
 # Cathay
+
+## Handguns
+
+Special text: **Handguns.** Any or all of the army’s Crossbows units can be replaced by Handguns while still counting for the Crossbow min/max value. Their projectiles can pierce armour far easier than a crossbow bolt. Therefore, units hit by Handguns get a -1 penalty for their armour rolls.
+
+Overrides:
+
+- `substitutesFor` set to {"unitId":"cathay:crossbows","perThousand":null}
+
+```json
+{
+  "specialName": "Handguns",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "Any or all of the army’s Crossbows units can be replaced by Handguns while still counting for the Crossbow min/max value. Their projectiles can pierce armour far easier than a crossbow bolt. Therefore, units hit by Handguns get a -1 penalty for their armour rolls."
+  ],
+  "notes": null
+}
+```
 
 ## Chariot
 

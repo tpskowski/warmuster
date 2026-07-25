@@ -303,7 +303,7 @@ const OVERRIDABLE_FIELDS = new Set([
   "max",
   "min",
   "maxPerArmy",
-  "countsTowardMin",
+  "substitutesFor",
   "requiresUnit",
 ]);
 

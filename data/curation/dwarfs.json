@@ -14,7 +14,7 @@
   "dwarfs:handgunners": {
     "source": "d461d8d",
     "overrides": {
-      "countsTowardMin": {
+      "substitutesFor": {
         "unitId": "dwarfs:warriors",
         "perThousand": 1
       }

@@ -1,4 +1,13 @@
 {
+  "chaos-dwarfs:blunderbusses": {
+    "source": "16313fdf",
+    "overrides": {
+      "substitutesFor": {
+        "unitId": "chaos-dwarfs:chaos-dwarfs",
+        "perThousand": 1
+      }
+    }
+  },
   "chaos-dwarfs:great-taurus": {
     "source": "ba3dbd12",
     "eligibleToUpgrade": [

@@ -15,6 +15,15 @@
     ],
     "notes": "The Griffon can fly increasing its rider‘s Movement from 60cm to 100cm."
   },
+  "empire:handgunners": {
+    "source": "f78407f3",
+    "overrides": {
+      "substitutesFor": {
+        "unitId": "empire:crossbowmen",
+        "perThousand": 1
+      }
+    }
+  },
   "empire:skirmishers": {
     "source": "666316ef",
     "overrides": {

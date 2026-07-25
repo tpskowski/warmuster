@@ -442,6 +442,19 @@ textarea {
   color: var(--text-muted);
 }
 
+/* Marks a unit that may be taken in place of another (Dogs of War
+   Handgunners for Crossbowmen), counting toward that unit's Min/Max. */
+.counts-as {
+  font-size: 11px;
+  line-height: 1.4;
+  padding: 0 5px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  cursor: help;
+}
+
 .roster-stat-line,
 .catalog-stat-line {
   margin-top: 2px;

@@ -1,4 +1,13 @@
 {
+  "cathay:handguns": {
+    "source": "878cfad3",
+    "overrides": {
+      "substitutesFor": {
+        "unitId": "cathay:crossbows",
+        "perThousand": null
+      }
+    }
+  },
   "cathay:celestial-dragon": {
     "source": "990099a9",
     "overrides": {

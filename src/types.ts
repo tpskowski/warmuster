@@ -35,10 +35,12 @@ export interface UnitData {
   /** When true, `max` is a flat army-wide cap rather than a per-1000-points
    * allowance (e.g. the Dwarf Anvil / Oath Stone: one per army at any size). */
   maxPerArmy?: boolean;
-  /** This unit may stand in for another unit's minimum requirement: up to
-   * `perThousand` of these per full 1000 points count toward `unitId`'s min
-   * (e.g. Dwarf Handgunners substituting for Warriors). */
-  countsTowardMin?: { unitId: string; perThousand: number } | null;
+  /** This unit may stand in for another unit's allowance: up to `perThousand`
+   * of these per full 1000 points count toward `unitId`'s min *and* max (e.g.
+   * Dogs of War Handgunners replacing Crossbowmen). `perThousand: null` means
+   * any number may stand in (Cathay Handguns). The substitute still counts
+   * against this unit's own max independently. */
+  substitutesFor?: { unitId: string; perThousand: number | null } | null;
   /** This unit/upgrade may only be taken if the army also fields at least
    * `min` of `unitId` (e.g. the Witch Hunter War Altar needs a unit of
    * Flagellants). */
