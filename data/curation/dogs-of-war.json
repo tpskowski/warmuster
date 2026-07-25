@@ -1,4 +1,13 @@
 {
+  "dogs-of-war:handgunners": {
+    "source": "177e226e",
+    "overrides": {
+      "substitutesFor": {
+        "unitId": "dogs-of-war:crossbowmen",
+        "perThousand": 1
+      }
+    }
+  },
   "dogs-of-war:giant": {
     "source": "ca738f4c",
     "specials": [

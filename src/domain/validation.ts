@@ -4,6 +4,45 @@ import { armySizeMultiplier } from "./armySize";
 import { countOf, magicItemCountOf, totalPoints, upgradeCountOf } from "./lists";
 import { canBearMagicItem, getMagicItem, magicItems } from "./magicItems";
 
+/** One unit standing in for another, and how many of it actually count. */
+export interface StandIn {
+  troop: string;
+  count: number;
+}
+
+/**
+ * Units that may stand in for `unitId`, with the number of each that counts
+ * toward its allowance. A substitution is capped at `perThousand` per full
+ * 1000 points; `perThousand: null` means any number may stand in.
+ */
+export function substitutesFor(
+  list: SavedList,
+  army: ArmyData,
+  unitId: string,
+  scale: number,
+): StandIn[] {
+  const standIns: StandIn[] = [];
+  for (const sub of army.units) {
+    if (sub.substitutesFor?.unitId !== unitId) continue;
+    const taken = countOf(list, sub.unitId);
+    if (taken === 0) continue;
+    const { perThousand } = sub.substitutesFor;
+    const allowed = perThousand == null ? taken : perThousand * scale;
+    standIns.push({ troop: sub.troop, count: Math.min(taken, allowed) });
+  }
+  return standIns;
+}
+
+/** "0 selected" / "1 selected, plus 1 Handgunners standing in" — so a count
+ * that only adds up because of a substitution explains itself. */
+function describeCount(own: number, standIns: StandIn[]): string {
+  const parts = standIns
+    .filter((s) => s.count > 0)
+    .map((s) => `${s.count} ${s.troop} standing in`);
+  const selected = `${own} selected`;
+  return parts.length === 0 ? selected : `${selected}, plus ${parts.join(" and ")}`;
+}
+
 // Warn-but-allow: issues are surfaced but never block editing or saving.
 //
 // Min/Max values in the army lists are per full 1000 points of the agreed
@@ -42,22 +81,18 @@ export function validateList(list: SavedList, army: ArmyData): ValidationIssue[]
   for (const unit of army.units) {
     const count = countOf(list, unit.unitId);
     const isGeneral = unit.type === "General";
+    // Units standing in for this one (Dogs of War Handgunners for Crossbowmen).
+    // They count toward both its min and its max, so a substitute genuinely
+    // occupies a slot rather than being free extra strength.
+    const standIns = substitutesFor(list, army, unit.unitId, scale);
+    const standInTotal = standIns.reduce((sum, s) => sum + s.count, 0);
     if (unit.min != null) {
       const required = isGeneral ? unit.min : unit.min * scale;
-      // Some units may stand in for another's minimum (e.g. Dwarf Handgunners
-      // for Warriors): up to `perThousand` per full 1000 points count here.
-      const substitutes = army.units
-        .filter((u) => u.countsTowardMin?.unitId === unit.unitId)
-        .reduce(
-          (sum, sub) =>
-            sum + Math.min(countOf(list, sub.unitId), sub.countsTowardMin!.perThousand * scale),
-          0,
-        );
-      const effective = count + substitutes;
+      const effective = count + standInTotal;
       if (effective < required) {
         issues.push({
           severity: "error",
-          message: `${unit.troop}: at least ${required} required (${effective} selected).`,
+          message: `${unit.troop}: at least ${required} required (${describeCount(count, standIns)}).`,
           unitId: unit.unitId,
         });
       }
@@ -65,10 +100,11 @@ export function validateList(list: SavedList, army: ArmyData): ValidationIssue[]
     if (unit.max != null && unit.category !== "upgrade") {
       // `maxPerArmy` units cap flat army-wide; others scale per 1000 points.
       const allowed = isGeneral || unit.maxPerArmy ? unit.max : unit.max * scale;
-      if (count > allowed) {
+      const effective = count + standInTotal;
+      if (effective > allowed) {
         issues.push({
           severity: "error",
-          message: `${unit.troop}: at most ${allowed} allowed (${count} selected).`,
+          message: `${unit.troop}: at most ${allowed} allowed (${describeCount(count, standIns)}).`,
           unitId: unit.unitId,
         });
       }

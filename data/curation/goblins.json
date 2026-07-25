@@ -1,4 +1,13 @@
 {
+  "goblins:squig-herd": {
+    "source": "1505",
+    "overrides": {
+      "substitutesFor": {
+        "unitId": "goblins:goblins",
+        "perThousand": 2
+      }
+    }
+  },
   "goblins:chariot": {
     "source": "6d424abd",
     "eligibleToUpgrade": [
