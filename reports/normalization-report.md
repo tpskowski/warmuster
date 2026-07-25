@@ -1022,15 +1022,16 @@ Overrides:
 - `subType` set to "Flying"
 - `speed` set to 60
 - `halfPace` set to 10
+- `facing` set to "long"
 
 ```json
 {
   "specialName": "Fell Bats",
   "eligibleToUpgrade": [],
   "specials": [
-    "Although they cannot use initiative they are allowed to home back as described in the Warmaster rulebook. No order is required to home back. Fell Bats are an exception to the normal rules for basing monsters, in that they are based along the long base edge in the same way as infantry, rather than the short edge like other monsters."
+    "Although they cannot use initiative they are allowed to home back as described in the Warmaster rulebook. No order is required to home back."
   ],
-  "notes": "Fell Bats can fly."
+  "notes": "Fell Bats can fly. Fell Bats are an exception to the normal rules for basing monsters, in that they are based along the long base edge in the same way as infantry, rather than the short edge like other monsters."
 }
 ```
 

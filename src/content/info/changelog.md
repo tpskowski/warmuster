@@ -1,3 +1,9 @@
+## 0.5.0 2026-07-25
+- Fell Bats fixed to be wide-side
+- Attached units like Salimanders now show 4 bases on unit card and in list builder
+- Changed "models" to "stands" to be more Warmaster-y
+- Fixed terrain rules on unit cards
+
 ## 0.4.0 2026-07-24
 - Small UI tweaks
 - Dwarf list fixes (anvils, thunderers. oath stone)

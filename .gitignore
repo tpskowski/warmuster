@@ -12,8 +12,6 @@ plan.md
 .env
 .env.*
 !.env.example
-.dev.vars*
-.wrangler/
 
 # Test and tool output
 coverage/

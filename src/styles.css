@@ -1068,6 +1068,13 @@ textarea {
   flex-direction: row;
 }
 
+/* Four stands (a 3-stand unit plus an attached stand) read as a 2 x 2 block
+   rather than a long strip. */
+.diagram-rects.grid {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+}
+
 .diagram-rect {
   border: 1px solid #333;
 }
