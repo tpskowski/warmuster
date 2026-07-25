@@ -14,11 +14,13 @@ interface CatalogProps {
 
 function CatalogRow({
   unit,
+  army,
   count,
   scale,
   onAdd,
 }: {
   unit: UnitData;
+  army: ArmyData;
   count: number;
   scale: number;
   onAdd?: () => void;
@@ -27,6 +29,13 @@ function CatalogRow({
   const max = unit.max != null ? (isGeneral ? unit.max : unit.max * scale) : null;
 
   const atMax = max != null && count >= max;
+  // A unit that may stand in for another (Dogs of War Handgunners for
+  // Crossbowmen) says so here, so the option is visible while choosing rather
+  // than only once a minimum fails.
+  const standsInFor = unit.substitutesFor
+    ? army.units.find((u) => u.unitId === unit.substitutesFor!.unitId)
+    : undefined;
+  const perThousand = unit.substitutesFor?.perThousand;
 
   return (
     <li className={`catalog-row${atMax ? " at-max" : ""}`}>
@@ -35,6 +44,18 @@ function CatalogRow({
           <span className="catalog-name">{unit.troop}</span>
           <span className="catalog-type">{unit.type}</span>
           <SpecialRules unit={unit} scale={scale} />
+          {standsInFor && (
+            <span
+              className="counts-as"
+              title={
+                perThousand == null
+                  ? `Any number may be taken in place of ${standsInFor.troop}, counting toward its Min/Max.`
+                  : `${perThousand * scale} of these may be taken in place of ${standsInFor.troop} at ${scale * 1000} pts, counting toward its Min/Max.`
+              }
+            >
+              Counts as {standsInFor.troop}
+            </span>
+          )}
         </div>
         <div className="catalog-stat-line">
           <UnitStats unit={unit} />
@@ -94,6 +115,7 @@ export default function Catalog({
           <CatalogRow
             key={unit.unitId}
             unit={unit}
+            army={army}
             count={countOf(list, unit.unitId)}
             scale={scale}
             onAdd={() => onAddUnit(unit.unitId)}
@@ -106,6 +128,7 @@ export default function Catalog({
           <CatalogRow
             key={unit.unitId}
             unit={unit}
+            army={army}
             count={countOf(list, unit.unitId)}
             scale={scale}
             onAdd={() => onAddCharacter(unit.unitId)}
@@ -118,7 +141,7 @@ export default function Catalog({
           <p className="panel-hint">Added from a unit or character already in your list.</p>
           <ul className="catalog-list">
             {upgrades.map((unit) => (
-              <CatalogRow key={unit.unitId} unit={unit} count={0} scale={scale} />
+              <CatalogRow key={unit.unitId} unit={unit} army={army} count={0} scale={scale} />
             ))}
           </ul>
         </>

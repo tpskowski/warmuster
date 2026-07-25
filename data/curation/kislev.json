@@ -1,4 +1,13 @@
 {
+  "kislev:bowmen": {
+    "source": "12670cad",
+    "overrides": {
+      "substitutesFor": {
+        "unitId": "kislev:axemen",
+        "perThousand": 1
+      }
+    }
+  },
   "kislev:bear": {
     "source": "f5fbd083",
     "eligibleToUpgrade": [
