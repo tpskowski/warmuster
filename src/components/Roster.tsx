@@ -2,7 +2,7 @@
 import type { ArmyData, SavedCharacterEntry, SavedList, SavedUnitEntry, UnitData, ValidationIssue } from "../types";
 import { getUnit, upgradesFor } from "../data/gameData";
 import { armySizeMultiplier } from "../domain/armySize";
-import { entryPoints, totalPoints } from "../domain/lists";
+import { entryPoints, entryStands, totalPoints } from "../domain/lists";
 import { getMagicItem, magicItemCost, type MagicItemData } from "../domain/magicItems";
 import SpecialRules, { UnitDetailsDialog } from "./SpecialRules";
 import UnitStats from "./UnitStats";
@@ -211,6 +211,7 @@ function RosterUnitRow({
       </li>
     );
   }
+  const stands = entryStands(army, entry, unit);
   return (
     <li className="roster-row">
       <div className="roster-main">
@@ -234,8 +235,8 @@ function RosterUnitRow({
       </div>
       <div className="roster-side">
         <div className="roster-summary">
-          {unit.unitSize != null && (
-            <span className="roster-models">{entry.quantity * unit.unitSize} Models</span>
+          {stands != null && (
+            <span className="roster-models">{entry.quantity * stands} Stands</span>
           )}
           <span className="roster-points">{entryPoints(army, entry, unit)} pts</span>
         </div>

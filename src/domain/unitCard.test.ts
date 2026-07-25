@@ -270,9 +270,82 @@ describe("unit cards", () => {
     expect(general.diagram.kind).toBe("circle");
   });
 
+  const ruleText = (u: Parameters<typeof buildCard>[0]) =>
+    buildCard(u).frontRules.map((r) => r.text).join(" ");
+
   it("shows type rules when a unit has no specials", () => {
-    const card = buildCard(unit(chaos, "Chaos Knights"));
-    expect(card.frontRules.some((r) => r.text.includes("Cavalry cannot enter woods"))).toBe(true);
+    const rules = ruleText(unit(chaos, "Chaos Knights"));
+    // The rulebook lists the terrain cavalry *can* cross; everything else
+    // blocks them, so the reminder must not read as a short blacklist.
+    expect(rules).toContain("Cavalry can only move into or over hills");
+    expect(rules).toContain("grown fields and low obstacles");
+    expect(rules).toContain("never counts as defended or fortified");
+  });
+
+  it("limits chariots to hills and bridges, unlike cavalry", () => {
+    const rules = ruleText(unit(chaos, "Chaos Chariots"));
+    expect(rules).toContain("Chariots can only move into or over hills and bridges");
+    // Chariots are stricter than cavalry: no fords, fields or low obstacles.
+    expect(rules).not.toContain("fordable rivers");
+    expect(rules).toContain("in addition to the normal charge bonus");
+  });
+
+  it("gives monsters their own ground limits", () => {
+    const daemons = getArmy("warmaster-revolution", "daemons")!;
+    const beasts = daemons.units.find((u) => u.unitId === "daemons:daemon-beasts")!;
+    const rules = ruleText(beasts);
+    expect(rules).toContain("Monsters can only move into or over hills");
+    expect(rules).toContain("grown fields and low obstacles");
+    expect(rules).toContain("never count as defended or fortified");
+  });
+
+  it("does not put ground terrain limits on a flying monster", () => {
+    const eagles = getArmy("warmaster-revolution", "high-elves")!.units.find(
+      (u) => u.unitId === "high-elves:giant-eagles",
+    )!;
+    const rules = ruleText(eagles);
+    expect(rules).toContain("Flyer:"); // flies over terrain instead
+    expect(rules).not.toContain("all other terrain blocks them");
+    // The charge bonus still applies to a flying monster.
+    expect(rules).toContain("in addition to the normal charge bonus");
+  });
+
+  it("puts the parent unit's rules before an attached stand's", () => {
+    // Unlike a character's mount, an attachment adds to the parent unit, so
+    // the Skinks' own rules lead and the Salamander follows.
+    const lizardmen = getArmy("warmaster-revolution", "lizardmen")!;
+    const skinks = lizardmen.units.find((u) => u.unitId === "lizardmen:skinks")!;
+    const salamander = lizardmen.units.find((u) => u.unitId === "lizardmen:salamander")!;
+    const card = buildCard(skinks, [], [salamander]);
+    const rules = [...card.frontRules, ...card.backRules];
+    const salamanderAt = rules.findIndex((r) => r.title === "Salamander");
+    expect(salamanderAt).toBeGreaterThan(0); // not first
+    expect(rules[0].title).toBeNull(); // the unit's own rules lead
+  });
+
+  it("counts an attached stand in the diagram and lays four stands out 2 x 2", () => {
+    const empire = getArmy("warmaster-revolution", "empire")!;
+    const halberdiers = empire.units.find((u) => u.unitId === "empire:halberdiers")!;
+    const skirmishers = empire.units.find((u) => u.unitId === "empire:skirmishers")!;
+    // On its own the unit is three stands in a single strip.
+    expect(buildCard(halberdiers).diagram).toEqual({
+      kind: "rects",
+      count: 3,
+      orientation: "horizontal",
+    });
+    // The attachment adds a stand, and four stands read as a 2 x 2 block.
+    expect(buildCard(halberdiers, [], [skirmishers]).diagram).toEqual({
+      kind: "rects",
+      count: 4,
+      orientation: "horizontal",
+      grid: true,
+    });
+  });
+
+  it("leaves the stand count alone for a character's mount", () => {
+    const general = buildCard(unit(chaos, "General"), [], [unit(chaos, "Chaos Dragon")]);
+    expect(general.diagram.kind).toBe("circle");
+    expect(general.diagram.count).toBe(1);
   });
 });
 
