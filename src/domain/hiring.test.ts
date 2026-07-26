@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { SavedList } from "../types";
 import { getArmy, getUnit } from "../data/gameData";
-import { hireableFor, isMercenary } from "../data/mercenaries";
+import { hireableFor, isHired, isMercenary } from "../data/mercenaries";
 import { hireConflicts, hiredCount, hireLimit, resolveCountsAs } from "./hiring";
 import { addCharacter, addUnit, createList } from "./lists";
 import { validateList } from "./validation";
@@ -211,6 +211,22 @@ describe("hire limits and conflicts", () => {
 
 describe("a Regiments of Renown army list is unaffected", () => {
   const ror = army("regiments-of-renown");
+
+  it("still has its own catalog of units and characters", () => {
+    // The catalog holds back regiments that are being hired into someone
+    // else's list; in their own army they are the army.
+    const own = ror.units.filter((u) => !isHired(u, ror));
+    expect(own).toHaveLength(ror.units.length);
+    expect(own.filter((u) => u.category === "unit").length).toBeGreaterThan(0);
+    expect(own.filter((u) => u.category === "character").length).toBeGreaterThan(0);
+  });
+
+  it("charges no hire slots against itself", () => {
+    for (const unit of ror.units) {
+      expect(isHired(unit, ror)).toBe(false);
+      expect(resolveCountsAs(unit, ror)).toEqual([]);
+    }
+  });
 
   it("does not apply hiring rules to itself", () => {
     let list = createList("warmaster-revolution", "2.2.6", "regiments-of-renown", "Test", 1000);
