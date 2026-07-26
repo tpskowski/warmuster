@@ -346,6 +346,34 @@ Examples:
 - `-/1` → `"min": null`, `"max": 1`
 - A single fixed value such as `1` → `"min": 1`, `"max": 1`
 
+### 8a. Hiring (Regiments of Renown only)
+
+Regiments of Renown are both a buildable army and a pool of mercenaries any other army may hire.
+Each regiment carries a `hire` block describing the terms; it is authored in
+`data/curation/regiments-of-renown.json` except for `armies`, which the generator folds in from
+`data/allies-table.json` (the rulebook's Allies Table, one `+`/`/` row per army).
+
+    "hire": {
+      "armies": ["empire", "dwarfs"],
+      "countsAs": {
+        "rule": "limited-infantry",
+        "byArmy": { "tomb-kings": "group:Monster", "dwarfs": "dwarfs:rangers" },
+        "also": ["monstrous-mount-terror"]
+      },
+      "conflicts": ["regiments-of-renown:gotrek-and-felix"],
+      "conflictUnits": { "dogs-of-war": ["dogs-of-war:dwarfs"] }
+    }
+
+`countsAs.rule` describes the allowance a hired regiment eats into. The rulebook phrases these as
+descriptions of the hiring army's own list ("count as one highest point value limited infantry type
+unit"), so the target is resolved against that army's data at runtime rather than hand-paired:
+`none`, `limited-infantry`, `limited-shooting-infantry`, `limited-cavalry-or-chariot`, `artillery`,
+`hero`, `flying-3-stands`, `monstrous-mount-terror`. Where no candidate exists, hiring places no
+restriction. `byArmy` overrides the rule for one army, either with a unitId or with
+`group:<type>` for a player's-choice pool. `conflicts` must be symmetric.
+
+Every regiment also carries `maxPerArmy: true` — only one of each per army, at any army size.
+
 ### 9. Change-report output
 
 Normalization report — documents curated conversion of raw special-rule text into structured fields, notes, and behavioral specials.
@@ -617,3 +645,4 @@ Characters and units should both be defined by quantity, however represent any u
 | `units`         | Selected units                        |
 | `characters`    | Selected characters                   |
 | `notes`         | Optional user notes                   |
+| `allowMercenaries` | Whether the catalog offers Regiments of Renown for hire (optional; absent reads as off) |

@@ -1,13 +1,239 @@
 {
+  "regiments-of-renown:pirazzos-lost-legion": {
+    "overrides": {
+      "maxPerArmy": true,
+      "hire": {
+        "countsAs": { "rule": "limited-infantry", "byArmy": { "tomb-kings": "group:monster" } },
+        "conflicts": ["regiments-of-renown:tichi-huichis-raiders"]
+      }
+    }
+  },
+  "regiments-of-renown:alcatani-fellowship": {
+    "overrides": {
+      "maxPerArmy": true,
+      "hire": {
+        "countsAs": { "rule": "limited-infantry", "byArmy": { "tomb-kings": "group:monster" } }
+      }
+    }
+  },
+  "regiments-of-renown:riccos-republican-guard": {
+    "overrides": {
+      "maxPerArmy": true,
+      "hire": {
+        "countsAs": { "rule": "limited-infantry", "byArmy": { "tomb-kings": "group:monster" } }
+      }
+    }
+  },
+  "regiments-of-renown:leopolds-leopard-company": {
+    "overrides": {
+      "maxPerArmy": true,
+      "hire": {
+        "countsAs": { "rule": "limited-infantry", "byArmy": { "tomb-kings": "group:monster" } }
+      }
+    }
+  },
+  "regiments-of-renown:marksmen-of-miragliano": {
+    "overrides": {
+      "maxPerArmy": true,
+      "hire": { "countsAs": { "rule": "limited-shooting-infantry" } }
+    }
+  },
+  "regiments-of-renown:braganzas-besiegers": {
+    "overrides": {
+      "maxPerArmy": true,
+      "hire": {
+        "countsAs": { "rule": "limited-infantry", "byArmy": { "tomb-kings": "group:monster" } }
+      }
+    }
+  },
+  "regiments-of-renown:lumpin-croops-cocks": {
+    "overrides": {
+      "maxPerArmy": true,
+      "hire": { "countsAs": { "rule": "limited-shooting-infantry" } }
+    }
+  },
+  "regiments-of-renown:vesperos-vendetta": {
+    "overrides": {
+      "maxPerArmy": true,
+      "hire": { "countsAs": { "rule": "none" } }
+    }
+  },
+  "regiments-of-renown:the-cursed-company": {
+    "overrides": {
+      "maxPerArmy": true,
+      "hire": {
+        "countsAs": { "rule": "limited-infantry" },
+        "conflicts": ["regiments-of-renown:the-witch-hunters"]
+      }
+    }
+  },
+  "regiments-of-renown:mengils-manflyers": {
+    "overrides": {
+      "maxPerArmy": true,
+      "hire": {
+        "countsAs": { "rule": "limited-infantry", "byArmy": { "tomb-kings": "group:monster" } },
+        "conflicts": [
+          "regiments-of-renown:asarnil-the-dragonlord",
+          "regiments-of-renown:long-drongs-slayer-pirates",
+          "regiments-of-renown:gotrek-and-felix"
+        ],
+        "conflictUnits": { "dogs-of-war": ["dogs-of-war:dwarfs"] }
+      }
+    }
+  },
+  "regiments-of-renown:anakondas-amazons": {
+    "overrides": {
+      "maxPerArmy": true,
+      "hire": { "countsAs": { "rule": "none" } }
+    }
+  },
+  "regiments-of-renown:bearmen-of-urslo": {
+    "overrides": {
+      "maxPerArmy": true,
+      "hire": {
+        "countsAs": { "rule": "limited-infantry", "byArmy": { "tomb-kings": "group:monster" } }
+      }
+    }
+  },
+  "regiments-of-renown:rugluds-armoured-orcs": {
+    "overrides": {
+      "maxPerArmy": true,
+      "hire": {
+        "countsAs": { "rule": "limited-infantry", "byArmy": { "tomb-kings": "group:monster" } },
+        "conflicts": [
+          "regiments-of-renown:long-drongs-slayer-pirates",
+          "regiments-of-renown:gotrek-and-felix"
+        ],
+        "conflictUnits": { "dogs-of-war": ["dogs-of-war:dwarfs"] }
+      }
+    }
+  },
+  "regiments-of-renown:long-drongs-slayer-pirates": {
+    "overrides": {
+      "maxPerArmy": true,
+      "hire": {
+        "countsAs": { "rule": "limited-infantry", "byArmy": { "tomb-kings": "group:monster" } },
+        "conflicts": [
+          "regiments-of-renown:rugluds-armoured-orcs",
+          "regiments-of-renown:oglah-khans-wolfboyz",
+          "regiments-of-renown:mengils-manflyers",
+          "regiments-of-renown:asarnil-the-dragonlord"
+        ]
+      }
+    }
+  },
+  "regiments-of-renown:golgfags-mercenary-ogres": {
+    "overrides": {
+      "maxPerArmy": true,
+      "hire": {
+        "countsAs": { "rule": "limited-infantry", "byArmy": { "tomb-kings": "group:monster" } }
+      }
+    }
+  },
+  "regiments-of-renown:volands-venators": {
+    "overrides": {
+      "maxPerArmy": true,
+      "hire": {
+        "countsAs": {
+          "rule": "limited-cavalry-or-chariot",
+          "byArmy": { "dwarfs": "dwarfs:rangers", "skaven": "skaven:gutter-runners" }
+        }
+      }
+    }
+  },
+  "regiments-of-renown:al-muktars-desert-dogs": {
+    "overrides": {
+      "maxPerArmy": true,
+      "hire": {
+        "countsAs": {
+          "rule": "limited-cavalry-or-chariot",
+          "byArmy": { "dwarfs": "dwarfs:rangers", "skaven": "skaven:gutter-runners" }
+        }
+      }
+    }
+  },
+  "regiments-of-renown:oglah-khans-wolfboyz": {
+    "overrides": {
+      "maxPerArmy": true,
+      "hire": {
+        "countsAs": {
+          "rule": "limited-cavalry-or-chariot",
+          "byArmy": { "skaven": "skaven:gutter-runners" }
+        },
+        "conflicts": [
+          "regiments-of-renown:long-drongs-slayer-pirates",
+          "regiments-of-renown:gotrek-and-felix"
+        ],
+        "conflictUnits": { "dogs-of-war": ["dogs-of-war:dwarfs"] }
+      }
+    }
+  },
+  "regiments-of-renown:tichi-huichis-raiders": {
+    "overrides": {
+      "maxPerArmy": true,
+      "hire": {
+        "countsAs": {
+          "rule": "limited-cavalry-or-chariot",
+          "byArmy": { "dwarfs": "dwarfs:rangers" }
+        },
+        "conflicts": ["regiments-of-renown:pirazzos-lost-legion"]
+      }
+    }
+  },
+  "regiments-of-renown:birdmen-of-catrazza": {
+    "overrides": {
+      "maxPerArmy": true,
+      "hire": { "countsAs": { "rule": "flying-3-stands" } }
+    }
+  },
+  "regiments-of-renown:bronzinos-galloper-guns": {
+    "overrides": {
+      "maxPerArmy": true,
+      "hire": { "countsAs": { "rule": "artillery" } }
+    }
+  },
   "regiments-of-renown:asarnil-the-dragonlord": {
     "source": "6815c77b",
     "overrides": {
       "subType": "Flying",
-      "speed": 100
+      "speed": 100,
+      "maxPerArmy": true,
+      "hire": {
+        "countsAs": { "rule": "hero", "also": ["monstrous-mount-terror"] },
+        "conflicts": [
+          "regiments-of-renown:mengils-manflyers",
+          "regiments-of-renown:long-drongs-slayer-pirates",
+          "regiments-of-renown:gotrek-and-felix"
+        ],
+        "conflictUnits": { "dogs-of-war": ["dogs-of-war:dwarfs"] }
+      }
     },
     "specials": [
       "Asarnil rides a Dragon. An extra +3 Attacks are added (included in Asarnil‘s profile). The Dragon can breath fire if the character has joined a unit that isn‘t engaged in combat. The fire breath has a range of 20cm and can be directed against one target as for normal shooting and has 3 Attacks that are worked out in the usual way. Additionally Asarnil causes terror in its enemies."
     ],
     "notes": "The Dragon can fly increasing its rider‘s move to 100cm."
+  },
+  "regiments-of-renown:gotrek-and-felix": {
+    "overrides": {
+      "maxPerArmy": true,
+      "hire": {
+        "countsAs": { "rule": "hero" },
+        "conflicts": [
+          "regiments-of-renown:rugluds-armoured-orcs",
+          "regiments-of-renown:oglah-khans-wolfboyz",
+          "regiments-of-renown:mengils-manflyers",
+          "regiments-of-renown:asarnil-the-dragonlord"
+        ]
+      }
+    }
+  },
+  "regiments-of-renown:the-witch-hunters": {
+    "overrides": {
+      "maxPerArmy": true,
+      "hire": {
+        "countsAs": { "rule": "hero" },
+        "conflicts": ["regiments-of-renown:the-cursed-company"]
+      }
+    }
   }
 }

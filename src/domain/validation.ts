@@ -1,6 +1,15 @@
 import type { ArmyData, SavedList, ValidationIssue } from "../types";
 import { getUnit } from "../data/gameData";
+import { MERCENARY_ARMY } from "../data/mercenaries";
 import { armySizeMultiplier } from "./armySize";
+import {
+  hireCharges,
+  hireConflicts,
+  hiredCount,
+  hiredRegiments,
+  hireLimit,
+  type HireCharge,
+} from "./hiring";
 import { countOf, magicItemCountOf, totalPoints, upgradeCountOf } from "./lists";
 import { canBearMagicItem, getMagicItem, magicItems } from "./magicItems";
 
@@ -43,6 +52,80 @@ function describeCount(own: number, standIns: StandIn[]): string {
   return parts.length === 0 ? selected : `${selected}, plus ${parts.join(" and ")}`;
 }
 
+/** "1 slot hired by Alcatani Fellowship" — why an allowance shrank. */
+function describeCharge(charge: HireCharge): string {
+  const parts = charge.by.map((b) => (b.count > 1 ? `${b.count}× ${b.troop}` : b.troop));
+  return `${charge.total} ${charge.total === 1 ? "slot" : "slots"} hired by ${parts.join(" and ")}`;
+}
+
+/**
+ * The "For hire" and "Hiring Regiments of Renown" rules: how many regiments may
+ * be hired, which armies may hire them, who refuses to serve with whom, and the
+ * shared allowances a hired regiment eats into. Allowances charged against a
+ * single unit are handled inline with that unit's own maximum; only shared
+ * pools ("1 of any monster type") are reported here.
+ */
+function hiringIssues(
+  list: SavedList,
+  army: ArmyData,
+  charges: HireCharge[],
+): ValidationIssue[] {
+  if (army.army === MERCENARY_ARMY) return [];
+  const issues: ValidationIssue[] = [];
+  const scale = armySizeMultiplier(list.pointsLimit);
+
+  const hired = hiredCount(list, army);
+  const limit = hireLimit(list);
+  if (hired > limit) {
+    issues.push({
+      severity: "error",
+      message: `Regiments of Renown: at most ${limit} may be hired at ${list.pointsLimit} points (${hired} hired).`,
+    });
+  }
+
+  for (const { unit } of hiredRegiments(list, army)) {
+    if (!unit.hire?.armies.includes(army.army)) {
+      issues.push({
+        severity: "error",
+        message: `${army.name} may not hire ${unit.troop} (Allies Table).`,
+        unitId: unit.unitId,
+      });
+    }
+  }
+
+  for (const conflict of hireConflicts(list, army)) {
+    issues.push({
+      severity: "error",
+      message: `${conflict.regiment.troop} cannot be hired alongside ${conflict.with}.`,
+      unitId: conflict.regiment.unitId,
+    });
+  }
+
+  for (const charge of charges) {
+    if (charge.unitIds.length < 2) continue; // folded into the unit's own max
+    let base = 0;
+    let taken = 0;
+    for (const unitId of charge.unitIds) {
+      const member = getUnit(army, unitId);
+      if (member?.max == null) continue;
+      base += member.maxPerArmy ? member.max : member.max * scale;
+      taken +=
+        member.category === "upgrade"
+          ? upgradeCountOf(list, unitId)
+          : countOf(list, unitId);
+    }
+    const allowed = Math.max(0, base - charge.total);
+    if (taken > allowed) {
+      issues.push({
+        severity: "error",
+        message: `${charge.label}: at most ${allowed} between them (${taken} selected, ${describeCharge(charge)}).`,
+      });
+    }
+  }
+
+  return issues;
+}
+
 // Warn-but-allow: issues are surfaced but never block editing or saving.
 //
 // Min/Max values in the army lists are per full 1000 points of the agreed
@@ -78,6 +161,14 @@ export function validateList(list: SavedList, army: ArmyData): ValidationIssue[]
     }
   }
 
+  // Hired Regiments of Renown eat into the hiring army's own allowances. A
+  // charge against a single unit shrinks that unit's maximum below; a charge
+  // shared across several is checked as a pool afterwards.
+  const charges = hireCharges(list, army);
+  const singleCharges = new Map(
+    charges.filter((c) => c.unitIds.length === 1).map((c) => [c.unitIds[0], c]),
+  );
+
   for (const unit of army.units) {
     const count = countOf(list, unit.unitId);
     const isGeneral = unit.type === "General";
@@ -97,30 +188,37 @@ export function validateList(list: SavedList, army: ArmyData): ValidationIssue[]
         });
       }
     }
+    const charge = singleCharges.get(unit.unitId);
     if (unit.max != null && unit.category !== "upgrade") {
       // `maxPerArmy` units cap flat army-wide; others scale per 1000 points.
-      const allowed = isGeneral || unit.maxPerArmy ? unit.max : unit.max * scale;
+      const base = isGeneral || unit.maxPerArmy ? unit.max : unit.max * scale;
+      const allowed = Math.max(0, base - (charge?.total ?? 0));
       const effective = count + standInTotal;
       if (effective > allowed) {
+        const why = charge ? `, ${describeCharge(charge)}` : "";
         issues.push({
           severity: "error",
-          message: `${unit.troop}: at most ${allowed} allowed (${describeCount(count, standIns)}).`,
+          message: `${unit.troop}: at most ${allowed} allowed (${describeCount(count, standIns)}${why}).`,
           unitId: unit.unitId,
         });
       }
     }
     if (unit.category === "upgrade" && unit.max != null) {
       const count = upgradeCountOf(list, unit.unitId);
-      const allowed = unit.maxPerArmy ? unit.max : unit.max * scale;
+      const base = unit.maxPerArmy ? unit.max : unit.max * scale;
+      const allowed = Math.max(0, base - (charge?.total ?? 0));
       if (count > allowed) {
+        const why = charge ? `, ${describeCharge(charge)}` : "";
         issues.push({
           severity: "error",
-          message: `${unit.troop}: at most ${allowed} allowed (${count} selected).`,
+          message: `${unit.troop}: at most ${allowed} allowed (${count} selected${why}).`,
           unitId: unit.unitId,
         });
       }
     }
   }
+
+  issues.push(...hiringIssues(list, army, charges));
 
   // Conditional dependencies: a unit/upgrade that may only be taken if the
   // army also fields another unit (e.g. the Witch Hunter War Altar needs a

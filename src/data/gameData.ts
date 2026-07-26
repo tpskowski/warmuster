@@ -1,8 +1,13 @@
 import type { ArmyData, RuleSetInfo, UnitData } from "../types";
 import warmasterRevolution from "./generated/warmaster-revolution.json";
 import { applyCustomUnits } from "./customUnits";
+import { applyMercenaries } from "./mercenaries";
 
 const revolution = warmasterRevolution as RuleSetInfo;
+// Every army gains a copy of the Regiments of Renown so hired regiments resolve
+// like any other unit. Done before the custom set is cloned off, so it inherits
+// them too.
+applyMercenaries(revolution);
 
 // "Warmaster (Custom)" begins as an independent, deep copy of Warmaster
 // Revolution so its data can be customised without affecting the base set,

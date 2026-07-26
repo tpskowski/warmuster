@@ -23,6 +23,7 @@ import {
   removeCharacter,
   removeUnit,
   renameList,
+  setAllowMercenaries,
   setNotes,
   setPointsLimit,
   toggleCharacterUpgrade,
@@ -246,6 +247,7 @@ export default function App() {
               onRename={(name) => mutate((l) => renameList(l, name))}
               onSetPointsLimit={(pts) => mutate((l) => setPointsLimit(l, pts))}
               onSetNotes={(notes) => mutate((l) => setNotes(l, notes))}
+              onSetAllowMercenaries={(allow) => mutate((l) => setAllowMercenaries(l, allow))}
             />
             <aside className="catalog-panel">
               <Catalog

@@ -1,3 +1,6 @@
+## 0.6.0 2026-07-25
+- Regiments of Renown can now be **hired into any army**. Switch on "Mercenaries" in a list's header and they appear as their own section in the catalog.
+
 ## 0.5.0 2026-07-25
 - Fell Bats fixed to be wide-side
 - Attached units like Salimanders now show 4 bases on unit card and in list builder

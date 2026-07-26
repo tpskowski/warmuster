@@ -1,4 +1,5 @@
 import type { ArmyData, UnitData } from "../types";
+import { isHired } from "../data/mercenaries";
 
 // Magic items from the Warmaster Revolution rulebook (2.1.0, "Magic" chapter).
 // They are rule-set-wide rather than per-army, so they live here instead of
@@ -297,6 +298,10 @@ function deniesMagicItems(unit: UnitData): boolean {
 
 export function canBearMagicItem(item: MagicItemData, unit: UnitData, army: ArmyData): boolean {
   if (deniesMagicItems(unit)) return false;
+  // "No magic item may be given to hired Regiments of Renown units nor heroes."
+  // The restriction is on hiring, so a list built from the Regiments of Renown
+  // army itself is unaffected.
+  if (isHired(unit, army)) return false;
   switch (item.kind) {
     case "standard":
       return isOrdinaryUnit(unit) && item.cost(unit) != null;

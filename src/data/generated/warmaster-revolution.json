@@ -14162,7 +14162,45 @@
             "The pike is the traditional weapon of the mercenaries of Tilea. Twice as long as a spear and even longer than a cavalryman’s lance this is truly fearsome although rather unwieldy weapon. Pikemen are based facing the short edge of the base in the same way as Cavalry, rather than the long edge like other Infantry. Pikemen can not enter dense terrain (even partially). They still may be in defended position on higher ground or behind low obstacle as usual, but can only claim defended status when fighting to the front. An enemy does not receive charge bonuses when charging Pikemen in the front, nor does Pikemen receive any charge bonus themselves. A Pikemen stand cannot support or be supported by other infantry - only by other Pikemen stands. In all other respects they count as infantry (movement/pursuit etc.)."
           ],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true,
+          "hire": {
+            "countsAs": {
+              "rule": "limited-infantry",
+              "byArmy": {
+                "tomb-kings": "group:monster"
+              }
+            },
+            "conflicts": [
+              "regiments-of-renown:tichi-huichis-raiders"
+            ],
+            "armies": [
+              "empire",
+              "tomb-kings",
+              "chaos",
+              "orcs",
+              "high-elves",
+              "dwarfs",
+              "skaven",
+              "bretonnia",
+              "kislev",
+              "dark-elves",
+              "daemons",
+              "vampire-counts",
+              "araby",
+              "dogs-of-war",
+              "ogre-kingdoms",
+              "albion",
+              "goblins",
+              "witch-hunters",
+              "chaos-dwarfs",
+              "wood-elves",
+              "beastmen",
+              "norse",
+              "cathay",
+              "nippon"
+            ]
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -14198,7 +14236,43 @@
             "The pike is the traditional weapon of the mercenaries of Tilea. Twice as long as a spear and even longer than a cavalryman’s lance this is truly fearsome although rather unwieldy weapon. Pikemen are based facing the short edge of the base in the same way as Cavalry, rather than the long edge like other Infantry. Pikemen can not enter dense terrain (even partially). They still may be in defended position on higher ground or behind low obstacle as usual, but can only claim defended status when fighting to the front. An enemy does not receive charge bonuses when charging Pikemen in the front, nor does Pikemen receive any charge bonus themselves. A Pikemen stand cannot support or be supported by other infantry - only by other Pikemen stands. In all other respects they count as infantry (movement/pursuit etc.)."
           ],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true,
+          "hire": {
+            "countsAs": {
+              "rule": "limited-infantry",
+              "byArmy": {
+                "tomb-kings": "group:monster"
+              }
+            },
+            "armies": [
+              "empire",
+              "tomb-kings",
+              "chaos",
+              "orcs",
+              "high-elves",
+              "dwarfs",
+              "skaven",
+              "lizardmen",
+              "bretonnia",
+              "kislev",
+              "dark-elves",
+              "daemons",
+              "vampire-counts",
+              "araby",
+              "dogs-of-war",
+              "ogre-kingdoms",
+              "albion",
+              "goblins",
+              "witch-hunters",
+              "chaos-dwarfs",
+              "wood-elves",
+              "beastmen",
+              "norse",
+              "cathay",
+              "nippon"
+            ]
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -14234,7 +14308,43 @@
             "The pike is the traditional weapon of the mercenaries of Tilea. Twice as long as a spear and even longer than a cavalryman’s lance this is truly fearsome although rather unwieldy weapon. Pikemen are based facing the short edge of the base in the same way as Cavalry, rather than the long edge like other Infantry. Pikemen can not enter dense terrain (even partially). They still may be in defended position on higher ground or behind low obstacle as usual, but can only claim defended status when fighting to the front. An enemy does not receive charge bonuses when charging Pikemen in the front, nor does Pikemen receive any charge bonus themselves. A Pikemen stand cannot support or be supported by other infantry - only by other Pikemen stands. In all other respects they count as infantry (movement/pursuit etc.)."
           ],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true,
+          "hire": {
+            "countsAs": {
+              "rule": "limited-infantry",
+              "byArmy": {
+                "tomb-kings": "group:monster"
+              }
+            },
+            "armies": [
+              "empire",
+              "tomb-kings",
+              "chaos",
+              "orcs",
+              "high-elves",
+              "dwarfs",
+              "skaven",
+              "lizardmen",
+              "bretonnia",
+              "kislev",
+              "dark-elves",
+              "daemons",
+              "vampire-counts",
+              "araby",
+              "dogs-of-war",
+              "ogre-kingdoms",
+              "albion",
+              "goblins",
+              "witch-hunters",
+              "chaos-dwarfs",
+              "wood-elves",
+              "beastmen",
+              "norse",
+              "cathay",
+              "nippon"
+            ]
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -14270,7 +14380,43 @@
             "The pike is the traditional weapon of the mercenaries of Tilea. Twice as long as a spear and even longer than a cavalryman’s lance this is truly fearsome although rather unwieldy weapon. Pikemen are based facing the short edge of the base in the same way as Cavalry, rather than the long edge like other Infantry. Pikemen can not enter dense terrain (even partially). They still may be in defended position on higher ground or behind low obstacle as usual, but can only claim defended status when fighting to the front. An enemy does not receive charge bonuses when charging Pikemen in the front, nor does Pikemen receive any charge bonus themselves. A Pikemen stand cannot support or be supported by other infantry - only by other Pikemen stands. In all other respects they count as infantry (movement/pursuit etc.)."
           ],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true,
+          "hire": {
+            "countsAs": {
+              "rule": "limited-infantry",
+              "byArmy": {
+                "tomb-kings": "group:monster"
+              }
+            },
+            "armies": [
+              "empire",
+              "tomb-kings",
+              "chaos",
+              "orcs",
+              "high-elves",
+              "dwarfs",
+              "skaven",
+              "lizardmen",
+              "bretonnia",
+              "kislev",
+              "dark-elves",
+              "daemons",
+              "vampire-counts",
+              "araby",
+              "dogs-of-war",
+              "ogre-kingdoms",
+              "albion",
+              "goblins",
+              "witch-hunters",
+              "chaos-dwarfs",
+              "wood-elves",
+              "beastmen",
+              "norse",
+              "cathay",
+              "nippon"
+            ]
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -14304,7 +14450,39 @@
           "specialName": null,
           "specials": [],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true,
+          "hire": {
+            "countsAs": {
+              "rule": "limited-shooting-infantry"
+            },
+            "armies": [
+              "empire",
+              "tomb-kings",
+              "chaos",
+              "orcs",
+              "high-elves",
+              "dwarfs",
+              "lizardmen",
+              "bretonnia",
+              "kislev",
+              "dark-elves",
+              "daemons",
+              "vampire-counts",
+              "araby",
+              "dogs-of-war",
+              "ogre-kingdoms",
+              "albion",
+              "goblins",
+              "witch-hunters",
+              "chaos-dwarfs",
+              "wood-elves",
+              "beastmen",
+              "norse",
+              "cathay",
+              "nippon"
+            ]
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -14338,7 +14516,42 @@
           "specialName": null,
           "specials": [],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true,
+          "hire": {
+            "countsAs": {
+              "rule": "limited-infantry",
+              "byArmy": {
+                "tomb-kings": "group:monster"
+              }
+            },
+            "armies": [
+              "empire",
+              "tomb-kings",
+              "chaos",
+              "orcs",
+              "high-elves",
+              "dwarfs",
+              "lizardmen",
+              "bretonnia",
+              "kislev",
+              "dark-elves",
+              "daemons",
+              "vampire-counts",
+              "araby",
+              "dogs-of-war",
+              "ogre-kingdoms",
+              "albion",
+              "goblins",
+              "witch-hunters",
+              "chaos-dwarfs",
+              "wood-elves",
+              "beastmen",
+              "norse",
+              "cathay",
+              "nippon"
+            ]
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -14374,7 +14587,40 @@
             "Lumpin Croop‘s Fighting Cocks are well used to sneaking about in woods and bushes. No command penalty is applied to this unit on account of dense terrain."
           ],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true,
+          "hire": {
+            "countsAs": {
+              "rule": "limited-shooting-infantry"
+            },
+            "armies": [
+              "empire",
+              "tomb-kings",
+              "chaos",
+              "orcs",
+              "high-elves",
+              "dwarfs",
+              "skaven",
+              "lizardmen",
+              "bretonnia",
+              "kislev",
+              "dark-elves",
+              "daemons",
+              "vampire-counts",
+              "araby",
+              "dogs-of-war",
+              "ogre-kingdoms",
+              "albion",
+              "goblins",
+              "witch-hunters",
+              "chaos-dwarfs",
+              "wood-elves",
+              "beastmen",
+              "norse",
+              "cathay",
+              "nippon"
+            ]
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -14410,7 +14656,40 @@
             "The unit has a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
           ],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true,
+          "hire": {
+            "countsAs": {
+              "rule": "none"
+            },
+            "armies": [
+              "empire",
+              "tomb-kings",
+              "chaos",
+              "orcs",
+              "high-elves",
+              "dwarfs",
+              "skaven",
+              "lizardmen",
+              "bretonnia",
+              "kislev",
+              "dark-elves",
+              "daemons",
+              "vampire-counts",
+              "araby",
+              "dogs-of-war",
+              "ogre-kingdoms",
+              "albion",
+              "goblins",
+              "witch-hunters",
+              "chaos-dwarfs",
+              "wood-elves",
+              "beastmen",
+              "norse",
+              "cathay",
+              "nippon"
+            ]
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -14446,7 +14725,36 @@
             "The Cursed Company is undead, and as such the following rules apply to them: They never act on initiative. The unit only moves in the Command phase if given orders. They are unaffected by the -1 Command penalty for enemy within 20cm. They are unaffected by the -1 Combat penalty for fighting terrifying troops. They are unaffected by the Confusion rule - they cannot become confused for any reason."
           ],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true,
+          "hire": {
+            "countsAs": {
+              "rule": "limited-infantry"
+            },
+            "conflicts": [
+              "regiments-of-renown:the-witch-hunters"
+            ],
+            "armies": [
+              "empire",
+              "chaos",
+              "orcs",
+              "high-elves",
+              "dwarfs",
+              "skaven",
+              "lizardmen",
+              "kislev",
+              "dark-elves",
+              "daemons",
+              "araby",
+              "dogs-of-war",
+              "ogre-kingdoms",
+              "albion",
+              "goblins",
+              "chaos-dwarfs",
+              "wood-elves",
+              "beastmen"
+            ]
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -14482,7 +14790,46 @@
             "Mengil Manhide‘s Manflayers are equipped with repeating crossbows. They may shoot once at ranges up to 30cm and twice at ranges up to 15cm. A unit of three stands would therefore shoot 6 Attacks at a target within 15cm and 3 Attacks at a target at greater ranges. They may shoot at enemies that charge them - in which case they shoot 1 Attack per stand regardless of range."
           ],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true,
+          "hire": {
+            "countsAs": {
+              "rule": "limited-infantry",
+              "byArmy": {
+                "tomb-kings": "group:monster"
+              }
+            },
+            "conflicts": [
+              "regiments-of-renown:asarnil-the-dragonlord",
+              "regiments-of-renown:long-drongs-slayer-pirates",
+              "regiments-of-renown:gotrek-and-felix"
+            ],
+            "conflictUnits": {
+              "dogs-of-war": [
+                "dogs-of-war:dwarfs"
+              ]
+            },
+            "armies": [
+              "empire",
+              "tomb-kings",
+              "chaos",
+              "orcs",
+              "skaven",
+              "lizardmen",
+              "kislev",
+              "dark-elves",
+              "daemons",
+              "vampire-counts",
+              "araby",
+              "dogs-of-war",
+              "ogre-kingdoms",
+              "albion",
+              "goblins",
+              "chaos-dwarfs",
+              "beastmen",
+              "cathay"
+            ]
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -14518,7 +14865,40 @@
             "The unit has a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
           ],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true,
+          "hire": {
+            "countsAs": {
+              "rule": "none"
+            },
+            "armies": [
+              "empire",
+              "tomb-kings",
+              "chaos",
+              "orcs",
+              "high-elves",
+              "dwarfs",
+              "skaven",
+              "lizardmen",
+              "bretonnia",
+              "kislev",
+              "dark-elves",
+              "daemons",
+              "vampire-counts",
+              "araby",
+              "dogs-of-war",
+              "ogre-kingdoms",
+              "albion",
+              "goblins",
+              "witch-hunters",
+              "chaos-dwarfs",
+              "wood-elves",
+              "beastmen",
+              "norse",
+              "cathay",
+              "nippon"
+            ]
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -14552,7 +14932,36 @@
           "specialName": null,
           "specials": [],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true,
+          "hire": {
+            "countsAs": {
+              "rule": "limited-infantry",
+              "byArmy": {
+                "tomb-kings": "group:monster"
+              }
+            },
+            "armies": [
+              "empire",
+              "tomb-kings",
+              "chaos",
+              "orcs",
+              "dwarfs",
+              "skaven",
+              "kislev",
+              "dark-elves",
+              "daemons",
+              "vampire-counts",
+              "araby",
+              "dogs-of-war",
+              "ogre-kingdoms",
+              "albion",
+              "goblins",
+              "chaos-dwarfs",
+              "beastmen",
+              "cathay"
+            ]
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -14586,7 +14995,40 @@
           "specialName": null,
           "specials": [],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true,
+          "hire": {
+            "countsAs": {
+              "rule": "limited-infantry",
+              "byArmy": {
+                "tomb-kings": "group:monster"
+              }
+            },
+            "conflicts": [
+              "regiments-of-renown:long-drongs-slayer-pirates",
+              "regiments-of-renown:gotrek-and-felix"
+            ],
+            "conflictUnits": {
+              "dogs-of-war": [
+                "dogs-of-war:dwarfs"
+              ]
+            },
+            "armies": [
+              "tomb-kings",
+              "chaos",
+              "orcs",
+              "skaven",
+              "kislev",
+              "daemons",
+              "vampire-counts",
+              "dogs-of-war",
+              "ogre-kingdoms",
+              "goblins",
+              "chaos-dwarfs",
+              "beastmen",
+              "cathay"
+            ]
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -14622,7 +15064,36 @@
             "Long Drong‘s Slayer Pirates carry pistols... loads of pistols! They have a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
           ],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true,
+          "hire": {
+            "countsAs": {
+              "rule": "limited-infantry",
+              "byArmy": {
+                "tomb-kings": "group:monster"
+              }
+            },
+            "conflicts": [
+              "regiments-of-renown:rugluds-armoured-orcs",
+              "regiments-of-renown:oglah-khans-wolfboyz",
+              "regiments-of-renown:mengils-manflyers",
+              "regiments-of-renown:asarnil-the-dragonlord"
+            ],
+            "armies": [
+              "empire",
+              "tomb-kings",
+              "dwarfs",
+              "lizardmen",
+              "kislev",
+              "vampire-counts",
+              "araby",
+              "dogs-of-war",
+              "ogre-kingdoms",
+              "albion",
+              "witch-hunters",
+              "cathay"
+            ]
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -14658,7 +15129,40 @@
             "Ogres flock to mercenaries for the chance of a good fight and as much as they can eat. These creatures are notoriously fond of fresh human meat, although they will eat practically anything that was once alive (or still is). To represent this, if an Ogre unit can use its initiative to charge an enemy unit of humans at the start of the Command phase then it must do so (not Dwarfs, Elves etc.). This happens automatically."
           ],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true,
+          "hire": {
+            "countsAs": {
+              "rule": "limited-infantry",
+              "byArmy": {
+                "tomb-kings": "group:monster"
+              }
+            },
+            "armies": [
+              "empire",
+              "tomb-kings",
+              "chaos",
+              "orcs",
+              "dwarfs",
+              "skaven",
+              "lizardmen",
+              "kislev",
+              "daemons",
+              "vampire-counts",
+              "araby",
+              "dogs-of-war",
+              "ogre-kingdoms",
+              "albion",
+              "goblins",
+              "witch-hunters",
+              "chaos-dwarfs",
+              "wood-elves",
+              "beastmen",
+              "norse",
+              "cathay",
+              "nippon"
+            ]
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -14692,7 +15196,44 @@
           "specialName": null,
           "specials": [],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true,
+          "hire": {
+            "countsAs": {
+              "rule": "limited-cavalry-or-chariot",
+              "byArmy": {
+                "dwarfs": "dwarfs:rangers",
+                "skaven": "skaven:gutter-runners"
+              }
+            },
+            "armies": [
+              "empire",
+              "tomb-kings",
+              "chaos",
+              "orcs",
+              "high-elves",
+              "dwarfs",
+              "skaven",
+              "lizardmen",
+              "bretonnia",
+              "kislev",
+              "dark-elves",
+              "daemons",
+              "vampire-counts",
+              "araby",
+              "dogs-of-war",
+              "ogre-kingdoms",
+              "albion",
+              "goblins",
+              "witch-hunters",
+              "chaos-dwarfs",
+              "wood-elves",
+              "beastmen",
+              "norse",
+              "cathay",
+              "nippon"
+            ]
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -14728,7 +15269,42 @@
             "Light cavalry formations have a great use among the mercenaries. They are experts at outmaneuvering an enemy and harrying his flanks. Light cavalry has a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
           ],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true,
+          "hire": {
+            "countsAs": {
+              "rule": "limited-cavalry-or-chariot",
+              "byArmy": {
+                "dwarfs": "dwarfs:rangers",
+                "skaven": "skaven:gutter-runners"
+              }
+            },
+            "armies": [
+              "chaos",
+              "orcs",
+              "high-elves",
+              "dwarfs",
+              "skaven",
+              "lizardmen",
+              "bretonnia",
+              "kislev",
+              "dark-elves",
+              "daemons",
+              "vampire-counts",
+              "araby",
+              "dogs-of-war",
+              "ogre-kingdoms",
+              "albion",
+              "goblins",
+              "witch-hunters",
+              "chaos-dwarfs",
+              "wood-elves",
+              "beastmen",
+              "norse",
+              "cathay",
+              "nippon"
+            ]
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -14764,7 +15340,40 @@
             "Light cavalry formations have a great use among the mercenaries. They are experts at outmaneuvering an enemy and harrying his flanks. Light cavalry has a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
           ],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true,
+          "hire": {
+            "countsAs": {
+              "rule": "limited-cavalry-or-chariot",
+              "byArmy": {
+                "skaven": "skaven:gutter-runners"
+              }
+            },
+            "conflicts": [
+              "regiments-of-renown:long-drongs-slayer-pirates",
+              "regiments-of-renown:gotrek-and-felix"
+            ],
+            "conflictUnits": {
+              "dogs-of-war": [
+                "dogs-of-war:dwarfs"
+              ]
+            },
+            "armies": [
+              "tomb-kings",
+              "chaos",
+              "orcs",
+              "skaven",
+              "dark-elves",
+              "daemons",
+              "vampire-counts",
+              "dogs-of-war",
+              "ogre-kingdoms",
+              "goblins",
+              "chaos-dwarfs",
+              "beastmen",
+              "cathay"
+            ]
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -14800,7 +15409,34 @@
             "Light cavalry formations have a great use among the mercenaries. They are experts at outmaneuvering an enemy and harrying his flanks. Light cavalry has a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
           ],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true,
+          "hire": {
+            "countsAs": {
+              "rule": "limited-cavalry-or-chariot",
+              "byArmy": {
+                "dwarfs": "dwarfs:rangers"
+              }
+            },
+            "conflicts": [
+              "regiments-of-renown:pirazzos-lost-legion"
+            ],
+            "armies": [
+              "empire",
+              "tomb-kings",
+              "high-elves",
+              "dwarfs",
+              "lizardmen",
+              "kislev",
+              "araby",
+              "dogs-of-war",
+              "ogre-kingdoms",
+              "albion",
+              "witch-hunters",
+              "wood-elves",
+              "cathay"
+            ]
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -14836,7 +15472,21 @@
             "Only half-mad nutters like Tileans would try to fly! The Birdmen wear insane contraptions of light wood covered in canvas that are shaped like wings and allow them to glide on the air currents. These ‘wings’ allow the Birdmen to fly and still use their crossbows as normal. Because they are awkward flyers, they can be pursued by any type of enemy troops. Birdmen are based facing the long edge of the base in the same way as other infantry."
           ],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true,
+          "hire": {
+            "countsAs": {
+              "rule": "flying-3-stands"
+            },
+            "armies": [
+              "high-elves",
+              "bretonnia",
+              "araby",
+              "dogs-of-war",
+              "norse",
+              "nippon"
+            ]
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -14872,7 +15522,28 @@
             "These are lighter artillery than Dwarf or Empire cannons; due to this they are shorter ranged, but can make up for their lighter shot by producing a higher volume of fire. Galloper Guns move 20cm. All the normal rules for artillery applies as well as cannon’s rules for shooting (bounce through, no saves and reduction of cover values). Because they are light guns they have a range of only 40cm. They still may shoot at the charging enemy by firing ‘grapeshot’ as normal."
           ],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true,
+          "hire": {
+            "countsAs": {
+              "rule": "artillery"
+            },
+            "armies": [
+              "empire",
+              "tomb-kings",
+              "orcs",
+              "dwarfs",
+              "skaven",
+              "bretonnia",
+              "kislev",
+              "dogs-of-war",
+              "ogre-kingdoms",
+              "goblins",
+              "witch-hunters",
+              "chaos-dwarfs",
+              "cathay"
+            ]
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -14908,7 +15579,33 @@
             "Asarnil rides a Dragon. An extra +3 Attacks are added (included in Asarnil‘s profile). The Dragon can breath fire if the character has joined a unit that isn‘t engaged in combat. The fire breath has a range of 20cm and can be directed against one target as for normal shooting and has 3 Attacks that are worked out in the usual way. Additionally Asarnil causes terror in its enemies."
           ],
           "chart": null,
-          "notes": "The Dragon can fly increasing its rider‘s move to 100cm."
+          "notes": "The Dragon can fly increasing its rider‘s move to 100cm.",
+          "maxPerArmy": true,
+          "hire": {
+            "countsAs": {
+              "rule": "hero",
+              "also": [
+                "monstrous-mount-terror"
+              ]
+            },
+            "conflicts": [
+              "regiments-of-renown:mengils-manflyers",
+              "regiments-of-renown:long-drongs-slayer-pirates",
+              "regiments-of-renown:gotrek-and-felix"
+            ],
+            "conflictUnits": {
+              "dogs-of-war": [
+                "dogs-of-war:dwarfs"
+              ]
+            },
+            "armies": [
+              "empire",
+              "high-elves",
+              "araby",
+              "dogs-of-war",
+              "wood-elves"
+            ]
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -14942,7 +15639,30 @@
           "specialName": null,
           "specials": [],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true,
+          "hire": {
+            "countsAs": {
+              "rule": "hero"
+            },
+            "conflicts": [
+              "regiments-of-renown:rugluds-armoured-orcs",
+              "regiments-of-renown:oglah-khans-wolfboyz",
+              "regiments-of-renown:mengils-manflyers",
+              "regiments-of-renown:asarnil-the-dragonlord"
+            ],
+            "armies": [
+              "empire",
+              "dwarfs",
+              "bretonnia",
+              "kislev",
+              "araby",
+              "dogs-of-war",
+              "albion",
+              "witch-hunters",
+              "cathay"
+            ]
+          }
         },
         {
           "ruleSet": "warmaster-revolution",
@@ -14976,7 +15696,29 @@
           "specialName": null,
           "specials": [],
           "chart": null,
-          "notes": null
+          "notes": null,
+          "maxPerArmy": true,
+          "hire": {
+            "countsAs": {
+              "rule": "hero"
+            },
+            "conflicts": [
+              "regiments-of-renown:the-cursed-company"
+            ],
+            "armies": [
+              "empire",
+              "high-elves",
+              "dwarfs",
+              "lizardmen",
+              "bretonnia",
+              "kislev",
+              "araby",
+              "dogs-of-war",
+              "albion",
+              "witch-hunters",
+              "wood-elves"
+            ]
+          }
         }
       ],
       "armyRules": [

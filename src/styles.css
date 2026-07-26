@@ -361,6 +361,45 @@ textarea {
   color: var(--error);
 }
 
+/* Per-list switch for offering Regiments of Renown in the catalog. */
+.mercenaries-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.mercenaries-toggle:has(input:disabled) {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* "1 of 2 hired" beside the Regiments of Renown catalog heading. */
+.hire-count {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.hire-count.over {
+  color: var(--error);
+}
+
+/* Marks a Regiment of Renown hired into another army's list. */
+.hired-badge {
+  font-size: 11px;
+  line-height: 1.4;
+  padding: 0 5px;
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  color: var(--gold);
+  white-space: nowrap;
+  cursor: help;
+}
+
 .validation-panel {
   list-style: none;
   margin: 8px 0 0;

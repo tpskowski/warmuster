@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { getArmy, getUnit } from "../data/gameData";
-import { canBearMagicItem, getMagicItem, magicItemCost } from "./magicItems";
+import { canBearMagicItem, getMagicItem, magicItems, magicItemCost } from "./magicItems";
 
 const chaos = getArmy("warmaster-revolution", "chaos")!;
 const dwarfs = getArmy("warmaster-revolution", "dwarfs")!;
@@ -13,6 +13,27 @@ const harpies = getUnit(chaos, "chaos:harpies")!; // Monster (flyer)
 const general = getUnit(chaos, "chaos:general")!;
 const hero = getUnit(chaos, "chaos:hero")!;
 const sorcerer = getUnit(chaos, "chaos:sorcerer")!;
+
+describe("hired Regiments of Renown", () => {
+  const ror = getArmy("warmaster-revolution", "regiments-of-renown")!;
+  // Infantry and a Hero — bearers that would otherwise be eligible.
+  const bearmen = getUnit(chaos, "regiments-of-renown:bearmen-of-urslo")!;
+  const gotrek = getUnit(chaos, "regiments-of-renown:gotrek-and-felix")!;
+
+  it("cannot be given any magic item once hired", () => {
+    for (const item of magicItems) {
+      expect(canBearMagicItem(item, bearmen, chaos)).toBe(false);
+      expect(canBearMagicItem(item, gotrek, chaos)).toBe(false);
+    }
+  });
+
+  it("still take items in a Regiments of Renown army of their own", () => {
+    const banner = getMagicItem("magic:battle-banner")!;
+    const sword = getMagicItem("magic:sword-of-might")!;
+    expect(canBearMagicItem(banner, getUnit(ror, bearmen.unitId)!, ror)).toBe(true);
+    expect(canBearMagicItem(sword, getUnit(ror, gotrek.unitId)!, ror)).toBe(true);
+  });
+});
 
 describe("magic item costs", () => {
   it("tiers the Battle Banner on the unit's attacks", () => {

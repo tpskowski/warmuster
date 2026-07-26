@@ -3,6 +3,44 @@
 export type UnitCategory = "unit" | "character" | "upgrade";
 export type Facing = "long" | "short" | "round" | null;
 
+/**
+ * How a hired Regiment of Renown eats into the hiring army's own allowances.
+ * The rulebook phrases these as descriptions of the hiring army's list ("count
+ * as one highest point value limited infantry type unit") rather than as named
+ * units, so the target is resolved against that army's data at runtime.
+ */
+export type CountsAsRule =
+  /** Hiring does not restrict any of the army's own units. */
+  | "none"
+  | "limited-infantry"
+  | "limited-shooting-infantry"
+  | "limited-cavalry-or-chariot"
+  | "artillery"
+  /** Any Hero-type unit, player's choice — resolved as a shared pool. */
+  | "hero"
+  /** A flying unit of 3 stands (the Birdmen of Catrazza). */
+  | "flying-3-stands"
+  /** The highest point value Monstrous Mount causing terror (Asarnil's dragon). */
+  | "monstrous-mount-terror";
+
+export interface HireTerms {
+  /** Army ids that may hire this regiment, from the Allies Table. */
+  armies: string[];
+  countsAs: {
+    rule: CountsAsRule;
+    /** Per-army overrides: a unitId, or "group:<rule>" for a player's-choice
+     * pool (e.g. Tomb Kings' "count as 1 of any monster type"). */
+    byArmy?: Record<string, string>;
+    /** Further slots consumed on top of `rule`. */
+    also?: CountsAsRule[];
+  };
+  /** Regiments that may not be hired alongside this one. Symmetric. */
+  conflicts?: string[];
+  /** Units of the hiring army this regiment refuses to serve with, e.g.
+   * "nor Dwarfs in Dogs of War army". */
+  conflictUnits?: Record<string, string[]>;
+}
+
 export interface UnitData {
   ruleSet: string;
   ruleBook: string;
@@ -45,6 +83,9 @@ export interface UnitData {
    * `min` of `unitId` (e.g. the Witch Hunter War Altar needs a unit of
    * Flagellants). */
   requiresUnit?: { unitId: string; min: number } | null;
+  /** Regiments of Renown only: the terms on which another army may hire this
+   * regiment as a mercenary. */
+  hire?: HireTerms | null;
   specialName: string | null;
   specials: string[];
   /** Named roll chart (e.g. the Giant Goes Wild Chart) split out of the
@@ -106,6 +147,9 @@ export interface SavedList {
   characters: SavedCharacterEntry[];
   notes: string | null;
   updatedAt: string;
+  /** Whether the catalog offers Regiments of Renown for hire. Absent on lists
+   * saved before mercenaries existed, which reads as off. */
+  allowMercenaries?: boolean;
 }
 
 export interface ValidationIssue {
