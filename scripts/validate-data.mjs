@@ -84,6 +84,98 @@ for (const army of data.armies ?? []) {
   }
 }
 
+// --- Regiments of Renown hiring ---------------------------------------------
+
+const COUNTS_AS_RULES = new Set([
+  "none",
+  "limited-infantry",
+  "limited-shooting-infantry",
+  "limited-cavalry-or-chariot",
+  "artillery",
+  "hero",
+  "flying-3-stands",
+  "monstrous-mount-terror",
+]);
+
+const armyIds = new Set((data.armies ?? []).map((a) => a.army));
+const regiments = (data.armies ?? []).find((a) => a.army === "regiments-of-renown")?.units ?? [];
+const regimentIds = new Set(regiments.map((u) => u.unitId));
+
+for (const unit of regiments) {
+  const uctx = `[hire] ${unit.unitId}`;
+  const hire = unit.hire;
+  if (!hire) {
+    fail(`${uctx} has no hire block — every regiment must say how it may be hired`);
+    continue;
+  }
+  if (!Array.isArray(hire.armies) || hire.armies.length === 0) {
+    fail(`${uctx} hire.armies missing or empty (Allies Table)`);
+  }
+  for (const armyId of hire.armies ?? []) {
+    if (!armyIds.has(armyId)) fail(`${uctx} hire.armies references unknown army ${armyId}`);
+    if (armyId === "regiments-of-renown") fail(`${uctx} cannot be hired by its own army`);
+  }
+  if (!COUNTS_AS_RULES.has(hire.countsAs?.rule)) {
+    fail(`${uctx} unknown countsAs rule "${hire.countsAs?.rule}"`);
+  }
+  for (const rule of hire.countsAs?.also ?? []) {
+    if (!COUNTS_AS_RULES.has(rule)) fail(`${uctx} unknown countsAs.also rule "${rule}"`);
+  }
+  for (const [armyId, target] of Object.entries(hire.countsAs?.byArmy ?? {})) {
+    if (!armyIds.has(armyId)) fail(`${uctx} countsAs.byArmy references unknown army ${armyId}`);
+    if (target.startsWith("group:")) continue;
+    if (!allUnitIds.has(target)) fail(`${uctx} countsAs.byArmy[${armyId}] unknown unit ${target}`);
+    else if (!target.startsWith(`${armyId}:`)) {
+      fail(`${uctx} countsAs.byArmy[${armyId}] targets ${target}, which is not in that army`);
+    }
+  }
+  // Mutual exclusions are symmetric: if A refuses B, B must refuse A.
+  for (const otherId of hire.conflicts ?? []) {
+    if (!regimentIds.has(otherId)) {
+      fail(`${uctx} conflicts references unknown regiment ${otherId}`);
+      continue;
+    }
+    const other = regiments.find((u) => u.unitId === otherId);
+    if (!(other.hire?.conflicts ?? []).includes(unit.unitId)) {
+      fail(`${uctx} conflicts with ${otherId} but ${otherId} does not conflict back`);
+    }
+  }
+  for (const [armyId, unitIds] of Object.entries(hire.conflictUnits ?? {})) {
+    if (!armyIds.has(armyId)) fail(`${uctx} conflictUnits references unknown army ${armyId}`);
+    for (const id of unitIds) {
+      if (!allUnitIds.has(id)) fail(`${uctx} conflictUnits[${armyId}] unknown unit ${id}`);
+    }
+  }
+  if (unit.maxPerArmy !== true) {
+    fail(`${uctx} should be maxPerArmy — only one of each regiment per army`);
+  }
+}
+
+// The Allies Table is authored separately from the army lists; check it lines
+// up with the generated data rather than silently dropping rows or columns.
+const alliesTable = JSON.parse(
+  fs.readFileSync(path.join(root, "data", "allies-table.json"), "utf8"),
+);
+for (const id of alliesTable.regiments) {
+  if (!regimentIds.has(id)) fail(`[allies] unknown regiment column ${id}`);
+}
+for (const id of regimentIds) {
+  if (!alliesTable.regiments.includes(id)) fail(`[allies] regiment ${id} missing from the table`);
+}
+for (const armyId of armyIds) {
+  if (armyId === "regiments-of-renown") continue;
+  const row = alliesTable.armies[armyId];
+  if (row == null) fail(`[allies] no row for army ${armyId}`);
+  else if (row.length !== alliesTable.regiments.length) {
+    fail(`[allies] row ${armyId} has ${row.length} cells, expected ${alliesTable.regiments.length}`);
+  } else if (!/^[+/]+$/.test(row)) {
+    fail(`[allies] row ${armyId} has cells other than '+' and '/'`);
+  }
+}
+for (const armyId of Object.keys(alliesTable.armies)) {
+  if (!armyIds.has(armyId)) fail(`[allies] unknown army row ${armyId}`);
+}
+
 if (errors.length > 0) {
   for (const e of errors) console.error("FAIL:", e);
   console.error(`${errors.length} data validation error(s)`);

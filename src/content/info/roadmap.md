@@ -1,2 +1,1 @@
-- Regiments of Renown as allied units.
 - Finer-grained structured special-rule data.

@@ -305,6 +305,7 @@ const OVERRIDABLE_FIELDS = new Set([
   "maxPerArmy",
   "substitutesFor",
   "requiresUnit",
+  "hire",
 ]);
 
 export function applyCuration(unit, entry, warnings, rawSpecial) {
@@ -344,11 +345,50 @@ function loadCuration(dir) {
   return merged;
 }
 
+// The Allies Table says which armies may hire which Regiment of Renown. It is
+// a grid in the rulebook rather than part of the army-list text, so it lives in
+// its own file; here it is turned into a per-regiment list of hiring armies and
+// folded into that regiment's curated `hire` block.
+export function alliesByRegiment(table) {
+  const { regiments, armies } = table;
+  const byRegiment = new Map(regiments.map((id) => [id, []]));
+  for (const [armyId, row] of Object.entries(armies)) {
+    if (row.length !== regiments.length) {
+      throw new Error(
+        `Allies table row "${armyId}" has ${row.length} cells, expected ${regiments.length}`,
+      );
+    }
+    for (const [i, cell] of [...row].entries()) {
+      if (cell === "+") byRegiment.get(regiments[i]).push(armyId);
+      else if (cell !== "/") {
+        throw new Error(`Allies table row "${armyId}" has unexpected cell "${cell}"`);
+      }
+    }
+  }
+  return byRegiment;
+}
+
+function applyAlliesTable(curation, table, warnings) {
+  for (const [unitId, armies] of alliesByRegiment(table)) {
+    const entry = curation[unitId];
+    if (!entry?.overrides?.hire) {
+      warnings.push(`ALLIES TABLE: ${unitId} is in the table but has no curated hire block.`);
+      continue;
+    }
+    entry.overrides.hire.armies = armies;
+  }
+}
+
 function main() {
   const markdown = fs.readFileSync(path.join(root, SOURCE_FILE), "utf8");
   const curation = loadCuration(path.join(root, "data", "curation"));
   const parsed = parseArmyLists(markdown);
   const warnings = [];
+  applyAlliesTable(
+    curation,
+    JSON.parse(fs.readFileSync(path.join(root, "data", "allies-table.json"), "utf8")),
+    warnings,
+  );
   const usedCuration = new Set();
   const armies = [];
   const intermediate = [];

@@ -1,5 +1,7 @@
 ﻿import type { ArmyData, SavedList, UnitData } from "../types";
+import { hireableFor, isMercenary } from "../data/mercenaries";
 import { armySizeMultiplier } from "../domain/armySize";
+import { hiredCount, hireLimit, resolveCountsAs } from "../domain/hiring";
 import { countOf } from "../domain/lists";
 import SpecialRules from "./SpecialRules";
 import UnitStats, { minMaxLabel, pointsLabel, signedLabel } from "./UnitStats";
@@ -29,6 +31,8 @@ function CatalogRow({
   const max = unit.max != null ? (isGeneral ? unit.max : unit.max * scale) : null;
 
   const atMax = max != null && count >= max;
+  // What hiring this regiment will cost the army's own allowances.
+  const hireSlots = isMercenary(unit) ? resolveCountsAs(unit, army) : [];
   // A unit that may stand in for another (Dogs of War Handgunners for
   // Crossbowmen) says so here, so the option is visible while choosing rather
   // than only once a minimum fails.
@@ -56,6 +60,15 @@ function CatalogRow({
               Counts as {standsInFor.troop}
             </span>
           )}
+          {hireSlots.map((slot) => (
+            <span
+              key={slot.unitIds.join("|")}
+              className="counts-as"
+              title={`Hiring this regiment uses up one ${slot.label} slot in your own army list.`}
+            >
+              Uses a {slot.label} slot
+            </span>
+          ))}
         </div>
         <div className="catalog-stat-line">
           <UnitStats unit={unit} />
@@ -100,9 +113,16 @@ export default function Catalog({
     0,
   );
   const scale = armySizeMultiplier(list.pointsLimit);
-  const units = army.units.filter((u) => u.category === "unit");
-  const characters = army.units.filter((u) => u.category === "character");
-  const upgrades = army.units.filter((u) => u.category === "upgrade");
+  // Regiments of Renown live in every army's data so hired ones resolve, but
+  // they are offered only from their own section, and only when the list has
+  // mercenaries switched on.
+  const own = army.units.filter((u) => !isMercenary(u));
+  const units = own.filter((u) => u.category === "unit");
+  const characters = own.filter((u) => u.category === "character");
+  const upgrades = own.filter((u) => u.category === "upgrade");
+  const regiments = list.allowMercenaries ? hireableFor(army) : [];
+  const hired = hiredCount(list, army);
+  const limit = hireLimit(list);
 
   return (
     <div className="catalog">
@@ -142,6 +162,36 @@ export default function Catalog({
           <ul className="catalog-list">
             {upgrades.map((unit) => (
               <CatalogRow key={unit.unitId} unit={unit} army={army} count={0} scale={scale} />
+            ))}
+          </ul>
+        </>
+      )}
+      {regiments.length > 0 && (
+        <>
+          <h3 className="panel-heading">
+            Regiments of Renown{" "}
+            <span className={`hire-count${hired > limit ? " over" : ""}`}>
+              {hired} of {limit} hired
+            </span>
+          </h3>
+          <p className="panel-hint">
+            Mercenaries for hire — one per full 1000 points, one of each per army, and no magic
+            items. Each uses up an allowance in your own list.
+          </p>
+          <ul className="catalog-list">
+            {regiments.map((unit) => (
+              <CatalogRow
+                key={unit.unitId}
+                unit={unit}
+                army={army}
+                count={countOf(list, unit.unitId)}
+                scale={scale}
+                onAdd={() =>
+                  unit.category === "character"
+                    ? onAddCharacter(unit.unitId)
+                    : onAddUnit(unit.unitId)
+                }
+              />
             ))}
           </ul>
         </>

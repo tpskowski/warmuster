@@ -24,6 +24,8 @@ interface SharePayload {
   units: SavedList["units"];
   characters: Array<{ unitId: string; upgrades: string[]; magicItems?: string[] }>;
   notes: string | null;
+  /** Absent on codes shared before mercenaries existed. */
+  allowMercenaries?: boolean;
 }
 
 function toBase64Url(bytes: Uint8Array): string {
@@ -68,6 +70,7 @@ export async function encodeShareCode(list: SavedList): Promise<string> {
       magicItems: c.magicItems,
     })),
     notes: list.notes,
+    allowMercenaries: list.allowMercenaries,
   };
   const json = new TextEncoder().encode(JSON.stringify(payload));
   if (typeof CompressionStream !== "undefined") {
@@ -114,6 +117,7 @@ export async function decodeShareCode(code: string): Promise<SavedList | null> {
       })),
       notes: payload.notes ?? null,
       updatedAt: new Date().toISOString(),
+      allowMercenaries: payload.allowMercenaries === true,
     };
   } catch {
     return null;

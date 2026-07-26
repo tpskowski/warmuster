@@ -236,6 +236,10 @@ export function setPointsLimit(list: SavedList, pointsLimit: number): SavedList 
   return touched({ ...list, pointsLimit });
 }
 
+export function setAllowMercenaries(list: SavedList, allowMercenaries: boolean): SavedList {
+  return touched({ ...list, allowMercenaries });
+}
+
 export function setNotes(list: SavedList, notes: string): SavedList {
   return touched({ ...list, notes: notes.trim() === "" ? null : notes });
 }

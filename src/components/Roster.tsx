@@ -1,7 +1,9 @@
 ﻿import { useEffect, useState } from "react";
 import type { ArmyData, SavedCharacterEntry, SavedList, SavedUnitEntry, UnitData, ValidationIssue } from "../types";
 import { getUnit, upgradesFor } from "../data/gameData";
+import { isHired } from "../data/mercenaries";
 import { armySizeMultiplier } from "../domain/armySize";
+import { hiredCount } from "../domain/hiring";
 import { entryPoints, entryStands, totalPoints } from "../domain/lists";
 import { getMagicItem, magicItemCost, type MagicItemData } from "../domain/magicItems";
 import SpecialRules, { UnitDetailsDialog } from "./SpecialRules";
@@ -20,6 +22,7 @@ interface RosterProps {
   onRename: (name: string) => void;
   onSetPointsLimit: (points: number) => void;
   onSetNotes: (notes: string) => void;
+  onSetAllowMercenaries: (allow: boolean) => void;
 }
 
 function UpgradePicker({
@@ -219,6 +222,11 @@ function RosterUnitRow({
           <span className="roster-qty">{entry.quantity}×</span>
           <span className="roster-name">{unit.troop}</span>
           <span className="catalog-type">{unit.type}</span>
+          {isHired(unit, army) && (
+            <span className="hired-badge" title="Hired Regiment of Renown">
+              Hired
+            </span>
+          )}
           <SpecialRules unit={unit} scale={scale} />
           <UpgradePicker
             army={army}
@@ -285,6 +293,11 @@ function RosterCharacterRow({
         <div className="roster-name-line">
           <span className="roster-name">{unit.troop}</span>
           <span className="catalog-type">{unit.type}</span>
+          {isHired(unit, army) && (
+            <span className="hired-badge" title="Hired Regiment of Renown">
+              Hired
+            </span>
+          )}
           <SpecialRules unit={unit} scale={scale} />
           <UpgradePicker
             army={army}
@@ -322,10 +335,16 @@ export default function Roster({
   onRename,
   onSetPointsLimit,
   onSetNotes,
+  onSetAllowMercenaries,
 }: RosterProps) {
   const points = totalPoints(list, army);
   const over = points > list.pointsLimit;
   const scale = armySizeMultiplier(list.pointsLimit);
+  // Regiments of Renown are hired into another army, so the switch is offered
+  // on every list except one built from the regiments themselves. It cannot be
+  // turned off while regiments are still in the list.
+  const canHire = army.army !== "regiments-of-renown";
+  const hired = hiredCount(list, army);
   return (
     <div className="roster">
       <div className="roster-header">
@@ -350,6 +369,24 @@ export default function Roster({
         <span className={`points-total${over ? " over" : ""}`}>
           {points} / {list.pointsLimit}
         </span>
+        {canHire && (
+          <label
+            className="mercenaries-toggle"
+            title={
+              hired > 0
+                ? "Remove the hired regiments first."
+                : "Offer Regiments of Renown for hire in the catalog."
+            }
+          >
+            <input
+              type="checkbox"
+              checked={list.allowMercenaries === true}
+              disabled={hired > 0}
+              onChange={(e) => onSetAllowMercenaries(e.target.checked)}
+            />
+            Mercenaries
+          </label>
+        )}
       </div>
 
       {issues.length > 0 && (

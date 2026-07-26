@@ -1994,6 +1994,416 @@ Special text: **Shrine.** The army can only include a single Shrine and it is in
 
 # Regiments of Renown
 
+## Pirazzo‘s Lost Legion
+
+Special text: **Pikemen.** The pike is the traditional weapon of the mercenaries of Tilea. Twice as long as a spear and even longer than a cavalryman’s lance this is truly fearsome although rather unwieldy weapon. Pikemen are based facing the short edge of the base in the same way as Cavalry, rather than the long edge like other Infantry. Pikemen can not enter dense terrain (even partially). They still may be in defended position on higher ground or behind low obstacle as usual, but can only claim defended status when fighting to the front. An enemy does not receive charge bonuses when charging Pikemen in the front, nor does Pikemen receive any charge bonus themselves. A Pikemen stand cannot support or be supported by other infantry - only by other Pikemen stands. In all other respects they count as infantry (movement/pursuit etc.).
+
+Overrides:
+
+- `maxPerArmy` set to true
+- `hire` set to {"countsAs":{"rule":"limited-infantry","byArmy":{"tomb-kings":"group:monster"}},"conflicts":["regiments-of-renown:tichi-huichis-raiders"],"armies":["empire","tomb-kings","chaos","orcs","high-elves","dwarfs","skaven","bretonnia","kislev","dark-elves","daemons","vampire-counts","araby","dogs-of-war","ogre-kingdoms","albion","goblins","witch-hunters","chaos-dwarfs","wood-elves","beastmen","norse","cathay","nippon"]}
+
+```json
+{
+  "specialName": "Pikemen",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "The pike is the traditional weapon of the mercenaries of Tilea. Twice as long as a spear and even longer than a cavalryman’s lance this is truly fearsome although rather unwieldy weapon. Pikemen are based facing the short edge of the base in the same way as Cavalry, rather than the long edge like other Infantry. Pikemen can not enter dense terrain (even partially). They still may be in defended position on higher ground or behind low obstacle as usual, but can only claim defended status when fighting to the front. An enemy does not receive charge bonuses when charging Pikemen in the front, nor does Pikemen receive any charge bonus themselves. A Pikemen stand cannot support or be supported by other infantry - only by other Pikemen stands. In all other respects they count as infantry (movement/pursuit etc.)."
+  ],
+  "notes": null
+}
+```
+
+## Alcatani Fellowship
+
+Special text: **Pikemen.** The pike is the traditional weapon of the mercenaries of Tilea. Twice as long as a spear and even longer than a cavalryman’s lance this is truly fearsome although rather unwieldy weapon. Pikemen are based facing the short edge of the base in the same way as Cavalry, rather than the long edge like other Infantry. Pikemen can not enter dense terrain (even partially). They still may be in defended position on higher ground or behind low obstacle as usual, but can only claim defended status when fighting to the front. An enemy does not receive charge bonuses when charging Pikemen in the front, nor does Pikemen receive any charge bonus themselves. A Pikemen stand cannot support or be supported by other infantry - only by other Pikemen stands. In all other respects they count as infantry (movement/pursuit etc.).
+
+Overrides:
+
+- `maxPerArmy` set to true
+- `hire` set to {"countsAs":{"rule":"limited-infantry","byArmy":{"tomb-kings":"group:monster"}},"armies":["empire","tomb-kings","chaos","orcs","high-elves","dwarfs","skaven","lizardmen","bretonnia","kislev","dark-elves","daemons","vampire-counts","araby","dogs-of-war","ogre-kingdoms","albion","goblins","witch-hunters","chaos-dwarfs","wood-elves","beastmen","norse","cathay","nippon"]}
+
+```json
+{
+  "specialName": "Pikemen",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "The pike is the traditional weapon of the mercenaries of Tilea. Twice as long as a spear and even longer than a cavalryman’s lance this is truly fearsome although rather unwieldy weapon. Pikemen are based facing the short edge of the base in the same way as Cavalry, rather than the long edge like other Infantry. Pikemen can not enter dense terrain (even partially). They still may be in defended position on higher ground or behind low obstacle as usual, but can only claim defended status when fighting to the front. An enemy does not receive charge bonuses when charging Pikemen in the front, nor does Pikemen receive any charge bonus themselves. A Pikemen stand cannot support or be supported by other infantry - only by other Pikemen stands. In all other respects they count as infantry (movement/pursuit etc.)."
+  ],
+  "notes": null
+}
+```
+
+## Ricco‘s Republican Guard
+
+Special text: **Pikemen.** The pike is the traditional weapon of the mercenaries of Tilea. Twice as long as a spear and even longer than a cavalryman’s lance this is truly fearsome although rather unwieldy weapon. Pikemen are based facing the short edge of the base in the same way as Cavalry, rather than the long edge like other Infantry. Pikemen can not enter dense terrain (even partially). They still may be in defended position on higher ground or behind low obstacle as usual, but can only claim defended status when fighting to the front. An enemy does not receive charge bonuses when charging Pikemen in the front, nor does Pikemen receive any charge bonus themselves. A Pikemen stand cannot support or be supported by other infantry - only by other Pikemen stands. In all other respects they count as infantry (movement/pursuit etc.).
+
+Overrides:
+
+- `maxPerArmy` set to true
+- `hire` set to {"countsAs":{"rule":"limited-infantry","byArmy":{"tomb-kings":"group:monster"}},"armies":["empire","tomb-kings","chaos","orcs","high-elves","dwarfs","skaven","lizardmen","bretonnia","kislev","dark-elves","daemons","vampire-counts","araby","dogs-of-war","ogre-kingdoms","albion","goblins","witch-hunters","chaos-dwarfs","wood-elves","beastmen","norse","cathay","nippon"]}
+
+```json
+{
+  "specialName": "Pikemen",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "The pike is the traditional weapon of the mercenaries of Tilea. Twice as long as a spear and even longer than a cavalryman’s lance this is truly fearsome although rather unwieldy weapon. Pikemen are based facing the short edge of the base in the same way as Cavalry, rather than the long edge like other Infantry. Pikemen can not enter dense terrain (even partially). They still may be in defended position on higher ground or behind low obstacle as usual, but can only claim defended status when fighting to the front. An enemy does not receive charge bonuses when charging Pikemen in the front, nor does Pikemen receive any charge bonus themselves. A Pikemen stand cannot support or be supported by other infantry - only by other Pikemen stands. In all other respects they count as infantry (movement/pursuit etc.)."
+  ],
+  "notes": null
+}
+```
+
+## Leopold‘s Leopard Company
+
+Special text: **Pikemen.** The pike is the traditional weapon of the mercenaries of Tilea. Twice as long as a spear and even longer than a cavalryman’s lance this is truly fearsome although rather unwieldy weapon. Pikemen are based facing the short edge of the base in the same way as Cavalry, rather than the long edge like other Infantry. Pikemen can not enter dense terrain (even partially). They still may be in defended position on higher ground or behind low obstacle as usual, but can only claim defended status when fighting to the front. An enemy does not receive charge bonuses when charging Pikemen in the front, nor does Pikemen receive any charge bonus themselves. A Pikemen stand cannot support or be supported by other infantry - only by other Pikemen stands. In all other respects they count as infantry (movement/pursuit etc.).
+
+Overrides:
+
+- `maxPerArmy` set to true
+- `hire` set to {"countsAs":{"rule":"limited-infantry","byArmy":{"tomb-kings":"group:monster"}},"armies":["empire","tomb-kings","chaos","orcs","high-elves","dwarfs","skaven","lizardmen","bretonnia","kislev","dark-elves","daemons","vampire-counts","araby","dogs-of-war","ogre-kingdoms","albion","goblins","witch-hunters","chaos-dwarfs","wood-elves","beastmen","norse","cathay","nippon"]}
+
+```json
+{
+  "specialName": "Pikemen",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "The pike is the traditional weapon of the mercenaries of Tilea. Twice as long as a spear and even longer than a cavalryman’s lance this is truly fearsome although rather unwieldy weapon. Pikemen are based facing the short edge of the base in the same way as Cavalry, rather than the long edge like other Infantry. Pikemen can not enter dense terrain (even partially). They still may be in defended position on higher ground or behind low obstacle as usual, but can only claim defended status when fighting to the front. An enemy does not receive charge bonuses when charging Pikemen in the front, nor does Pikemen receive any charge bonus themselves. A Pikemen stand cannot support or be supported by other infantry - only by other Pikemen stands. In all other respects they count as infantry (movement/pursuit etc.)."
+  ],
+  "notes": null
+}
+```
+
+## Marksmen of Miragliano
+
+Special text: (none)
+
+Overrides:
+
+- `maxPerArmy` set to true
+- `hire` set to {"countsAs":{"rule":"limited-shooting-infantry"},"armies":["empire","tomb-kings","chaos","orcs","high-elves","dwarfs","lizardmen","bretonnia","kislev","dark-elves","daemons","vampire-counts","araby","dogs-of-war","ogre-kingdoms","albion","goblins","witch-hunters","chaos-dwarfs","wood-elves","beastmen","norse","cathay","nippon"]}
+
+```json
+{
+  "specialName": null,
+  "eligibleToUpgrade": [],
+  "specials": [],
+  "notes": null
+}
+```
+
+## Braganza‘s Besiegers
+
+Special text: (none)
+
+Overrides:
+
+- `maxPerArmy` set to true
+- `hire` set to {"countsAs":{"rule":"limited-infantry","byArmy":{"tomb-kings":"group:monster"}},"armies":["empire","tomb-kings","chaos","orcs","high-elves","dwarfs","lizardmen","bretonnia","kislev","dark-elves","daemons","vampire-counts","araby","dogs-of-war","ogre-kingdoms","albion","goblins","witch-hunters","chaos-dwarfs","wood-elves","beastmen","norse","cathay","nippon"]}
+
+```json
+{
+  "specialName": null,
+  "eligibleToUpgrade": [],
+  "specials": [],
+  "notes": null
+}
+```
+
+## Lumpin Croop‘s Cocks
+
+Special text: **Dense Terrain.** Lumpin Croop‘s Fighting Cocks are well used to sneaking about in woods and bushes. No command penalty is applied to this unit on account of dense terrain.
+
+Overrides:
+
+- `maxPerArmy` set to true
+- `hire` set to {"countsAs":{"rule":"limited-shooting-infantry"},"armies":["empire","tomb-kings","chaos","orcs","high-elves","dwarfs","skaven","lizardmen","bretonnia","kislev","dark-elves","daemons","vampire-counts","araby","dogs-of-war","ogre-kingdoms","albion","goblins","witch-hunters","chaos-dwarfs","wood-elves","beastmen","norse","cathay","nippon"]}
+
+```json
+{
+  "specialName": "Dense Terrain",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "Lumpin Croop‘s Fighting Cocks are well used to sneaking about in woods and bushes. No command penalty is applied to this unit on account of dense terrain."
+  ],
+  "notes": null
+}
+```
+
+## Vespero‘s Vendetta
+
+Special text: **Throwing weapons.** The unit has a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy.
+
+Overrides:
+
+- `maxPerArmy` set to true
+- `hire` set to {"countsAs":{"rule":"none"},"armies":["empire","tomb-kings","chaos","orcs","high-elves","dwarfs","skaven","lizardmen","bretonnia","kislev","dark-elves","daemons","vampire-counts","araby","dogs-of-war","ogre-kingdoms","albion","goblins","witch-hunters","chaos-dwarfs","wood-elves","beastmen","norse","cathay","nippon"]}
+
+```json
+{
+  "specialName": "Throwing weapons",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "The unit has a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
+  ],
+  "notes": null
+}
+```
+
+## The Cursed Company
+
+Special text: **Undead.** The Cursed Company is undead, and as such the following rules apply to them: They never act on initiative. The unit only moves in the Command phase if given orders. They are unaffected by the -1 Command penalty for enemy within 20cm. They are unaffected by the -1 Combat penalty for fighting terrifying troops. They are unaffected by the Confusion rule - they cannot become confused for any reason.
+
+Overrides:
+
+- `maxPerArmy` set to true
+- `hire` set to {"countsAs":{"rule":"limited-infantry"},"conflicts":["regiments-of-renown:the-witch-hunters"],"armies":["empire","chaos","orcs","high-elves","dwarfs","skaven","lizardmen","kislev","dark-elves","daemons","araby","dogs-of-war","ogre-kingdoms","albion","goblins","chaos-dwarfs","wood-elves","beastmen"]}
+
+```json
+{
+  "specialName": "Undead",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "The Cursed Company is undead, and as such the following rules apply to them: They never act on initiative. The unit only moves in the Command phase if given orders. They are unaffected by the -1 Command penalty for enemy within 20cm. They are unaffected by the -1 Combat penalty for fighting terrifying troops. They are unaffected by the Confusion rule - they cannot become confused for any reason."
+  ],
+  "notes": null
+}
+```
+
+## Mengil‘s Manflyers
+
+Special text: **Repeating crossbows.** Mengil Manhide‘s Manflayers are equipped with repeating crossbows. They may shoot once at ranges up to 30cm and twice at ranges up to 15cm. A unit of three stands would therefore shoot 6 Attacks at a target within 15cm and 3 Attacks at a target at greater ranges. They may shoot at enemies that charge them - in which case they shoot 1 Attack per stand regardless of range.
+
+Overrides:
+
+- `maxPerArmy` set to true
+- `hire` set to {"countsAs":{"rule":"limited-infantry","byArmy":{"tomb-kings":"group:monster"}},"conflicts":["regiments-of-renown:asarnil-the-dragonlord","regiments-of-renown:long-drongs-slayer-pirates","regiments-of-renown:gotrek-and-felix"],"conflictUnits":{"dogs-of-war":["dogs-of-war:dwarfs"]},"armies":["empire","tomb-kings","chaos","orcs","skaven","lizardmen","kislev","dark-elves","daemons","vampire-counts","araby","dogs-of-war","ogre-kingdoms","albion","goblins","chaos-dwarfs","beastmen","cathay"]}
+
+```json
+{
+  "specialName": "Repeating crossbows",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "Mengil Manhide‘s Manflayers are equipped with repeating crossbows. They may shoot once at ranges up to 30cm and twice at ranges up to 15cm. A unit of three stands would therefore shoot 6 Attacks at a target within 15cm and 3 Attacks at a target at greater ranges. They may shoot at enemies that charge them - in which case they shoot 1 Attack per stand regardless of range."
+  ],
+  "notes": null
+}
+```
+
+## Anakonda‘s Amazons
+
+Special text: **Throwing weapons.** The unit has a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy.
+
+Overrides:
+
+- `maxPerArmy` set to true
+- `hire` set to {"countsAs":{"rule":"none"},"armies":["empire","tomb-kings","chaos","orcs","high-elves","dwarfs","skaven","lizardmen","bretonnia","kislev","dark-elves","daemons","vampire-counts","araby","dogs-of-war","ogre-kingdoms","albion","goblins","witch-hunters","chaos-dwarfs","wood-elves","beastmen","norse","cathay","nippon"]}
+
+```json
+{
+  "specialName": "Throwing weapons",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "The unit has a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
+  ],
+  "notes": null
+}
+```
+
+## Bearmen of Urslo
+
+Special text: (none)
+
+Overrides:
+
+- `maxPerArmy` set to true
+- `hire` set to {"countsAs":{"rule":"limited-infantry","byArmy":{"tomb-kings":"group:monster"}},"armies":["empire","tomb-kings","chaos","orcs","dwarfs","skaven","kislev","dark-elves","daemons","vampire-counts","araby","dogs-of-war","ogre-kingdoms","albion","goblins","chaos-dwarfs","beastmen","cathay"]}
+
+```json
+{
+  "specialName": null,
+  "eligibleToUpgrade": [],
+  "specials": [],
+  "notes": null
+}
+```
+
+## Ruglud‘s Armoured Orcs
+
+Special text: (none)
+
+Overrides:
+
+- `maxPerArmy` set to true
+- `hire` set to {"countsAs":{"rule":"limited-infantry","byArmy":{"tomb-kings":"group:monster"}},"conflicts":["regiments-of-renown:long-drongs-slayer-pirates","regiments-of-renown:gotrek-and-felix"],"conflictUnits":{"dogs-of-war":["dogs-of-war:dwarfs"]},"armies":["tomb-kings","chaos","orcs","skaven","kislev","daemons","vampire-counts","dogs-of-war","ogre-kingdoms","goblins","chaos-dwarfs","beastmen","cathay"]}
+
+```json
+{
+  "specialName": null,
+  "eligibleToUpgrade": [],
+  "specials": [],
+  "notes": null
+}
+```
+
+## Long Drong‘s Slayer Pirates
+
+Special text: **Pistols.** Long Drong‘s Slayer Pirates carry pistols... loads of pistols! They have a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy.
+
+Overrides:
+
+- `maxPerArmy` set to true
+- `hire` set to {"countsAs":{"rule":"limited-infantry","byArmy":{"tomb-kings":"group:monster"}},"conflicts":["regiments-of-renown:rugluds-armoured-orcs","regiments-of-renown:oglah-khans-wolfboyz","regiments-of-renown:mengils-manflyers","regiments-of-renown:asarnil-the-dragonlord"],"armies":["empire","tomb-kings","dwarfs","lizardmen","kislev","vampire-counts","araby","dogs-of-war","ogre-kingdoms","albion","witch-hunters","cathay"]}
+
+```json
+{
+  "specialName": "Pistols",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "Long Drong‘s Slayer Pirates carry pistols... loads of pistols! They have a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
+  ],
+  "notes": null
+}
+```
+
+## Golgfag‘s Mercenary Ogres
+
+Special text: **Ogres.** Ogres flock to mercenaries for the chance of a good fight and as much as they can eat. These creatures are notoriously fond of fresh human meat, although they will eat practically anything that was once alive (or still is). To represent this, if an Ogre unit can use its initiative to charge an enemy unit of humans at the start of the Command phase then it must do so (not Dwarfs, Elves etc.). This happens automatically.
+
+Overrides:
+
+- `maxPerArmy` set to true
+- `hire` set to {"countsAs":{"rule":"limited-infantry","byArmy":{"tomb-kings":"group:monster"}},"armies":["empire","tomb-kings","chaos","orcs","dwarfs","skaven","lizardmen","kislev","daemons","vampire-counts","araby","dogs-of-war","ogre-kingdoms","albion","goblins","witch-hunters","chaos-dwarfs","wood-elves","beastmen","norse","cathay","nippon"]}
+
+```json
+{
+  "specialName": "Ogres",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "Ogres flock to mercenaries for the chance of a good fight and as much as they can eat. These creatures are notoriously fond of fresh human meat, although they will eat practically anything that was once alive (or still is). To represent this, if an Ogre unit can use its initiative to charge an enemy unit of humans at the start of the Command phase then it must do so (not Dwarfs, Elves etc.). This happens automatically."
+  ],
+  "notes": null
+}
+```
+
+## Voland‘s Venators
+
+Special text: (none)
+
+Overrides:
+
+- `maxPerArmy` set to true
+- `hire` set to {"countsAs":{"rule":"limited-cavalry-or-chariot","byArmy":{"dwarfs":"dwarfs:rangers","skaven":"skaven:gutter-runners"}},"armies":["empire","tomb-kings","chaos","orcs","high-elves","dwarfs","skaven","lizardmen","bretonnia","kislev","dark-elves","daemons","vampire-counts","araby","dogs-of-war","ogre-kingdoms","albion","goblins","witch-hunters","chaos-dwarfs","wood-elves","beastmen","norse","cathay","nippon"]}
+
+```json
+{
+  "specialName": null,
+  "eligibleToUpgrade": [],
+  "specials": [],
+  "notes": null
+}
+```
+
+## Al Muktar‘s Desert Dogs
+
+Special text: **Light Cavalry.** Light cavalry formations have a great use among the mercenaries. They are experts at outmaneuvering an enemy and harrying his flanks. Light cavalry has a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy.
+
+Overrides:
+
+- `maxPerArmy` set to true
+- `hire` set to {"countsAs":{"rule":"limited-cavalry-or-chariot","byArmy":{"dwarfs":"dwarfs:rangers","skaven":"skaven:gutter-runners"}},"armies":["chaos","orcs","high-elves","dwarfs","skaven","lizardmen","bretonnia","kislev","dark-elves","daemons","vampire-counts","araby","dogs-of-war","ogre-kingdoms","albion","goblins","witch-hunters","chaos-dwarfs","wood-elves","beastmen","norse","cathay","nippon"]}
+
+```json
+{
+  "specialName": "Light Cavalry",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "Light cavalry formations have a great use among the mercenaries. They are experts at outmaneuvering an enemy and harrying his flanks. Light cavalry has a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
+  ],
+  "notes": null
+}
+```
+
+## Oglah Khan‘s Wolfboyz
+
+Special text: **Light Cavalry.** Light cavalry formations have a great use among the mercenaries. They are experts at outmaneuvering an enemy and harrying his flanks. Light cavalry has a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy.
+
+Overrides:
+
+- `maxPerArmy` set to true
+- `hire` set to {"countsAs":{"rule":"limited-cavalry-or-chariot","byArmy":{"skaven":"skaven:gutter-runners"}},"conflicts":["regiments-of-renown:long-drongs-slayer-pirates","regiments-of-renown:gotrek-and-felix"],"conflictUnits":{"dogs-of-war":["dogs-of-war:dwarfs"]},"armies":["tomb-kings","chaos","orcs","skaven","dark-elves","daemons","vampire-counts","dogs-of-war","ogre-kingdoms","goblins","chaos-dwarfs","beastmen","cathay"]}
+
+```json
+{
+  "specialName": "Light Cavalry",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "Light cavalry formations have a great use among the mercenaries. They are experts at outmaneuvering an enemy and harrying his flanks. Light cavalry has a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
+  ],
+  "notes": null
+}
+```
+
+## Tichi-Huichi‘s Raiders
+
+Special text: **Light Cavalry.** Light cavalry formations have a great use among the mercenaries. They are experts at outmaneuvering an enemy and harrying his flanks. Light cavalry has a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy.
+
+Overrides:
+
+- `maxPerArmy` set to true
+- `hire` set to {"countsAs":{"rule":"limited-cavalry-or-chariot","byArmy":{"dwarfs":"dwarfs:rangers"}},"conflicts":["regiments-of-renown:pirazzos-lost-legion"],"armies":["empire","tomb-kings","high-elves","dwarfs","lizardmen","kislev","araby","dogs-of-war","ogre-kingdoms","albion","witch-hunters","wood-elves","cathay"]}
+
+```json
+{
+  "specialName": "Light Cavalry",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "Light cavalry formations have a great use among the mercenaries. They are experts at outmaneuvering an enemy and harrying his flanks. Light cavalry has a shooting range of only 15cm and 360° vision - stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
+  ],
+  "notes": null
+}
+```
+
+## Birdmen of Catrazza
+
+Special text: **Birdmen.** Only half-mad nutters like Tileans would try to fly! The Birdmen wear insane contraptions of light wood covered in canvas that are shaped like wings and allow them to glide on the air currents. These ‘wings’ allow the Birdmen to fly and still use their crossbows as normal. Because they are awkward flyers, they can be pursued by any type of enemy troops. Birdmen are based facing the long edge of the base in the same way as other infantry.
+
+Overrides:
+
+- `maxPerArmy` set to true
+- `hire` set to {"countsAs":{"rule":"flying-3-stands"},"armies":["high-elves","bretonnia","araby","dogs-of-war","norse","nippon"]}
+
+```json
+{
+  "specialName": "Birdmen",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "Only half-mad nutters like Tileans would try to fly! The Birdmen wear insane contraptions of light wood covered in canvas that are shaped like wings and allow them to glide on the air currents. These ‘wings’ allow the Birdmen to fly and still use their crossbows as normal. Because they are awkward flyers, they can be pursued by any type of enemy troops. Birdmen are based facing the long edge of the base in the same way as other infantry."
+  ],
+  "notes": null
+}
+```
+
+## Bronzino‘s Galloper Guns
+
+Special text: **Galloper Guns.** These are lighter artillery than Dwarf or Empire cannons; due to this they are shorter ranged, but can make up for their lighter shot by producing a higher volume of fire. Galloper Guns move 20cm. All the normal rules for artillery applies as well as cannon’s rules for shooting (bounce through, no saves and reduction of cover values). Because they are light guns they have a range of only 40cm. They still may shoot at the charging enemy by firing ‘grapeshot’ as normal.
+
+Overrides:
+
+- `maxPerArmy` set to true
+- `hire` set to {"countsAs":{"rule":"artillery"},"armies":["empire","tomb-kings","orcs","dwarfs","skaven","bretonnia","kislev","dogs-of-war","ogre-kingdoms","goblins","witch-hunters","chaos-dwarfs","cathay"]}
+
+```json
+{
+  "specialName": "Galloper Guns",
+  "eligibleToUpgrade": [],
+  "specials": [
+    "These are lighter artillery than Dwarf or Empire cannons; due to this they are shorter ranged, but can make up for their lighter shot by producing a higher volume of fire. Galloper Guns move 20cm. All the normal rules for artillery applies as well as cannon’s rules for shooting (bounce through, no saves and reduction of cover values). Because they are light guns they have a range of only 40cm. They still may shoot at the charging enemy by firing ‘grapeshot’ as normal."
+  ],
+  "notes": null
+}
+```
+
 ## Asarnil The Dragonlord
 
 Special text: **Dragons.** Asarnil rides a Dragon. The Dragon can fly increasing its rider‘s move to 100cm. An extra +3 Attacks are added (included in Asarnil‘s profile). The Dragon can breath fire if the character has joined a unit that isn‘t engaged in combat. The fire breath has a range of 20cm and can be directed against one target as for normal shooting and has 3 Attacks that are worked out in the usual way. Additionally Asarnil causes terror in its enemies.
@@ -2002,6 +2412,8 @@ Overrides:
 
 - `subType` set to "Flying"
 - `speed` set to 100
+- `maxPerArmy` set to true
+- `hire` set to {"countsAs":{"rule":"hero","also":["monstrous-mount-terror"]},"conflicts":["regiments-of-renown:mengils-manflyers","regiments-of-renown:long-drongs-slayer-pirates","regiments-of-renown:gotrek-and-felix"],"conflictUnits":{"dogs-of-war":["dogs-of-war:dwarfs"]},"armies":["empire","high-elves","araby","dogs-of-war","wood-elves"]}
 
 ```json
 {
@@ -2011,5 +2423,41 @@ Overrides:
     "Asarnil rides a Dragon. An extra +3 Attacks are added (included in Asarnil‘s profile). The Dragon can breath fire if the character has joined a unit that isn‘t engaged in combat. The fire breath has a range of 20cm and can be directed against one target as for normal shooting and has 3 Attacks that are worked out in the usual way. Additionally Asarnil causes terror in its enemies."
   ],
   "notes": "The Dragon can fly increasing its rider‘s move to 100cm."
+}
+```
+
+## Gotrek and Felix
+
+Special text: (none)
+
+Overrides:
+
+- `maxPerArmy` set to true
+- `hire` set to {"countsAs":{"rule":"hero"},"conflicts":["regiments-of-renown:rugluds-armoured-orcs","regiments-of-renown:oglah-khans-wolfboyz","regiments-of-renown:mengils-manflyers","regiments-of-renown:asarnil-the-dragonlord"],"armies":["empire","dwarfs","bretonnia","kislev","araby","dogs-of-war","albion","witch-hunters","cathay"]}
+
+```json
+{
+  "specialName": null,
+  "eligibleToUpgrade": [],
+  "specials": [],
+  "notes": null
+}
+```
+
+## The Witch Hunters
+
+Special text: (none)
+
+Overrides:
+
+- `maxPerArmy` set to true
+- `hire` set to {"countsAs":{"rule":"hero"},"conflicts":["regiments-of-renown:the-cursed-company"],"armies":["empire","high-elves","dwarfs","lizardmen","bretonnia","kislev","araby","dogs-of-war","albion","witch-hunters","wood-elves"]}
+
+```json
+{
+  "specialName": null,
+  "eligibleToUpgrade": [],
+  "specials": [],
+  "notes": null
 }
 ```
