@@ -1,5 +1,5 @@
 ﻿import type { ArmyData, SavedList, UnitData } from "../types";
-import { hireableFor, isMercenary } from "../data/mercenaries";
+import { hireableFor, isHired } from "../data/mercenaries";
 import { armySizeMultiplier } from "../domain/armySize";
 import { hiredCount, hireLimit, resolveCountsAs } from "../domain/hiring";
 import { countOf } from "../domain/lists";
@@ -31,8 +31,9 @@ function CatalogRow({
   const max = unit.max != null ? (isGeneral ? unit.max : unit.max * scale) : null;
 
   const atMax = max != null && count >= max;
-  // What hiring this regiment will cost the army's own allowances.
-  const hireSlots = isMercenary(unit) ? resolveCountsAs(unit, army) : [];
+  // What hiring this regiment will cost the army's own allowances. Only
+  // meaningful when it is being hired into someone else's list.
+  const hireSlots = isHired(unit, army) ? resolveCountsAs(unit, army) : [];
   // A unit that may stand in for another (Dogs of War Handgunners for
   // Crossbowmen) says so here, so the option is visible while choosing rather
   // than only once a minimum fails.
@@ -115,8 +116,9 @@ export default function Catalog({
   const scale = armySizeMultiplier(list.pointsLimit);
   // Regiments of Renown live in every army's data so hired ones resolve, but
   // they are offered only from their own section, and only when the list has
-  // mercenaries switched on.
-  const own = army.units.filter((u) => !isMercenary(u));
+  // mercenaries switched on. In a Regiments of Renown army list they are the
+  // army, so nothing is held back.
+  const own = army.units.filter((u) => !isHired(u, army));
   const units = own.filter((u) => u.category === "unit");
   const characters = own.filter((u) => u.category === "character");
   const upgrades = own.filter((u) => u.category === "upgrade");
