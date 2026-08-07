@@ -10,7 +10,7 @@ interface ConfigDialogProps {
   onToggleSimplifiedView: (value: boolean) => void;
   /** Every saved list in this browser, across all rule sets. */
   lists: SavedList[];
-  onReplaceAllLists: (lists: SavedList[]) => void;
+  onReplaceAllLists: (lists: SavedList[]) => boolean;
   onClose: () => void;
 }
 
@@ -68,7 +68,10 @@ export default function ConfigDialog({
 
   const confirmImport = () => {
     if (!pending) return;
-    onReplaceAllLists(pending.lists);
+    if (!onReplaceAllLists(pending.lists)) {
+      setError("Could not save the restored lists. Check browser storage and try again.");
+      return;
+    }
     setPending(null);
     setImported(true);
   };
@@ -157,11 +160,12 @@ export default function ConfigDialog({
               {lists.length} list{lists.length === 1 ? "" : "s"} saved in this browser and replaces
               them with the backup's.
             </p>
+            {error && <p className="config-error">{error}</p>}
             <div className="confirm-actions">
-              <button type="button" onClick={() => setPending(null)}>
+              <button type="button" autoFocus onClick={() => setPending(null)}>
                 Cancel
               </button>
-              <button type="button" className="danger-btn" autoFocus onClick={confirmImport}>
+              <button type="button" className="danger-btn" onClick={confirmImport}>
                 Replace my lists
               </button>
             </div>

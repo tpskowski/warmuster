@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useState } from "react";
+﻿import { useEffect, useMemo, useRef, useState } from "react";
 import Catalog from "./components/Catalog";
 import ConfigDialog from "./components/ConfigDialog";
 import ExportDialog from "./components/ExportDialog";
@@ -72,6 +72,7 @@ export default function App() {
   const [infoTopic, setInfoTopic] = useState<InfoTopic | null>(null);
   const [configOpen, setConfigOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false); // mobile list drawer
+  const restoreGeneration = useRef(0);
   // Active rule set: each set has its own saved lists. Persisted per browser.
   const [activeRuleSet, setActiveRuleSet] = useState<string>(() => {
     const stored = localStorage.getItem("warmuster.ruleSet");
@@ -121,8 +122,9 @@ export default function App() {
   useEffect(() => {
     const code = consumeShareHash();
     if (!code) return;
+    const generation = restoreGeneration.current;
     void decodeShareCode(code).then((imported) => {
-      if (!imported) return;
+      if (!imported || generation !== restoreGeneration.current) return;
       setLists((prev) => upsertList(prev, imported));
       // Show the set the imported list belongs to so it's visible in the rail.
       if (ruleSets.some((rs) => rs.id === imported.ruleSet)) setActiveRuleSet(imported.ruleSet);
@@ -176,8 +178,11 @@ export default function App() {
   // Restoring a backup swaps in another browser's whole collection, so the
   // list open at the time is gone unless the backup happens to carry it.
   const handleReplaceAllLists = (imported: SavedList[]) => {
-    setLists(replaceAllLists(imported));
+    if (!replaceAllLists(imported)) return false;
+    restoreGeneration.current += 1;
+    setLists(imported);
     if (!imported.some((l) => l.id === activeListId)) setActiveListId(null);
+    return true;
   };
 
   const handleSelectRuleSet = (id: string) => {
@@ -388,5 +393,3 @@ export default function App() {
     </div>
   );
 }
-
-

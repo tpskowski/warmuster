@@ -60,6 +60,25 @@ describe("backup", () => {
     expect(restored[1].notes).toBeNull();
   });
 
+  it("falls back for non-finite numeric values while keeping finite quantities", () => {
+    const file = JSON.parse(serializeBackup(sampleLists()));
+    file.lists[0].pointsLimit = "1e999";
+    file.lists[0].units[0].quantity = "1e999";
+    file.lists[0].units.push({ ...file.lists[0].units[0], quantity: 2 });
+
+    const restored = parseBackup(JSON.stringify(file))!;
+    expect(restored[0].pointsLimit).toBe(0);
+    expect(restored[0].units[0].quantity).toBe(1);
+    expect(restored[0].units[1].quantity).toBe(2);
+  });
+
+  it("rejects backups with duplicate list ids", () => {
+    const file = JSON.parse(serializeBackup(sampleLists()));
+    file.lists[1].id = file.lists[0].id;
+
+    expect(parseBackup(JSON.stringify(file))).toBeNull();
+  });
+
   it("names the file by date", () => {
     expect(backupFileName(new Date(2026, 7, 6))).toBe("warmuster-backup-2026-08-06.json");
   });

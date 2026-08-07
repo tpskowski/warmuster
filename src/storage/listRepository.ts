@@ -23,11 +23,13 @@ export function loadLists(): SavedList[] {
   }
 }
 
-export function saveLists(lists: SavedList[]): void {
+export function saveLists(lists: SavedList[]): boolean {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(lists));
+    return true;
   } catch {
     // Storage full or unavailable; the in-memory state stays authoritative.
+    return false;
   }
 }
 
@@ -46,9 +48,8 @@ export function deleteList(lists: SavedList[], id: string): SavedList[] {
 
 /** Replace the whole collection — used by backup import, which mirrors another
  * browser's lists rather than merging into these. */
-export function replaceAllLists(lists: SavedList[]): SavedList[] {
-  saveLists(lists);
-  return lists;
+export function replaceAllLists(lists: SavedList[]): boolean {
+  return saveLists(lists);
 }
 
 /** Saved lists belong to the rule set they were built against; the rail shows

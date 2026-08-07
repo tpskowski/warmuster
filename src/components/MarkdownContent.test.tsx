@@ -20,14 +20,15 @@ describe("MarkdownContent", () => {
 
   it("renders bold, italic and code spans", () => {
     const { container } = render(
-      <MarkdownContent source={"Now **hired** into *any* army via `allowMercenaries`."} />,
+      <MarkdownContent source={"Now **hired** into *any* army via `**literal**`."} />,
     );
 
     expect(container.querySelector("strong")).toHaveTextContent("hired");
     expect(container.querySelector("em")).toHaveTextContent("any");
-    expect(container.querySelector("code")).toHaveTextContent("allowMercenaries");
+    expect(container.querySelector("code")).toHaveTextContent("**literal**");
+    expect(container.querySelector("code strong")).toBeNull();
     expect(container.querySelector("p")).toHaveTextContent(
-      "Now hired into any army via allowMercenaries.",
+      "Now hired into any army via **literal**.",
     );
   });
 
@@ -46,6 +47,14 @@ describe("MarkdownContent", () => {
     );
 
     expect(container.querySelector("strong a")).toHaveAttribute("href", "https://example.com/");
+  });
+
+  it("nests bold text inside italic text", () => {
+    const { container } = render(
+      <MarkdownContent source={"*outer **inner** text*"} />,
+    );
+
+    expect(container.querySelector("em strong")).toHaveTextContent("inner");
   });
 
   it("leaves lone underscores and space-padded asterisks alone", () => {

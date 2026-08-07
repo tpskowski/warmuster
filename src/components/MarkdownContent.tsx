@@ -7,7 +7,7 @@ import type { ReactNode } from "react";
 // rule), which keeps prose like "2 * 3 and 4 * 5" from turning italic. Code
 // spans match last but their content is taken literally.
 const INLINE_PATTERN =
-  /\[([^\]]+)\]\((https?:\/\/[^)]+)\)|(\*\*|__)(?!\s)([\s\S]+?)(?<!\s)\3|\*(?!\s)([\s\S]+?)(?<!\s)\*|`([^`]+)`/;
+  /\[([^\]]+)\]\((https?:\/\/[^)]+)\)|(\*\*\*|___)(?!\s)([\s\S]+?)(?<!\s)\3|(\*\*|__)(?!\s)([\s\S]+?)(?<!\s)\5|(?<!\*)\*(?![\s*])([\s\S]+?)(?<![\s*])\*(?!\*)|`([^`]+)`/;
 
 function inlineContent(text: string): ReactNode[] {
   const nodes: ReactNode[] = [];
@@ -27,12 +27,18 @@ function inlineContent(text: string): ReactNode[] {
         </a>,
       );
     } else if (match[4] != null) {
+      nodes.push(
+        <strong key={key}>
+          <em>{inlineContent(match[4])}</em>
+        </strong>,
+      );
+    } else if (match[6] != null) {
       // Emphasis can wrap other inline markup, so recurse into its content.
-      nodes.push(<strong key={key}>{inlineContent(match[4])}</strong>);
-    } else if (match[5] != null) {
-      nodes.push(<em key={key}>{inlineContent(match[5])}</em>);
+      nodes.push(<strong key={key}>{inlineContent(match[6])}</strong>);
+    } else if (match[7] != null) {
+      nodes.push(<em key={key}>{inlineContent(match[7])}</em>);
     } else {
-      nodes.push(<code key={key}>{match[6]}</code>);
+      nodes.push(<code key={key}>{match[8]}</code>);
     }
     cursor = match.index + match[0].length;
   }

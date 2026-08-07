@@ -47,6 +47,11 @@ function asStringArray(value: unknown): string[] {
   return Array.isArray(value) ? value.map(String) : [];
 }
 
+function finiteNumber(value: unknown, fallback: number): number {
+  const number = Number(value);
+  return Number.isFinite(number) ? number : fallback;
+}
+
 /** Coerce one entry of a backup's `lists` into a SavedList, or drop it if it
  * isn't recognisably one. Mirrors the tolerance of the localStorage loader:
  * unknown fields are dropped and missing optional ones get defaults, so a file
@@ -64,10 +69,10 @@ function sanitizeList(raw: unknown): SavedList | null {
     ruleVersion: String(list.ruleVersion ?? ""),
     army: list.army,
     name: String(list.name ?? "Untitled"),
-    pointsLimit: Number(list.pointsLimit) || 0,
+    pointsLimit: finiteNumber(list.pointsLimit, 0),
     units: (Array.isArray(list.units) ? list.units : []).map((u) => ({
       unitId: String(u?.unitId ?? ""),
-      quantity: Math.max(1, Number(u?.quantity) || 1),
+      quantity: Math.max(1, finiteNumber(u?.quantity, 1)),
       upgrades: asStringArray(u?.upgrades),
       magicItems: asStringArray(u?.magicItems),
     })),
@@ -100,5 +105,6 @@ export function parseBackup(text: string): SavedList[] | null {
   if (file.kind !== BACKUP_KIND) return null;
   if (file.backupVersion !== BACKUP_VERSION) return null;
   if (!Array.isArray(file.lists)) return null;
-  return file.lists.map(sanitizeList).filter((l): l is SavedList => l != null);
+  const lists = file.lists.map(sanitizeList).filter((l): l is SavedList => l != null);
+  return new Set(lists.map((list) => list.id)).size === lists.length ? lists : null;
 }
