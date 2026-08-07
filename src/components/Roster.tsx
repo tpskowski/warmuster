@@ -4,7 +4,7 @@ import { getUnit, upgradesFor } from "../data/gameData";
 import { isHired } from "../data/mercenaries";
 import { armySizeMultiplier } from "../domain/armySize";
 import { hiredCount } from "../domain/hiring";
-import { entryPoints, entryStands, totalPoints } from "../domain/lists";
+import { breakPoint, entryPoints, entryStands, totalPoints } from "../domain/lists";
 import { getMagicItem, magicItemCost, type MagicItemData } from "../domain/magicItems";
 import SpecialRules, { UnitDetailsDialog } from "./SpecialRules";
 import UnitStats from "./UnitStats";
@@ -354,6 +354,9 @@ export default function Roster({
           onChange={(e) => onRename(e.target.value)}
           aria-label="List name"
         />
+        <span className="break-point" title="Half the army's non-character units, rounded up">
+          Breakpoint: <strong>{breakPoint(list)}</strong>
+        </span>
         <span className="roster-army-name">{army.name}</span>
         <label className="points-limit">
           <input

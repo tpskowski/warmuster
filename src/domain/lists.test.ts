@@ -5,6 +5,7 @@ import {
   addUnit,
   addUnitCopy,
   assignMagicItem,
+  breakPoint,
   countOf,
   createList,
   entryStands,
@@ -87,6 +88,17 @@ describe("list building", () => {
     list = addCharacter(list, "chaos:general"); // 125
     list = toggleCharacterUpgrade(list, list.characters[0].id, "chaos:chaos-dragon"); // +100
     expect(totalPoints(list, chaos)).toBe(365);
+  });
+
+  it("breaks at half the non-character units, rounded up", () => {
+    let list = freshList();
+    expect(breakPoint(list)).toBe(0);
+    for (let i = 0; i < 3; i++) list = addCharacter(list, "chaos:general");
+    expect(breakPoint(list)).toBe(0); // characters never count
+    for (let i = 0; i < 5; i++) list = addUnit(list, "chaos:chaos-warriors");
+    expect(breakPoint(list)).toBe(3);
+    for (let i = 0; i < 5; i++) list = addUnit(list, "chaos:ogres");
+    expect(breakPoint(list)).toBe(5);
   });
 
   it("removes a unit one at a time", () => {

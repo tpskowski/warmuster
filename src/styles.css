@@ -348,6 +348,11 @@ textarea {
   color: var(--text-muted);
 }
 
+.break-point {
+  font-family: var(--font-accent);
+  color: var(--text-muted);
+}
+
 .points-limit input {
   width: 70px;
 }
@@ -1578,6 +1583,34 @@ textarea {
   cursor: pointer;
 }
 
+.config-error {
+  margin: 8px 0 0;
+  color: var(--error);
+  font-size: 13px;
+}
+
+/* Whole-collection backup export/import, at the foot of the config dialog. */
+.backup-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* Keeps the file input reachable by keyboard and assistive tech while the
+   styled button in front of it does the clicking. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* Simplified view: hide the unit combat-stat lines on the builder page. The
    catalog keeps Size/Min/Max (list-building info); the "i" details dialog
    still shows full stats on demand. */
@@ -1758,4 +1791,11 @@ textarea {
 
 .markdown-content > :last-child {
   margin-bottom: 0;
+}
+
+.markdown-content code {
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: var(--bg-inset);
+  font-size: 0.9em;
 }

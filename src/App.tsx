@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useState } from "react";
+﻿import { useEffect, useMemo, useRef, useState } from "react";
 import Catalog from "./components/Catalog";
 import ConfigDialog from "./components/ConfigDialog";
 import ExportDialog from "./components/ExportDialog";
@@ -31,7 +31,13 @@ import {
   totalPoints,
 } from "./domain/lists";
 import { validateList } from "./domain/validation";
-import { deleteList, listsForRuleSet, loadLists, upsertList } from "./storage/listRepository";
+import {
+  deleteList,
+  listsForRuleSet,
+  loadLists,
+  replaceAllLists,
+  upsertList,
+} from "./storage/listRepository";
 import type { SavedList } from "./types";
 
 type Theme = "light" | "dark";
@@ -66,6 +72,7 @@ export default function App() {
   const [infoTopic, setInfoTopic] = useState<InfoTopic | null>(null);
   const [configOpen, setConfigOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false); // mobile list drawer
+  const restoreGeneration = useRef(0);
   // Active rule set: each set has its own saved lists. Persisted per browser.
   const [activeRuleSet, setActiveRuleSet] = useState<string>(() => {
     const stored = localStorage.getItem("warmuster.ruleSet");
@@ -115,8 +122,9 @@ export default function App() {
   useEffect(() => {
     const code = consumeShareHash();
     if (!code) return;
+    const generation = restoreGeneration.current;
     void decodeShareCode(code).then((imported) => {
-      if (!imported) return;
+      if (!imported || generation !== restoreGeneration.current) return;
       setLists((prev) => upsertList(prev, imported));
       // Show the set the imported list belongs to so it's visible in the rail.
       if (ruleSets.some((rs) => rs.id === imported.ruleSet)) setActiveRuleSet(imported.ruleSet);
@@ -165,6 +173,16 @@ export default function App() {
   const handleDelete = (id: string) => {
     setLists((prev) => deleteList(prev, id));
     if (activeListId === id) setActiveListId(null);
+  };
+
+  // Restoring a backup swaps in another browser's whole collection, so the
+  // list open at the time is gone unless the backup happens to carry it.
+  const handleReplaceAllLists = (imported: SavedList[]) => {
+    if (!replaceAllLists(imported)) return false;
+    restoreGeneration.current += 1;
+    setLists(imported);
+    if (!imported.some((l) => l.id === activeListId)) setActiveListId(null);
+    return true;
   };
 
   const handleSelectRuleSet = (id: string) => {
@@ -284,6 +302,8 @@ export default function App() {
           onSelectRuleSet={handleSelectRuleSet}
           simplifiedView={simplifiedView}
           onToggleSimplifiedView={setSimplifiedView}
+          lists={lists}
+          onReplaceAllLists={handleReplaceAllLists}
           onClose={() => setConfigOpen(false)}
         />
       )}
@@ -373,5 +393,3 @@ export default function App() {
     </div>
   );
 }
-
-

@@ -286,6 +286,13 @@ export function totalPoints(list: SavedList, army: ArmyData): number {
   return total;
 }
 
+/** The army's break point: half its units rounded up, counting only non-character
+ * units — Generals, Wizards and Heroes are excluded (rules p.82). */
+export function breakPoint(list: SavedList): number {
+  const units = list.units.reduce((sum, entry) => sum + entry.quantity, 0);
+  return Math.ceil(units / 2);
+}
+
 /** Total selected count of a unitId across all entries (units + characters). */
 export function countOf(list: SavedList, unitId: string): number {
   let count = 0;
