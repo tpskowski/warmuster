@@ -651,12 +651,16 @@ Characters and units should both be defined by quantity, however represent any u
 
 A backup is the browser's whole collection in one file — every saved list, from every rule set. Importing one *replaces* the collection rather than merging into it, so a backup taken on one computer restores onto another as an exact mirror. List `id`s are therefore preserved (unlike share codes, which regenerate ids because they add a single list to an existing collection).
 
+```json
 {
   "kind": "warmuster/backup",
   "backupVersion": 1,
   "exportedAt": "2026-08-06T12:00:00.000Z",
-  "lists": [ /* SavedList objects, exactly as above */ ]
+  "lists": []
 }
+```
+
+The `lists` array contains `SavedList` objects, exactly as described above.
 
 | Field           | Purpose                                                       |
 | --------------- | ------------------------------------------------------------- |
