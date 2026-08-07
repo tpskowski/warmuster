@@ -646,3 +646,23 @@ Characters and units should both be defined by quantity, however represent any u
 | `characters`    | Selected characters                   |
 | `notes`         | Optional user notes                   |
 | `allowMercenaries` | Whether the catalog offers Regiments of Renown for hire (optional; absent reads as off) |
+
+## Backup File Schema
+
+A backup is the browser's whole collection in one file — every saved list, from every rule set. Importing one *replaces* the collection rather than merging into it, so a backup taken on one computer restores onto another as an exact mirror. List `id`s are therefore preserved (unlike share codes, which regenerate ids because they add a single list to an existing collection).
+
+{
+  "kind": "warmuster/backup",
+  "backupVersion": 1,
+  "exportedAt": "2026-08-06T12:00:00.000Z",
+  "lists": [ /* SavedList objects, exactly as above */ ]
+}
+
+| Field           | Purpose                                                       |
+| --------------- | ------------------------------------------------------------- |
+| `kind`          | Marks the file as a Warmuster backup; anything else is rejected |
+| `backupVersion` | Version of the backup envelope; a file from a newer version is rejected rather than half-read |
+| `exportedAt`    | When the backup was taken (informational)                     |
+| `lists`         | Every saved list; an empty array is valid and clears the collection |
+
+Entries in `lists` that aren't recognisable saved lists are dropped and the rest still restore.

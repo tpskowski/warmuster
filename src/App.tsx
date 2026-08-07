@@ -31,7 +31,13 @@ import {
   totalPoints,
 } from "./domain/lists";
 import { validateList } from "./domain/validation";
-import { deleteList, listsForRuleSet, loadLists, upsertList } from "./storage/listRepository";
+import {
+  deleteList,
+  listsForRuleSet,
+  loadLists,
+  replaceAllLists,
+  upsertList,
+} from "./storage/listRepository";
 import type { SavedList } from "./types";
 
 type Theme = "light" | "dark";
@@ -167,6 +173,13 @@ export default function App() {
     if (activeListId === id) setActiveListId(null);
   };
 
+  // Restoring a backup swaps in another browser's whole collection, so the
+  // list open at the time is gone unless the backup happens to carry it.
+  const handleReplaceAllLists = (imported: SavedList[]) => {
+    setLists(replaceAllLists(imported));
+    if (!imported.some((l) => l.id === activeListId)) setActiveListId(null);
+  };
+
   const handleSelectRuleSet = (id: string) => {
     if (id === activeRuleSet) return;
     setActiveRuleSet(id);
@@ -284,6 +297,8 @@ export default function App() {
           onSelectRuleSet={handleSelectRuleSet}
           simplifiedView={simplifiedView}
           onToggleSimplifiedView={setSimplifiedView}
+          lists={lists}
+          onReplaceAllLists={handleReplaceAllLists}
           onClose={() => setConfigOpen(false)}
         />
       )}

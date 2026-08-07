@@ -44,6 +44,13 @@ export function deleteList(lists: SavedList[], id: string): SavedList[] {
   return next;
 }
 
+/** Replace the whole collection — used by backup import, which mirrors another
+ * browser's lists rather than merging into these. */
+export function replaceAllLists(lists: SavedList[]): SavedList[] {
+  saveLists(lists);
+  return lists;
+}
+
 /** Saved lists belong to the rule set they were built against; the rail shows
  * only the active rule set's lists so each set has its own workspace. */
 export function listsForRuleSet(lists: SavedList[], ruleSet: string): SavedList[] {
