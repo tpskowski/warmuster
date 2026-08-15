@@ -2,6 +2,7 @@
 - **Folders** in the list rail. Make one with "New folder", then drag lists into it; drag lists and folders to reorder them. Deleting a folder deletes the lists inside it, so it asks first.
 - Rename a folder from the pencil button on its row, or by double-clicking its name.
 - A list opened from a share link is filed under **Imports**, creating that folder the first time.
+- Choose a default folder for shared-list imports under Configuration, or leave them unfiled. This setting is separate for each rule set.
 - Backups carry your folders: exporting and importing on another computer reproduces the same organisation.
 
 ## 0.7.0 2026-08-06

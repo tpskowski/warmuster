@@ -38,4 +38,13 @@ describe("Catalog", () => {
     renderCatalog("warmaster-revolution");
     expect(screen.queryByRole("heading", { name: "Custom Characters" })).toBeNull();
   });
+
+  it("displays flat and per-1000 maximums at their correct 2000-point values", () => {
+    renderCatalog("warmaster-custom");
+
+    const fixedCapRow = screen.getByText("Dramar Thungnisson", { exact: true }).closest("li")!;
+    const scaledCapRow = screen.getByText("Ram Riders", { exact: true }).closest("li")!;
+    expect(fixedCapRow).toHaveTextContent("Min/Max -/1");
+    expect(scaledCapRow).toHaveTextContent("Min/Max -/4");
+  });
 });

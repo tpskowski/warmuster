@@ -17,11 +17,13 @@ import { getArmy, ruleSets } from "./data/gameData";
 import {
   createFolder,
   deleteFolder,
-  ensureImportsFolder,
   foldersForRuleSet,
+  normalizeImportFolderTarget,
   moveFolder,
   moveList,
   renameFolder,
+  resolveImportFolder,
+  type ImportFolderTarget,
 } from "./domain/folders";
 import {
   addCharacter,
@@ -41,6 +43,11 @@ import {
 } from "./domain/lists";
 import { validateList } from "./domain/validation";
 import { loadFolders, saveFolders } from "./storage/folderRepository";
+import {
+  importFolderPreference,
+  loadImportFolderPreferences,
+  saveImportFolderPreferences,
+} from "./storage/importFolderRepository";
 import {
   deleteList,
   listsForRuleSet,
@@ -78,6 +85,10 @@ export default function App() {
   // Mirrors `folders` so the share import, which resolves after its effect's
   // closure was captured, always reads the current folders.
   const foldersRef = useRef(folders);
+  const [importFolderPreferences, setImportFolderPreferences] = useState(() =>
+    loadImportFolderPreferences(),
+  );
+  const importFolderPreferencesRef = useRef(importFolderPreferences);
   const [activeListId, setActiveListId] = useState<string | null>(null);
   const [theme, setTheme] = useState<Theme>(() => initialTheme());
   const [exportOpen, setExportOpen] = useState(false);
@@ -147,12 +158,11 @@ export default function App() {
     const generation = restoreGeneration.current;
     void decodeShareCode(code).then((imported) => {
       if (!imported || generation !== restoreGeneration.current) return;
-      // Imported lists are filed under "Imports" rather than dropped in with
-      // the user's own, so a shared list is easy to find again.
       const current = foldersRef.current;
-      const { folders: next, folder } = ensureImportsFolder(current, imported.ruleSet);
+      const target = importFolderPreference(importFolderPreferencesRef.current, imported.ruleSet);
+      const { folders: next, folderId } = resolveImportFolder(current, imported.ruleSet, target);
       if (next !== current) updateFolders(next);
-      setLists((prev) => upsertList(prev, { ...imported, folderId: folder.id }));
+      setLists((prev) => upsertList(prev, { ...imported, folderId }));
       // Show the set the imported list belongs to so it's visible in the rail.
       if (ruleSets.some((rs) => rs.id === imported.ruleSet)) setActiveRuleSet(imported.ruleSet);
       setActiveListId(imported.id);
@@ -222,12 +232,11 @@ export default function App() {
     if (!next.lists.some((l) => l.id === activeListId)) setActiveListId(null);
   };
 
-  const handleMoveList = (listId: string, folderId: string | null, index: number) =>
-    setLists((prev) => {
-      const next = moveList(prev, listId, folderId, index);
-      saveLists(next);
-      return next;
-    });
+  const handleMoveList = (listId: string, folderId: string | null, index: number) => {
+    const next = moveList(lists, listId, folderId, index);
+    setLists(next);
+    saveLists(next);
+  };
 
   const handleMoveFolder = (folderId: string, index: number) =>
     updateFolders(moveFolder(folders, folderId, index));
@@ -248,6 +257,13 @@ export default function App() {
     setActiveRuleSet(id);
     // The active list belongs to the previous set; drop back to Home.
     setActiveListId(null);
+  };
+
+  const handleSelectImportFolder = (target: ImportFolderTarget) => {
+    const next = { ...importFolderPreferencesRef.current, [activeRuleSet]: target };
+    importFolderPreferencesRef.current = next;
+    saveImportFolderPreferences(next);
+    setImportFolderPreferences(next);
   };
 
   const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
@@ -368,6 +384,12 @@ export default function App() {
           onToggleSimplifiedView={setSimplifiedView}
           lists={lists}
           folders={folders}
+          importFolderTarget={normalizeImportFolderTarget(
+            folders,
+            activeRuleSet,
+            importFolderPreference(importFolderPreferences, activeRuleSet),
+          )}
+          onSelectImportFolder={handleSelectImportFolder}
           onReplaceAll={handleReplaceAll}
           onClose={() => setConfigOpen(false)}
         />

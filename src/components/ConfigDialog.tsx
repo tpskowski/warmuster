@@ -1,6 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import type { Folder, RuleSetInfo, SavedList } from "../types";
 import { backupFileName, parseBackup, serializeBackup, type BackupContents } from "../domain/backup";
+import {
+  folderImportTarget,
+  foldersForRuleSet,
+  IMPORTS_FOLDER_NAME,
+  IMPORTS_FOLDER_TARGET,
+  NO_IMPORT_FOLDER_TARGET,
+  type ImportFolderTarget,
+} from "../domain/folders";
 
 interface ConfigDialogProps {
   ruleSets: RuleSetInfo[];
@@ -12,6 +20,8 @@ interface ConfigDialogProps {
   lists: SavedList[];
   /** Every folder in this browser, across all rule sets. */
   folders: Folder[];
+  importFolderTarget: ImportFolderTarget;
+  onSelectImportFolder: (target: ImportFolderTarget) => void;
   onReplaceAll: (lists: SavedList[], folders: Folder[]) => boolean;
   onClose: () => void;
 }
@@ -38,6 +48,8 @@ export default function ConfigDialog({
   onToggleSimplifiedView,
   lists,
   folders,
+  importFolderTarget,
+  onSelectImportFolder,
   onReplaceAll,
   onClose,
 }: ConfigDialogProps) {
@@ -45,6 +57,9 @@ export default function ConfigDialog({
   const [pending, setPending] = useState<PendingImport | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [imported, setImported] = useState(false);
+  const importFolderOptions = foldersForRuleSet(folders, activeRuleSet).filter(
+    (folder) => folder.name.trim().toLowerCase() !== IMPORTS_FOLDER_NAME.toLowerCase(),
+  );
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -104,6 +119,25 @@ export default function ConfigDialog({
         </label>
         <p className="config-hint">
           Each rule set keeps its own saved lists. Switching shows the lists for that set.
+        </p>
+        <label className="config-field">
+          <span>Default import folder</span>
+          <select
+            value={importFolderTarget}
+            onChange={(event) => onSelectImportFolder(event.target.value as ImportFolderTarget)}
+            aria-label="Default import folder"
+          >
+            <option value={IMPORTS_FOLDER_TARGET}>{IMPORTS_FOLDER_NAME}</option>
+            <option value={NO_IMPORT_FOLDER_TARGET}>No folder</option>
+            {importFolderOptions.map((folder) => (
+              <option key={folder.id} value={folderImportTarget(folder.id)}>
+                {folder.name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <p className="config-hint">
+          Shared lists are filed here. The Imports folder is created only when first needed.
         </p>
         <label className="config-toggle">
           <input

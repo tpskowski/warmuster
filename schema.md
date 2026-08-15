@@ -653,14 +653,12 @@ Characters and units should both be defined by quantity, however represent any u
 
 Folders organise the list rail. They hold no lists themselves — a list names its folder through `folderId` — and they belong to a rule set, like the lists they hold, so each rule set keeps its own organisation. Folders are saved in their own localStorage key (`warmuster.folders.v1`), separate from the lists.
 
-```json
-{
-  "id": "folder-8fq2k1xa",
-  "ruleSet": "warmaster-revolution",
-  "name": "Tournament",
-  "sortIndex": 0
-}
-```
+    {
+      "id": "folder-8fq2k1xa",
+      "ruleSet": "warmaster-revolution",
+      "name": "Tournament",
+      "sortIndex": 0
+    }
 
 | Field       | Purpose                                                        |
 | ----------- | -------------------------------------------------------------- |
@@ -675,15 +673,13 @@ Deleting a folder deletes the lists filed under it. A list whose folder is missi
 
 A backup is the browser's whole collection in one file — every saved list, from every rule set, plus the folders they are filed under. Importing one *replaces* the collection rather than merging into it, so a backup taken on one computer restores onto another as an exact mirror. List and folder `id`s are therefore preserved (unlike share codes, which regenerate ids because they add a single list to an existing collection).
 
-```json
-{
-  "kind": "warmuster/backup",
-  "backupVersion": 1,
-  "exportedAt": "2026-08-06T12:00:00.000Z",
-  "lists": [],
-  "folders": []
-}
-```
+    {
+      "kind": "warmuster/backup",
+      "backupVersion": 1,
+      "exportedAt": "2026-08-06T12:00:00.000Z",
+      "lists": [],
+      "folders": []
+    }
 
 The `lists` array contains `SavedList` objects and the `folders` array `Folder` objects, exactly as described above. `folders` is absent from backups taken before folders existed; those restore as a flat collection.
 

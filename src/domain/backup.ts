@@ -138,12 +138,12 @@ export function parseBackup(text: string): BackupContents | null {
     .map(sanitizeFolder)
     .filter((f): f is Folder => f != null);
   if (new Set(folders.map((folder) => folder.id)).size !== folders.length) return null;
-  // A list filed under a folder the backup doesn't carry restores at the top
-  // level rather than vanishing into a folder that isn't there.
-  const known = new Set(folders.map((folder) => folder.id));
+  // A list filed under a missing folder, or one owned by another rule set,
+  // restores at the top level rather than disappearing into that folder.
+  const folderRuleSets = new Map(folders.map((folder) => [folder.id, folder.ruleSet]));
   return {
     lists: lists.map((list) =>
-      list.folderId != null && !known.has(list.folderId)
+      list.folderId != null && folderRuleSets.get(list.folderId) !== list.ruleSet
         ? { ...list, folderId: null }
         : list,
     ),

@@ -6,9 +6,31 @@ import { createId } from "./lists";
 // within a folder — is an explicit `sortIndex` so a drag can be persisted
 // without rewriting the whole collection's storage order.
 
-/** Shared lists are dropped in here on import, so one never lands unnoticed
+/** Default destination for shared-list imports, so one never lands unnoticed
  * among the user's own lists. Created on the first import that needs it. */
 export const IMPORTS_FOLDER_NAME = "Imports";
+export const IMPORTS_FOLDER_TARGET = "imports" as const;
+export const NO_IMPORT_FOLDER_TARGET = "none" as const;
+const FOLDER_TARGET_PREFIX = "folder:";
+
+export type ImportFolderTarget =
+  | typeof IMPORTS_FOLDER_TARGET
+  | typeof NO_IMPORT_FOLDER_TARGET
+  | `folder:${string}`;
+
+export function folderImportTarget(folderId: string): ImportFolderTarget {
+  return `${FOLDER_TARGET_PREFIX}${folderId}`;
+}
+
+export function isImportFolderTarget(value: unknown): value is ImportFolderTarget {
+  return (
+    value === IMPORTS_FOLDER_TARGET ||
+    value === NO_IMPORT_FOLDER_TARGET ||
+    (typeof value === "string" &&
+      value.startsWith(FOLDER_TARGET_PREFIX) &&
+      value.length > FOLDER_TARGET_PREFIX.length)
+  );
+}
 
 /** Sort by explicit position, keeping items saved before folders existed (no
  * sortIndex) last. Array#sort is stable, so those keep their saved order. */
@@ -43,7 +65,7 @@ export function topLevelLists(
   ruleSet: string,
   folders: Folder[],
 ): SavedList[] {
-  const known = new Set(folders.map((f) => f.id));
+  const known = new Set(folders.filter((f) => f.ruleSet === ruleSet).map((f) => f.id));
   return lists
     .filter((l) => l.ruleSet === ruleSet && !(l.folderId != null && known.has(l.folderId)))
     .sort(byPosition);
@@ -73,6 +95,44 @@ export function ensureImportsFolder(
   return { folders: [...folders, folder], folder };
 }
 
+/** Resolve the configured destination for a shared-list import. A missing or
+ * stale selected folder falls back to Imports, which is created only when the
+ * import actually occurs. */
+export function resolveImportFolder(
+  folders: Folder[],
+  ruleSet: string,
+  target: ImportFolderTarget,
+): { folders: Folder[]; folderId: string | null } {
+  if (target === NO_IMPORT_FOLDER_TARGET) return { folders, folderId: null };
+  if (target.startsWith(FOLDER_TARGET_PREFIX)) {
+    const folderId = target.slice(FOLDER_TARGET_PREFIX.length);
+    const folder = folders.find(
+      (candidate) => candidate.id === folderId && candidate.ruleSet === ruleSet,
+    );
+    if (folder) return { folders, folderId };
+  }
+  const result = ensureImportsFolder(folders, ruleSet);
+  return { folders: result.folders, folderId: result.folder.id };
+}
+
+/** Keep a select value valid after a chosen folder is renamed or deleted.
+ * Imports itself is represented by the permanent special option. */
+export function normalizeImportFolderTarget(
+  folders: Folder[],
+  ruleSet: string,
+  target: ImportFolderTarget,
+): ImportFolderTarget {
+  if (target === IMPORTS_FOLDER_TARGET || target === NO_IMPORT_FOLDER_TARGET) return target;
+  const folderId = target.slice(FOLDER_TARGET_PREFIX.length);
+  const folder = folders.find(
+    (candidate) => candidate.id === folderId && candidate.ruleSet === ruleSet,
+  );
+  if (!folder || folder.name.trim().toLowerCase() === IMPORTS_FOLDER_NAME.toLowerCase()) {
+    return IMPORTS_FOLDER_TARGET;
+  }
+  return target;
+}
+
 /** Rename a folder. A blank name is ignored, so an empty box on the way to a
  * new name never leaves a nameless folder behind. */
 export function renameFolder(folders: Folder[], folderId: string, name: string): Folder[] {
@@ -87,9 +147,15 @@ export function deleteFolder(
   lists: SavedList[],
   folderId: string,
 ): { folders: Folder[]; lists: SavedList[] } {
+  const folder = folders.find((f) => f.id === folderId);
   return {
     folders: folders.filter((f) => f.id !== folderId),
-    lists: lists.filter((l) => (l.folderId ?? null) !== folderId),
+    lists:
+      folder == null
+        ? lists
+        : lists.filter(
+            (l) => !((l.folderId ?? null) === folderId && l.ruleSet === folder.ruleSet),
+          ),
   };
 }
 

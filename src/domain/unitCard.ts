@@ -186,7 +186,10 @@ export function cardDiagram(unit: UnitData, extraStands = 0): CardDiagram {
   if (unit.category === "character") {
     // Standard characters remain round. Custom characters can explicitly opt
     // into a rectangular long- or short-facing base.
-    if (unit.ruleSet === "warmaster-custom" && unit.facing !== "round") {
+    if (
+      unit.ruleSet === "warmaster-custom" &&
+      (unit.facing === "long" || unit.facing === "short")
+    ) {
       return {
         kind: "rects",
         count: 1,

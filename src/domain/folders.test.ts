@@ -2,14 +2,19 @@ import { describe, expect, it } from "vitest";
 import type { Folder, SavedList } from "../types";
 import {
   IMPORTS_FOLDER_NAME,
+  IMPORTS_FOLDER_TARGET,
+  NO_IMPORT_FOLDER_TARGET,
   createFolder,
   deleteFolder,
   ensureImportsFolder,
+  folderImportTarget,
   foldersForRuleSet,
   listsInFolder,
   moveFolder,
   moveList,
+  normalizeImportFolderTarget,
   renameFolder,
+  resolveImportFolder,
   topLevelLists,
 } from "./folders";
 
@@ -63,6 +68,65 @@ describe("ensureImportsFolder", () => {
   });
 });
 
+describe("resolveImportFolder", () => {
+  it("defaults to a lazily-created Imports folder", () => {
+    const result = resolveImportFolder([], RULE_SET, IMPORTS_FOLDER_TARGET);
+    expect(result.folders).toHaveLength(1);
+    expect(result.folders[0]).toMatchObject({
+      id: result.folderId,
+      name: IMPORTS_FOLDER_NAME,
+      ruleSet: RULE_SET,
+    });
+  });
+
+  it("can leave imported lists outside folders", () => {
+    expect(resolveImportFolder([], RULE_SET, NO_IMPORT_FOLDER_TARGET)).toEqual({
+      folders: [],
+      folderId: null,
+    });
+  });
+
+  it("uses an existing folder owned by the imported list's rule set", () => {
+    const existing = folder("events", 0);
+    expect(resolveImportFolder([existing], RULE_SET, folderImportTarget(existing.id))).toEqual({
+      folders: [existing],
+      folderId: existing.id,
+    });
+  });
+
+  it("falls back to Imports for a stale or cross-rule-set folder selection", () => {
+    const other = folder("events", 0, "warmaster-custom");
+    const result = resolveImportFolder([other], RULE_SET, folderImportTarget(other.id));
+    expect(result.folderId).not.toBe(other.id);
+    expect(result.folders.find((candidate) => candidate.id === result.folderId)).toMatchObject({
+      name: IMPORTS_FOLDER_NAME,
+      ruleSet: RULE_SET,
+    });
+  });
+});
+
+describe("normalizeImportFolderTarget", () => {
+  it("keeps special and valid existing-folder selections", () => {
+    const existing = folder("events", 0);
+    expect(normalizeImportFolderTarget([existing], RULE_SET, NO_IMPORT_FOLDER_TARGET)).toBe(
+      NO_IMPORT_FOLDER_TARGET,
+    );
+    expect(
+      normalizeImportFolderTarget([existing], RULE_SET, folderImportTarget(existing.id)),
+    ).toBe(folderImportTarget(existing.id));
+  });
+
+  it("shows the special Imports option for missing folders and an existing Imports folder", () => {
+    const imports = { ...folder("imports", 0), name: IMPORTS_FOLDER_NAME };
+    expect(normalizeImportFolderTarget([], RULE_SET, folderImportTarget("gone"))).toBe(
+      IMPORTS_FOLDER_TARGET,
+    );
+    expect(normalizeImportFolderTarget([imports], RULE_SET, folderImportTarget(imports.id))).toBe(
+      IMPORTS_FOLDER_TARGET,
+    );
+  });
+});
+
 describe("listsInFolder / topLevelLists", () => {
   const folders = [folder("f1", 0)];
   const lists = [
@@ -79,6 +143,13 @@ describe("listsInFolder / topLevelLists", () => {
 
   it("shows lists in no folder, and orphans, at the top level", () => {
     expect(topLevelLists(lists, RULE_SET, folders).map((l) => l.id)).toEqual(["orphan", "a"]);
+  });
+
+  it("treats a folder owned by another rule set as missing", () => {
+    const crossRuleSetFolder = folder("shared", 0, "warmaster-custom");
+    expect(topLevelLists([list("cross", "shared")], RULE_SET, [crossRuleSetFolder])).toEqual([
+      list("cross", "shared"),
+    ]);
   });
 
   it("sorts lists saved before folders existed last, in saved order", () => {
@@ -167,5 +238,17 @@ describe("deleteFolder", () => {
     const result = deleteFolder(folders, lists, "f1");
     expect(result.folders.map((f) => f.id)).toEqual(["f2"]);
     expect(result.lists.map((l) => l.id)).toEqual(["b", "c"]);
+  });
+
+  it("does not delete a cross-rule-set list that references the same folder id", () => {
+    const folders = [folder("shared", 0)];
+    const own = list("own", "shared");
+    const crossRuleSet = {
+      ...list("cross", "shared"),
+      ruleSet: "warmaster-custom",
+    } as SavedList;
+
+    const result = deleteFolder(folders, [own, crossRuleSet], "shared");
+    expect(result.lists).toEqual([crossRuleSet]);
   });
 });

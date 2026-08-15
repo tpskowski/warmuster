@@ -248,7 +248,7 @@ export function applyCustomUnits(custom: RuleSetInfo, base: RuleSetInfo): void {
       troop: "Roknar Gromdal",
       specialName: "Break the Winds of Magic",
       specials: [
-        "If an enemy Wizard who is within 50cm of the Roknar casts a spell the he can attempt to anti-magic it. To determine if this works roll a D6 - on the score of 3+ the Roknar has succeeded and the spell is dispelled by the Roknar's defiant efforts. If he fails then the spell works as normal. Roknar can attempt to anti-magic any number of spells in a turn.",
+        "If an enemy Wizard who is within 50cm of the Roknar casts a spell then he can attempt to anti-magic it. To determine if this works roll a D6 - on the score of 3+ the Roknar has succeeded and the spell is dispelled by the Roknar's defiant efforts. If he fails then the spell works as normal. Roknar can attempt to anti-magic any number of spells in a turn.",
       ],
     }),
   );

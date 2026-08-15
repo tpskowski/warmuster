@@ -217,7 +217,7 @@ body {
   width: 15px;
   height: 15px;
   fill: none;
-  stroke: currentColor;
+  stroke: currentcolor;
   stroke-width: 1.8;
   stroke-linejoin: round;
   color: var(--gold);
@@ -228,7 +228,7 @@ body {
   flex: none;
   width: 0;
   height: 0;
-  border-left: 5px solid currentColor;
+  border-left: 5px solid currentcolor;
   border-top: 4px solid transparent;
   border-bottom: 4px solid transparent;
   color: var(--text-muted);
@@ -357,7 +357,7 @@ body {
 
 /* Row actions stay out of the way until the row is hovered or focused. */
 .rail-row-action {
-  visibility: hidden;
+  opacity: 0;
   flex: none;
 }
 
@@ -365,7 +365,7 @@ body {
   width: 13px;
   height: 13px;
   fill: none;
-  stroke: currentColor;
+  stroke: currentcolor;
   stroke-width: 1.8;
   stroke-linejoin: round;
 }
@@ -373,13 +373,13 @@ body {
 .rail-lists li:hover .rail-row-action,
 .rail-folder-row:hover .rail-row-action,
 .rail-row-action:focus-visible {
-  visibility: visible;
+  opacity: 1;
 }
 
 /* Touch has no hover to reveal them with. */
 @media (hover: none) {
   .rail-row-action {
-    visibility: visible;
+    opacity: 1;
   }
 }
 
@@ -1560,7 +1560,7 @@ textarea {
   width: 22px;
   height: 22px;
   fill: none;
-  stroke: currentColor;
+  stroke: currentcolor;
   stroke-width: 2;
   stroke-linecap: round;
 }
@@ -1863,7 +1863,7 @@ textarea {
   width: 18px;
   height: 18px;
   fill: none;
-  stroke: currentColor;
+  stroke: currentcolor;
   stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -1938,7 +1938,7 @@ textarea {
 
 .facing-icon {
   display: inline-block;
-  border: 2px solid currentColor;
+  border: 2px solid currentcolor;
   color: var(--text);
   vertical-align: middle;
 }

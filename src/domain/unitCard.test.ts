@@ -310,6 +310,9 @@ describe("unit cards", () => {
       count: 1,
       orientation: "vertical",
     });
+    expect(buildCard(unit(customDwarfs, "Dramar Thungnisson")).diagram.kind).toBe("circle");
+    expect(buildCard({ ...unit(customDwarfs, "Dramar Thungnisson"), facing: null }).diagram.kind)
+      .toBe("circle");
   });
 
   const ruleText = (u: Parameters<typeof buildCard>[0]) =>

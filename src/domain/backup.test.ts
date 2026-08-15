@@ -55,6 +55,14 @@ describe("backup", () => {
     expect(parseBackup(JSON.stringify(file))!.lists[0].folderId).toBeNull();
   });
 
+  it("clears a folder reference owned by another rule set", () => {
+    const folder = createFolder([], "warmaster-custom", "Custom lists");
+    const [list] = sampleLists();
+    const file = serializeBackup([{ ...list, folderId: folder.id }], [folder]);
+
+    expect(parseBackup(file)!.lists[0].folderId).toBeNull();
+  });
+
   it("rejects files that aren't Warmuster backups", () => {
     expect(parseBackup("not json")).toBeNull();
     expect(parseBackup("[]")).toBeNull();
