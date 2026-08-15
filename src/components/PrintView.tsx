@@ -8,6 +8,7 @@ import {
   buildChartCard,
   buildMagicItemCard,
   buildSpellCard,
+  splitRuleHeading,
   statColumns,
   FIT_LEVELS,
   type CardModel,
@@ -152,9 +153,15 @@ export function PrintList({ list, army }: { list: SavedList; army: ArmyData }) {
                 {unit.troop}
                 {unit.specialName && unit.specialName !== unit.troop ? ` — ${unit.specialName}` : ""}
               </h3>
-              {unit.specials.map((text, i) => (
-                <p key={i}>{text}</p>
-              ))}
+              {unit.specials.map((text, i) => {
+                const rule = splitRuleHeading(text);
+                return (
+                  <p key={i}>
+                    {rule.title && <strong>{rule.title}: </strong>}
+                    {rule.text}
+                  </p>
+                );
+              })}
             </div>
           ))}
         </section>
@@ -417,4 +424,3 @@ export default function PrintView({
     </div>
   );
 }
-

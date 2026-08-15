@@ -31,6 +31,14 @@ export interface CardRule {
   text: string;
 }
 
+/** Split an inline Markdown-style rule heading from its body so named custom
+ * rules render consistently in dialogs, print views and unit cards. */
+export function splitRuleHeading(text: string): CardRule {
+  const match = text.match(/^\*\*([^*]+?)\*\*\s*:?[ \t]*(.*)$/s);
+  if (!match) return { title: null, text };
+  return { title: match[1].trim().replace(/:$/, ""), text: match[2] };
+}
+
 export interface CardModel {
   unitId: string;
   name: string;
@@ -175,7 +183,18 @@ export function cardRules(unit: UnitData): string[] {
  * Skinks, Skirmishers joining Halberdiers), so the diagram shows the unit at
  * its actual strength. */
 export function cardDiagram(unit: UnitData, extraStands = 0): CardDiagram {
-  if (unit.category === "character") return { kind: "circle", count: 1, orientation: "horizontal" };
+  if (unit.category === "character") {
+    // Standard characters remain round. Custom characters can explicitly opt
+    // into a rectangular long- or short-facing base.
+    if (unit.ruleSet === "warmaster-custom" && unit.facing !== "round") {
+      return {
+        kind: "rects",
+        count: 1,
+        orientation: unit.facing === "long" ? "vertical" : "horizontal",
+      };
+    }
+    return { kind: "circle", count: 1, orientation: "horizontal" };
+  }
   if (unit.category === "upgrade") return { kind: "none", count: 0, orientation: "horizontal" };
   // A modifier changes another unit's size; it is not a stand count itself.
   const count = (unit.unitSize ?? 0) + extraStands;
@@ -492,7 +511,19 @@ export function buildCard(
   items: MagicItemData[] = [],
   upgrades: UnitData[] = [],
 ): CardModel {
-  const ownRules = cardRules(unit).map((text) => ({ title: null, text }));
+  const ownRules = cardRules(unit).map(splitRuleHeading);
+  // Custom units may carry a single normalized rule heading in `specialName`.
+  // Keep standard ruleset cards exactly as they were, and do not duplicate an
+  // inline heading or a name that is identical to the troop name.
+  if (
+    unit.ruleSet === "warmaster-custom" &&
+    unit.specialName &&
+    unit.specialName !== unit.troop &&
+    ownRules[0] &&
+    ownRules[0].title == null
+  ) {
+    ownRules[0] = { ...ownRules[0], title: unit.specialName };
+  }
   const upgradeRules = upgrades.map(upgradeRule);
   const itemRules = items.map((item) => ({ title: item.name, text: item.text }));
   // On a character card the mount leads: a character with very long rules
@@ -567,4 +598,3 @@ export function buildSpellCard(spell: SpellData): CardModel {
     { kind: "none", count: 0, orientation: "horizontal" },
   );
 }
-

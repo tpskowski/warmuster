@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { cardRules } from "../domain/unitCard";
+import { cardRules, splitRuleHeading } from "../domain/unitCard";
 import type { UnitData } from "../types";
 import { minMaxLabel, pointsLabel, signedLabel, unitStatRows } from "./UnitStats";
 import { FacingIcon } from "./Icons";
@@ -67,7 +67,15 @@ export function UnitDetailsDialog({
         <div className="info-body unit-detail-rules">
           <h3>Rules</h3>
           {rules.length > 0 ? (
-            rules.map((text, index) => <p key={index}>{text}</p>)
+            rules.map((text, index) => {
+              const rule = splitRuleHeading(text);
+              return (
+                <p key={index}>
+                  {rule.title && <strong>{rule.title}: </strong>}
+                  {rule.text}
+                </p>
+              );
+            })
           ) : (
             <p>No special rules listed for this unit.</p>
           )}

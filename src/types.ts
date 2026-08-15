@@ -150,6 +150,22 @@ export interface SavedList {
   /** Whether the catalog offers Regiments of Renown for hire. Absent on lists
    * saved before mercenaries existed, which reads as off. */
   allowMercenaries?: boolean;
+  /** The folder holding this list. Null — or absent, on lists saved before
+   * folders existed — means it sits at the rail's top level. */
+  folderId?: string | null;
+  /** Position among its siblings (the lists in the same folder). Absent until
+   * the list has been dragged into place; those sort last, in saved order. */
+  sortIndex?: number;
+}
+
+/** A folder in the list rail. Folders belong to a rule set, like the lists
+ * they hold, so each rule set keeps its own organisation. */
+export interface Folder {
+  id: string;
+  ruleSet: string;
+  name: string;
+  /** Position among the rule set's folders. */
+  sortIndex: number;
 }
 
 export interface ValidationIssue {

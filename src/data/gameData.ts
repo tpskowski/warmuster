@@ -9,14 +9,14 @@ const revolution = warmasterRevolution as RuleSetInfo;
 // them too.
 applyMercenaries(revolution);
 
-// "Warmaster (Custom)" begins as an independent, deep copy of Warmaster
+// "A Matter of Mustaches" begins as an independent, deep copy of Warmaster
 // Revolution so its data can be customised without affecting the base set,
 // then gains its own extra units. A saved list records which rule set it was
 // built against.
 const warmasterCustom: RuleSetInfo = {
   ...structuredClone(revolution),
   id: "warmaster-custom",
-  name: "Warmaster (Custom)",
+  name: "A Matter of Mustaches",
 };
 applyCustomUnits(warmasterCustom, revolution);
 
