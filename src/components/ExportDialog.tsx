@@ -13,16 +13,18 @@ interface ExportDialogProps {
 
 export default function ExportDialog({ list, army, onClose, onPrint }: ExportDialogProps) {
   const [copied, setCopied] = useState(false);
-  const [shareCopied, setShareCopied] = useState(false);
+  const [copiedLink, setCopiedLink] = useState<"sharable" | "discord" | null>(null);
 
   const text = buildTextExport(list, army);
 
-  const copyShareLink = async () => {
+  const copyShareLink = async (format: "sharable" | "discord") => {
     try {
       const url = await buildShareUrl(list);
-      await navigator.clipboard.writeText(url);
-      setShareCopied(true);
-      setTimeout(() => setShareCopied(false), 1500);
+      const listName = list.name.replace(/\s+/g, " ").trim();
+      const label = `Warmuster - ${listName}`.replace(/([\\\[\]])/g, "\\$1");
+      await navigator.clipboard.writeText(format === "discord" ? `[${label}](${url})` : url);
+      setCopiedLink(format);
+      setTimeout(() => setCopiedLink(null), 1500);
     } catch {
       // Clipboard unavailable.
     }
@@ -62,8 +64,21 @@ export default function ExportDialog({ list, army, onClose, onPrint }: ExportDia
           <button type="button" className="primary-btn" onClick={() => onPrint("cards")}>
             🖨 Print unit cards
           </button>
-          <button type="button" className="primary-btn" onClick={copyShareLink}>
-            {shareCopied ? "Link copied!" : "🔗 Copy share link"}
+          <button
+            type="button"
+            className="primary-btn"
+            aria-label="Copy sharable link"
+            onClick={() => copyShareLink("sharable")}
+          >
+            {copiedLink === "sharable" ? "Link copied!" : "🔗 Copy sharable link"}
+          </button>
+          <button
+            type="button"
+            className="primary-btn"
+            aria-label="Copy Discord link"
+            onClick={() => copyShareLink("discord")}
+          >
+            {copiedLink === "discord" ? "Link copied!" : "🔗 Copy Discord link"}
           </button>
         </div>
         <h3 className="panel-heading">Text for Discord &amp; co.</h3>

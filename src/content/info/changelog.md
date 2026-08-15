@@ -3,6 +3,7 @@
 - Rename a folder from the pencil button on its row, or by double-clicking its name.
 - A list opened from a share link is filed under **Imports**, creating that folder the first time.
 - Choose a default folder for shared-list imports under Configuration, or leave them unfiled. This setting is separate for each rule set.
+- Export can copy either a full sharable URL or a shorter Discord link labeled with the list name.
 - Backups carry your folders: exporting and importing on another computer reproduces the same organisation.
 
 ## 0.7.0 2026-08-06
