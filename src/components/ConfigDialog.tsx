@@ -1,6 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import type { RuleSetInfo, SavedList } from "../types";
-import { backupFileName, parseBackup, serializeBackup } from "../domain/backup";
+import type { Folder, RuleSetInfo, SavedList } from "../types";
+import { backupFileName, parseBackup, serializeBackup, type BackupContents } from "../domain/backup";
+import {
+  folderImportTarget,
+  foldersForRuleSet,
+  IMPORTS_FOLDER_NAME,
+  IMPORTS_FOLDER_TARGET,
+  NO_IMPORT_FOLDER_TARGET,
+  type ImportFolderTarget,
+} from "../domain/folders";
 
 interface ConfigDialogProps {
   ruleSets: RuleSetInfo[];
@@ -10,7 +18,11 @@ interface ConfigDialogProps {
   onToggleSimplifiedView: (value: boolean) => void;
   /** Every saved list in this browser, across all rule sets. */
   lists: SavedList[];
-  onReplaceAllLists: (lists: SavedList[]) => boolean;
+  /** Every folder in this browser, across all rule sets. */
+  folders: Folder[];
+  importFolderTarget: ImportFolderTarget;
+  onSelectImportFolder: (target: ImportFolderTarget) => void;
+  onReplaceAll: (lists: SavedList[], folders: Folder[]) => boolean;
   onClose: () => void;
 }
 
@@ -24,7 +36,7 @@ function downloadFile(name: string, text: string) {
 }
 
 /** A parsed backup waiting for the user to confirm the replace. */
-type PendingImport = { fileName: string; lists: SavedList[] };
+type PendingImport = { fileName: string } & BackupContents;
 
 /** App configuration: the active rule set (each set keeps its own saved
  * lists), view preferences, and whole-collection backup/restore. */
@@ -35,13 +47,19 @@ export default function ConfigDialog({
   simplifiedView,
   onToggleSimplifiedView,
   lists,
-  onReplaceAllLists,
+  folders,
+  importFolderTarget,
+  onSelectImportFolder,
+  onReplaceAll,
   onClose,
 }: ConfigDialogProps) {
   const fileInput = useRef<HTMLInputElement>(null);
   const [pending, setPending] = useState<PendingImport | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [imported, setImported] = useState(false);
+  const importFolderOptions = foldersForRuleSet(folders, activeRuleSet).filter(
+    (folder) => folder.name.trim().toLowerCase() !== IMPORTS_FOLDER_NAME.toLowerCase(),
+  );
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -51,7 +69,7 @@ export default function ConfigDialog({
     return () => document.removeEventListener("keydown", onKey);
   }, [onClose]);
 
-  const exportBackup = () => downloadFile(backupFileName(), serializeBackup(lists));
+  const exportBackup = () => downloadFile(backupFileName(), serializeBackup(lists, folders));
 
   const pickFile = async (file: File | undefined) => {
     if (!file) return;
@@ -63,12 +81,12 @@ export default function ConfigDialog({
       return;
     }
     // Nothing is written yet — the replace happens on confirm below.
-    setPending({ fileName: file.name, lists: parsed });
+    setPending({ fileName: file.name, ...parsed });
   };
 
   const confirmImport = () => {
     if (!pending) return;
-    if (!onReplaceAllLists(pending.lists)) {
+    if (!onReplaceAll(pending.lists, pending.folders)) {
       setError("Could not save the restored lists. Check browser storage and try again.");
       return;
     }
@@ -102,6 +120,25 @@ export default function ConfigDialog({
         <p className="config-hint">
           Each rule set keeps its own saved lists. Switching shows the lists for that set.
         </p>
+        <label className="config-field">
+          <span>Default import folder</span>
+          <select
+            value={importFolderTarget}
+            onChange={(event) => onSelectImportFolder(event.target.value as ImportFolderTarget)}
+            aria-label="Default import folder"
+          >
+            <option value={IMPORTS_FOLDER_TARGET}>{IMPORTS_FOLDER_NAME}</option>
+            <option value={NO_IMPORT_FOLDER_TARGET}>No folder</option>
+            {importFolderOptions.map((folder) => (
+              <option key={folder.id} value={folderImportTarget(folder.id)}>
+                {folder.name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <p className="config-hint">
+          Shared lists are filed here. The Imports folder is created only when first needed.
+        </p>
         <label className="config-toggle">
           <input
             type="checkbox"
@@ -115,8 +152,8 @@ export default function ConfigDialog({
         <h3 className="panel-heading">Backup</h3>
         <p className="config-hint">
           Lists are saved in this browser only. A backup file holds every list from every rule
-          set — export it here, then import it on another computer to make that browser an exact
-          copy.
+          set, in the folders they are filed under — export it here, then import it on another
+          computer to make that browser an exact copy.
         </p>
         <div className="backup-actions">
           <button type="button" className="primary-btn" onClick={exportBackup}>
@@ -156,9 +193,11 @@ export default function ConfigDialog({
             </div>
             <p id="import-backup-description">
               <strong>{pending.fileName}</strong> holds {pending.lists.length} list
-              {pending.lists.length === 1 ? "" : "s"}. Importing it permanently removes the{" "}
-              {lists.length} list{lists.length === 1 ? "" : "s"} saved in this browser and replaces
-              them with the backup's.
+              {pending.lists.length === 1 ? "" : "s"} in {pending.folders.length} folder
+              {pending.folders.length === 1 ? "" : "s"}. Importing it permanently removes the{" "}
+              {lists.length} list{lists.length === 1 ? "" : "s"} and {folders.length} folder
+              {folders.length === 1 ? "" : "s"} saved in this browser and replaces them with the
+              backup's.
             </p>
             {error && <p className="config-error">{error}</p>}
             <div className="confirm-actions">

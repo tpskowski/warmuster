@@ -1,3 +1,10 @@
+## 0.8.0 2026-08-15
+- **Folders** in the list rail. Make one with "New folder", then drag lists into it; drag lists and folders to reorder them. Deleting a folder deletes the lists inside it, so it asks first.
+- Rename a folder from the pencil button on its row, or by double-clicking its name.
+- A list opened from a share link is filed under **Imports**, creating that folder the first time.
+- Choose a default folder for shared-list imports under Configuration, or leave them unfiled. This setting is separate for each rule set.
+- Backups carry your folders: exporting and importing on another computer reproduces the same organisation.
+
 ## 0.7.0 2026-08-06
 - A list's header now shows its **Breakpoint** - half its non-character units, rounded up.
 - **Backup and restore** under Configuration. Export every list to a file, then import it on another computer to make that browser an exact copy.
@@ -28,7 +35,7 @@
 - Units already in your list drop out of the catalog - adjust their count from the roster; they reappear when reduced to zero.
 - Mobile layout: the list navigation moves to a hamburger drawer, the info links to the page bottom, and the points total floats in the top-right.
 - The print preview opens on its own history entry, so the browser Back button returns to the app instead of leaving the site.
-- Added a **Warmaster (Custom)** rule set alongside Warmaster Revolution, selectable from the new Configuration (gear) menu. Each rule set keeps its own saved lists. It adds custom units - Dwarf Ram Riders, Ancestral Warriors and Iron Breakers, plus the Goblin Giant Squig.
+- Added an **A Matter of Mustaches** rule set alongside Warmaster Revolution, selectable from the new Configuration (gear) menu. Each rule set keeps its own saved lists. It adds custom units - Dwarf Ram Riders, Ancestral Warriors, Iron Breakers, Bull Ogres, Dramar Thungnisson, Dramar Thungnisson (Mounted), Dorin Khazadsson, Yorri Thungnisson, Brok Wheatbrow, Aldrich of the Unberogen, Torgo Thungnisson, Torgo Thungnisson (Mounted), Kadri Broadbrew, Logor Hardhaft, Rungni Silverhorn and Roknar Gromdal, plus the Goblin Giant Squig.
 - Unit cards are now standard 63 x 88mm trading cards, nine per A4 page.
 - The Giant Goes Wild Chart is split out of the Giants' running rules: shown as a numbered chart in unit details and printed as its own two-sided card.
 - Long special rules continue on the card's back; short cards get a Warmuster back.

@@ -15,6 +15,17 @@ import Roster from "./components/Roster";
 import { consumeShareHash, decodeShareCode } from "./domain/shareCode";
 import { getArmy, ruleSets } from "./data/gameData";
 import {
+  createFolder,
+  deleteFolder,
+  foldersForRuleSet,
+  normalizeImportFolderTarget,
+  moveFolder,
+  moveList,
+  renameFolder,
+  resolveImportFolder,
+  type ImportFolderTarget,
+} from "./domain/folders";
+import {
   addCharacter,
   addUnit,
   addUnitCopy,
@@ -31,14 +42,21 @@ import {
   totalPoints,
 } from "./domain/lists";
 import { validateList } from "./domain/validation";
+import { loadFolders, saveFolders } from "./storage/folderRepository";
+import {
+  importFolderPreference,
+  loadImportFolderPreferences,
+  saveImportFolderPreferences,
+} from "./storage/importFolderRepository";
 import {
   deleteList,
   listsForRuleSet,
   loadLists,
   replaceAllLists,
+  saveLists,
   upsertList,
 } from "./storage/listRepository";
-import type { SavedList } from "./types";
+import type { Folder, SavedList } from "./types";
 
 type Theme = "light" | "dark";
 
@@ -63,6 +81,14 @@ function Home() {
 
 export default function App() {
   const [lists, setLists] = useState<SavedList[]>(() => loadLists());
+  const [folders, setFolders] = useState<Folder[]>(() => loadFolders());
+  // Mirrors `folders` so the share import, which resolves after its effect's
+  // closure was captured, always reads the current folders.
+  const foldersRef = useRef(folders);
+  const [importFolderPreferences, setImportFolderPreferences] = useState(() =>
+    loadImportFolderPreferences(),
+  );
+  const importFolderPreferencesRef = useRef(importFolderPreferences);
   const [activeListId, setActiveListId] = useState<string | null>(null);
   const [theme, setTheme] = useState<Theme>(() => initialTheme());
   const [exportOpen, setExportOpen] = useState(false);
@@ -118,6 +144,13 @@ export default function App() {
     return () => window.removeEventListener("popstate", onPop);
   }, []);
 
+  // Every folder write goes through here: ref, storage, then state.
+  const updateFolders = (next: Folder[]) => {
+    foldersRef.current = next;
+    saveFolders(next);
+    setFolders(next);
+  };
+
   // Import a shared list from the URL hash on first load.
   useEffect(() => {
     const code = consumeShareHash();
@@ -125,7 +158,11 @@ export default function App() {
     const generation = restoreGeneration.current;
     void decodeShareCode(code).then((imported) => {
       if (!imported || generation !== restoreGeneration.current) return;
-      setLists((prev) => upsertList(prev, imported));
+      const current = foldersRef.current;
+      const target = importFolderPreference(importFolderPreferencesRef.current, imported.ruleSet);
+      const { folders: next, folderId } = resolveImportFolder(current, imported.ruleSet, target);
+      if (next !== current) updateFolders(next);
+      setLists((prev) => upsertList(prev, { ...imported, folderId }));
       // Show the set the imported list belongs to so it's visible in the rail.
       if (ruleSets.some((rs) => rs.id === imported.ruleSet)) setActiveRuleSet(imported.ruleSet);
       setActiveListId(imported.id);
@@ -142,6 +179,10 @@ export default function App() {
   const visibleLists = useMemo(
     () => listsForRuleSet(lists, activeRuleSet),
     [lists, activeRuleSet],
+  );
+  const visibleFolders = useMemo(
+    () => foldersForRuleSet(folders, activeRuleSet),
+    [folders, activeRuleSet],
   );
 
   const issues = useMemo(
@@ -175,13 +216,39 @@ export default function App() {
     if (activeListId === id) setActiveListId(null);
   };
 
+  const handleCreateFolder = (name: string) =>
+    updateFolders([...folders, createFolder(folders, activeRuleSet, name)]);
+
+  const handleRenameFolder = (id: string, name: string) =>
+    updateFolders(renameFolder(folders, id, name));
+
+  // A folder holds its lists, so deleting it deletes them too — the rail asks
+  // for confirmation, naming the count, before this runs.
+  const handleDeleteFolder = (id: string) => {
+    const next = deleteFolder(folders, lists, id);
+    updateFolders(next.folders);
+    saveLists(next.lists);
+    setLists(next.lists);
+    if (!next.lists.some((l) => l.id === activeListId)) setActiveListId(null);
+  };
+
+  const handleMoveList = (listId: string, folderId: string | null, index: number) => {
+    const next = moveList(lists, listId, folderId, index);
+    setLists(next);
+    saveLists(next);
+  };
+
+  const handleMoveFolder = (folderId: string, index: number) =>
+    updateFolders(moveFolder(folders, folderId, index));
+
   // Restoring a backup swaps in another browser's whole collection, so the
   // list open at the time is gone unless the backup happens to carry it.
-  const handleReplaceAllLists = (imported: SavedList[]) => {
-    if (!replaceAllLists(imported)) return false;
+  const handleReplaceAll = (importedLists: SavedList[], importedFolders: Folder[]) => {
+    if (!replaceAllLists(importedLists)) return false;
+    updateFolders(importedFolders);
     restoreGeneration.current += 1;
-    setLists(imported);
-    if (!imported.some((l) => l.id === activeListId)) setActiveListId(null);
+    setLists(importedLists);
+    if (!importedLists.some((l) => l.id === activeListId)) setActiveListId(null);
     return true;
   };
 
@@ -190,6 +257,13 @@ export default function App() {
     setActiveRuleSet(id);
     // The active list belongs to the previous set; drop back to Home.
     setActiveListId(null);
+  };
+
+  const handleSelectImportFolder = (target: ImportFolderTarget) => {
+    const next = { ...importFolderPreferencesRef.current, [activeRuleSet]: target };
+    importFolderPreferencesRef.current = next;
+    saveImportFolderPreferences(next);
+    setImportFolderPreferences(next);
   };
 
   const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
@@ -230,6 +304,7 @@ export default function App() {
           ruleSets={ruleSets}
           activeRuleSet={activeRuleSet}
           lists={visibleLists}
+          folders={visibleFolders}
           activeListId={activeListId}
           onSelect={(id) => {
             setActiveListId(id);
@@ -237,6 +312,11 @@ export default function App() {
           }}
           onCreate={handleCreate}
           onDelete={handleDelete}
+          onCreateFolder={handleCreateFolder}
+          onRenameFolder={handleRenameFolder}
+          onDeleteFolder={handleDeleteFolder}
+          onMoveList={handleMoveList}
+          onMoveFolder={handleMoveFolder}
           onInfo={setInfoTopic}
           theme={theme}
           onToggleTheme={toggleTheme}
@@ -303,7 +383,14 @@ export default function App() {
           simplifiedView={simplifiedView}
           onToggleSimplifiedView={setSimplifiedView}
           lists={lists}
-          onReplaceAllLists={handleReplaceAllLists}
+          folders={folders}
+          importFolderTarget={normalizeImportFolderTarget(
+            folders,
+            activeRuleSet,
+            importFolderPreference(importFolderPreferences, activeRuleSet),
+          )}
+          onSelectImportFolder={handleSelectImportFolder}
+          onReplaceAll={handleReplaceAll}
           onClose={() => setConfigOpen(false)}
         />
       )}

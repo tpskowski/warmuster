@@ -28,7 +28,8 @@ function CatalogRow({
   onAdd?: () => void;
 }) {
   const isGeneral = unit.type === "General";
-  const max = unit.max != null ? (isGeneral ? unit.max : unit.max * scale) : null;
+  const max =
+    unit.max != null ? (isGeneral || unit.maxPerArmy ? unit.max : unit.max * scale) : null;
 
   const atMax = max != null && count >= max;
   // What hiring this regiment will cost the army's own allowances. Only
@@ -120,7 +121,12 @@ export default function Catalog({
   // army, so nothing is held back.
   const own = army.units.filter((u) => !isHired(u, army));
   const units = own.filter((u) => u.category === "unit");
-  const characters = own.filter((u) => u.category === "character");
+  const characters = own.filter(
+    (u) => u.category === "character" && u.ruleSet !== "warmaster-custom",
+  );
+  const customCharacters = own.filter(
+    (u) => u.category === "character" && u.ruleSet === "warmaster-custom",
+  );
   const upgrades = own.filter((u) => u.category === "upgrade");
   const regiments = list.allowMercenaries ? hireableFor(army) : [];
   const hired = hiredCount(list, army);
@@ -157,6 +163,23 @@ export default function Catalog({
           />
         ))}
       </ul>
+      {customCharacters.length > 0 && (
+        <>
+          <h3 className="panel-heading">Custom Characters</h3>
+          <ul className="catalog-list">
+            {customCharacters.map((unit) => (
+              <CatalogRow
+                key={unit.unitId}
+                unit={unit}
+                army={army}
+                count={countOf(list, unit.unitId)}
+                scale={scale}
+                onAdd={() => onAddCharacter(unit.unitId)}
+              />
+            ))}
+          </ul>
+        </>
+      )}
       {upgrades.length > 0 && (
         <>
           <h3 className="panel-heading">Mounts &amp; upgrades</h3>
@@ -238,4 +261,3 @@ export default function Catalog({
     </div>
   );
 }
-

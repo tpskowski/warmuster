@@ -1,6 +1,14 @@
 ﻿import { describe, expect, it } from "vitest";
 import { getArmy } from "../data/gameData";
-import { buildCard, buildChartCard, buildSpellCard, cardStats, rangeOf, statColumns } from "./unitCard";
+import {
+  buildCard,
+  buildChartCard,
+  buildSpellCard,
+  cardStats,
+  rangeOf,
+  splitRuleHeading,
+  statColumns,
+} from "./unitCard";
 import { magicItems } from "./magicItems";
 import { ruleSets } from "../data/gameData";
 import { listCards } from "../components/PrintView";
@@ -18,6 +26,32 @@ function unit(army: typeof orcs, troop: string) {
 }
 
 describe("unit cards", () => {
+  it("splits Markdown-style names from custom special rules", () => {
+    expect(splitRuleHeading("**Leading the Outcasts:** Rule text.")).toEqual({
+      title: "Leading the Outcasts",
+      text: "Rule text.",
+    });
+  });
+
+  it("prints custom rule names on cards without changing standard units", () => {
+    const customDwarfs = getArmy("warmaster-custom", "dwarfs")!;
+    const dramar = buildCard(unit(customDwarfs, "Dramar Thungnisson"));
+    expect([...dramar.frontRules, ...dramar.backRules].map((rule) => rule.title)).toContain(
+      "Ironbreaker's Resolve",
+    );
+
+    const yorri = buildCard(unit(customDwarfs, "Yorri Thungnisson"));
+    const yorriTitles = [...yorri.frontRules, ...yorri.backRules].map((rule) => rule.title);
+    expect(yorriTitles).toContain("Leading the Outcasts");
+    expect(yorriTitles).toContain("This Will be the One");
+
+    const highElves = getArmy("warmaster-revolution", "high-elves")!;
+    const mage = buildCard(unit(highElves, "Mage"));
+    expect([...mage.frontRules, ...mage.backRules].map((rule) => rule.title)).not.toContain(
+      "Wizard",
+    );
+  });
+
   // The Giant from the Orcs list has the longest special rules in the game:
   // far too much for a 63 x 88mm front, so the text must continue on the
   // card's back face — and fit there.
@@ -268,6 +302,17 @@ describe("unit cards", () => {
     expect(knights.diagram).toEqual({ kind: "rects", count: 3, orientation: "vertical" });
     const general = buildCard(unit(chaos, "General"));
     expect(general.diagram.kind).toBe("circle");
+
+    const customDwarfs = getArmy("warmaster-custom", "dwarfs")!;
+    const mountedTorgo = buildCard(unit(customDwarfs, "Torgo Thungnisson (Mounted)"));
+    expect(mountedTorgo.diagram).toEqual({
+      kind: "rects",
+      count: 1,
+      orientation: "vertical",
+    });
+    expect(buildCard(unit(customDwarfs, "Dramar Thungnisson")).diagram.kind).toBe("circle");
+    expect(buildCard({ ...unit(customDwarfs, "Dramar Thungnisson"), facing: null }).diagram.kind)
+      .toBe("circle");
   });
 
   const ruleText = (u: Parameters<typeof buildCard>[0]) =>
@@ -362,5 +407,3 @@ describe("text export", () => {
     expect(text).toContain("- 2x Chaos Warriors — 280 pts");
   });
 });
-
-
