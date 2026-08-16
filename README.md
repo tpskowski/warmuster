@@ -4,7 +4,7 @@ A [Warmaster Revolution](https://www.wm-revolution.com/) army list builder — c
 
 ## Development
 
-Requires Node.js `^20.19.0` or `>=22.12.0`.
+Requires Node.js `>=22.12.0`.
 
 ```sh
 npm ci

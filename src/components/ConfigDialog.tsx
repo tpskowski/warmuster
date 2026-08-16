@@ -70,11 +70,16 @@ export default function ConfigDialog({
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
+      if (event.key !== "Escape") return;
+      if (scoutingRulesOpen) {
+        setScoutingRulesOpen(false);
+        return;
+      }
+      onClose();
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [onClose]);
+  }, [onClose, scoutingRulesOpen]);
 
   const exportBackup = () => downloadFile(backupFileName(), serializeBackup(lists, folders));
 

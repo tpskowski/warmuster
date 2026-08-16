@@ -10,7 +10,7 @@ const ruleSets = [
   { id: "wmr-2026-playtest", name: "WMR - 2026 Playtest", version: "1", armies: [] },
 ] satisfies RuleSetInfo[];
 
-function renderDialog(folders: Folder[], onSelectImportFolder = vi.fn()) {
+function renderDialog(folders: Folder[], onSelectImportFolder = vi.fn(), onClose = vi.fn()) {
   render(
     <ConfigDialog
       ruleSets={ruleSets}
@@ -25,7 +25,7 @@ function renderDialog(folders: Folder[], onSelectImportFolder = vi.fn()) {
       importFolderTarget={IMPORTS_FOLDER_TARGET}
       onSelectImportFolder={onSelectImportFolder}
       onReplaceAll={vi.fn()}
-      onClose={vi.fn()}
+      onClose={onClose}
     />,
   );
   return onSelectImportFolder;
@@ -62,5 +62,18 @@ describe("ConfigDialog scouting rules", () => {
     expect(screen.getByRole("heading", { name: "Scouting" })).toBeInTheDocument();
     expect(screen.getByRole("columnheader", { name: "Troop types" })).toBeInTheDocument();
     expect(screen.getByText("Flyers")).toBeInTheDocument();
+  });
+
+  it("closes the rules dialog before closing configuration on Escape", () => {
+    const onClose = vi.fn();
+    renderDialog([], vi.fn(), onClose);
+    fireEvent.click(screen.getByRole("button", { name: "Scouting rules" }));
+
+    fireEvent.keyDown(document, { key: "Escape" });
+    expect(screen.queryByRole("heading", { name: "Scouting" })).toBeNull();
+    expect(onClose).not.toHaveBeenCalled();
+
+    fireEvent.keyDown(document, { key: "Escape" });
+    expect(onClose).toHaveBeenCalledTimes(1);
   });
 });

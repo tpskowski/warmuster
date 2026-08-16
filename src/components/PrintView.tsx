@@ -93,7 +93,7 @@ export function PrintList({
         <p>
           {army.name} · Warmaster Revolution {list.ruleVersion} · {totalPoints(list, army)}/
           {list.pointsLimit} pts
-          {scoutingEnabled ? ` · Scouting: ${totalScoutingPoints(list, army)} pts` : ""}
+          {scoutingEnabled ? ` · Scouting: ${totalScoutingPoints(list, army)} SP` : ""}
         </p>
       </header>
       <table className="print-table">
