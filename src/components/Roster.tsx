@@ -5,6 +5,7 @@ import { isHired } from "../data/mercenaries";
 import { armySizeMultiplier } from "../domain/armySize";
 import { hiredCount } from "../domain/hiring";
 import { breakPoint, entryPoints, entryStands, totalPoints } from "../domain/lists";
+import { entryScoutingPoints } from "../domain/scouting";
 import { getMagicItem, magicItemCost, type MagicItemData } from "../domain/magicItems";
 import SpecialRules, { UnitDetailsDialog } from "./SpecialRules";
 import UnitStats from "./UnitStats";
@@ -23,6 +24,7 @@ interface RosterProps {
   onSetPointsLimit: (points: number) => void;
   onSetNotes: (notes: string) => void;
   onSetAllowMercenaries: (allow: boolean) => void;
+  scoutingEnabled: boolean;
 }
 
 function UpgradePicker({
@@ -193,6 +195,7 @@ function RosterUnitRow({
   onAdd,
   onToggleUpgrade,
   onRemoveMagicItem,
+  scoutingEnabled,
 }: {
   army: ArmyData;
   entry: SavedUnitEntry;
@@ -202,6 +205,7 @@ function RosterUnitRow({
   onAdd: () => void;
   onToggleUpgrade: (upgradeId: string) => void;
   onRemoveMagicItem: (itemId: string) => void;
+  scoutingEnabled: boolean;
 }) {
   const unit = getUnit(army, entry.unitId);
   if (!unit) {
@@ -243,6 +247,11 @@ function RosterUnitRow({
       </div>
       <div className="roster-side">
         <div className="roster-summary">
+          {scoutingEnabled && (
+            <span className="scouting-points" title="Total scouting points for these copies">
+              {entryScoutingPoints(army, entry, unit)} SP
+            </span>
+          )}
           {stands != null && (
             <span className="roster-models">{entry.quantity * stands} Stands</span>
           )}
@@ -268,6 +277,7 @@ function RosterCharacterRow({
   onRemove,
   onToggleUpgrade,
   onRemoveMagicItem,
+  scoutingEnabled,
 }: {
   army: ArmyData;
   entry: SavedCharacterEntry;
@@ -275,6 +285,7 @@ function RosterCharacterRow({
   onRemove: () => void;
   onToggleUpgrade: (upgradeId: string) => void;
   onRemoveMagicItem: (itemId: string) => void;
+  scoutingEnabled: boolean;
 }) {
   const unit = getUnit(army, entry.unitId);
   if (!unit) {
@@ -313,6 +324,11 @@ function RosterCharacterRow({
         </div>
       </div>
       <div className="roster-side">
+        {scoutingEnabled && (
+          <span className="scouting-points" title="Scouting points">
+            {entryScoutingPoints(army, entry, unit)} SP
+          </span>
+        )}
         <span className="roster-points">{entryPoints(army, entry, unit)} pts</span>
         <button type="button" className="icon-btn" onClick={onRemove} title="Remove">
           ✕
@@ -336,6 +352,7 @@ export default function Roster({
   onSetPointsLimit,
   onSetNotes,
   onSetAllowMercenaries,
+  scoutingEnabled,
 }: RosterProps) {
   const points = totalPoints(list, army);
   const over = points > list.pointsLimit;
@@ -414,6 +431,7 @@ export default function Roster({
             onRemove={() => onRemoveCharacter(entry.id)}
             onToggleUpgrade={(upgradeId) => onToggleCharacterUpgrade(entry.id, upgradeId)}
             onRemoveMagicItem={onRemoveMagicItem}
+            scoutingEnabled={scoutingEnabled}
           />
         ))}
       </ul>
@@ -432,6 +450,7 @@ export default function Roster({
             onAdd={() => onAddUnitCopy(index)}
             onToggleUpgrade={(upgradeId) => onToggleUnitUpgrade(index, upgradeId)}
             onRemoveMagicItem={onRemoveMagicItem}
+            scoutingEnabled={scoutingEnabled}
           />
         ))}
       </ul>

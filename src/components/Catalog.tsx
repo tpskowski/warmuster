@@ -12,6 +12,7 @@ interface CatalogProps {
   onAddUnit: (unitId: string) => void;
   onAddCharacter: (unitId: string) => void;
   onOpenMagicItems: () => void;
+  scoutingEnabled: boolean;
 }
 
 function CatalogRow({
@@ -20,12 +21,14 @@ function CatalogRow({
   count,
   scale,
   onAdd,
+  scoutingEnabled,
 }: {
   unit: UnitData;
   army: ArmyData;
   count: number;
   scale: number;
   onAdd?: () => void;
+  scoutingEnabled: boolean;
 }) {
   const isGeneral = unit.type === "General";
   const max =
@@ -86,6 +89,11 @@ function CatalogRow({
         </div>
       </div>
       <div className="catalog-side">
+        {scoutingEnabled && (
+          <span className="scouting-points" title="Scouting points">
+            {unit.scoutingPoints} SP
+          </span>
+        )}
         <span className="catalog-points">{pointsLabel(unit)} pts</span>
         {onAdd && (
           <button
@@ -109,6 +117,7 @@ export default function Catalog({
   onAddUnit,
   onAddCharacter,
   onOpenMagicItems,
+  scoutingEnabled,
 }: CatalogProps) {
   const assignedMagicItems = [...list.units, ...list.characters].reduce(
     (sum, entry) => sum + entry.magicItems.length,
@@ -146,6 +155,7 @@ export default function Catalog({
             army={army}
             count={countOf(list, unit.unitId)}
             scale={scale}
+            scoutingEnabled={scoutingEnabled}
             onAdd={() => onAddUnit(unit.unitId)}
           />
         ))}
@@ -159,6 +169,7 @@ export default function Catalog({
             army={army}
             count={countOf(list, unit.unitId)}
             scale={scale}
+            scoutingEnabled={scoutingEnabled}
             onAdd={() => onAddCharacter(unit.unitId)}
           />
         ))}
@@ -174,6 +185,7 @@ export default function Catalog({
                 army={army}
                 count={countOf(list, unit.unitId)}
                 scale={scale}
+                scoutingEnabled={scoutingEnabled}
                 onAdd={() => onAddCharacter(unit.unitId)}
               />
             ))}
@@ -186,7 +198,7 @@ export default function Catalog({
           <p className="panel-hint">Added from a unit or character already in your list.</p>
           <ul className="catalog-list">
             {upgrades.map((unit) => (
-              <CatalogRow key={unit.unitId} unit={unit} army={army} count={0} scale={scale} />
+              <CatalogRow key={unit.unitId} unit={unit} army={army} count={0} scale={scale} scoutingEnabled={scoutingEnabled} />
             ))}
           </ul>
         </>
@@ -211,6 +223,7 @@ export default function Catalog({
                 army={army}
                 count={countOf(list, unit.unitId)}
                 scale={scale}
+                scoutingEnabled={scoutingEnabled}
                 onAdd={() =>
                   unit.category === "character"
                     ? onAddCharacter(unit.unitId)

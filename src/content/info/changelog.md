@@ -1,3 +1,8 @@
+## 0.9.0 2026-08-16
+- Added option for Scouting Points
+- Added Playtest Rules 2026 data set (High Elf General and 4 Heavy Cav units changed)
+- Updated dark mode colors
+
 ## 0.8.0 2026-08-15
 - **Folders** in the list rail. Make one with "New folder", then drag lists into it; drag lists and folders to reorder them. Deleting a folder deletes the lists inside it, so it asks first.
 - Rename a folder from the pencil button on its row, or by double-clicking its name.

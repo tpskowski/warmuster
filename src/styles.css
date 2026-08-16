@@ -40,20 +40,20 @@
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #1a1712;
-  --bg-panel: #241f18;
-  --bg-inset: #14110d;
-  --border: #453b2c;
-  --text: #e8e0d0;
-  --text-muted: #a09380;
-  --accent: #c8552f;
-  --accent-contrast: #1a1712;
-  --gold: #cfa93f;
-  --error: #e07070;
-  --error-bg: #3a2020;
-  --warning: #d8b860;
-  --warning-bg: #322a18;
-  --shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  --bg: #101317;
+  --bg-panel: #191e24;
+  --bg-inset: #0b0e11;
+  --border: #38414d;
+  --text: #f0e9dc;
+  --text-muted: #aaa195;
+  --accent: #c96f4f;
+  --accent-contrast: #17100d;
+  --gold: #d2af5d;
+  --error: #f08078;
+  --error-bg: #242a32;
+  --warning: #e4bd68;
+  --warning-bg: #332a17;
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
 }
 
 /* ---------------------------------------------------------------- layout */
@@ -725,6 +725,14 @@ textarea {
 .roster-points,
 .catalog-points {
   font-weight: 600;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.scouting-points {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
@@ -1774,6 +1782,58 @@ textarea {
   margin: 12px 0 4px;
   font-weight: 600;
   cursor: pointer;
+}
+
+.config-option-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.config-scouting-toggle {
+  margin-right: auto;
+}
+
+.config-option-icon,
+.config-info-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.config-info-btn {
+  color: var(--text-muted);
+}
+
+.scouting-rules-modal {
+  width: min(860px, 100%);
+}
+
+.scouting-rules-copy table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+.scouting-rules-copy th,
+.scouting-rules-copy td {
+  padding: 8px;
+  border: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.scouting-rules-copy thead th {
+  color: var(--accent);
+}
+
+.scouting-rules-copy td:nth-child(2) {
+  text-align: center;
+  font-weight: 700;
 }
 
 .config-error {

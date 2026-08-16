@@ -117,6 +117,15 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem("warmuster.simplifiedView", String(simplifiedView));
   }, [simplifiedView]);
+  // Optional Scouting deployment values are a display preference and do not
+  // alter saved army lists.
+  const [scoutingEnabled, setScoutingEnabled] = useState<boolean>(
+    () => localStorage.getItem("warmuster.scouting") === "true",
+  );
+
+  useEffect(() => {
+    localStorage.setItem("warmuster.scouting", String(scoutingEnabled));
+  }, [scoutingEnabled]);
   // Duplex calibration (mm): shifts printed card backs right (+) or left (-)
   // to line up with the fronts on this printer. Saved per browser; defaults
   // to 1mm right until the user calibrates.
@@ -346,6 +355,7 @@ export default function App() {
               onSetPointsLimit={(pts) => mutate((l) => setPointsLimit(l, pts))}
               onSetNotes={(notes) => mutate((l) => setNotes(l, notes))}
               onSetAllowMercenaries={(allow) => mutate((l) => setAllowMercenaries(l, allow))}
+              scoutingEnabled={scoutingEnabled}
             />
             <aside className="catalog-panel">
               <Catalog
@@ -354,6 +364,7 @@ export default function App() {
                 onAddUnit={(unitId) => mutate((l) => addUnit(l, unitId))}
                 onAddCharacter={(unitId) => mutate((l) => addCharacter(l, unitId))}
                 onOpenMagicItems={() => setMagicItemsOpen(true)}
+                scoutingEnabled={scoutingEnabled}
               />
             </aside>
           </main>
@@ -382,6 +393,8 @@ export default function App() {
           onSelectRuleSet={handleSelectRuleSet}
           simplifiedView={simplifiedView}
           onToggleSimplifiedView={setSimplifiedView}
+          scoutingEnabled={scoutingEnabled}
+          onToggleScouting={setScoutingEnabled}
           lists={lists}
           folders={folders}
           importFolderTarget={normalizeImportFolderTarget(
@@ -474,6 +487,7 @@ export default function App() {
             army={army}
             duplexOffsetMm={printMode === "cards" ? duplexOffset : 0}
             cardOptions={cardPrintOptions}
+            scoutingEnabled={scoutingEnabled}
           />
         </div>
       )}

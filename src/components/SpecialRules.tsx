@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { cardRules, splitRuleHeading } from "../domain/unitCard";
 import type { UnitData } from "../types";
 import { minMaxLabel, pointsLabel, signedLabel, unitStatRows } from "./UnitStats";
@@ -35,7 +36,7 @@ export function UnitDetailsDialog({
     return () => document.removeEventListener("keydown", onKey);
   }, [onClose]);
 
-  return (
+  return createPortal(
     <div className="modal-backdrop unit-rules-backdrop" onClick={onClose}>
       <div
         className="modal unit-rules-modal"
@@ -91,7 +92,8 @@ export function UnitDetailsDialog({
           )}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 

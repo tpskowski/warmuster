@@ -35,6 +35,9 @@ for (const army of data.armies ?? []) {
     if (!unit.unitId?.startsWith(`${army.army}:`)) fail(`${uctx} unitId not prefixed with army`);
     if (!CATEGORIES.has(unit.category)) fail(`${uctx} bad category ${unit.category}`);
     if (!FACINGS.has(unit.facing)) fail(`${uctx} bad facing ${unit.facing}`);
+    if (![0, 1, 2, 3].includes(unit.scoutingPoints)) {
+      fail(`${uctx} bad scoutingPoints ${unit.scoutingPoints}`);
+    }
     if (!Array.isArray(unit.specials)) fail(`${uctx} specials not an array`);
     if (!Array.isArray(unit.eligibleToUpgrade)) fail(`${uctx} eligibleToUpgrade not an array`);
 

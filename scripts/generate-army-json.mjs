@@ -253,6 +253,8 @@ export function normalizeRow(row, armyId) {
     type: row.type,
     subType: null,
     category,
+    // Filled by apply-scouting.mjs after the normalized tables are generated.
+    scoutingPoints: 0,
     facing: category === "upgrade" ? null : (FACING_DEFAULTS[row.type] ?? null),
     speed: category === "upgrade" ? null : (MOVE_DEFAULTS[row.type]?.[0] ?? null),
     halfPace: category === "upgrade" ? null : (MOVE_DEFAULTS[row.type]?.[1] ?? null),
