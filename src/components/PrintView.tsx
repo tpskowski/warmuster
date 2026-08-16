@@ -3,6 +3,7 @@ import type { ArmyData, SavedCharacterEntry, SavedList, SavedUnitEntry } from ".
 import { getUnit } from "../data/gameData";
 import { entryPoints, totalPoints } from "../domain/lists";
 import { getMagicItem } from "../domain/magicItems";
+import { totalScoutingPoints } from "../domain/scouting";
 import {
   buildCard,
   buildChartCard,
@@ -39,7 +40,15 @@ function entryExtras(army: ArmyData, entry: SavedUnitEntry | SavedCharacterEntry
     .join(", ");
 }
 
-export function PrintList({ list, army }: { list: SavedList; army: ArmyData }) {
+export function PrintList({
+  list,
+  army,
+  scoutingEnabled = false,
+}: {
+  list: SavedList;
+  army: ArmyData;
+  scoutingEnabled?: boolean;
+}) {
   const rows: Array<{ label: string; quantity: number; points: number; unitId: string }> = [];
   for (const entry of list.characters) {
     const unit = getUnit(army, entry.unitId);
@@ -84,6 +93,7 @@ export function PrintList({ list, army }: { list: SavedList; army: ArmyData }) {
         <p>
           {army.name} · Warmaster Revolution {list.ruleVersion} · {totalPoints(list, army)}/
           {list.pointsLimit} pts
+          {scoutingEnabled ? ` · Scouting: ${totalScoutingPoints(list, army)} SP` : ""}
         </p>
       </header>
       <table className="print-table">
@@ -402,6 +412,7 @@ export default function PrintView({
   army,
   duplexOffsetMm = 0,
   cardOptions = defaultCardPrintOptions,
+  scoutingEnabled = false,
 }: {
   mode: PrintMode;
   list: SavedList;
@@ -410,6 +421,7 @@ export default function PrintView({
    * out the printer's front/back registration offset in duplex printing. */
   duplexOffsetMm?: number;
   cardOptions?: CardPrintOptions;
+  scoutingEnabled?: boolean;
 }) {
   return (
     <div
@@ -417,7 +429,7 @@ export default function PrintView({
       style={{ "--duplex-offset": `${duplexOffsetMm}mm` } as CSSProperties}
     >
       {mode === "list" ? (
-        <PrintList list={list} army={army} />
+        <PrintList list={list} army={army} scoutingEnabled={scoutingEnabled} />
       ) : (
         <CardSheet cards={listCards(list, army, cardOptions)} />
       )}

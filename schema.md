@@ -34,6 +34,7 @@ Every unit object should use the same field structure:
 - `type`
 - `subType`
 - `category`
+- `scoutingPoints` — generated integer from 0 to 3 for the optional Scouting deployment rules
 - `facing`
 - `speed`
 - `halfPace`

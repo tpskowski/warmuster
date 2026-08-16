@@ -4,7 +4,7 @@ A [Warmaster Revolution](https://www.wm-revolution.com/) army list builder — c
 
 ## Development
 
-Requires Node.js `^20.19.0` or `>=22.12.0`.
+Requires Node.js `>=22.12.0`.
 
 ```sh
 npm ci
@@ -20,6 +20,7 @@ Army data is generated from the Markdown source lists, per [schema.md](schema.md
 
 ```sh
 npm run generate:data  # data/source/WMR_Armies_*.md + data/curation/ -> src/data/generated/
+npm run scouting:data  # assign scouting values and regenerate the scouting audit report
 npm run validate:data  # sanity-check the generated JSON
 npm run generate:diff  # compare against data/previous/ snapshot (if present)
 ```
@@ -31,7 +32,32 @@ npm run generate:diff  # compare against data/previous/ snapshot (if present)
 - `reports/` — normalization and version-diff reports.
 - `scripts/archive/` — one-time bootstrap scripts that produced the initial `data/curation/`; kept for reference, not part of the regular pipeline. See [scripts/archive/README.md](scripts/archive/README.md).
 
-See [roadmap.md](roadmap.md) for the project roadmap.
+See [roadmap.md](src/content/info/roadmap.md) for the project roadmap.
+
+## Rule sets
+
+Configuration offers three independently saved rule sets: **Warmaster Revolution**,
+**WMR - 2026 Playtest**, and **A Matter of Mustaches**. The 2026 Playtest begins as a complete
+copy of Warmaster Revolution but has its own rule-set ID, army data objects, lists, folders, and
+import preferences so it can diverge safely.
+
+## Optional Scouting rules
+
+Enable **Scouting** from Configuration to show generated scouting points in the unit catalog,
+totals for each configured stack in the roster, and the army's available scouting total at the
+top of the rules printout. The adjacent information button contains the deployment procedure and
+the Flyers/Scouts/Patrols table.
+
+Scouting is a display preference stored in the browser; it does not change the saved-list schema.
+The army total assumes every eligible entry in the list is committed. Flying mounts and attached
+Scout/Patrol upgrades use the higher of the parent and upgrade values.
+
+`scripts/apply-scouting.mjs` assigns values programmatically from structured troop type, armour,
+Flying subtype, and the named exceptions in the rule table. It updates the Revolution army JSON,
+builds the derived Playtest and A Matter of Mustaches lookups in
+`src/data/generated/scouting-points.json`, and
+writes `reports/scouting-points.md`, grouped by rule set, army, and scouting value 3 through 0.
+`npm run generate:data` runs this step automatically after rebuilding the base army tables.
 
 Warmuster is an unofficial, non-commercial fan project, not affiliated with or endorsed by Games Workshop.
 

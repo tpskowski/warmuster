@@ -51,6 +51,8 @@ export interface UnitData {
   type: string;
   subType: string | null;
   category: UnitCategory;
+  /** Scouting value assigned by the optional Scouting deployment rules. */
+  scoutingPoints: 0 | 1 | 2 | 3;
   facing: Facing;
   speed: number | null;
   halfPace: number | null;

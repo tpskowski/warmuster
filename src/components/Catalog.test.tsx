@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { getArmy, getRuleSet } from "../data/gameData";
 import { createList } from "../domain/lists";
@@ -15,6 +15,7 @@ function renderCatalog(ruleSetId: string) {
       onAddUnit={vi.fn()}
       onAddCharacter={vi.fn()}
       onOpenMagicItems={vi.fn()}
+      scoutingEnabled={false}
     />,
   );
 }
@@ -46,5 +47,37 @@ describe("Catalog", () => {
     const scaledCapRow = screen.getByText("Ram Riders", { exact: true }).closest("li")!;
     expect(fixedCapRow).toHaveTextContent("Min/Max -/1");
     expect(scaledCapRow).toHaveTextContent("Min/Max -/4");
+  });
+
+  it("portals details outside a faded at-maximum row", () => {
+    const ruleSet = getRuleSet("warmaster-revolution")!;
+    const army = getArmy("warmaster-revolution", "dwarfs")!;
+    const list = createList(
+      "warmaster-revolution",
+      ruleSet.version,
+      "dwarfs",
+      "Maximum Rangers",
+      2000,
+    );
+    list.units = [
+      { unitId: "dwarfs:rangers", quantity: 4, upgrades: [], magicItems: [] },
+    ];
+    render(
+      <Catalog
+        army={army}
+        list={list}
+        onAddUnit={vi.fn()}
+        onAddCharacter={vi.fn()}
+        onOpenMagicItems={vi.fn()}
+        scoutingEnabled={false}
+      />,
+    );
+
+    const row = screen.getByText("Rangers", { exact: true }).closest("li")!;
+    expect(row).toHaveClass("at-max");
+    fireEvent.click(within(row).getByRole("button", { name: "View details for Rangers" }));
+    const dialog = screen.getByRole("dialog", { name: "Rangers details" });
+    expect(row).not.toContainElement(dialog);
+    expect(dialog.closest(".modal-backdrop")?.parentElement).toBe(document.body);
   });
 });

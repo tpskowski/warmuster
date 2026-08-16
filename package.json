@@ -4,13 +4,14 @@
   "version": "0.1.0",
   "license": "MIT",
   "engines": {
-    "node": "^20.19.0 || >=22.12.0"
+    "node": ">=22.12.0"
   },
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "generate:data": "node scripts/generate-army-json.mjs",
+    "generate:data": "node scripts/generate-army-json.mjs && node --experimental-strip-types scripts/apply-scouting.mjs",
+    "scouting:data": "node --experimental-strip-types scripts/apply-scouting.mjs",
     "validate:data": "node scripts/validate-data.mjs",
     "generate:diff": "node scripts/generate-version-diff.mjs",
     "test": "npm run validate:data && vitest run",

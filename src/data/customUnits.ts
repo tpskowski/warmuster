@@ -265,6 +265,7 @@ export function applyCustomUnits(custom: RuleSetInfo, base: RuleSetInfo): void {
     type: "Monster",
     subType: null,
     category: "unit",
+    scoutingPoints: 0,
     facing: "short",
     speed: null,
     halfPace: null,

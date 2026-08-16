@@ -44,6 +44,26 @@ export function GearIcon(props: IconProps) {
   );
 }
 
+/** Binoculars: a compact visual cue for the Scouting optional rules. */
+export function ScoutingIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
+      <path d="m7 8 2-3h2v5m6-2-2-3h-2v5M4 10h16l2 8h-7l-3-4-3 4H2z" />
+      <circle cx="6" cy="15" r="3" />
+      <circle cx="18" cy="15" r="3" />
+    </svg>
+  );
+}
+
+export function InfoIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 11v6M12 7h.01" />
+    </svg>
+  );
+}
+
 export function SunIcon(props: IconProps) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>

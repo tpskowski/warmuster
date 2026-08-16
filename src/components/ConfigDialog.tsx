@@ -9,6 +9,8 @@ import {
   NO_IMPORT_FOLDER_TARGET,
   type ImportFolderTarget,
 } from "../domain/folders";
+import { SCOUTING_RULES } from "../domain/scouting";
+import { InfoIcon, ScoutingIcon } from "./Icons";
 
 interface ConfigDialogProps {
   ruleSets: RuleSetInfo[];
@@ -16,6 +18,8 @@ interface ConfigDialogProps {
   onSelectRuleSet: (id: string) => void;
   simplifiedView: boolean;
   onToggleSimplifiedView: (value: boolean) => void;
+  scoutingEnabled: boolean;
+  onToggleScouting: (value: boolean) => void;
   /** Every saved list in this browser, across all rule sets. */
   lists: SavedList[];
   /** Every folder in this browser, across all rule sets. */
@@ -46,6 +50,8 @@ export default function ConfigDialog({
   onSelectRuleSet,
   simplifiedView,
   onToggleSimplifiedView,
+  scoutingEnabled,
+  onToggleScouting,
   lists,
   folders,
   importFolderTarget,
@@ -57,17 +63,23 @@ export default function ConfigDialog({
   const [pending, setPending] = useState<PendingImport | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [imported, setImported] = useState(false);
+  const [scoutingRulesOpen, setScoutingRulesOpen] = useState(false);
   const importFolderOptions = foldersForRuleSet(folders, activeRuleSet).filter(
     (folder) => folder.name.trim().toLowerCase() !== IMPORTS_FOLDER_NAME.toLowerCase(),
   );
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
+      if (event.key !== "Escape") return;
+      if (scoutingRulesOpen) {
+        setScoutingRulesOpen(false);
+        return;
+      }
+      onClose();
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [onClose]);
+  }, [onClose, scoutingRulesOpen]);
 
   const exportBackup = () => downloadFile(backupFileName(), serializeBackup(lists, folders));
 
@@ -149,6 +161,30 @@ export default function ConfigDialog({
         </label>
         <p className="config-hint">Hides unit stats while building a list.</p>
 
+        <div className="config-option-row">
+          <label className="config-toggle config-scouting-toggle">
+            <input
+              type="checkbox"
+              checked={scoutingEnabled}
+              onChange={(e) => onToggleScouting(e.target.checked)}
+            />
+            <ScoutingIcon className="config-option-icon" />
+            <span>Scouting</span>
+          </label>
+          <button
+            type="button"
+            className="icon-btn config-info-btn"
+            onClick={() => setScoutingRulesOpen(true)}
+            title="Scouting rules"
+            aria-label="Scouting rules"
+          >
+            <InfoIcon />
+          </button>
+        </div>
+        <p className="config-hint">
+          Shows each unit’s scouting value and army scouting totals.
+        </p>
+
         <h3 className="panel-heading">Backup</h3>
         <p className="config-hint">
           Lists are saved in this browser only. A backup file holds every list from every rule
@@ -178,6 +214,52 @@ export default function ConfigDialog({
         {error && <p className="config-error">{error}</p>}
         {imported && <p className="config-hint">Lists replaced from the backup.</p>}
       </div>
+      {scoutingRulesOpen && (
+        <div
+          className="modal-backdrop"
+          onClick={(event) => {
+            event.stopPropagation();
+            setScoutingRulesOpen(false);
+          }}
+        >
+          <div
+            className="modal scouting-rules-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="scouting-rules-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="modal-head">
+              <h2 id="scouting-rules-title">Scouting</h2>
+              <button
+                type="button"
+                className="icon-btn"
+                onClick={() => setScoutingRulesOpen(false)}
+                title="Close"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="scouting-rules-copy">
+              <p>{SCOUTING_RULES.introduction}</p>
+              <p>{SCOUTING_RULES.commitment}</p>
+              <p>{SCOUTING_RULES.resolution}</p>
+              <table>
+                <thead>
+                  <tr><th>Role</th><th>Points</th><th>Troop types</th></tr>
+                </thead>
+                <tbody>
+                  {SCOUTING_RULES.roles.map((role) => (
+                    <tr key={role.role}>
+                      <th>{role.role}</th><td>{role.points}</td><td>{role.troopTypes}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      )}
       {pending && (
         <div className="modal-backdrop" onClick={() => setPending(null)}>
           <div
