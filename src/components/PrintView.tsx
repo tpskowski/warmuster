@@ -3,7 +3,7 @@ import type { ArmyData, SavedCharacterEntry, SavedList, SavedUnitEntry } from ".
 import { getUnit } from "../data/gameData";
 import { entryPoints, totalPoints } from "../domain/lists";
 import { getMagicItem } from "../domain/magicItems";
-import { totalScoutingPoints } from "../domain/scouting";
+import { entryScoutingPoints, totalScoutingPoints } from "../domain/scouting";
 import {
   buildCard,
   buildChartCard,
@@ -49,7 +49,14 @@ export function PrintList({
   army: ArmyData;
   scoutingEnabled?: boolean;
 }) {
-  const rows: Array<{ label: string; quantity: number; points: number; unitId: string }> = [];
+  const rows: Array<{
+    label: string;
+    quantity: number;
+    points: number;
+    unitId: string;
+    scoutingCommitted: boolean;
+    scoutingPoints: number;
+  }> = [];
   for (const entry of list.characters) {
     const unit = getUnit(army, entry.unitId);
     if (!unit) continue;
@@ -59,6 +66,8 @@ export function PrintList({
       quantity: 1,
       points: entryPoints(army, entry, unit),
       unitId: entry.unitId,
+      scoutingCommitted: entry.scoutingCommitted === true,
+      scoutingPoints: entryScoutingPoints(army, entry, unit),
     });
   }
   for (const entry of list.units) {
@@ -70,6 +79,8 @@ export function PrintList({
       quantity: entry.quantity,
       points: entryPoints(army, entry, unit),
       unitId: entry.unitId,
+      scoutingCommitted: entry.scoutingCommitted === true,
+      scoutingPoints: entryScoutingPoints(army, entry, unit),
     });
   }
   const usedMagicItems = [...list.characters, ...list.units]
@@ -93,7 +104,7 @@ export function PrintList({
         <p>
           {army.name} · Warmaster Revolution {list.ruleVersion} · {totalPoints(list, army)}/
           {list.pointsLimit} pts
-          {scoutingEnabled ? ` · Scouting: ${totalScoutingPoints(list, army)} SP` : ""}
+          {scoutingEnabled ? ` · Scouting units: ${totalScoutingPoints(list, army)} SP` : ""}
         </p>
       </header>
       <table className="print-table">
@@ -108,6 +119,7 @@ export function PrintList({
             <th>Arm</th>
             <th>Cmd</th>
             <th>Spd</th>
+            {scoutingEnabled && <th>SP</th>}
             <th>Pts</th>
           </tr>
         </thead>
@@ -125,6 +137,9 @@ export function PrintList({
                 <td>{unit?.armour ?? "-"}</td>
                 <td>{unit?.command ?? (unit?.bonusCommand != null ? signedLabel(unit.bonusCommand) : "-")}</td>
                 <td>{unit?.speed != null ? `${unit.speed}cm` : "-"}</td>
+                {scoutingEnabled && (
+                  <td>{row.scoutingCommitted ? `✓ ${row.scoutingPoints}` : "-"}</td>
+                )}
                 <td>{row.points}</td>
               </tr>
             );

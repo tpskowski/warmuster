@@ -85,12 +85,18 @@ function sanitizeList(raw: unknown): SavedList | null {
       quantity: Math.max(1, finiteNumber(u?.quantity, 1)),
       upgrades: asStringArray(u?.upgrades),
       magicItems: asStringArray(u?.magicItems),
+      ...(typeof u?.scoutingCommitted === "boolean"
+        ? { scoutingCommitted: u.scoutingCommitted }
+        : {}),
     })),
     characters: (Array.isArray(list.characters) ? list.characters : []).map((c, i) => ({
       id: typeof c?.id === "string" && c.id !== "" ? c.id : `character-${i}`,
       unitId: String(c?.unitId ?? ""),
       upgrades: asStringArray(c?.upgrades),
       magicItems: asStringArray(c?.magicItems),
+      ...(typeof c?.scoutingCommitted === "boolean"
+        ? { scoutingCommitted: c.scoutingCommitted }
+        : {}),
     })),
     notes: typeof list.notes === "string" ? list.notes : null,
     updatedAt: typeof list.updatedAt === "string" ? list.updatedAt : new Date().toISOString(),

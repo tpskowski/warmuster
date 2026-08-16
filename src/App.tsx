@@ -13,6 +13,7 @@ import PrintView, {
 } from "./components/PrintView";
 import Roster from "./components/Roster";
 import { consumeShareHash, decodeShareCode } from "./domain/shareCode";
+import { baseAppUrl, ruleSetIdFromPath } from "./domain/ruleSetPath";
 import { getArmy, ruleSets } from "./data/gameData";
 import {
   createFolder,
@@ -37,7 +38,9 @@ import {
   setAllowMercenaries,
   setNotes,
   setPointsLimit,
+  toggleCharacterScouting,
   toggleCharacterUpgrade,
+  toggleUnitScouting,
   toggleUnitUpgrade,
   totalPoints,
 } from "./domain/lists";
@@ -59,6 +62,12 @@ import {
 import type { Folder, SavedList } from "./types";
 
 type Theme = "light" | "dark";
+export const DEFAULT_RULE_SET_ID = "warmaster-revolution";
+
+export function initialRuleSet(stored: string | null, routed: string | null = null): string {
+  if (routed && ruleSets.some((ruleSet) => ruleSet.id === routed)) return routed;
+  return ruleSets.some((ruleSet) => ruleSet.id === stored) ? stored! : DEFAULT_RULE_SET_ID;
+}
 
 function initialTheme(): Theme {
   const stored = localStorage.getItem("warmuster.theme");
@@ -99,11 +108,20 @@ export default function App() {
   const [configOpen, setConfigOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false); // mobile list drawer
   const restoreGeneration = useRef(0);
+  const routedRuleSet = useRef(ruleSetIdFromPath(window.location.pathname));
   // Active rule set: each set has its own saved lists. Persisted per browser.
-  const [activeRuleSet, setActiveRuleSet] = useState<string>(() => {
-    const stored = localStorage.getItem("warmuster.ruleSet");
-    return ruleSets.some((rs) => rs.id === stored) ? stored! : ruleSets[0].id;
-  });
+  const [activeRuleSet, setActiveRuleSet] = useState<string>(() =>
+    initialRuleSet(localStorage.getItem("warmuster.ruleSet"), routedRuleSet.current),
+  );
+
+  useEffect(() => {
+    if (!routedRuleSet.current) return;
+    window.history.replaceState(
+      null,
+      "",
+      baseAppUrl(window.location.search, window.location.hash),
+    );
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("warmuster.ruleSet", activeRuleSet);
@@ -345,8 +363,10 @@ export default function App() {
               issues={issues}
               onRemoveUnit={(i) => mutate((l) => removeUnit(l, i))}
               onAddUnitCopy={(i) => mutate((l) => addUnitCopy(l, i))}
+              onToggleUnitScouting={(i) => mutate((l) => toggleUnitScouting(l, i))}
               onToggleUnitUpgrade={(i, upgradeId) => mutate((l) => toggleUnitUpgrade(l, i, upgradeId))}
               onRemoveCharacter={(id) => mutate((l) => removeCharacter(l, id))}
+              onToggleCharacterScouting={(id) => mutate((l) => toggleCharacterScouting(l, id))}
               onToggleCharacterUpgrade={(id, upgradeId) =>
                 mutate((l) => toggleCharacterUpgrade(l, id, upgradeId))
               }

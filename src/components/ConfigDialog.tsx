@@ -182,7 +182,7 @@ export default function ConfigDialog({
           </button>
         </div>
         <p className="config-hint">
-          Shows each unit’s scouting value and army scouting totals.
+          Shows scouting values and lets you commit units to the army’s scouting total.
         </p>
 
         <h3 className="panel-heading">Backup</h3>

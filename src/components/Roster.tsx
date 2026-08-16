@@ -5,7 +5,7 @@ import { isHired } from "../data/mercenaries";
 import { armySizeMultiplier } from "../domain/armySize";
 import { hiredCount } from "../domain/hiring";
 import { breakPoint, entryPoints, entryStands, totalPoints } from "../domain/lists";
-import { entryScoutingPoints } from "../domain/scouting";
+import { entryScoutingPoints, totalScoutingPoints } from "../domain/scouting";
 import { getMagicItem, magicItemCost, type MagicItemData } from "../domain/magicItems";
 import SpecialRules, { UnitDetailsDialog } from "./SpecialRules";
 import UnitStats from "./UnitStats";
@@ -16,8 +16,10 @@ interface RosterProps {
   issues: ValidationIssue[];
   onRemoveUnit: (entryIndex: number) => void;
   onAddUnitCopy: (entryIndex: number) => void;
+  onToggleUnitScouting: (entryIndex: number) => void;
   onToggleUnitUpgrade: (entryIndex: number, upgradeId: string) => void;
   onRemoveCharacter: (id: string) => void;
+  onToggleCharacterScouting: (id: string) => void;
   onToggleCharacterUpgrade: (id: string, upgradeId: string) => void;
   onRemoveMagicItem: (itemId: string) => void;
   onRename: (name: string) => void;
@@ -193,6 +195,7 @@ function RosterUnitRow({
   scale,
   onRemove,
   onAdd,
+  onToggleScouting,
   onToggleUpgrade,
   onRemoveMagicItem,
   scoutingEnabled,
@@ -203,6 +206,7 @@ function RosterUnitRow({
   scale: number;
   onRemove: () => void;
   onAdd: () => void;
+  onToggleScouting: () => void;
   onToggleUpgrade: (upgradeId: string) => void;
   onRemoveMagicItem: (itemId: string) => void;
   scoutingEnabled: boolean;
@@ -219,6 +223,8 @@ function RosterUnitRow({
     );
   }
   const stands = entryStands(army, entry, unit);
+  const scoutingPoints = entryScoutingPoints(army, entry, unit);
+  const scoutingCommitted = entry.scoutingCommitted === true;
   return (
     <li className="roster-row">
       <div className="roster-main">
@@ -248,9 +254,20 @@ function RosterUnitRow({
       <div className="roster-side">
         <div className="roster-summary">
           {scoutingEnabled && (
-            <span className="scouting-points" title="Total scouting points for these copies">
-              {entryScoutingPoints(army, entry, unit)} SP
-            </span>
+            <label
+              className={`scouting-commitment${scoutingCommitted ? " committed" : ""}`}
+              title="Toggle one copy's scouting commitment"
+            >
+              <input
+                type="checkbox"
+                checked={scoutingCommitted}
+                onChange={onToggleScouting}
+                aria-label={`${scoutingCommitted ? "Remove" : "Commit"} one ${unit.troop} ${
+                  scoutingCommitted ? "from" : "to"
+                } scouting`}
+              />
+              <span className="scouting-points">{scoutingPoints} SP</span>
+            </label>
           )}
           {stands != null && (
             <span className="roster-models">{entry.quantity * stands} Stands</span>
@@ -275,6 +292,7 @@ function RosterCharacterRow({
   entry,
   scale,
   onRemove,
+  onToggleScouting,
   onToggleUpgrade,
   onRemoveMagicItem,
   scoutingEnabled,
@@ -283,6 +301,7 @@ function RosterCharacterRow({
   entry: SavedCharacterEntry;
   scale: number;
   onRemove: () => void;
+  onToggleScouting: () => void;
   onToggleUpgrade: (upgradeId: string) => void;
   onRemoveMagicItem: (itemId: string) => void;
   scoutingEnabled: boolean;
@@ -298,6 +317,8 @@ function RosterCharacterRow({
       </li>
     );
   }
+  const scoutingPoints = entryScoutingPoints(army, entry, unit);
+  const scoutingCommitted = entry.scoutingCommitted === true;
   return (
     <li className="roster-row">
       <div className="roster-main">
@@ -325,9 +346,17 @@ function RosterCharacterRow({
       </div>
       <div className="roster-side">
         {scoutingEnabled && (
-          <span className="scouting-points" title="Scouting points">
-            {entryScoutingPoints(army, entry, unit)} SP
-          </span>
+          <label className={`scouting-commitment${scoutingCommitted ? " committed" : ""}`}>
+            <input
+              type="checkbox"
+              checked={scoutingCommitted}
+              onChange={onToggleScouting}
+              aria-label={`${scoutingCommitted ? "Remove" : "Commit"} ${unit.troop} ${
+                scoutingCommitted ? "from" : "to"
+              } scouting`}
+            />
+            <span className="scouting-points">{scoutingPoints} SP</span>
+          </label>
         )}
         <span className="roster-points">{entryPoints(army, entry, unit)} pts</span>
         <button type="button" className="icon-btn" onClick={onRemove} title="Remove">
@@ -344,8 +373,10 @@ export default function Roster({
   issues,
   onRemoveUnit,
   onAddUnitCopy,
+  onToggleUnitScouting,
   onToggleUnitUpgrade,
   onRemoveCharacter,
+  onToggleCharacterScouting,
   onToggleCharacterUpgrade,
   onRemoveMagicItem,
   onRename,
@@ -389,6 +420,9 @@ export default function Roster({
         <span className={`points-total${over ? " over" : ""}`}>
           {points} / {list.pointsLimit}
         </span>
+        {scoutingEnabled && (
+          <span className="scouting-total">Scouting: {totalScoutingPoints(list, army)} SP</span>
+        )}
         {canHire && (
           <label
             className="mercenaries-toggle"
@@ -429,6 +463,7 @@ export default function Roster({
             entry={entry}
             scale={scale}
             onRemove={() => onRemoveCharacter(entry.id)}
+            onToggleScouting={() => onToggleCharacterScouting(entry.id)}
             onToggleUpgrade={(upgradeId) => onToggleCharacterUpgrade(entry.id, upgradeId)}
             onRemoveMagicItem={onRemoveMagicItem}
             scoutingEnabled={scoutingEnabled}
@@ -448,6 +483,7 @@ export default function Roster({
             scale={scale}
             onRemove={() => onRemoveUnit(index)}
             onAdd={() => onAddUnitCopy(index)}
+            onToggleScouting={() => onToggleUnitScouting(index)}
             onToggleUpgrade={(upgradeId) => onToggleUnitUpgrade(index, upgradeId)}
             onRemoveMagicItem={onRemoveMagicItem}
             scoutingEnabled={scoutingEnabled}

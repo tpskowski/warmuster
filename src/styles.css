@@ -737,6 +737,29 @@ textarea {
   font-variant-numeric: tabular-nums;
 }
 
+.scouting-commitment {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.scouting-commitment input {
+  margin: 0;
+}
+
+.scouting-commitment:not(.committed) .scouting-points {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.scouting-total {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
 .qty-controls {
   display: flex;
   gap: 4px;
