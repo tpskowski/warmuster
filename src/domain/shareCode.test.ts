@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { addCharacter, addUnit, createList, toggleCharacterUpgrade } from "./lists";
+import {
+  addCharacter,
+  addUnit,
+  createList,
+  toggleCharacterScouting,
+  toggleCharacterUpgrade,
+  toggleUnitScouting,
+} from "./lists";
 import { decodeShareCode, encodeShareCode } from "./shareCode";
 
 describe("share codes", () => {
@@ -9,6 +16,8 @@ describe("share codes", () => {
     list = addUnit(list, "chaos:chaos-warriors");
     list = addCharacter(list, "chaos:general");
     list = toggleCharacterUpgrade(list, list.characters[0].id, "chaos:chaos-dragon");
+    list = toggleUnitScouting(list, 0);
+    list = toggleCharacterScouting(list, list.characters[0].id);
     list = { ...list, notes: "bring dice" };
 
     const code = await encodeShareCode(list);
@@ -22,6 +31,7 @@ describe("share codes", () => {
     expect(decoded!.units).toEqual(list.units);
     expect(decoded!.characters[0].unitId).toBe("chaos:general");
     expect(decoded!.characters[0].upgrades).toEqual(["chaos:chaos-dragon"]);
+    expect(decoded!.characters[0].scoutingCommitted).toBe(true);
     expect(decoded!.notes).toBe("bring dice");
   });
 

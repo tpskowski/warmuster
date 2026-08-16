@@ -1,7 +1,15 @@
 import { describe, expect, it } from "vitest";
 import { backupFileName, parseBackup, serializeBackup } from "./backup";
 import { createFolder } from "./folders";
-import { addCharacter, addUnit, createList, setAllowMercenaries, setNotes } from "./lists";
+import {
+  addCharacter,
+  addUnit,
+  createList,
+  setAllowMercenaries,
+  setNotes,
+  toggleCharacterScouting,
+  toggleUnitScouting,
+} from "./lists";
 import type { Folder, SavedList } from "../types";
 
 function sampleLists(): SavedList[] {
@@ -9,6 +17,8 @@ function sampleLists(): SavedList[] {
   chaos = addUnit(chaos, "chaos:chaos-warriors");
   chaos = addUnit(chaos, "chaos:chaos-warriors");
   chaos = addCharacter(chaos, "chaos:general");
+  chaos = toggleUnitScouting(chaos, 0);
+  chaos = toggleCharacterScouting(chaos, chaos.characters[0].id);
   chaos = setNotes(chaos, "Bring the dragon");
   const dwarfs = setAllowMercenaries(
     createList("warmaster-revolution", "2.2.6", "dwarfs", "Hold", 1500),
@@ -107,7 +117,7 @@ describe("backup", () => {
     const restored = parseBackup(JSON.stringify(file))!.lists;
     expect(restored[0].pointsLimit).toBe(0);
     expect(restored[0].units[0].quantity).toBe(1);
-    expect(restored[0].units[1].quantity).toBe(2);
+    expect(restored[0].units.at(-1)?.quantity).toBe(2);
   });
 
   it("rejects backups with duplicate list ids", () => {

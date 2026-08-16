@@ -39,14 +39,19 @@ function touched(list: SavedList): SavedList {
 }
 
 function isPlain(entry: SavedUnitEntry): boolean {
-  return entry.upgrades.length === 0 && entry.magicItems.length === 0;
+  return (
+    entry.upgrades.length === 0 &&
+    entry.magicItems.length === 0 &&
+    entry.scoutingCommitted !== true
+  );
 }
 
 /** A key that identifies mergeable entries: same unit and same set of
- * upgrades. Magic items are excluded — an item is carried by a single unit,
- * so item-bearing entries are unique and never merge. */
+ * upgrades and scouting commitment. Magic items are excluded — an item is
+ * carried by a single unit, so item-bearing entries are unique and never
+ * merge. */
 function mergeKey(entry: SavedUnitEntry): string {
-  return `${entry.unitId}|${[...entry.upgrades].sort().join(",")}`;
+  return `${entry.unitId}|${[...entry.upgrades].sort().join(",")}|${entry.scoutingCommitted === true}`;
 }
 
 /** Collapse identical unit entries (same unit + same upgrades, no magic item)
@@ -107,6 +112,26 @@ export function removeUnit(list: SavedList, entryIndex: number): SavedList {
   return touched({ ...list, units: normalizeUnits(units) });
 }
 
+/** Toggle one copy of a unit stack's scouting commitment. A multi-copy stack
+ * splits one copy out so committed and uncommitted copies can coexist. */
+export function toggleUnitScouting(list: SavedList, entryIndex: number): SavedList {
+  const entry = list.units[entryIndex];
+  if (!entry) return list;
+  const scoutingCommitted = entry.scoutingCommitted !== true;
+  const units =
+    entry.quantity > 1
+      ? [
+          ...list.units.map((unit, index) =>
+            index === entryIndex ? { ...unit, quantity: unit.quantity - 1 } : unit,
+          ),
+          { ...entry, quantity: 1, scoutingCommitted },
+        ]
+      : list.units.map((unit, index) =>
+          index === entryIndex ? { ...unit, scoutingCommitted } : unit,
+        );
+  return touched({ ...list, units: normalizeUnits(units) });
+}
+
 export function toggleUnitUpgrade(list: SavedList, entryIndex: number, upgradeId: string): SavedList {
   const entry = list.units[entryIndex];
   if (!entry) return list;
@@ -117,7 +142,13 @@ export function toggleUnitUpgrade(list: SavedList, entryIndex: number, upgradeId
     // the stack's existing upgrades.
     units = [
       ...list.units.map((u, i) => (i === entryIndex ? { ...u, quantity: u.quantity - 1 } : u)),
-      { unitId: entry.unitId, quantity: 1, upgrades: [...entry.upgrades, upgradeId], magicItems: [] },
+      {
+        unitId: entry.unitId,
+        quantity: 1,
+        upgrades: [...entry.upgrades, upgradeId],
+        magicItems: [],
+        scoutingCommitted: entry.scoutingCommitted,
+      },
     ];
   } else {
     units = list.units.map((u, i) =>
@@ -142,6 +173,18 @@ export function addCharacter(list: SavedList, unitId: string): SavedList {
 
 export function removeCharacter(list: SavedList, id: string): SavedList {
   return touched({ ...list, characters: list.characters.filter((c) => c.id !== id) });
+}
+
+export function toggleCharacterScouting(list: SavedList, id: string): SavedList {
+  if (!list.characters.some((character) => character.id === id)) return list;
+  return touched({
+    ...list,
+    characters: list.characters.map((character) =>
+      character.id === id
+        ? { ...character, scoutingCommitted: character.scoutingCommitted !== true }
+        : character,
+    ),
+  });
 }
 
 export function toggleCharacterUpgrade(list: SavedList, id: string, upgradeId: string): SavedList {
@@ -212,6 +255,7 @@ export function assignMagicItem(
           quantity: 1,
           upgrades: [...targetEntry.upgrades],
           magicItems: [itemId],
+          scoutingCommitted: targetEntry.scoutingCommitted,
         },
       ];
     } else {

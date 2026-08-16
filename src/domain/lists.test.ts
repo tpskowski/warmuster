@@ -11,7 +11,9 @@ import {
   entryStands,
   magicItemBearer,
   removeUnit,
+  toggleCharacterScouting,
   toggleCharacterUpgrade,
+  toggleUnitScouting,
   toggleUnitUpgrade,
   totalPoints,
 } from "./lists";
@@ -31,6 +33,36 @@ describe("list building", () => {
     expect(list.units).toHaveLength(1);
     expect(list.units[0].quantity).toBe(2);
     expect(countOf(list, "chaos:chaos-warriors")).toBe(2);
+  });
+
+  it("splits and re-merges unit stacks by scouting commitment", () => {
+    let list = freshList();
+    for (let i = 0; i < 3; i++) list = addUnit(list, "chaos:chaos-warriors");
+
+    list = toggleUnitScouting(list, 0);
+    expect(list.units).toHaveLength(2);
+    expect(list.units.find((entry) => entry.scoutingCommitted === true)?.quantity).toBe(1);
+    expect(list.units.find((entry) => entry.scoutingCommitted !== true)?.quantity).toBe(2);
+
+    const uncommittedIndex = list.units.findIndex((entry) => entry.scoutingCommitted !== true);
+    list = toggleUnitScouting(list, uncommittedIndex);
+    expect(list.units.find((entry) => entry.scoutingCommitted === true)?.quantity).toBe(2);
+    expect(list.units.find((entry) => entry.scoutingCommitted !== true)?.quantity).toBe(1);
+
+    const committedIndex = list.units.findIndex((entry) => entry.scoutingCommitted === true);
+    list = toggleUnitScouting(list, committedIndex);
+    expect(list.units).toHaveLength(2);
+    expect(list.units.find((entry) => entry.scoutingCommitted === true)?.quantity).toBe(1);
+    expect(list.units.find((entry) => entry.scoutingCommitted !== true)?.quantity).toBe(2);
+  });
+
+  it("toggles a character's scouting commitment", () => {
+    let list = addCharacter(freshList(), "chaos:general");
+    const characterId = list.characters[0].id;
+    list = toggleCharacterScouting(list, characterId);
+    expect(list.characters[0].scoutingCommitted).toBe(true);
+    list = toggleCharacterScouting(list, characterId);
+    expect(list.characters[0].scoutingCommitted).toBe(false);
   });
 
   it("splits a unit into its own entry when it takes an upgrade", () => {

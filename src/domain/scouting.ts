@@ -52,9 +52,10 @@ export function entryScoutingPoints(
   return perCopy * ("quantity" in entry ? entry.quantity : 1);
 }
 
-/** Maximum available scouting value if every eligible entry is committed. */
+/** Total scouting value of the units and characters committed on the list. */
 export function totalScoutingPoints(list: SavedList, army: ArmyData): number {
   return [...list.units, ...list.characters].reduce((total, entry) => {
+    if (entry.scoutingCommitted !== true) return total;
     const unit = getUnit(army, entry.unitId);
     return total + (unit ? entryScoutingPoints(army, entry, unit) : 0);
   }, 0);

@@ -22,7 +22,12 @@ interface SharePayload {
   name: string;
   pointsLimit: number;
   units: SavedList["units"];
-  characters: Array<{ unitId: string; upgrades: string[]; magicItems?: string[] }>;
+  characters: Array<{
+    unitId: string;
+    upgrades: string[];
+    magicItems?: string[];
+    scoutingCommitted?: boolean;
+  }>;
   notes: string | null;
   /** Absent on codes shared before mercenaries existed. */
   allowMercenaries?: boolean;
@@ -68,6 +73,7 @@ export async function encodeShareCode(list: SavedList): Promise<string> {
       unitId: c.unitId,
       upgrades: c.upgrades,
       magicItems: c.magicItems,
+      scoutingCommitted: c.scoutingCommitted,
     })),
     notes: list.notes,
     allowMercenaries: list.allowMercenaries,
@@ -108,12 +114,18 @@ export async function decodeShareCode(code: string): Promise<SavedList | null> {
         quantity: Math.max(1, Number(u.quantity) || 1),
         upgrades: Array.isArray(u.upgrades) ? u.upgrades.map(String) : [],
         magicItems: Array.isArray(u.magicItems) ? u.magicItems.map(String) : [],
+        ...(typeof u.scoutingCommitted === "boolean"
+          ? { scoutingCommitted: u.scoutingCommitted }
+          : {}),
       })),
       characters: (payload.characters ?? []).map((c) => ({
         id: createId("character"),
         unitId: String(c.unitId),
         upgrades: Array.isArray(c.upgrades) ? c.upgrades.map(String) : [],
         magicItems: Array.isArray(c.magicItems) ? c.magicItems.map(String) : [],
+        ...(typeof c.scoutingCommitted === "boolean"
+          ? { scoutingCommitted: c.scoutingCommitted }
+          : {}),
       })),
       notes: payload.notes ?? null,
       updatedAt: new Date().toISOString(),

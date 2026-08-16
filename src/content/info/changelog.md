@@ -1,6 +1,7 @@
 ## 0.9.0 2026-08-16
-- Added option for Scouting Points
+- Added Scouting Points, per-unit commitment checkboxes, stack splitting, and committed totals
 - Added Playtest Rules 2026 data set (High Elf General and 4 Heavy Cav units changed)
+- Added direct links for opening each rule set, with Warmaster Revolution as the default
 - Updated dark mode colors
 
 ## 0.8.0 2026-08-15

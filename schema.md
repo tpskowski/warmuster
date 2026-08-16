@@ -617,7 +617,8 @@ Take this as a baseline but make any changes needed:
     {
       "unitId": "chaos:chaos-warriors",
       "quantity": 4,
-      "upgrades": []
+      "upgrades": [],
+      "scoutingCommitted": false
     }
   ],
   "characters": [
@@ -626,13 +627,18 @@ Take this as a baseline but make any changes needed:
       "unitId": "chaos:general",
       "upgrades": [
         "chaos:chaos-dragon"
-      ]
+      ],
+      "scoutingCommitted": true
     }
   ],
   "notes": null
 }
 
 Characters and units should both be defined by quantity, however represent any units with upgrades as a seperate entry. 
+
+Unit and character entries may include `scoutingCommitted`. It is optional and absent values read
+as `false`. Commitment is part of a unit stack's identity, so otherwise identical committed and
+uncommitted units remain as separate entries.
 
 
 | Field           | Purpose                               |

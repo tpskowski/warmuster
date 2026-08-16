@@ -41,16 +41,26 @@ Configuration offers three independently saved rule sets: **Warmaster Revolution
 copy of Warmaster Revolution but has its own rule-set ID, army data objects, lists, folders, and
 import preferences so it can diverge safely.
 
+### Direct rule-set paths
+
+Each path opens Warmuster with that rule set selected, saves the selection, and then returns the
+address bar to the base URL:
+
+- **Warmaster Revolution:** [warmuster.net/WMR](https://warmuster.net/WMR)
+- **WMR - 2026 Playtest:** [warmuster.net/WMR-2026-playtest](https://warmuster.net/WMR-2026-playtest)
+- **A Matter of Mustaches:** [warmuster.net/A-Matter-of-Mustaches](https://warmuster.net/A-Matter-of-Mustaches)
+
 ## Optional Scouting rules
 
 Enable **Scouting** from Configuration to show generated scouting points in the unit catalog,
-totals for each configured stack in the roster, and the army's available scouting total at the
-top of the rules printout. The adjacent information button contains the deployment procedure and
-the Flyers/Scouts/Patrols table.
+commit checkboxes and totals for each configured stack in the roster, and the committed scouting
+total at the top of the rules printout. The adjacent information button contains the deployment
+procedure and the Flyers/Scouts/Patrols table.
 
-Scouting is a display preference stored in the browser; it does not change the saved-list schema.
-The army total assumes every eligible entry in the list is committed. Flying mounts and attached
-Scout/Patrol upgrades use the higher of the parent and upgrade values.
+The Scouting display preference is stored in the browser. Unit and character commitments are
+stored on the army list, including backups and shared lists. Toggling a multi-copy stack commits
+one copy and splits it from the uncommitted copies. Flying mounts and attached Scout/Patrol
+upgrades use the higher of the parent and upgrade values.
 
 `scripts/apply-scouting.mjs` assigns values programmatically from structured troop type, armour,
 Flying subtype, and the named exceptions in the rule table. It updates the Revolution army JSON,

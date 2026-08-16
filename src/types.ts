@@ -128,6 +128,8 @@ export interface SavedUnitEntry {
   quantity: number;
   upgrades: string[];
   magicItems: string[];
+  /** Whether this stack is committed to the optional Scouting deployment. */
+  scoutingCommitted?: boolean;
 }
 
 export interface SavedCharacterEntry {
@@ -135,6 +137,8 @@ export interface SavedCharacterEntry {
   unitId: string;
   upgrades: string[];
   magicItems: string[];
+  /** Whether this character is committed to the optional Scouting deployment. */
+  scoutingCommitted?: boolean;
 }
 
 export interface SavedList {

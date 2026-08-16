@@ -21,6 +21,7 @@ describe("scouting totals", () => {
         quantity: 2,
         upgrades: ["empire:skirmishers"],
         magicItems: [],
+        scoutingCommitted: true,
       },
     ];
     list.characters = [
@@ -29,8 +30,31 @@ describe("scouting totals", () => {
         unitId: "empire:general",
         upgrades: ["empire:griffon"],
         magicItems: [],
+        scoutingCommitted: true,
       },
     ];
     expect(totalScoutingPoints(list, army)).toBe(7);
+  });
+
+  it("excludes entries that are not committed", () => {
+    const list = createList("warmaster-revolution", "2.26", "empire", "Scouts", 1000);
+    list.units = [
+      {
+        unitId: "empire:pistoliers",
+        quantity: 2,
+        upgrades: [],
+        magicItems: [],
+      },
+    ];
+    list.characters = [
+      {
+        id: "general",
+        unitId: "empire:general",
+        upgrades: [],
+        magicItems: [],
+        scoutingCommitted: true,
+      },
+    ];
+    expect(totalScoutingPoints(list, army)).toBe(2);
   });
 });

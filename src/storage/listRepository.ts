@@ -15,8 +15,16 @@ export function loadLists(): SavedList[] {
       .map((l: SavedList) => ({
         ...l,
         // Lists saved before magic items existed lack the field.
-        units: (l.units ?? []).map((u) => ({ ...u, magicItems: u.magicItems ?? [] })),
-        characters: (l.characters ?? []).map((c) => ({ ...c, magicItems: c.magicItems ?? [] })),
+        units: (l.units ?? []).map((u) => ({
+          ...u,
+          magicItems: u.magicItems ?? [],
+          scoutingCommitted: u.scoutingCommitted === true,
+        })),
+        characters: (l.characters ?? []).map((c) => ({
+          ...c,
+          magicItems: c.magicItems ?? [],
+          scoutingCommitted: c.scoutingCommitted === true,
+        })),
       }));
   } catch {
     return [];
