@@ -6,6 +6,7 @@ const chaos = getArmy("warmaster-revolution", "chaos")!;
 const dwarfs = getArmy("warmaster-revolution", "dwarfs")!;
 const highElves = getArmy("warmaster-revolution", "high-elves")!;
 const lizardmen = getArmy("warmaster-revolution", "lizardmen")!;
+const kislev = getArmy("warmaster-revolution", "kislev")!;
 
 const warriors = getUnit(chaos, "chaos:chaos-warriors")!; // Infantry, 4 attacks, 4+ armour
 const trolls = getUnit(chaos, "chaos:trolls")!; // Infantry, 5 attacks, 5+ armour, 3 hits
@@ -113,5 +114,15 @@ describe("magic item eligibility", () => {
     expect(canBearMagicItem(ring, slann, lizardmen)).toBe(true);
     // Still a General, so General-only items remain available too.
     expect(canBearMagicItem(crown, slann, lizardmen)).toBe(true);
+  });
+
+  it("lets a General with the Tzarina upgrade take Wizard-only items", () => {
+    const kislevGeneral = getUnit(kislev, "kislev:general")!;
+    const tzarina = getUnit(kislev, "kislev:tzarina")!;
+    const wand = getMagicItem("magic:wand-of-power")!;
+
+    expect(canBearMagicItem(wand, kislevGeneral, kislev)).toBe(false);
+    expect(canBearMagicItem(wand, kislevGeneral, kislev, [tzarina])).toBe(true);
+    expect(canBearMagicItem(ring, kislevGeneral, kislev, [tzarina])).toBe(true);
   });
 });

@@ -64,14 +64,16 @@ function ItemRow({
   list.characters.forEach((entry) => {
     const unit = getUnit(army, entry.unitId);
     if (!unit) return;
+    const upgrades = entry.upgrades.map((id) => getUnit(army, id)).filter((u) => u != null);
     const key = `char:${entry.id}`;
     // A bearer can carry only one item; hide anyone already carrying another.
     if (entry.magicItems.length > 0 && key !== bearerKey) return;
-    if (canBearMagicItem(item, unit, army) || key === bearerKey) {
+    if (canBearMagicItem(item, unit, army, upgrades) || key === bearerKey) {
+      const extras = upgrades.map((upgrade) => upgrade.troop).join(", ");
       const current = key === bearerKey ? " (current)" : "";
       options.push({
         key,
-        label: `${unit.troop} — ${magicItemCost(item.itemId, unit)} pts${current}`,
+        label: `${unit.troop}${extras ? ` [${extras}]` : ""} — ${magicItemCost(item.itemId, unit)} pts${current}`,
       });
     }
   });
@@ -79,14 +81,12 @@ function ItemRow({
     const unit = getUnit(army, entry.unitId);
     if (!unit) return;
     const key = `unit:${index}`;
+    const upgrades = entry.upgrades.map((id) => getUnit(army, id)).filter((u) => u != null);
     // Single entries carrying another item are full; a merged stack is fine
     // because assigning splits a fresh unit off it.
     if (entry.quantity === 1 && entry.magicItems.length > 0 && key !== bearerKey) return;
-    if (canBearMagicItem(item, unit, army) || key === bearerKey) {
-      const extras = entry.upgrades
-        .map((id) => getUnit(army, id)?.troop)
-        .filter(Boolean)
-        .join(", ");
+    if (canBearMagicItem(item, unit, army, upgrades) || key === bearerKey) {
+      const extras = upgrades.map((upgrade) => upgrade.troop).join(", ");
       const current = key === bearerKey ? " (current)" : "";
       options.push({
         key,
