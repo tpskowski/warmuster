@@ -282,6 +282,7 @@ export function validateList(list: SavedList, army: ArmyData): ValidationIssue[]
   }
   for (const entry of [...list.units, ...list.characters]) {
     const unit = getUnit(army, entry.unitId);
+    const upgrades = entry.upgrades.map((id) => getUnit(army, id)).filter((u) => u != null);
     const label = unit?.troop ?? entry.unitId;
     if (entry.magicItems.length > 1) {
       issues.push({
@@ -298,7 +299,7 @@ export function validateList(list: SavedList, army: ArmyData): ValidationIssue[]
           message: `Unknown magic item "${itemId}".`,
           unitId: entry.unitId,
         });
-      } else if (unit && !canBearMagicItem(item, unit, army)) {
+      } else if (unit && !canBearMagicItem(item, unit, army, upgrades)) {
         issues.push({
           severity: "error",
           message: `${label} cannot take ${item.name}.`,

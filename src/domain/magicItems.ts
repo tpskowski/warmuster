@@ -20,7 +20,7 @@ export interface MagicItemData {
   text: string;
   cost: (unit: UnitData) => number | null;
   /** Extra bearer check beyond the kind-level rules (devices only). */
-  allowed?: (unit: UnitData, army: ArmyData) => boolean;
+  allowed?: (unit: UnitData, army: ArmyData, upgrades: UnitData[]) => boolean;
 }
 
 /** Best (lowest) armour value on the profile: "0 or 6+" -> 6, "4+" -> 4. */
@@ -46,13 +46,17 @@ function isGeneral(unit: UnitData): boolean {
 // Some army generals (Grey Seer, Vampire Lord, …) may take items restricted
 // to either a General or a Wizard; their special rules say so explicitly.
 // Others (the Lizardmen Slann) simply "cast spells as a Wizard" and so count
-// as a Wizard for every Wizard-only item, including the Wand of Power.
-function isWizard(unit: UnitData): boolean {
-  if (unit.type === "Wizard") return true;
-  return unit.specials.some(
-    (s) =>
-      /restricted to (?:either )?a General or (?:a )?Wizard/i.test(s) ||
-      /casts? spells? as a Wizard/i.test(s),
+// as a Wizard for every Wizard-only item, including the Wand of Power. Some
+// upgrades, such as the Kislev Tzarina, grant the same permission to a General.
+function isWizard(unit: UnitData, upgrades: UnitData[] = []): boolean {
+  return [unit, ...upgrades].some(
+    (profile) =>
+      profile.type === "Wizard" ||
+      profile.specials.some(
+        (s) =>
+          /restricted to (?:either )?(?:(?:a )?General or )?(?:a )?Wizard/i.test(s) ||
+          /casts? spells? (?:as|like) a Wizard/i.test(s),
+      ),
   );
 }
 
@@ -205,7 +209,7 @@ export const magicItems: MagicItemData[] = [
     costLabel: "30 pts",
     text: "A Wizard with this ring is able to cast a spell on the roll of 2+. This item will only work once in the entire game and when used it cannot be combined with any other item granting a spell casting bonus.",
     cost: () => 30,
-    allowed: isWizard,
+    allowed: (unit, _army, upgrades) => isWizard(unit, upgrades),
   },
   {
     itemId: "magic:staff-of-spellbinding",
@@ -215,7 +219,7 @@ export const magicItems: MagicItemData[] = [
     costLabel: "30 pts",
     text: "If an enemy Wizard fails to cast a spell, he can be spellbound on the D6 roll of a 4+. A spellbound Wizard suffers a -1 dice penalty each time he tries to cast a spell. The Staff of Spellbinding ceases to work once it has been used successfully.",
     cost: () => 30,
-    allowed: (unit) => isWizard(unit) || isRunesmith(unit),
+    allowed: (unit, _army, upgrades) => isWizard(unit, upgrades) || isRunesmith(unit),
   },
   {
     itemId: "magic:sceptre-of-sovereignty",
@@ -235,7 +239,7 @@ export const magicItems: MagicItemData[] = [
     costLabel: "20 pts",
     text: "The bearer can cause an enemy's spell to fail on the roll of 2+. The Scroll can only be used once to nullify the effect of a spell an enemy Wizard has successfully cast. In the case of a Runesmith, the Scroll can be used after a normal Dwarf anti-magic roll has failed.",
     cost: () => 20,
-    allowed: (unit) => isWizard(unit) || isRunesmith(unit),
+    allowed: (unit, _army, upgrades) => isWizard(unit, upgrades) || isRunesmith(unit),
   },
   {
     itemId: "magic:wand-of-power",
@@ -245,7 +249,7 @@ export const magicItems: MagicItemData[] = [
     costLabel: "10 pts",
     text: "A Wizard with the Wand of Power can add +1 to the chance of a spell working once during the game. The player must decide that he is using the Wand of Power before rolling the dice. As always a spell fails on the roll of a 1.",
     cost: () => 10,
-    allowed: isWizard,
+    allowed: (unit, _army, upgrades) => isWizard(unit, upgrades),
   },
   {
     itemId: "magic:rod-of-repetition",
@@ -255,7 +259,7 @@ export const magicItems: MagicItemData[] = [
     costLabel: "10 pts",
     text: "If a Wizard casts a spell and rolls sufficiently well for it to work then he can cast another spell. He can only do this once during the entire game. The next spell can be the same spell again or a different one and is cast exactly like any other.",
     cost: () => 10,
-    allowed: isWizard,
+    allowed: (unit, _army, upgrades) => isWizard(unit, upgrades),
   },
 ];
 
@@ -296,8 +300,13 @@ function deniesMagicItems(unit: UnitData): boolean {
   return unit.specials.some((s) => /cannot (?:be given|have) (?:a )?magic items?/i.test(s));
 }
 
-export function canBearMagicItem(item: MagicItemData, unit: UnitData, army: ArmyData): boolean {
-  if (deniesMagicItems(unit)) return false;
+export function canBearMagicItem(
+  item: MagicItemData,
+  unit: UnitData,
+  army: ArmyData,
+  upgrades: UnitData[] = [],
+): boolean {
+  if ([unit, ...upgrades].some(deniesMagicItems)) return false;
   // "No magic item may be given to hired Regiments of Renown units nor heroes."
   // The restriction is on hiring, so a list built from the Regiments of Renown
   // army itself is unaffected.
@@ -308,6 +317,6 @@ export function canBearMagicItem(item: MagicItemData, unit: UnitData, army: Army
     case "weapon":
       return isOrdinaryUnit(unit) || unit.category === "character";
     case "device":
-      return unit.category === "character" && (item.allowed?.(unit, army) ?? true);
+      return unit.category === "character" && (item.allowed?.(unit, army, upgrades) ?? true);
   }
 }
