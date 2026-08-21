@@ -5,9 +5,6 @@
 ## List Building
 1. Add optional rules from p.115
 
-## Unit Cards
-1. Print cannon rules on cannon cards
-
 ## Misc
 1. Look into this build warning:
    - Using dynamic imports to split large chunks.

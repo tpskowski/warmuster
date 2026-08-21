@@ -6,6 +6,7 @@ import { getMagicItem } from "../domain/magicItems";
 import { totalScoutingPoints } from "../domain/scouting";
 import {
   buildCard,
+  buildCannonRulesCard,
   buildChartCard,
   buildMagicItemCard,
   buildSpellCard,
@@ -347,11 +348,13 @@ export function listCards(
     if (seen.has(card.unitId)) return;
     seen.add(card.unitId);
     cards.push(card);
-    // Units with a roll chart (the Giants) get a second, two-sided chart card.
-    const chartCard = buildChartCard(unit);
-    if (chartCard && !seen.has(chartCard.unitId)) {
-      seen.add(chartCard.unitId);
-      cards.push(chartCard);
+    // Long shared references print as companion cards. Each reference is
+    // included only once even when the list contains several eligible units.
+    for (const referenceCard of [buildChartCard(unit), buildCannonRulesCard(unit)]) {
+      if (referenceCard && !seen.has(referenceCard.unitId)) {
+        seen.add(referenceCard.unitId);
+        cards.push(referenceCard);
+      }
     }
   };
   for (const entry of [...list.characters, ...list.units]) {

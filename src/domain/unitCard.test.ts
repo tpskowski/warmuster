@@ -2,6 +2,7 @@
 import { getArmy } from "../data/gameData";
 import {
   buildCard,
+  buildCannonRulesCard,
   buildChartCard,
   buildSpellCard,
   cardStats,
@@ -103,6 +104,39 @@ describe("unit cards", () => {
     list = addUnit(list, "orcs:giant");
     const cards = listCards(list, orcs);
     expect(cards.filter((c) => c.unitId === "orcs:giant:chart")).toHaveLength(1);
+  });
+
+  it("adds one shared Cannon Rules card for cannon-profile units", () => {
+    const cannon = unit(empire, "Cannon");
+    const reminder = "Full rules for Cannons are in the main Rulebook (p.74) or on the Cannon Rules card.";
+    for (const armyId of ["empire", "dwarfs", "witch-hunters"]) {
+      const army = getArmy("warmaster-revolution", armyId)!;
+      const card = buildCard(unit(army, "Cannon"));
+      expect([...card.frontRules, ...card.backRules].map((rule) => rule.text), armyId).toContain(reminder);
+    }
+    const reference = buildCannonRulesCard(cannon)!;
+    const text = [...reference.frontRules, ...reference.backRules]
+      .map((rule) => `${rule.title}: ${rule.text}`)
+      .join(" ");
+
+    expect(reference.name).toBe("Cannon Rules");
+    expect(reference.fits).toBe(true);
+    expect(text).toContain("Armour & cover");
+    expect(text).toContain("continues 5cm");
+    expect(text).toContain("friendly units and units in combat");
+    expect(text).toContain("Grapeshot");
+    expect(buildCannonRulesCard(unit(chaos, "Chaos Warriors"))).toBeNull();
+
+    // The bounce profile also opts Galloper Guns into the shared rules.
+    const dogs = getArmy("warmaster-revolution", "dogs-of-war")!;
+    expect(buildCannonRulesCard(unit(dogs, "Galloper Guns"))).not.toBeNull();
+
+    // Repeated cannon units still require only one reference card.
+    let list = createList("warmaster-revolution", "2.2.6", "empire", "Battery", 2000);
+    list = addUnit(list, "empire:cannon");
+    list = addUnit(list, "empire:cannon");
+    const cards = listCards(list, empire);
+    expect(cards.filter((card) => card.unitId === "warmaster-revolution:cannon-rules")).toHaveLength(1);
   });
 
   it("uses full font size and a logo back for short rules", () => {
