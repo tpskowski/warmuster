@@ -1,3 +1,6 @@
+## Unreleased
+- Cannon and Galloper Gun lists now print a compact Cannon Rules reference card covering armour, cover, bounce-through hits, friendly and engaged units, and grapeshot.
+
 ## 0.9.0 2026-08-16
 - Added Scouting Points, per-unit commitment checkboxes, stack splitting, and committed totals
 - Added Playtest Rules 2026 data set (High Elf General and 4 Heavy Cav units changed)

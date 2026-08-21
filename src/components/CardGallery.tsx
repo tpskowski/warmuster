@@ -2,6 +2,7 @@ import { ruleSets } from "../data/gameData";
 import { magicItems } from "../domain/magicItems";
 import {
   buildCard,
+  buildCannonRulesCard,
   buildChartCard,
   buildMagicItemCard,
   buildSpellCard,
@@ -29,6 +30,8 @@ export default function CardGallery() {
         cards.push(buildCard(unit));
         const chartCard = buildChartCard(unit);
         if (chartCard) cards.push(chartCard);
+        const cannonRulesCard = buildCannonRulesCard(unit);
+        if (cannonRulesCard) cards.push(cannonRulesCard);
       }
       for (const spell of army.spells) {
         if (seenSpells.has(spell.name + spell.text)) continue;

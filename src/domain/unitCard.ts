@@ -95,6 +95,46 @@ const GROUND_TERRAIN_RULES: Record<string, string> = {
 };
 
 const FLYER_RULE = "Flyer: uses the flying movement rules and can move over units and terrain.";
+const CANNON_RULE_REFERENCE =
+  "Full rules for Cannons are in the main Rulebook (p.74) or on the Cannon Rules card.";
+
+/** Operational cannon rules from the core rulebook, condensed into a
+ * card-sized field reference. A "bounce" attack profile is the stable data
+ * signal shared by Cannons and both kinds of Galloper Gun. */
+const CANNON_RULES: CardRule[] = [
+  {
+    title: "Armour & cover",
+    text:
+      "Cannon balls ignore Armour: no Armour roll is made. Fortified targets count as defended (5+ to hit), and defended targets count as in the open (4+ to hit).",
+  },
+  {
+    title: "Bounce",
+    text:
+      "Trace the shot from the closest firing cannon to the closest point of the closest target stand. It passes through that stand and continues 5cm in the same direction. Every cannon in the firing unit uses this same path. For each cannon, the target unit suffers its 2 listed attacks, plus 1 attack for every additional stand from that unit crossed by the path.",
+  },
+  {
+    title: "Other units in the path",
+    text:
+      "A shot that crosses another unit makes 1 attack for each stand crossed, including friendly units and units in combat. Resolve the attacks against each affected unit separately. Drive back friendly unengaged units after all enemy drive backs. Do not drive back engaged units; carry their hits into combat, where they count toward the combat result.",
+  },
+  {
+    title: "Grapeshot",
+    text:
+      "When charged, cannons can stand and shoot with grapeshot. Each cannon has 2 attacks; grapeshot does not bounce, and the target uses its full Armour value.",
+  },
+];
+
+function usesCannonRules(unit: UnitData): boolean {
+  return /bounce/i.test(unit.rangedAttackProfile ?? "");
+}
+
+function cannonRuleReference(text: string): string {
+  return /^(?:full rules for cannons are in the main rulebook \(p\.74\)|see warmaster rulebook p\.74\.)$/i.test(
+    text,
+  )
+    ? CANNON_RULE_REFERENCE
+    : text;
+}
 
 /**
  * Shooting range. Prefer an explicit "range of Ncm" in the unit's own rules,
@@ -165,7 +205,7 @@ export function cardRules(unit: UnitData): string[] {
   const rules: string[] = [];
   if (unit.subType === "Flying") rules.push(FLYER_RULE);
   if (unit.specials.length > 0) {
-    rules.push(...unit.specials);
+    rules.push(...unit.specials.map(cannonRuleReference));
   } else {
     // A flyer moves over terrain, so its ground limits would contradict the
     // flyer rule above.
@@ -175,6 +215,9 @@ export function cardRules(unit: UnitData): string[] {
     }
     const typeRule = TYPE_RULES[unit.type];
     if (typeRule) rules.push(typeRule);
+  }
+  if (usesCannonRules(unit) && !rules.includes(CANNON_RULE_REFERENCE)) {
+    rules.push(CANNON_RULE_REFERENCE);
   }
   return rules;
 }
@@ -566,6 +609,23 @@ export function buildChartCard(unit: UnitData): CardModel | null {
     unit.chart.text.split("\n").map((line) => ({ title: null, text: line })),
     { kind: "none", count: 0, orientation: "horizontal" },
     true, // numbered list: compact paragraph spacing buys a bigger font
+  );
+}
+
+/** Shared field-reference card included whenever a list has a cannon or
+ * Galloper Gun. Its rules are kept separate, like the Giant Goes Wild chart,
+ * so the unit's stats and any unit-specific rules remain easy to scan. */
+export function buildCannonRulesCard(unit: UnitData): CardModel | null {
+  if (!usesCannonRules(unit)) return null;
+  return assembleCard(
+    `${unit.ruleSet}:cannon-rules`,
+    "Cannon Rules",
+    "Artillery reference",
+    null,
+    [],
+    CANNON_RULES,
+    { kind: "none", count: 0, orientation: "horizontal" },
+    true,
   );
 }
 
