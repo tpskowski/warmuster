@@ -1,7 +1,7 @@
 ﻿import type { CSSProperties } from "react";
 import type { ArmyData, SavedCharacterEntry, SavedList, SavedUnitEntry } from "../types";
 import { getUnit } from "../data/gameData";
-import { entryPoints, totalPoints } from "../domain/lists";
+import { breakPoint, entryPoints, totalPoints } from "../domain/lists";
 import { getMagicItem } from "../domain/magicItems";
 import { entryScoutingPoints, totalScoutingPoints } from "../domain/scouting";
 import {
@@ -104,7 +104,7 @@ export function PrintList({
         <h1>{list.name}</h1>
         <p>
           {army.name} · Warmaster Revolution {list.ruleVersion} · {totalPoints(list, army)}/
-          {list.pointsLimit} pts
+          {list.pointsLimit} pts · Breakpoint: {breakPoint(list)}
           {scoutingEnabled ? ` · Scouting units: ${totalScoutingPoints(list, army)} SP` : ""}
         </p>
       </header>
@@ -113,6 +113,7 @@ export function PrintList({
           <tr>
             <th>Qty</th>
             <th>Unit</th>
+            <th>Type</th>
             <th>Melee Attacks</th>
             <th>Ranged Attacks</th>
             <th>Bonus Attacks</th>
@@ -131,6 +132,7 @@ export function PrintList({
               <tr key={i}>
                 <td>{row.quantity}</td>
                 <td>{row.label}</td>
+                <td>{unit?.type ?? "-"}</td>
                 <td>{unit ? (meleeAttacksLabel(unit) ?? "-") : "-"}</td>
                 <td>{unit ? (rangedAttacksLabel(unit) ?? "-") : "-"}</td>
                 <td>{unit?.bonusAttacks != null ? signedLabel(unit.bonusAttacks) : "-"}</td>
