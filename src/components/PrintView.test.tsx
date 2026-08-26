@@ -5,7 +5,23 @@ import { addUnit, createList, toggleUnitScouting } from "../domain/lists";
 import { totalScoutingPoints } from "../domain/scouting";
 import { PrintList } from "./PrintView";
 
-describe("PrintList scouting commitments", () => {
+describe("PrintList", () => {
+  it("prints the breakpoint and unit type", () => {
+    const army = getArmy("warmaster-revolution", "dwarfs")!;
+    const list = createList("warmaster-revolution", army.version, army.army, "Dwarfs", 2000);
+    list.units = [
+      { unitId: "dwarfs:warriors", quantity: 5, upgrades: [], magicItems: [] },
+    ];
+
+    render(<PrintList list={list} army={army} />);
+
+    expect(screen.getByText(/Dwarfs · Warmaster Revolution/)).toHaveTextContent(
+      `Dwarfs · Warmaster Revolution ${army.version} · 550/2000 pts · Breakpoint: 3`,
+    );
+    expect(screen.getByRole("columnheader", { name: "Type" })).toBeInTheDocument();
+    expect(screen.getByText("Warriors").closest("tr")).toHaveTextContent("Infantry");
+  });
+
   it("prints committed scouting units and their total", () => {
     const army = getArmy("warmaster-revolution", "dwarfs")!;
     let list = createList("warmaster-revolution", army.version, army.army, "Scouts", 1000);
