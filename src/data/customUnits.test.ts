@@ -118,7 +118,7 @@ describe("custom units", () => {
     ]);
   });
 
-  it("Dramar Thungnisson (Mounted): Dwarf Hero supporting Ram Riders", () => {
+  it("Dramar Thungnisson (Mounted): Dwarf Hero with two named rules", () => {
     const dramar = customUnit(customDwarfs, "dwarfs:dramar-thungnisson-mounted");
     expect(dramar.type).toBe("Hero");
     expect(dramar.category).toBe("character");
@@ -127,9 +127,10 @@ describe("custom units", () => {
     expect(dramar.command).toBe(8);
     expect(dramar.points).toBe(80);
     expect(dramar.max).toBe(1);
-    expect(dramar.specialName).toBe("Master of the Goats");
+    expect(dramar.specialName).toBeNull();
     expect(dramar.specials).toEqual([
-      "When attached to a unit of Ram Riders a unit with this sword can re-roll one unsuccessful Attack dice each round of combat.",
+      "**For the Hold!:** When attached to a unit, if that unit has moved into contact with an enemy unit this turn you can re-roll one unsuccessful attack each round of combat.",
+      "**Ironbreaker's Resolve:** When attached to a unit, one shooting hit inflicted on the unit after saves have been taken in each turn is ignored. This includes hits from magic spells inflicted in the Shooting phase.",
     ]);
   });
 
@@ -158,7 +159,6 @@ describe("custom units", () => {
     expect(yorri.points).toBe(80);
     expect(yorri.max).toBe(1);
     expect(yorri.specials).toEqual([
-      "**Leading the Outcasts:** When attached to a unit of Slayers increase bonus attacks by +1.",
       "**This Will be the One:** When the unit this character is attached to is in close combat with an enemy Giant or Troll increase bonus attacks by +1.",
     ]);
   });

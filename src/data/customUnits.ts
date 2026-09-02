@@ -117,14 +117,15 @@ export function applyCustomUnits(custom: RuleSetInfo, base: RuleSetInfo): void {
     }),
   );
 
-  // Mounted Dramar fights alongside the Ram Riders.
+  // Mounted Dramar spurs on a charging unit and shrugs off incoming fire.
   dwarfs.units.push(
     deriveDwarfHero({
       unitId: "dwarfs:dramar-thungnisson-mounted",
       troop: "Dramar Thungnisson (Mounted)",
-      specialName: "Master of the Goats",
+      specialName: null,
       specials: [
-        "When attached to a unit of Ram Riders a unit with this sword can re-roll one unsuccessful Attack dice each round of combat.",
+        "**For the Hold!:** When attached to a unit, if that unit has moved into contact with an enemy unit this turn you can re-roll one unsuccessful attack each round of combat.",
+        "**Ironbreaker's Resolve:** When attached to a unit, one shooting hit inflicted on the unit after saves have been taken in each turn is ignored. This includes hits from magic spells inflicted in the Shooting phase.",
       ],
     }),
   );
@@ -141,8 +142,7 @@ export function applyCustomUnits(custom: RuleSetInfo, base: RuleSetInfo): void {
     }),
   );
 
-  // Yorri Thungnisson is especially deadly alongside Slayers and against
-  // Giants or Trolls.
+  // Yorri Thungnisson is especially deadly against Giants or Trolls.
   dwarfs.units.push(
     deriveDwarfHero({
       unitId: "dwarfs:yorri-thungnisson",
@@ -150,7 +150,6 @@ export function applyCustomUnits(custom: RuleSetInfo, base: RuleSetInfo): void {
       bonusAttacks: 2,
       specialName: null,
       specials: [
-        "**Leading the Outcasts:** When attached to a unit of Slayers increase bonus attacks by +1.",
         "**This Will be the One:** When the unit this character is attached to is in close combat with an enemy Giant or Troll increase bonus attacks by +1.",
       ],
     }),
