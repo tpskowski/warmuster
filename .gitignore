@@ -24,3 +24,6 @@ coverage/
 Thumbs.db
 
 !.dev.vars.example
+
+# Wrangler local dev state
+.wrangler/

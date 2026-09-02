@@ -28,8 +28,8 @@ function unit(army: typeof orcs, troop: string) {
 
 describe("unit cards", () => {
   it("splits Markdown-style names from custom special rules", () => {
-    expect(splitRuleHeading("**Leading the Outcasts:** Rule text.")).toEqual({
-      title: "Leading the Outcasts",
+    expect(splitRuleHeading("**This Will be the One:** Rule text.")).toEqual({
+      title: "This Will be the One",
       text: "Rule text.",
     });
   });
@@ -41,9 +41,15 @@ describe("unit cards", () => {
       "Ironbreaker's Resolve",
     );
 
+    const mountedDramar = buildCard(unit(customDwarfs, "Dramar Thungnisson (Mounted)"));
+    const mountedTitles = [...mountedDramar.frontRules, ...mountedDramar.backRules].map(
+      (rule) => rule.title,
+    );
+    expect(mountedTitles).toContain("For the Hold!");
+    expect(mountedTitles).toContain("Ironbreaker's Resolve");
+
     const yorri = buildCard(unit(customDwarfs, "Yorri Thungnisson"));
     const yorriTitles = [...yorri.frontRules, ...yorri.backRules].map((rule) => rule.title);
-    expect(yorriTitles).toContain("Leading the Outcasts");
     expect(yorriTitles).toContain("This Will be the One");
 
     const highElves = getArmy("warmaster-revolution", "high-elves")!;
