@@ -1157,10 +1157,23 @@ textarea {
   gap: 6px;
 }
 
-.duplex-offset {
+.duplex-offset,
+.paper-size {
   display: flex;
   align-items: center;
   gap: 6px;
+}
+
+.paper-size {
+  font-size: 13px;
+  color: #444;
+}
+
+/* Cards only print at their true size at 100% scale, so say so next to the
+   options rather than leaving it to be discovered with a ruler. */
+.print-scale-hint {
+  font-style: italic;
+  color: #666;
 }
 
 .duplex-offset input {
@@ -1234,17 +1247,20 @@ textarea {
 
 /* ------------------------------------------------------------ unit cards */
 
-/* 63 x 88mm trading cards, 3 x 3 per A4 page; ink-light (borders only, no
-   fills). Every front page is followed by a back page whose columns are
-   mirrored (direction: rtl) so double-sided "flip on long edge" printing
-   lines each back up with its front. The fit-N levels must stay in sync
-   with FIT_LEVELS in src/domain/unitCard.ts. */
+/* 63 x 88mm trading cards - the same finished size as a Magic: the Gathering
+   card - 3 x 3 per page; ink-light (borders only, no fills). Every front page
+   is followed by a back page whose columns are mirrored (direction: rtl) so
+   double-sided "flip on long edge" printing lines each back up with its
+   front. The fit-N levels must stay in sync with FIT_LEVELS in
+   src/domain/unitCard.ts. The sheet's paper size comes from the @page rule
+   PrintView emits (see PAPER_SIZES there). */
 .card-page {
   display: grid;
   grid-template-columns: repeat(3, 63mm);
-  /* Rows are the tight dimension: 3 x 88mm + 2 x 2mm = 268mm must fit the
-     printable page height (297 - 2 x 8mm margins) with slack to spare. */
-  gap: 2mm 4mm;
+  /* Cards abut with no gutter so one straight cut separates two of them, and
+     so the block is only 189 x 264mm - the 264mm of rows is what lets three
+     rows fit US Letter's 279.4mm sheet at all (see PAPER_SIZES). */
+  gap: 0;
   justify-content: center;
   break-after: page;
   margin-bottom: 6mm;
@@ -1266,8 +1282,9 @@ textarea {
   position: relative;
   width: 63mm;
   height: 88mm;
+  /* Square corners, no radius: abutting cards then draw one continuous grid
+     of cut lines instead of leaving white notches where four corners meet. */
   border: 1px solid #555;
-  border-radius: 2mm;
   padding: 2.5mm;
   overflow: hidden;
   break-inside: avoid;
@@ -1466,6 +1483,8 @@ textarea {
     break-after: auto;
   }
 
+  /* Default sheet; PrintView emits a later @page rule for the paper size the
+     user picked in the print toolbar, which overrides this. */
   @page {
     size: A4 portrait;
     margin: 8mm 6mm;

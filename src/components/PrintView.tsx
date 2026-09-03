@@ -31,6 +31,44 @@ export const defaultCardPrintOptions: CardPrintOptions = {
   includeMagicItemsOnUnits: true,
 };
 
+/* Paper the sheets are laid out for. Cards are drawn at their true finished
+ * size (63 x 88mm, the same as a Magic: the Gathering card) and must print at
+ * 100% scale to come out that size — so the @page size has to match the paper
+ * actually in the tray. Declaring A4 and printing on US Letter makes the
+ * browser shrink the whole sheet to 279.4/297 = 94%, and the cards come out
+ * 59 x 83mm.
+ *
+ * Three 88mm rows are 264mm tall, which leaves Letter (279.4mm) just 15.4mm
+ * for both margins — hence the tighter 6mm here. A printer whose unprintable
+ * border is wider than that cannot fit 3 x 3 cards on Letter at full size. */
+export const PAPER_SIZES = {
+  a4: { label: "A4", size: "A4 portrait", margin: "8mm 6mm" },
+  letter: { label: "US Letter", size: "Letter portrait", margin: "6mm" },
+} as const;
+
+export type PaperSize = keyof typeof PAPER_SIZES;
+
+export const defaultPaperSize: PaperSize = "a4";
+
+/** Regions that use US Letter rather than ISO A4. */
+const LETTER_REGIONS = new Set(["US", "CA", "MX", "PH", "CL", "CO", "VE", "PR"]);
+
+/** Best guess at the paper in the user's printer, used until they pick one. */
+export function guessPaperSize(locales: readonly string[] = navigator.languages ?? []): PaperSize {
+  for (const locale of locales) {
+    const region = locale.split("-").at(-1)?.toUpperCase();
+    if (region && LETTER_REGIONS.has(region)) return "letter";
+  }
+  return defaultPaperSize;
+}
+
+/** The @page rule for the chosen paper. Emitted into the document so it lands
+ * after styles.css and overrides its A4 default. */
+function PaperStyle({ paper }: { paper: PaperSize }) {
+  const { size, margin } = PAPER_SIZES[paper];
+  return <style>{`@media print{@page{size:${size};margin:${margin};}}`}</style>;
+}
+
 /** Full army-list printout with special rules, army rules, and spells. */
 function entryExtras(army: ArmyData, entry: SavedUnitEntry | SavedCharacterEntry): string {
   return [
@@ -431,6 +469,7 @@ export default function PrintView({
   list,
   army,
   duplexOffsetMm = 0,
+  paperSize = defaultPaperSize,
   cardOptions = defaultCardPrintOptions,
   scoutingEnabled = false,
 }: {
@@ -440,6 +479,9 @@ export default function PrintView({
   /** Horizontal nudge for the back pages (mm, positive = right) to calibrate
    * out the printer's front/back registration offset in duplex printing. */
   duplexOffsetMm?: number;
+  /** Paper in the printer. Must match it, or the browser scales the sheet
+   * down to fit and the cards come out under size. */
+  paperSize?: PaperSize;
   cardOptions?: CardPrintOptions;
   scoutingEnabled?: boolean;
 }) {
@@ -448,6 +490,7 @@ export default function PrintView({
       className="print-root"
       style={{ "--duplex-offset": `${duplexOffsetMm}mm` } as CSSProperties}
     >
+      <PaperStyle paper={paperSize} />
       {mode === "list" ? (
         <PrintList list={list} army={army} scoutingEnabled={scoutingEnabled} />
       ) : (

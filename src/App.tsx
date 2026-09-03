@@ -8,7 +8,10 @@ import { HamburgerIcon, MoonIcon, SunIcon } from "./components/Icons";
 import MagicItemsDialog from "./components/MagicItemsDialog";
 import PrintView, {
   defaultCardPrintOptions,
+  guessPaperSize,
+  PAPER_SIZES,
   type CardPrintOptions,
+  type PaperSize,
   type PrintMode,
 } from "./components/PrintView";
 import Roster from "./components/Roster";
@@ -157,6 +160,18 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem("warmuster.duplexOffset", String(duplexOffset));
   }, [duplexOffset]);
+
+  // Paper in the printer. Cards are drawn at their true 63 x 88mm size, so
+  // this has to match the tray or the browser scales the sheet to fit and the
+  // cards print under size. Guessed from the browser locale until picked.
+  const [paperSize, setPaperSize] = useState<PaperSize>(() => {
+    const stored = localStorage.getItem("warmuster.paperSize");
+    return stored != null && stored in PAPER_SIZES ? (stored as PaperSize) : guessPaperSize();
+  });
+
+  useEffect(() => {
+    localStorage.setItem("warmuster.paperSize", paperSize);
+  }, [paperSize]);
 
   // The print preview lives on its own history entry, so the browser Back
   // button closes it (returning to the app) instead of leaving the site.
@@ -455,6 +470,20 @@ export default function App() {
             <button type="button" onClick={closePrint}>
               Close preview
             </button>
+            <label className="paper-size" title="Must match the paper in the printer, or the browser scales the sheet down to fit it.">
+              Paper
+              <select
+                aria-label="Paper size"
+                value={paperSize}
+                onChange={(event) => setPaperSize(event.target.value as PaperSize)}
+              >
+                {Object.entries(PAPER_SIZES).map(([value, paper]) => (
+                  <option key={value} value={value}>
+                    {paper.label}
+                  </option>
+                ))}
+              </select>
+            </label>
             {printMode === "cards" && (
               <div className="card-print-options">
                 <label>
@@ -498,6 +527,9 @@ export default function App() {
                   />
                   mm
                 </label>
+                <span className="print-scale-hint">
+                  Cards are 63 &times; 88 mm; print at 100% scale (not &ldquo;fit to page&rdquo;).
+                </span>
               </div>
             )}
           </div>
@@ -506,6 +538,7 @@ export default function App() {
             list={activeList}
             army={army}
             duplexOffsetMm={printMode === "cards" ? duplexOffset : 0}
+            paperSize={paperSize}
             cardOptions={cardPrintOptions}
             scoutingEnabled={scoutingEnabled}
           />
