@@ -42,13 +42,41 @@ export const defaultCardPrintOptions: CardPrintOptions = {
  * for both margins — hence the tighter 6mm here. A printer whose unprintable
  * border is wider than that cannot fit 3 x 3 cards on Letter at full size. */
 export const PAPER_SIZES = {
-  a4: { label: "A4", size: "A4 portrait", margin: "8mm 6mm" },
-  letter: { label: "US Letter", size: "Letter portrait", margin: "6mm" },
+  a4: { label: "A4", size: "A4 portrait", widthMm: 210, heightMm: 297, marginXMm: 6, marginYMm: 8 },
+  letter: {
+    label: "US Letter",
+    size: "Letter portrait",
+    widthMm: 215.9,
+    heightMm: 279.4,
+    marginXMm: 6,
+    marginYMm: 6,
+  },
 } as const;
 
 export type PaperSize = keyof typeof PAPER_SIZES;
 
 export const defaultPaperSize: PaperSize = "a4";
+
+/** One card, and the grid they print in. Keep in step with styles.css. */
+export const CARD_MM = { width: 63, height: 88, columns: 3, rows: 3 };
+
+/** Widest gutter between cards that still fits 3 x 3 on a sheet of `paper`,
+ * rounded down to the nearest 0.5mm. Letter is the binding case: three 88mm
+ * rows leave it only 1.7mm of slack, against 8.5mm on A4. */
+export function maxCardGutterMm(paper: PaperSize): number {
+  const { widthMm, heightMm, marginXMm, marginYMm } = PAPER_SIZES[paper];
+  const slackX = widthMm - 2 * marginXMm - CARD_MM.columns * CARD_MM.width;
+  const slackY = heightMm - 2 * marginYMm - CARD_MM.rows * CARD_MM.height;
+  const gutter = Math.min(slackX / (CARD_MM.columns - 1), slackY / (CARD_MM.rows - 1));
+  return Math.max(0, Math.floor(gutter * 2) / 2);
+}
+
+/** A gutter the chosen paper can actually take, so switching to the smaller
+ * sheet can never push a row onto an extra page. */
+export function clampCardGutterMm(gutterMm: number, paper: PaperSize): number {
+  if (!Number.isFinite(gutterMm)) return 0;
+  return Math.min(Math.max(gutterMm, 0), maxCardGutterMm(paper));
+}
 
 /** Regions that use US Letter rather than ISO A4. */
 const LETTER_REGIONS = new Set(["US", "CA", "MX", "PH", "CL", "CO", "VE", "PR"]);
@@ -65,8 +93,10 @@ export function guessPaperSize(locales: readonly string[] = navigator.languages 
 /** The @page rule for the chosen paper. Emitted into the document so it lands
  * after styles.css and overrides its A4 default. */
 function PaperStyle({ paper }: { paper: PaperSize }) {
-  const { size, margin } = PAPER_SIZES[paper];
-  return <style>{`@media print{@page{size:${size};margin:${margin};}}`}</style>;
+  const { size, marginXMm, marginYMm } = PAPER_SIZES[paper];
+  return (
+    <style>{`@media print{@page{size:${size};margin:${marginYMm}mm ${marginXMm}mm;}}`}</style>
+  );
 }
 
 /** Full army-list printout with special rules, army rules, and spells. */
@@ -470,6 +500,7 @@ export default function PrintView({
   army,
   duplexOffsetMm = 0,
   paperSize = defaultPaperSize,
+  cardGutterMm = 0,
   cardOptions = defaultCardPrintOptions,
   scoutingEnabled = false,
 }: {
@@ -482,13 +513,20 @@ export default function PrintView({
   /** Paper in the printer. Must match it, or the browser scales the sheet
    * down to fit and the cards come out under size. */
   paperSize?: PaperSize;
+  /** Gutter between cards. 0 abuts them, so neighbours share a cut line. */
+  cardGutterMm?: number;
   cardOptions?: CardPrintOptions;
   scoutingEnabled?: boolean;
 }) {
   return (
     <div
       className="print-root"
-      style={{ "--duplex-offset": `${duplexOffsetMm}mm` } as CSSProperties}
+      style={
+        {
+          "--duplex-offset": `${duplexOffsetMm}mm`,
+          "--card-gutter": `${clampCardGutterMm(cardGutterMm, paperSize)}mm`,
+        } as CSSProperties
+      }
     >
       <PaperStyle paper={paperSize} />
       {mode === "list" ? (

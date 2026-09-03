@@ -1158,6 +1158,7 @@ textarea {
 }
 
 .duplex-offset,
+.card-gutter,
 .paper-size {
   display: flex;
   align-items: center;
@@ -1176,7 +1177,8 @@ textarea {
   color: #666;
 }
 
-.duplex-offset input {
+.duplex-offset input,
+.card-gutter input {
   width: 64px;
 }
 
@@ -1257,10 +1259,11 @@ textarea {
 .card-page {
   display: grid;
   grid-template-columns: repeat(3, 63mm);
-  /* Cards abut with no gutter so one straight cut separates two of them, and
-     so the block is only 189 x 264mm - the 264mm of rows is what lets three
-     rows fit US Letter's 279.4mm sheet at all (see PAPER_SIZES). */
-  gap: 0;
+  /* Cards abut by default so one straight cut separates two of them, and so
+     the block is only 189 x 264mm - the 264mm of rows is what lets three rows
+     fit US Letter's 279.4mm sheet at all (see PAPER_SIZES). The print toolbar
+     can open a gutter, clamped to what the chosen paper still fits. */
+  gap: var(--card-gutter, 0);
   justify-content: center;
   break-after: page;
   margin-bottom: 6mm;

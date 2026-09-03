@@ -7,8 +7,10 @@ import ListRail, { InfoLinks } from "./components/ListRail";
 import { HamburgerIcon, MoonIcon, SunIcon } from "./components/Icons";
 import MagicItemsDialog from "./components/MagicItemsDialog";
 import PrintView, {
+  clampCardGutterMm,
   defaultCardPrintOptions,
   guessPaperSize,
+  maxCardGutterMm,
   PAPER_SIZES,
   type CardPrintOptions,
   type PaperSize,
@@ -172,6 +174,24 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem("warmuster.paperSize", paperSize);
   }, [paperSize]);
+
+  // Gutter between printed cards (mm). 0 abuts them, so neighbours share a
+  // cut line; a gutter gives each card its own edge at the cost of sheet
+  // room, which Letter has very little of (see maxCardGutterMm).
+  const [cardGutter, setCardGutter] = useState<number>(() => {
+    const stored = Number(localStorage.getItem("warmuster.cardGutter"));
+    return Number.isFinite(stored) ? stored : 0;
+  });
+  const gutterMax = maxCardGutterMm(paperSize);
+  // Switching to the smaller sheet has to pull an over-wide gutter back in,
+  // or a row would spill onto an extra page.
+  useEffect(() => {
+    setCardGutter((current) => clampCardGutterMm(current, paperSize));
+  }, [paperSize]);
+
+  useEffect(() => {
+    localStorage.setItem("warmuster.cardGutter", String(cardGutter));
+  }, [cardGutter]);
 
   // The print preview lives on its own history entry, so the browser Back
   // button closes it (returning to the app) instead of leaving the site.
@@ -527,6 +547,23 @@ export default function App() {
                   />
                   mm
                 </label>
+                <label
+                  className="card-gutter"
+                  title={`Space between cards. 0 abuts them so one cut separates two cards; ${gutterMax}mm is the most ${PAPER_SIZES[paperSize].label} fits.`}
+                >
+                  Card gap
+                  <input
+                    type="number"
+                    step={0.5}
+                    min={0}
+                    max={gutterMax}
+                    value={cardGutter}
+                    onChange={(e) =>
+                      setCardGutter(clampCardGutterMm(Number(e.target.value), paperSize))
+                    }
+                  />
+                  mm (max {gutterMax})
+                </label>
                 <span className="print-scale-hint">
                   Cards are 63 &times; 88 mm; print at 100% scale (not &ldquo;fit to page&rdquo;).
                 </span>
@@ -539,6 +576,7 @@ export default function App() {
             army={army}
             duplexOffsetMm={printMode === "cards" ? duplexOffset : 0}
             paperSize={paperSize}
+            cardGutterMm={printMode === "cards" ? cardGutter : 0}
             cardOptions={cardPrintOptions}
             scoutingEnabled={scoutingEnabled}
           />

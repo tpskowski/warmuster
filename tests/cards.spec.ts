@@ -354,3 +354,82 @@ test("each paper size prints its own sheet, so cards are never scaled down", asy
     expect(pdfPages, `${label}: rows must not spill onto extra sheets`).toBe(pairs * 2);
   }
 });
+
+test("the card gap opens a gutter, clamped to what the paper still fits", async ({ page }) => {
+  const list = {
+    id: "gutter-test",
+    schemaVersion: 1,
+    ruleSet: "warmaster-revolution",
+    ruleVersion: "2.2.6",
+    army: "empire",
+    name: "Gutter Test",
+    pointsLimit: 2000,
+    notes: null,
+    updatedAt: new Date().toISOString(),
+    characters: [
+      { id: "c1", unitId: "empire:general", upgrades: [], magicItems: [] },
+      { id: "c2", unitId: "empire:wizard", upgrades: [], magicItems: [] },
+    ],
+    units: [
+      { unitId: "empire:halberdiers", quantity: 4, upgrades: [], magicItems: [] },
+      { unitId: "empire:crossbowmen", quantity: 3, upgrades: [], magicItems: [] },
+      { unitId: "empire:knights", quantity: 2, upgrades: [], magicItems: [] },
+      { unitId: "empire:cannon", quantity: 1, upgrades: [], magicItems: [] },
+      { unitId: "empire:helblaster", quantity: 1, upgrades: [], magicItems: [] },
+      { unitId: "empire:pistoliers", quantity: 1, upgrades: [], magicItems: [] },
+      { unitId: "empire:flagellants", quantity: 1, upgrades: [], magicItems: [] },
+    ],
+  };
+  await page.addInitScript((l) => {
+    localStorage.setItem("warmuster.lists.v1", JSON.stringify([l]));
+  }, list);
+  await page.goto("/");
+  await page.getByText("Gutter Test").click();
+  await page.getByRole("button", { name: /export/i }).click();
+  await page.getByRole("button", { name: /cards/i }).click();
+  await page.waitForSelector(".card-page");
+  await page.evaluate(() => document.fonts.ready);
+
+  const gutters = () =>
+    page.evaluate(() => {
+      const MM = 96 / 25.4;
+      const cards = [
+        ...document.querySelector('[data-page="front-0"]')!.querySelectorAll(".unit-card"),
+      ].map((c) => c.getBoundingClientRect());
+      return {
+        x: +((cards[1].left - cards[0].right) / MM).toFixed(2),
+        y: +((cards[3].top - cards[0].bottom) / MM).toFixed(2),
+      };
+    });
+  const sheets = async () => {
+    const pdf = await page.pdf({ preferCSSPageSize: true });
+    return pdf.toString("latin1").match(/\/Type\s*\/Page[^s]/g)?.length ?? 0;
+  };
+
+  const paper = page.getByLabel(/paper size/i);
+  const gap = page.getByLabel(/card gap/i);
+  const pairs = await page.locator(".card-page-pair").count();
+
+  // Default is edge to edge.
+  expect(await gutters()).toEqual({ x: 0, y: 0 });
+
+  // A4 takes the widest gutter without gaining a sheet.
+  await paper.selectOption({ label: "A4" });
+  await gap.fill("4.5");
+  await gap.blur();
+  expect(await gutters()).toEqual({ x: 4.5, y: 4.5 });
+  expect(await sheets(), "A4 at its max gutter must still be one sheet per page").toBe(pairs * 2);
+
+  // Letter has 1.7mm of slack for 3 rows, so it pulls the gutter back to 1.5
+  // rather than pushing a row onto a fourth page.
+  await paper.selectOption({ label: "US Letter" });
+  expect(await gutters()).toEqual({ x: 1.5, y: 1.5 });
+  expect(await sheets(), "Letter at its max gutter must still be one sheet per page").toBe(
+    pairs * 2,
+  );
+
+  // The field cannot be pushed past that maximum by typing either.
+  await gap.fill("9");
+  await gap.blur();
+  expect(await gutters()).toEqual({ x: 1.5, y: 1.5 });
+});
